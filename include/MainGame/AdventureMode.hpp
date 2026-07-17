@@ -636,10 +636,17 @@ public:
     bool func_ov024_020ca280();
 };
 
+class AdventureModeManager_194_0C {
+public:
+    /* 00 (base) */ STRUCT_PAD(0x00, 0xC4);
+    /* C4 */ u8 mUnk_C4;
+    /* C8 */
+};
+
 class AdventureModeManager_194 : public FileSelectManager_UnkDrawBase {
 public:
     /* 00 (base) */
-    /* 0C */ unk32 mUnk_0C;
+    /* 0C */ AdventureModeManager_194_0C *mUnk_0C;
     /* 10 */ STRUCT_PAD(0x10, 0x48);
     /* 48 */
 
@@ -940,7 +947,7 @@ public:
     /* 1C4 */ SceneInfos mUnk_1CC;
     /* 1D4 */
 
-    AdventureModeManager(unk32 param1);
+    AdventureModeManager(UnkStruct_0204a110_Sub2 *param1);
 
     // data_ov024_020d7c18 vtable
     /* 08 */ virtual ~AdventureModeManager() override;
@@ -991,7 +998,7 @@ public:
     void func_ov024_020c6c60();
     void func_ov024_020c6cd4();
     bool func_ov024_020c6ce4();
-    unk32 func_ov024_020c6d04();
+    AdventureModeManager_194_0C *func_ov024_020c6d04();
     void func_ov024_020c6d10();
     void func_ov024_020c6d20(unk32 param1);
     void func_ov024_020c6d2c(unk32 param1);
@@ -1000,7 +1007,7 @@ public:
     bool func_ov024_020c6dec();
     void func_ov024_020c699c();
 
-    static AdventureModeManager *Create(unk32 param1);
+    static GameModeManagerBase *Create(UnkStruct_0204a110_Sub2 *param1);
     static void func_ov001_020c00d4();
     static void func_ov001_020c0104();
     static void func_ov001_020c0194();

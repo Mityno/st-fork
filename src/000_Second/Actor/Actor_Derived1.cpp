@@ -38,11 +38,11 @@ Actor_Derived1::Actor_Derived1(ModelRender *param1, unk32 param2) :
     mUnk_114(-1),
     mUnk_118(0x1000),
     mUnk_11C(0x019A) {
-    this->mUnk_30          = &this->mUnk_104;
-    this->mUnk_4A[0]       = 5;
-    this->mUnk_44          = 0x1F;
-    this->mUnk_094.mUnk_08 = 3;
-    this->mUnk_38          = &this->mUnk_094.mUnk_00;
+    this->mUnk_30                  = &this->mUnk_104;
+    this->mUnk_4A[0]               = 5;
+    this->mUnk_44                  = 0x1F;
+    this->mUnk_094.mUnk_00.mUnk_08 = 3;
+    this->mUnk_38                  = &this->mUnk_094.mUnk_00;
     this->mUnk_0B0 |= 0x08;
 }
 
@@ -69,11 +69,11 @@ void Actor_Derived1::vfunc_1C() {
 }
 
 bool Actor_Derived1::func_ov000_020a8db0() {
-    return data_027e0cd8->func_ov000_02081e30(this->mUnk_5C.mUnk_1A, this->mUnk_5C.mUnk_18.x);
+    return data_027e0cd8->func_ov000_02081e30(this->mUnk_5C.mUnk_1A[0], this->mUnk_5C.mUnk_18[0]);
 }
 
 bool Actor_Derived1::func_ov000_020a8dd0() {
-    return data_027e0cd8->func_ov000_02081e30(this->mUnk_5C.mUnk_1C_0, this->mUnk_5C.mUnk_18.y);
+    return data_027e0cd8->func_ov000_02081e30(this->mUnk_5C.mUnk_1A[1], this->mUnk_5C.mUnk_18[1]);
 }
 
 // non-matching

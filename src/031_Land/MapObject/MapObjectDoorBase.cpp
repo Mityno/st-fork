@@ -4,6 +4,8 @@
 #include "Unknown/UnkStruct_0204af1c.hpp"
 #include "Unknown/UnkStruct_027e0998.hpp"
 #include "Unknown/UnkStruct_027e09b8.hpp"
+#include "Unknown/UnkStruct_027e0ce0.hpp"
+
 #include <nitro/mi.h>
 
 extern "C" unk32 func_01ffb464(unk32 param1);
@@ -82,12 +84,12 @@ MapObjectDoorBase::MapObjectDoorBase() :
 void MapObjectDoorBase::func_ov031_020fbf10(bool param1, bool param2) {
     if (this->IsOrientedVertically()) {
         this->mPos.z += FLOAT_TO_FX32(0.5f);
-        Vec2b local_16(1, 2);
+        Vec2bCpp local_16(1, 2);
         this->func_ov000_0209d2f0(5, 1, &local_16);
 
     } else {
         this->mPos.x += FLOAT_TO_FX32(0.5f);
-        Vec2b local_18(2, 1);
+        Vec2bCpp local_18(2, 1);
         this->func_ov000_0209d2f0(5, 1, &local_18);
     }
 

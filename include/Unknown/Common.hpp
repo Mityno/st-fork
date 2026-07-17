@@ -218,14 +218,17 @@ struct UnkStruct_ov019_020d24c8_28_258_00 {
     /* 04 */ unk32 mUnk_04;
     /* 08 */
 
-    UnkStruct_ov019_020d24c8_28_258_00() {
-        this->mUnk_00 = NULL;
-        this->mUnk_04 = 0;
-    }
+    UnkStruct_ov019_020d24c8_28_258_00() {}
 
     UnkStruct_ov019_020d24c8_28_258_00(void *param1, unk32 param2) :
         mUnk_00(param1),
         mUnk_04(param2) {}
+
+    void Init() {
+        this->mUnk_00 = NULL;
+        this->mUnk_04 = 0;
+    }
+
     void func_ov000_0205fc20(unk32 param1, unk32 param2, void *param3, void *param4);
 };
 
@@ -233,6 +236,9 @@ struct UnkStruct_ov019_020d24c8_28_258_00_Derived1 : public UnkStruct_ov019_020d
     /* 00 (base) */
     /* 08 */ unk32 mUnk_08;
     /* 0C */
+
+    UnkStruct_ov019_020d24c8_28_258_00_Derived1() :
+        UnkStruct_ov019_020d24c8_28_258_00(NULL, 0) {}
 };
 
 class UnkStruct_ov019_020d24c8_28_258 : public UnkStruct_ov019_020d24c8_28_258_00 {
@@ -248,12 +254,14 @@ public:
     /* 16 */ unk16 mUnk_16;
     /* 18 */
 
-    UnkStruct_ov019_020d24c8_28_258() {
+    UnkStruct_ov019_020d24c8_28_258() :
+        UnkStruct_ov019_020d24c8_28_258_00(NULL, 0) {
         this->mPos.x = 0;
         this->mPos.y = 0;
     };
 
-    UnkStruct_ov019_020d24c8_28_258(s16 param1, unk32 param2) {
+    UnkStruct_ov019_020d24c8_28_258(s16 param1, unk32 param2) :
+        UnkStruct_ov019_020d24c8_28_258_00(NULL, 0) {
         this->UnknownAction(param1, param2);
     }
 
@@ -906,10 +914,20 @@ struct UnkStackStruct1 {
 };
 extern "C" void func_ov000_02072fd0(UnkStackStruct1 *);
 
+struct UnkSystem7_UnkStruct_00_20 {
+    /* 00 */ STRUCT_PAD(0x00, 0x04);
+    /* 04 */ VecFx32 mUnk_04;
+};
+
 struct UnkSystem7_UnkStruct_00 {
-    /* 00 */ STRUCT_PAD(0x00, 0x24);
+    /* 00 */ STRUCT_PAD(0x00, 0x20);
+    /* 20 */ UnkSystem7_UnkStruct_00_20 *mUnk_20;
     /* 24 */ unk32 mUnk_24;
-    /* 28 */ STRUCT_PAD(0x28, 0xA4);
+    /* 28 */ unk32 mUnk_28;
+    /* 2C */ unk32 mUnk_2C;
+    /* 30 */ unk32 mUnk_30;
+    /* 34 */ STRUCT_PAD(0x34, 0xA0);
+    /* A0 */ unk32 mUnk_A0;
     /* A4 */ unk16 mUnk_A4;
 
     void func_ov000_02052c48(VecFx32 *param1, VecFx32 *param2);
@@ -930,6 +948,19 @@ public:
 
     void func_ov000_020a0304(void);
     void func_ov000_020a0334();
+};
+
+class UnkSystem7_Derived2 : public UnkSystem7 {
+public:
+    /* 00 (base) */
+    /* 04 */ unk32 mUnk_04;
+    /* 08 */ unk32 mUnk_08;
+    /* 0C */
+
+    UnkSystem7_Derived2(UnkSystem7_UnkStruct_00 *param1, unk32 param2, unk32 param3) :
+        UnkSystem7(param1),
+        mUnk_04(param2),
+        mUnk_08(param3) {}
 };
 
 class UnkStruct_PlayerGet_ec : public UnkSystem7 {
@@ -1073,7 +1104,7 @@ struct UnkDataStruct4_14_2 {
     /* 12C */
 };
 
-struct UnkStruct_SceneChange1;
+struct EntranceInfo;
 struct UnkDataStruct4 {
     /* 00 (vtable) */
     /* 04 */ u16 mUnk_04;
@@ -1097,7 +1128,7 @@ struct UnkDataStruct4 {
 
     void func_ov024_020d2518();
     void func_ov024_020d251c();
-    void func_ov024_020d2520(UnkStruct_SceneChange1 *param1);
+    void func_ov024_020d2520(EntranceInfo *param1);
     void func_ov024_020d2538(u32 sceneIndex, u8 roomIndex, UnkDataStruct4_14_2 *param3);
     void func_ov024_020d2564();
     void func_ov024_020d258c(u32 sceneIndex, u8 roomIndex);
@@ -1206,3 +1237,34 @@ public:
     // data_ov000_020b2940
     /* 00 */ virtual void vfunc_00();
 };
+
+class UnkSystem9 : public LinkList<UnkSystem9> {
+public:
+    /* 00 (vtable) */
+    /* 04 (base) */
+    /* 0C */
+
+    // data_ov000_020b24c4
+    /* 00 */ virtual void vfunc_00();
+};
+
+class UnkStruct_PlayerGet_74_base {
+public:
+    /* 00 (vtable) */
+
+    /* 00 */ virtual void vfunc_00(unk32 param1, unk32 param2, unk32 param3);
+
+    UnkStruct_PlayerGet_74_base();
+};
+
+struct UnkStruct_ov000_020aa88c {
+    /* 00 */ bool mUnk_00;
+    /* 01 */ bool mUnk_01;
+    /* 02 */ bool mUnk_02;
+    /* 03 */ bool mUnk_03;
+    /* 04 */ bool mUnk_04;
+    /* 05 */ unk8 mUnk_05;
+    /* 06 */ u16 mUnk_06;
+    /* 08 */
+};
+extern UnkStruct_ov000_020aa88c data_ov000_020aa88c[];

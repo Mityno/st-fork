@@ -17,8 +17,8 @@
 #include "Unknown/UnkStruct_027e0cd8.hpp"
 #include "Unknown/UnkStruct_027e0cec.hpp"
 #include "Unknown/UnkStruct_027e0cf8.hpp"
-#include "Unknown/UnkStruct_ov000_02067bc4.hpp"
 #include "Unknown/UnkStruct_ov000_020b34c4.hpp"
+#include "Unknown/UnkStruct_ov000_020b504c.hpp"
 #include "Unknown/UnkStruct_ov000_020b51b8.hpp"
 #include "Unknown/UnkStruct_ov000_020b51c0.hpp"
 #include "versions.h"
@@ -48,7 +48,7 @@ extern "C" void func_020156c8(char *, char *, unk32);
 extern "C" void func_020156f4(char *);
 extern "C" void func_02015644(char *);
 
-extern "C" BMDSectionModel *func_ov000_0205abcc(void *, void *, unk32, unk32, unk32);
+extern "C" BMDSectionModel *func_ov000_0205abcc(void *, void *, unk32, unk32, void *);
 extern "C" unk32 func_ov000_02077590(unk32);
 
 static const unk32 data_ov110_02185dc4[1] = {8};
@@ -70,7 +70,7 @@ static inline s16 GetItemFlag(ItemId itemId) {
     return ItemFlag_None;
 }
 
-bool ItemManager::func_ov110_02184a40(ItemId itemId) {
+bool Inventory::func_ov110_02184a40(ItemId itemId) {
     switch (itemId) {
         case ItemId_NormalKey:
             this->GiveSmallKeys(1);
@@ -98,19 +98,11 @@ bool ItemManager::func_ov110_02184a40(ItemId itemId) {
             break;
         case ItemId_QuiverMedium:
         case ItemId_QuiverLarge:
-            if (this->mQuiverCapacity < UpgradeCapacity_Tier3) {
-                this->mQuiverCapacity++;
-            }
-
-            this->mArrowAmount = this->GetQuiverCapacity();
+            this->SetNextQuiverCapacity();
             break;
         case ItemId_BombBagMedium:
         case ItemId_BombBagLarge:
-            if (this->mBombBagCapacity < UpgradeCapacity_Tier3) {
-                this->mBombBagCapacity++;
-            }
-
-            this->mBombAmount = this->GetBombBagCapacity();
+            this->SetNextBombBagCapacity();
             break;
         case ItemId_RedPotion:
             this->GivePotion(PotionType_Red);
@@ -479,12 +471,12 @@ PlayerGet::~PlayerGet() {
 bool PlayerGet::func_ov110_02186b8c() {
     switch (this->mUnk_54.mItemId) {
         case ItemId_NormalShield:
-            if (this->mUnk_28->pItemManager->mUnk_12 & 2) {
+            if (this->mUnk_28->pItemManager->HasUnk12(2)) {
                 return true;
             }
             break;
         case ItemId_AncientShield:
-            if (!(this->mUnk_28->pItemManager->mUnk_12 & 2)) {
+            if (!(this->mUnk_28->pItemManager->HasUnk12(2))) {
                 return true;
             }
             break;
@@ -520,22 +512,22 @@ void PlayerGet::vfunc_0C(UnkStruct_PlayerGet_vfunc_0C_param1 *param1) {
                 case ItemId_BombBag:
                 case ItemId_BombBagMedium:
                 case ItemId_BombBagLarge:
-                    if (GET_FLAG(pItemManager->mFlags, ItemFlag_Bombs) == 0) {
+                    if (!pItemManager->HasItem(ItemFlag_Bombs)) {
                         itemId = ItemId_BombBag;
-                    } else if (pItemManager->mBombBagCapacity == UpgradeCapacity_Tier1) {
+                    } else if (pItemManager->GetBombsCap() == UpgradeCapacity_Tier1) {
                         itemId = ItemId_BombBagMedium;
-                    } else if (pItemManager->mBombBagCapacity == UpgradeCapacity_Tier2) {
+                    } else if (pItemManager->GetBombsCap() == UpgradeCapacity_Tier2) {
                         itemId = ItemId_BombBagLarge;
                     }
                     break;
                 case ItemId_NormalBow:
                 case ItemId_QuiverMedium:
                 case ItemId_QuiverLarge:
-                    if (GET_FLAG(pItemManager->mFlags, ItemFlag_Bow) == 0) {
+                    if (!pItemManager->HasItem(ItemFlag_Bow)) {
                         itemId = ItemId_NormalBow;
-                    } else if (pItemManager->mQuiverCapacity == UpgradeCapacity_Tier1) {
+                    } else if (pItemManager->GetQuiverCap() == UpgradeCapacity_Tier1) {
                         itemId = ItemId_QuiverMedium;
-                    } else if (pItemManager->mQuiverCapacity == UpgradeCapacity_Tier2) {
+                    } else if (pItemManager->GetQuiverCap() == UpgradeCapacity_Tier2) {
                         itemId = ItemId_QuiverLarge;
                     }
                     break;
@@ -715,7 +707,7 @@ void PlayerGet::vfunc_0C(UnkStruct_PlayerGet_vfunc_0C_param1 *param1) {
             }
 
             data_027e0cf8->func_ov024_020c7828(this->mUnk_54.mItemId);
-            UnkStruct_ov000_02067bc4::UnkStruct1 auStack_30;
+            UnkTextStruct1 auStack_30(-1, 0);
             data_ov000_020b504c.func_ov000_02067cf8(ItemManager::GetBmgIDFromItem(this->mUnk_54.mItemId), 0, &auStack_30);
             break;
         default:
@@ -850,7 +842,7 @@ void PlayerGet::vfunc_10(unk32 param1, unk32 param2) {
             }
 
             if (this->mUnk_72 == 0 && var_r1_2) {
-                temp_r6 = this->mUnk_28->pItemManager->func_ov110_02184a40(this->mUnk_54.mItemId);
+                temp_r6 = this->mUnk_28->pItemManager->GetInventory()->func_ov110_02184a40(this->mUnk_54.mItemId);
 
                 switch (this->mUnk_54.mItemId) {
                     case ItemId_NormalShield:
@@ -862,7 +854,7 @@ void PlayerGet::vfunc_10(unk32 param1, unk32 param2) {
 
                             if ((temp_r0_3 != NULL) && (temp_r0_3->GetActorId() == ActorId_NormalShield)) {
                                 if (this->func_ov110_02186b8c()) {
-                                    this->mUnk_28->pItemManager->mUnk_12 ^= 2;
+                                    this->mUnk_28->pItemManager->FlipUnk12(2);
                                 }
 
                                 temp_r0_3->func_ov062_02158ce8();
@@ -870,11 +862,11 @@ void PlayerGet::vfunc_10(unk32 param1, unk32 param2) {
                         } else {
                             if (this->mUnk_54.mItemId == ItemId_AncientShield) {
                                 if (this->func_ov110_02186b8c()) {
-                                    this->mUnk_28->pItemManager->mUnk_12 ^= 2;
+                                    this->mUnk_28->pItemManager->FlipUnk12(2);
                                 }
                             } else if (this->mUnk_54.mItemId == ItemId_NormalShield) {
                                 if (this->func_ov110_02186b8c()) {
-                                    this->mUnk_28->pItemManager->mUnk_12 ^= 2;
+                                    this->mUnk_28->pItemManager->FlipUnk12(2);
                                 }
                             }
                         }
@@ -888,7 +880,7 @@ void PlayerGet::vfunc_10(unk32 param1, unk32 param2) {
                         break;
                     case ItemId_RecruitUniform2:
                     case ItemId_EngineerUniform:
-                        if (data_027e09a4->mUnk_00.mSceneIndex == SceneIndex_f_first) {
+                        if (data_027e09a4->CurrentSceneIndex() == SceneIndex_f_first) {
                             this->mUnk_28->func_ov058_02152a24();
                         }
                         break;
@@ -897,7 +889,7 @@ void PlayerGet::vfunc_10(unk32 param1, unk32 param2) {
                 }
 
                 if (this->mUnk_54.mUnk_00.type_index == REF_TYPE_INDEX(ActorRefType_0, 0x1000)) {
-                    Vec2b stack;
+                    Vec2bCpp stack;
                     stack.x = this->mUnk_54.mUnk_00.type_index;
                     stack.y = this->mUnk_54.mUnk_00.unk_id;
 
