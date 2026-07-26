@@ -810,13 +810,31 @@ void ActorUnkCANS::func_ov063_02159784(void) {
 
 void ActorUnkCANS::func_ov063_021598fc(void) {
     mUnk_128.vfunc_1C(data_ov063_02163080, 0x1333, 0x19A, 0);
-    mUnk_52  = gRandom.Next32(0x15) + 0xA;
+    mUnk_52  = gRandom.Next32(0x15) + 10;
     mUnk_50  = 0;
     mUnk_276 = gRandom.Next32(0) & 0x80000000 ? 1 : -1;
 }
 
 void ActorUnkCANS::func_ov063_021599e4(void) {}
 void ActorUnkCANS::func_ov063_02159ca8(void) {}
+void ActorUnkCANS::func_ov063_02159ca8(void) {
+    mUnk_128.vfunc_1C(data_ov063_02163068, 0x1333, 0x19A, 0);
+    mVel.x   = 0;
+    mVel.z   = 0;
+    mUnk_270 = 0;
+    volatile u16 var;
+    func_ov000_020986b4((s16 *) &var, this, 0);
+
+    var = (s16) var - mUnk_26C;
+    if ((s16) var > 0) {
+        mAngle++;
+    } else {
+        mAngle--;
+    }
+
+    mUnk_26C += -FLOAT_TO_FX32(8.f);
+}
+
 void ActorUnkCANS::func_ov063_02159d68(void) {}
 
 void ActorUnkCANS::func_ov063_02159dfc(void) {
