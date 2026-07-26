@@ -817,7 +817,6 @@ void ActorUnkCANS::func_ov063_021598fc(void) {
 }
 
 void ActorUnkCANS::func_ov063_021599e4(void) {}
-void ActorUnkCANS::func_ov063_02159ca8(void) {}
 void ActorUnkCANS::func_ov063_02159ca8(void) {
     mUnk_128.vfunc_1C(data_ov063_02163068, 0x1333, 0x19A, 0);
     mVel.x   = 0;
