@@ -75,6 +75,7 @@ extern "C" unk32 func_ov000_02097c20(ActorUnkCANS *param1, ActorRef param2, unk3
 extern "C" void func_ov000_020986b4(s16 *param1, ActorUnkCANS *param2, unk32 param3);
 extern "C" bool func_ov000_020982d8();
 extern "C" void func_ov000_02098838(ActorUnkCANS *param1);
+extern "C" void func_ov000_02098f34(ActorUnkCANS *param1, unk16 *param2);
 extern "C" unk32 func_ov000_02098d7c(ActorUnkCANS *param1, unk32 *param2);
 extern "C" unk32 func_ov000_02099450(ActorUnkCANS *param1, unk32 *param2, VecFx32 *param3, unk32 param4, u16 param5);
 extern "C" void func_ov000_020994a0(ActorUnkCANS *);
@@ -866,8 +867,24 @@ void ActorUnkCANS::func_ov063_02159dfc(void) {
     ((Actor_9C *) &mUnk_200)->func_ov000_02097bec();
 }
 
+// Empty (matched)
 void ActorUnkCANS::func_ov063_02159e1c(void) {}
-void ActorUnkCANS::func_ov063_02159e20(void) {}
+
+void ActorUnkCANS::func_ov063_02159e20(void) {
+    func_ov000_02098f34(this, &mUnk_210);
+
+    vfunc_40();
+
+    mUnk_2C = 0;
+    *(s16 *) &mUnk_44 &= 0xFFDF;
+
+    mUnk_128.vfunc_1C(data_ov063_02163068, 0x1000, 0x19A, 0);
+
+    (*(Actor_9C *) &mUnk_200).func_ov000_02097bec();
+
+    mUnk_38->mUnk_08 = 3;
+}
+
 void ActorUnkCANS::func_ov063_02159ec0(void) {}
 unk32 ActorUnkCANS::func_ov063_02159f3c(unk32 param1) {}
 unk32 ActorUnkCANS::func_ov063_0215a0f0(void) {}
