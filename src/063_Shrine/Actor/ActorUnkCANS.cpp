@@ -14,6 +14,7 @@
 #include "Player/PlayerGet.hpp"
 #include "Render/ModelRender.hpp"
 #include "Save/AdventureFlags.hpp"
+#include "System/Random.hpp"
 #include "Unknown/UnkStruct_027e09a8.hpp"
 #include "Unknown/UnkStruct_027e09b8.hpp"
 #include "Unknown/UnkStruct_027e09c0.hpp"
@@ -48,8 +49,9 @@ static PTMF<ActorUnkCANS> data_ov063_02162f58[0xA] = {
 
 /* Contains a string somewhere with info such as "attack" or "guard" */
 extern UnkStruct_data_ov063_02163068 data_ov063_02163068; // = {0, 0x6B6C6177, 0x41, 0, 0, 0};
-extern UnkStruct_data_ov063_02163068 data_ov063_021630b0;
+extern UnkStruct_data_ov063_02163068 data_ov063_02163080;
 extern UnkStruct_data_ov063_02163068 data_ov063_02163098;
+extern UnkStruct_data_ov063_02163068 data_ov063_021630b0;
 
 extern UnkStruct_027e09c0 *data_027e09c0;
 extern u16 data_ov000_020aed00;
@@ -806,7 +808,14 @@ void ActorUnkCANS::func_ov063_02159784(void) {
     }
 }
 
-void ActorUnkCANS::func_ov063_021598fc(void) {}
+void ActorUnkCANS::func_ov063_021598fc(void) {
+    mUnk_128.vfunc_1C(data_ov063_02163080, 0x1333, 0x19A, 0);
+    u64 val  = gRandom.Next32(0);
+    mUnk_50  = 0;
+    mUnk_52  = ((u32) (val * 0x15 >> 0x20) + 0xA); // INFO: Certainly a way to remove the >> 0x20 with some casting
+    mUnk_276 = gRandom.Next32(0) & 0x80000000 ? 1 : -1;
+}
+
 void ActorUnkCANS::func_ov063_021599e4(void) {}
 void ActorUnkCANS::func_ov063_02159ca8(void) {}
 void ActorUnkCANS::func_ov063_02159d68(void) {}
