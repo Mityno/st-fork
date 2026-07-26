@@ -334,7 +334,7 @@ void ActorUnkCANS::vfunc_20(void) {
                                 }
                                 func_ov000_0208bd20(data_027e0ce0, uVar1 != 0, 0x8c98, 0);
                             } else {
-                                data_027e09a8->func_ov000_02071b30(0x8c98, &mPos, 0);
+                                data_027e09a8->func_ov000_02071b30(0x8C98, &mPos, 0);
                             }
                             if (mState != 4) {
                                 this->func_ov063_02158448(5);
@@ -810,9 +810,8 @@ void ActorUnkCANS::func_ov063_02159784(void) {
 
 void ActorUnkCANS::func_ov063_021598fc(void) {
     mUnk_128.vfunc_1C(data_ov063_02163080, 0x1333, 0x19A, 0);
-    u64 val  = gRandom.Next32(0);
+    mUnk_52  = gRandom.Next32(0x15) + 0xA;
     mUnk_50  = 0;
-    mUnk_52  = ((u32) (val * 0x15 >> 0x20) + 0xA); // INFO: Certainly a way to remove the >> 0x20 with some casting
     mUnk_276 = gRandom.Next32(0) & 0x80000000 ? 1 : -1;
 }
 
