@@ -159,7 +159,7 @@ public:
     /* 238 */ u16 mUnk_238;
     /* 23A */ u16 mUnk_23A;
     /* 23C */ Actor_Derived1_94 mUnk_23C;
-    /* 248 */ STRUCT_PAD(0x248, 0x24C);
+    /* 248 */ unk32 mUnk_248;
     /* 24C */ unk32 mUnk_24C;
     /* 250 */ unk32 mUnk_250;
     /* 254 */ STRUCT_PAD(0x254, 0x268);

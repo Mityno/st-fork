@@ -60,6 +60,7 @@ extern Cylinder data_ov063_02162e90;
 extern VecFx32 data_027e07d4;
 extern "C" void func_01ff916c(unk32 *param1, unk32 param2, unk32 param3);
 extern "C" unk32 func_01ff9258(unk16, unk16);
+extern "C" unk32 func_01ff930c(s16 *, unk16, unk32);
 extern "C" void func_01ff9638(VecFx32 *param1, fx16 param2);
 extern "C" fx32 func_01ff9a5c(VecFx32 *, VecFx32 *, VecFx32 *);
 extern "C" fx32 func_01ffb428(unk32, unk32);
@@ -835,7 +836,29 @@ void ActorUnkCANS::func_ov063_02159ca8(void) {
     mUnk_26C += -FLOAT_TO_FX32(8.f);
 }
 
-void ActorUnkCANS::func_ov063_02159d68(void) {}
+void ActorUnkCANS::func_ov063_02159d68(void) {
+    if (this->func_ov063_0215a514()) {
+        mUnk_26C += -FLOAT_TO_FX32(8.f);
+    }
+
+    if (!func_01ff930c(&mAngle, mUnk_26C, 0x71C)) {
+        return;
+    }
+
+    *(unk32 *) &mUnk_23C.mUnk_00.mUnk_08 = 0;
+    mUnk_248                             = 0;
+    mUnk_24C                             = 0;
+
+    if (mUnk_268 != 0) {
+        if (this->func_ov063_0215a474()) {
+            this->func_ov063_02158448(3);
+            return;
+        }
+        this->func_ov063_02158448(1);
+    } else {
+        this->func_ov063_02158448(7);
+    }
+}
 
 void ActorUnkCANS::func_ov063_02159dfc(void) {
     mVel.x   = 0;
