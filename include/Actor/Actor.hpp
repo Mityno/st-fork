@@ -128,8 +128,8 @@ public:
     /* 10 */ VecFx32 mPrevPos;
     /* 1C */ VecFx32 mVel;
     /* 28 */ union {
-        fx16 mAngle;
-        UnkAngleStruct mAngleStruct;
+        /* 28 */ fx16 mAngle;
+        /* 28 */ UnkAngleStruct mAngleStruct;
     };
     /* 2A */ unk16 mUnk_2A;
     /* 2C */ unk32 mUnk_2C; // gravity?

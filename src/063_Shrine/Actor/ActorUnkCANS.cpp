@@ -60,7 +60,7 @@ extern u32 data_ov000_020aecf8[0x2]; //! INFO: Unsure about the size
 extern Cylinder data_ov063_02162e90;
 extern VecFx32 data_027e07d4;
 extern "C" void func_01ff916c(unk32 *param1, unk32 param2, unk32 param3);
-extern "C" unk32 func_01ff9258(unk16, unk16);
+extern "C" unk32 func_01ff9258(unk32, unk32);
 extern "C" unk32 func_01ff930c(s16 *, unk16, unk32);
 extern "C" void func_01ff9638(VecFx32 *param1, fx16 param2);
 extern "C" fx32 func_01ff9a5c(VecFx32 *, VecFx32 *, VecFx32 *);
@@ -789,7 +789,7 @@ void ActorUnkCANS::func_ov063_02159784(void) {
         Cylinder vec1;
         vec1.Init(FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(1.2f));
 
-        this->func_ov063_0215a5a0(&vec1, 0x1333);
+        this->func_ov063_0215a5a0(&vec1.pos);
 
         VecFx32 *vec2Ptr = data_027e0ce0->func_01fff148(0);
         VecFx32 vec2     = *vec2Ptr;
@@ -925,10 +925,29 @@ void ActorUnkCANS::func_ov063_0215a428(void) {
     }
 }
 
-unk32 ActorUnkCANS::func_ov063_0215a474(void) {}
+// return bool ?
+unk32 ActorUnkCANS::func_ov063_0215a474(void) {
+    s16 var;
+    VecFx32 stackVec;
+
+    func_ov000_020986b4((s16 *) &var, this, 0);
+
+    s32 val = ABS((s16) (var - mAngle));
+    if (val >= 0x4000) {
+        return false;
+    }
+
+    this->func_ov063_0215a5a0(&stackVec);
+
+    VecFx32 *otherVec = data_027e0ce0->func_01fff148(0);
+
+    unk32 ret = func_01ff9258(otherVec->x - stackVec.x, otherVec->z - stackVec.z);
+    return ret < 0x1266;
+}
+
 unk32 ActorUnkCANS::func_ov063_0215a514(void) {}
 unk32 ActorUnkCANS::func_ov063_0215a56c(unk32 param1) {}
-void ActorUnkCANS::func_ov063_0215a5a0(Cylinder *param1, unk32 param2) {}
+void ActorUnkCANS::func_ov063_0215a5a0(VecFx32 *param1) {}
 unk32 ActorUnkCANS::func_ov063_0215a5bc(void) {}
 unk32 ActorUnkCANS::func_ov063_0215a5d8(void) {}
 void ActorUnkCANS::func_ov063_0215a678(void) {}
