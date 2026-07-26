@@ -889,7 +889,7 @@ void ActorUnkCANS::func_ov063_02159e20(void) {
 void ActorUnkCANS::func_ov063_02159ec0(void) {
     this->vfunc_44();
 
-    if (!GET_FLAG(mFlags, 5)) {
+    if (!GET_FLAG(mFlags, ActorFlag_5)) {
         return;
     }
 
@@ -912,7 +912,19 @@ void ActorUnkCANS::func_ov063_02159ec0(void) {
 unk32 ActorUnkCANS::func_ov063_02159f3c(unk32 param1) {}
 unk32 ActorUnkCANS::func_ov063_0215a0f0(void) {}
 unk32 ActorUnkCANS::func_ov063_0215a2c0(void) {}
-void ActorUnkCANS::func_ov063_0215a428(void) {}
+
+void ActorUnkCANS::func_ov063_0215a428(void) {
+    // A not very clean code to access 22C and 22E matching the asm
+    u16 *values = (u16 *) &mUnk_22C;
+    if (values[0] < values[1]) {
+        this->func_ov063_02158448(4);
+    } else if (mUnk_268 == 0) {
+        this->func_ov063_02158448(7);
+    } else {
+        this->func_ov063_02158448(0);
+    }
+}
+
 unk32 ActorUnkCANS::func_ov063_0215a474(void) {}
 unk32 ActorUnkCANS::func_ov063_0215a514(void) {}
 unk32 ActorUnkCANS::func_ov063_0215a56c(unk32 param1) {}
