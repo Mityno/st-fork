@@ -818,7 +818,53 @@ void ActorUnkCANS::func_ov063_021598fc(void) {
     mUnk_276 = gRandom.Next32(0) & 0x80000000 ? 1 : -1;
 }
 
-void ActorUnkCANS::func_ov063_021599e4(void) {}
+void ActorUnkCANS::func_ov063_021599e4(void) {
+
+    if (mUnk_128.vfunc_28()->func_02015080(0x1000) || mUnk_128.vfunc_28()->func_02015080(0xA000) ||
+        mUnk_128.vfunc_28()->func_02015080(0x13000) || mUnk_128.vfunc_28()->func_02015080(0x1C000)) {
+        data_027e09a8->func_ov000_02071b30(0x9864, &mPos, 0);
+    }
+
+    if (mUnk_46 & 0x3C) {
+        unk16 ret1  = func_01ffbbe0(*(unk32 *) &mUnk_23C.mUnk_00.mUnk_08, mUnk_24C);
+        unk32 iVar9 = ABS((unk16) ((mUnk_26C * 0x4000 + mUnk_276) - ret1));
+
+        if (0x4000 < iVar9) {
+            mUnk_50 = 0;
+            mUnk_276 *= -1;
+            mUnk_52 = 0x1E;
+        }
+    }
+
+    unk32 flag;
+    if (mUnk_50 < mUnk_52) {
+        mUnk_50++;
+        flag = 0;
+    } else {
+        flag = 1;
+    }
+
+    if (flag) {
+        mUnk_276 *= -1;
+        mUnk_52 = gRandom.Next32(0x15) + 10;
+        mUnk_50 = 0;
+    }
+
+    func_01ff916c(&mUnk_270, mUnk_276 * 0x19A, 0xCD);
+    fx16 angle1  = mUnk_26C - FLOAT_TO_FX32(8.f);
+    fx16 angle2  = mUnk_26C + FLOAT_TO_FX32(4.f);
+    u64 sin_val1 = SIN((u16) angle1);
+    s64 cos_val1 = COS((u16) angle1);
+    s64 sin_val2 = SIN((u16) angle2);
+    s64 cos_val2 = COS((u16) angle2);
+    mVel.x       = MUL_FX32(sin_val1, FLOAT_TO_FX32(0.02f)) + MUL_FX32(sin_val2, mUnk_270); // *0.02f <=> / 50
+    mVel.z       = MUL_FX32(cos_val1, FLOAT_TO_FX32(0.02f)) + MUL_FX32(cos_val2, mUnk_270);
+
+    if (this->func_ov063_0215a514()) {
+        this->func_ov063_02158448(8);
+    }
+}
+
 void ActorUnkCANS::func_ov063_02159ca8(void) {
     mUnk_128.vfunc_1C(data_ov063_02163068, 0x1333, 0x19A, 0);
     mVel.x   = 0;
@@ -909,8 +955,99 @@ void ActorUnkCANS::func_ov063_02159ec0(void) {
     *(s16 *) &mUnk_44 |= 0x20;
 }
 
-unk32 ActorUnkCANS::func_ov063_02159f3c(unk32 param1) {}
-unk32 ActorUnkCANS::func_ov063_0215a0f0(void) {}
+// return bool ?
+unk32 ActorUnkCANS::func_ov063_02159f3c(unk32 param1) {
+    s16 var;
+    func_ov000_020986b4((s16 *) &var, this, 0);
+
+    s32 val = ABS((s16) (var - mUnk_26C));
+    if (val >= 0x4000) {
+        return false;
+    }
+
+    fx32 factor = FLOAT_TO_FX32(10.f);
+
+    fx16 angle1  = mUnk_26C - FLOAT_TO_FX32(4.f);
+    s32 sin_val1 = MUL_FX32(SIN((u16) angle1), factor);
+    s32 cos_val1 = MUL_FX32(COS((u16) angle1), factor);
+    fx16 angle2  = mUnk_26C + FLOAT_TO_FX32(4.f);
+    s32 sin_val2 = MUL_FX32(SIN((u16) angle2), factor);
+    s32 cos_val2 = MUL_FX32(COS((u16) angle2), factor);
+
+    VecFx32 vec1; // = {mPos.x, mPos.y, mPos.z};
+    // VecFx32_Copy(&mPos, &vec1);
+    // VecFx32_Init(mPos.x + MUL_FX32(sin_val1, factor), mPos.y, mPos.z +
+    // MUL_FX32(cos_val1, factor), &vec1); vec1.y = mPos.y;
+    vec1.y = mPos.y;
+    vec1.x = mPos.x;
+    vec1.z = mPos.z;
+    vec1.x += (sin_val1);
+    vec1.z += (cos_val1);
+
+    VecFx32 vec2; // = {*(volatile fx32 *) &mPos.x, *(volatile fx32 *) &mPos.y, *(volatile fx32 *) &mPos.z};
+    // VecFx32_Copy(&mPos, &vec2);
+    // VecFx32_Init(mPos.x + MUL_FX32(sin_val2, factor), mPos.y, mPos.z + MUL_FX32(cos_val2, factor), &vec2);
+    // vec2.y = mPos.y;
+    vec2.x = mPos.x;
+    vec2.y = mPos.y;
+    vec2.z = mPos.z;
+    vec2.x += (sin_val2);
+    vec2.z += (cos_val2);
+
+    VecFx32 *vec3Ptr = data_027e0ce0->func_01fff148(0);
+    fx32 ret         = func_01ff9a5c(vec3Ptr, &vec1, &vec2);
+    return ret < param1;
+}
+
+// return bool ?
+unk32 ActorUnkCANS::func_ov063_0215a0f0(void) {
+    s16 var1;
+    func_ov000_020986b4((s16 *) &var1, this, 0);
+
+    s32 val1 = ABS((s16) (var1 - mUnk_26C));
+    if (0x4000 <= val1) {
+        return false;
+    }
+
+    s16 ret1 = func_01ffbbe0(*(unk32 *) &mUnk_23C.mUnk_00.mUnk_08, mUnk_24C);
+    s16 var2;
+    func_ov000_020986b4((s16 *) &var2, this, 0);
+    s32 val2 = (s16) (var2 - ret1);
+
+    if (mUnk_46 & 0x3C) {
+        val2 = ABS(val2);
+        if (0x4000 < val2) {
+            return true;
+        }
+    }
+
+    unk32 val3;
+    if (mVel.x != 0 || mVel.y != 0 || mVel.z != 0) {
+        s16 var4;
+        func_ov000_020986b4((s16 *) &var4, this, 0);
+        s16 val4_0 = var4;
+        unk32 ret2 = func_01ffbbe0(mVel.x, mVel.z);
+        s32 val4   = ABS((s16) ((s16) ret2 - val4_0));
+        if (val4 < 0x4000) {
+            return false;
+        }
+    }
+
+    fx16 angle  = mUnk_26C;
+    s32 sin_val = SIN((u16) angle);
+    s32 cos_val = COS((u16) angle);
+    s16 sin_mul = MUL_FX32(sin_val, 0x4000);
+    s16 cos_mul = MUL_FX32(cos_val, 0x4000);
+    VecFx32 vec; //= {mPos.x, mPos.y, mPos.z};
+    vec.y = mPos.y;
+    vec.x = mPos.x + sin_mul + sin_val;
+    vec.z = mPos.z + cos_mul + cos_val;
+
+    VecFx32 *otherVec = data_027e0ce0->func_01fff148(0);
+    unk32 ret3        = func_01ff9a5c(otherVec, &mPos, &vec);
+    return ret3 < 0x4CD;
+}
+
 unk32 ActorUnkCANS::func_ov063_0215a2c0(void) {}
 
 void ActorUnkCANS::func_ov063_0215a428(void) {
