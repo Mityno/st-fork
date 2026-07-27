@@ -56,8 +56,9 @@ extern UnkStruct_data_ov063_02163068 data_ov063_021630b0;
 extern UnkStruct_027e09c0 *data_027e09c0;
 extern u16 data_ov000_020aed00;
 extern u16 data_ov000_020aecf0[0x4];
-extern u16 data_ov000_020aecf4[0x4]; //! INFO: Unsure about the size
-extern u32 data_ov000_020aecf8[0x2]; //! INFO: Unsure about the size
+extern u16 data_ov000_020aecf4[0x4];   //! INFO: Unsure about the size
+extern unk32 data_ov000_020aecf8[0x2]; //! INFO: Unsure about the size
+extern unk32 data_ov000_020aecfc[0x2]; //! INFO: Unsure about the size
 extern Cylinder data_ov063_02162e90;
 extern VecFx32 data_027e07d4;
 extern "C" void func_01ff916c(unk32 *param1, unk32 param2, unk32 param3);
@@ -1115,7 +1116,13 @@ unk32 ActorUnkCANS::func_ov063_0215a5bc(void) {
     return data_ov000_020aecf4[0];
 }
 
-unk32 ActorUnkCANS::func_ov063_0215a5d8(void) {}
+unk32 ActorUnkCANS::func_ov063_0215a5d8(void) {
+    if (mUnk_268 != NULL) {
+        return 0x385;
+    }
+    return data_ov000_020aecfc[0];
+}
+
 void ActorUnkCANS::func_ov063_0215a678(void) {}
 void ActorUnkCANS::vfunc_4C(void) {}
 void ActorUnkCANS::vfunc_50(void) {}
