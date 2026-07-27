@@ -56,6 +56,7 @@ extern UnkStruct_data_ov063_02163068 data_ov063_021630b0;
 extern UnkStruct_027e09c0 *data_027e09c0;
 extern u16 data_ov000_020aed00;
 extern u16 data_ov000_020aecf0[0x4];
+extern u16 data_ov000_020aecf4[0x4]; //! INFO: Unsure about the size
 extern u32 data_ov000_020aecf8[0x2]; //! INFO: Unsure about the size
 extern Cylinder data_ov063_02162e90;
 extern VecFx32 data_027e07d4;
@@ -896,7 +897,7 @@ void ActorUnkCANS::func_ov063_02159d68(void) {
     mUnk_248                             = 0;
     mUnk_24C                             = 0;
 
-    if (mUnk_268 != 0) {
+    if (mUnk_268 != NULL) {
         if (this->func_ov063_0215a474()) {
             this->func_ov063_02158448(3);
             return;
@@ -1055,7 +1056,7 @@ void ActorUnkCANS::func_ov063_0215a428(void) {
     u16 *values = (u16 *) &mUnk_22C;
     if (values[0] < values[1]) {
         this->func_ov063_02158448(4);
-    } else if (mUnk_268 == 0) {
+    } else if (mUnk_268 == NULL) {
         this->func_ov063_02158448(7);
     } else {
         this->func_ov063_02158448(0);
@@ -1094,7 +1095,7 @@ unk32 ActorUnkCANS::func_ov063_0215a514(void) {
 
 // return bool ?
 unk32 ActorUnkCANS::func_ov063_0215a56c(unk32 param1) {
-    if (mUnk_268 == 0) {
+    if (mUnk_268 == NULL) {
         return false;
     }
 
@@ -1107,7 +1108,13 @@ void ActorUnkCANS::func_ov063_0215a5a0(VecFx32 *param1) {
     VecFx32_Copy((VecFx32 *) &mUnk_250, param1);
 }
 
-unk32 ActorUnkCANS::func_ov063_0215a5bc(void) {}
+unk32 ActorUnkCANS::func_ov063_0215a5bc(void) {
+    if (mUnk_268 != NULL) {
+        return 10;
+    }
+    return data_ov000_020aecf4[0];
+}
+
 unk32 ActorUnkCANS::func_ov063_0215a5d8(void) {}
 void ActorUnkCANS::func_ov063_0215a678(void) {}
 void ActorUnkCANS::vfunc_4C(void) {}
