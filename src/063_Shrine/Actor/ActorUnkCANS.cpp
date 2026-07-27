@@ -1102,7 +1102,11 @@ unk32 ActorUnkCANS::func_ov063_0215a56c(unk32 param1) {
     return 0x4000 <= val;
 }
 
-void ActorUnkCANS::func_ov063_0215a5a0(VecFx32 *param1) {}
+void ActorUnkCANS::func_ov063_0215a5a0(VecFx32 *param1) {
+    // Does not match instruction order
+    VecFx32_Copy((VecFx32 *) &mUnk_250, param1);
+}
+
 unk32 ActorUnkCANS::func_ov063_0215a5bc(void) {}
 unk32 ActorUnkCANS::func_ov063_0215a5d8(void) {}
 void ActorUnkCANS::func_ov063_0215a678(void) {}

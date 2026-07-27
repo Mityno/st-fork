@@ -163,7 +163,9 @@ public:
     /* 248 */ unk32 mUnk_248;
     /* 24C */ unk32 mUnk_24C;
     /* 250 */ unk32 mUnk_250;
-    /* 254 */ STRUCT_PAD(0x254, 0x268);
+    /* 254 */ unk32 mUnk_254;
+    /* 258 */ unk32 mUnk_258;
+    /* 25C */ STRUCT_PAD(0x25C, 0x268);
     /* 268 */ ActorUnkCASE *mUnk_268;
     /* 26C */ fx16 mUnk_26C; // Some kind of angle, probably
     /* 26E */ STRUCT_PAD(0x26E, 0x270);
