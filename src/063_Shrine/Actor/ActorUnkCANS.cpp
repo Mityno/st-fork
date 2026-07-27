@@ -1092,7 +1092,16 @@ unk32 ActorUnkCANS::func_ov063_0215a514(void) {
     return 0x4AAB < val;
 }
 
-unk32 ActorUnkCANS::func_ov063_0215a56c(unk32 param1) {}
+// return bool ?
+unk32 ActorUnkCANS::func_ov063_0215a56c(unk32 param1) {
+    if (mUnk_268 == 0) {
+        return false;
+    }
+
+    s32 val = ABS((s16) (param1 - mAngle));
+    return 0x4000 <= val;
+}
+
 void ActorUnkCANS::func_ov063_0215a5a0(VecFx32 *param1) {}
 unk32 ActorUnkCANS::func_ov063_0215a5bc(void) {}
 unk32 ActorUnkCANS::func_ov063_0215a5d8(void) {}
