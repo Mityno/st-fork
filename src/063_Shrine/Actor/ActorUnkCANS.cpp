@@ -1158,8 +1158,8 @@ void ActorUnkCANS::func_ov063_0215a678(ActorUnkCANS *actor, UnkStruct_func_ov063
 
         VecFx32 vec;
         vec.x           = matx2.wColumn.x;
-        vec.y           = matx2.wColumn.y;
         vec.z           = matx2.wColumn.z;
+        vec.y           = matx2.wColumn.y;
         actor->mUnk_250 = vec.x;
         actor->mUnk_254 = vec.y;
         actor->mUnk_258 = vec.z;
@@ -1188,8 +1188,8 @@ void ActorUnkCANS::func_ov063_0215a678(ActorUnkCANS *actor, UnkStruct_func_ov063
 
         VecFx32 vec;
         vec.x           = matx4.wColumn.x;
-        vec.y           = matx4.wColumn.y;
         vec.z           = matx4.wColumn.z;
+        vec.y           = matx4.wColumn.y;
         actor->mUnk_25C = vec.x;
         actor->mUnk_260 = vec.y;
         actor->mUnk_264 = vec.z;
