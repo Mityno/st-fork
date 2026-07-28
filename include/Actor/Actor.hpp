@@ -104,7 +104,8 @@ public:
     /* 20 */
 
     /* 00 */ virtual void vfunc_00(); // corresponds to func_ov000_02097c14
-    /* 04 */ virtual void vfunc_04(); // corresponds to func_ov000_02097c20
+    /* 04 */ virtual unk32 vfunc_04(ActorRef param1, unk32 param2, unk32 param3,
+                                    unk32 *param4) override; // corresponds to func_ov000_02097c20
     /* 08 */
 
     Actor_9C();

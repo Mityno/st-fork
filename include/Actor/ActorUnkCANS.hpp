@@ -94,6 +94,16 @@ public:
     /* 3C */ virtual void vfunc_3C(void) override;
 };
 
+class UnkStruct_ov063_02162e88 : public Actor_9C {
+public:
+    /* 20 */ void *mUnk_20; // ActorUnkCANS*
+    /* 24 */
+
+    UnkStruct_ov063_02162e88(void *param1);
+
+    /* 04 */ virtual unk32 vfunc_04(ActorRef param1, unk32 param2, unk32 param3, unk32 *param4) override;
+};
+
 struct UnkStruct_data_ov063_02163068 {
     /* Contains a string somewhere with info such as "attack" or "guard" */
     /* 00 */ unk32 mUnk_00;
@@ -200,10 +210,7 @@ public:
     /* 24 */ virtual void vfunc_24(void);
     /* 2C */ virtual void vfunc_2C(unk32 param1);
     /* 4C */ virtual ~ActorUnkCANS() override;
-    /* 4C */ void vfunc_4C(void); // vfunc_4C conflict ???
-    /* 50 */ void vfunc_50(void);
 
-    void func_ov063_02157f7c(void);
     unk32 func_ov063_02157fa4(ActorRef param1, unk32 param2, unk32 param3, unk32 *param4);
     void func_ov063_02158424(void);
     void func_ov063_02158448(unk32 param1);
