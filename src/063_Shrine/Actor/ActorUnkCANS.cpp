@@ -83,12 +83,13 @@ extern "C" void func_ov000_020986b4(s16 *param1, ActorUnkCANS *param2, unk32 par
 extern "C" bool func_ov000_020982d8();
 extern "C" void func_ov000_02098838(ActorUnkCANS *param1);
 extern "C" void func_ov000_02098f34(ActorUnkCANS *param1, unk16 *param2);
-extern "C" unk32 func_ov000_02098d7c(ActorUnkCANS *param1, unk32 *param2);
+extern "C" unk32 func_ov000_02098d7c(ActorUnkCANS *param1, UnkStruct_ov063_02162e88 *param2);
 extern "C" unk32 func_ov000_02099450(ActorUnkCANS *param1, unk32 *param2, VecFx32 *param3, unk32 param4, u16 param5);
+extern "C" unk32 func_ov000_02099820(unk32 *);
 extern "C" void func_ov000_020994a0(ActorUnkCANS *);
 extern "C" unk32 func_ov000_02099a0c(unk32 *param1);
-extern "C" void func_ov017_020bf050(ActorUnkCANS *param1, unk32 *param2, unk32 param3);
-extern "C" void func_ov017_020bf178(ActorUnkCANS *param1, unk32 *param2, unk32 param3);
+extern "C" void func_ov017_020bf050(ActorUnkCANS *param1, UnkStruct_ov063_02162e88 *param2, unk32 param3);
+extern "C" void func_ov017_020bf178(ActorUnkCANS *param1, UnkStruct_ov063_02162e88 *param2, unk32 param3);
 extern "C" void func_ov017_020bf634(ActorUnkCANS *param1, unk16 *param2, unk32 param3, unk32 param4);
 extern "C" void func_ov017_020bf688(ActorUnkCANS *param1);
 extern "C" void func_ov017_020bf894(ActorUnkCANS *param1, unk32 *param2);
@@ -211,7 +212,8 @@ unk32 UnkStruct_ov063_02162e88::vfunc_04(ActorRef param1, unk32 param2, unk32 pa
 ActorUnkCANS::ActorUnkCANS() :
     mUnk_B0(NULL), //! INFO: Not the actual ctor
     mUnk_154(&mUnk_174, NULL),
-    mUnk_1A4(&mUnk_1C4, NULL) {}
+    mUnk_1A4(&mUnk_1C4, NULL),
+    mUnk_200(this) {}
 
 void ActorUnkCANS::vfunc_10(Cylinder *param1) {
     Cylinder *cylinder = this->mUnk_34;
