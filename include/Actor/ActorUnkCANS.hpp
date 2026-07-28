@@ -122,12 +122,26 @@ public:
     /* 34 */ virtual void vfunc_34();
 };
 
+class UnkStruct_func_ov063_0215a678 {
+public:
+    /* 00 */ STRUCT_PAD(0x00, 0x04);
+    /* 04 */ ModelRender *mUnk_04; //! INFO: Placeholder that matches
+    /* 08 */ unk32 mUnk_08;
+    /* 0C */ STRUCT_PAD(0x0C, 0x92);
+    /* 92 */ s8 mUnk_92;
+    /* 93 */ STRUCT_PAD(0x93, 0xAE);
+    /* AE */ u8 mUnk_AE;
+};
+
 class ActorUnkCANS : public Actor_Derived2 {
 public:
-    /* 00 (base) */
-    /* AE */ STRUCT_PAD(0xAE, 0xB0);
-    /* B0 */ ModelRender mUnk_B0;
-    /* 110 */ STRUCT_PAD(0x110, 0x128);
+    /* 000 (base) */
+    /* 0AE */ STRUCT_PAD(0xAE, 0xB0);
+    /* 0B0 */ ModelRender mUnk_B0;
+    /* 110 */ STRUCT_PAD(0x110, 0x11C);
+    /* 11C */ unk32 mUnk_11C;
+    /* 120 */ unk32 mUnk_120;
+    /* 124 */ unk32 mUnk_124;
     /* 128 */ UnkStruct_func_ov063_02158b34 mUnk_128; //! INFO: Some kind of Actor, has vfunc_34, 1C (many args) and 28
     /* 12C */ STRUCT_PAD(0x12C, 0x154);
     /* 154 */ UnkSystem5 mUnk_154;
@@ -165,7 +179,9 @@ public:
     /* 250 */ unk32 mUnk_250;
     /* 254 */ unk32 mUnk_254;
     /* 258 */ unk32 mUnk_258;
-    /* 25C */ STRUCT_PAD(0x25C, 0x268);
+    /* 25C */ unk32 mUnk_25C;
+    /* 260 */ unk32 mUnk_260;
+    /* 264 */ unk32 mUnk_264;
     /* 268 */ ActorUnkCASE *mUnk_268;
     /* 26C */ fx16 mUnk_26C; // Some kind of angle, probably
     /* 26E */ STRUCT_PAD(0x26E, 0x270);
@@ -225,7 +241,7 @@ public:
     void func_ov063_0215a5a0(VecFx32 *param1);
     unk32 func_ov063_0215a5bc(void);
     unk32 func_ov063_0215a5d8(void);
-    static void func_ov063_0215a678(void);
+    static void func_ov063_0215a678(ActorUnkCANS *param1, UnkStruct_func_ov063_0215a678 *param2);
 };
 
 class ActorProfileUnkCANS : public ActorProfile_Derived1 {

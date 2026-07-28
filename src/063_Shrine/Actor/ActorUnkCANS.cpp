@@ -53,6 +53,8 @@ extern UnkStruct_data_ov063_02163068 data_ov063_02163080;
 extern UnkStruct_data_ov063_02163068 data_ov063_02163098;
 extern UnkStruct_data_ov063_02163068 data_ov063_021630b0;
 
+extern VecFx32 data_027e07d4;
+extern Mat4x3p data_027e0964;
 extern UnkStruct_027e09c0 *data_027e09c0;
 extern u16 data_ov000_020aed00;
 extern u16 data_ov000_020aecf0[0x4];
@@ -60,16 +62,18 @@ extern u16 data_ov000_020aecf4[0x4];   //! INFO: Unsure about the size
 extern unk32 data_ov000_020aecf8[0x2]; //! INFO: Unsure about the size
 extern unk32 data_ov000_020aecfc[0x2]; //! INFO: Unsure about the size
 extern Cylinder data_ov063_02162e90;
-extern VecFx32 data_027e07d4;
+
 extern "C" void func_01ff916c(unk32 *param1, unk32 param2, unk32 param3);
 extern "C" unk32 func_01ff9258(unk32, unk32);
 extern "C" unk32 func_01ff930c(s16 *, unk16, unk32);
 extern "C" void func_01ff9638(VecFx32 *param1, fx16 param2);
 extern "C" fx32 func_01ff9a5c(VecFx32 *, VecFx32 *, VecFx32 *);
+extern "C" void func_01ffad5c(Mat4x3p *, Mat4x3p *, Mat4x3p *);
 extern "C" fx32 func_01ffb428(unk32, unk32);
 extern "C" void func_01ffb714(VecFx32 *, VecFx32 *, void *);
 extern "C" unk32 func_01ffbbe0(unk32 param1, unk32 param2);
 extern "C" void func_01ffc6d4(ModelRender *param1, UnkAngleStruct param2, VecFx32 *param3);
+extern "C" void func_0200eab0(G3d_Model *, unk32, u8);
 extern "C" void func_ov000_020578a4(UnkSystem5 *param1, unk32 param2, unk32 param3);
 extern "C" void func_ov000_02057c98(ModelRender *param1, UnkSystem5 *param2);
 extern "C" void func_ov000_0207de98(void *param1, ActorRef param2, VecFx32 *param3, Actor_38 *param4);
@@ -90,6 +94,8 @@ extern "C" void func_ov017_020bf688(ActorUnkCANS *param1);
 extern "C" void func_ov017_020bf894(ActorUnkCANS *param1, unk32 *param2);
 extern "C" unk32 func_ov017_020bef4c(ActorUnkCANS *param1, unk32 param2);
 extern "C" unk32 func_ov031_020d9c04(UnkStruct_027e0d38 *param1, unk32 param2, unk32 param3, unk32 param4);
+
+extern "C" void G3d_GetCurrentMtx(Mat4x3p *mtx1, Mat3p *mtx2);
 
 DECL_PROFILE(ActorProfileUnkCANS);
 
@@ -184,7 +190,7 @@ void ActorUnkCANS::vfunc_10(Cylinder *param1) {
 
 unk32 ActorUnkCANS::vfunc_18(void) {
     this->mUnk_B0.func_ov000_02057c38(6, 2);
-    this->mUnk_B0.func_ov000_0209a7b8(this, func_ov063_0215a678);
+    this->mUnk_B0.func_ov000_0209a7b8(this, (UnkSystem4_UnkCallback) ActorUnkCANS::func_ov063_0215a678);
 
     ActorRef var;
     ActorManager *actorManager = gpActorManager;
@@ -1123,7 +1129,76 @@ unk32 ActorUnkCANS::func_ov063_0215a5d8(void) {
     return data_ov000_020aecfc[0];
 }
 
-void ActorUnkCANS::func_ov063_0215a678(void) {}
+void ActorUnkCANS::func_ov063_0215a678(ActorUnkCANS *actor, UnkStruct_func_ov063_0215a678 *param2) {
+    ModelRender *modelRender = param2->mUnk_04;
+    u8 var1;
+    if (actor->mUnk_268 == NULL) {
+        var1 = 0;
+    } else {
+        var1 = 0x1F;
+    }
+    func_0200eab0(modelRender->mpModel, actor->mUnk_11C, var1);
+
+    unk32 var2 = param2->mUnk_08 & 0x10 ? param2->mUnk_AE : -1;
+    if (var2 == actor->mUnk_120) {
+        if (((u8 *) &modelRender->mRenderObj.mUnk_1C)[1] == 2) {
+            param2->mUnk_92                              = 3;
+            ((u8 *) &modelRender->mRenderObj.mUnk_1C)[1] = 3;
+            return;
+        }
+
+        if (((u8 *) &modelRender->mRenderObj.mUnk_1C)[1] != 3) {
+            return;
+        }
+
+        Mat4x3p matx1;
+        Mat4x3p matx2;
+        G3d_GetCurrentMtx(&matx1, NULL);
+        func_01ffad5c(&matx1, &data_027e0964, &matx2);
+
+        VecFx32 vec;
+        vec.x           = matx2.wColumn.x;
+        vec.y           = matx2.wColumn.y;
+        vec.z           = matx2.wColumn.z;
+        actor->mUnk_250 = vec.x;
+        actor->mUnk_254 = vec.y;
+        actor->mUnk_258 = vec.z;
+
+        param2->mUnk_92                              = 2;
+        ((u8 *) &modelRender->mRenderObj.mUnk_1C)[1] = 2;
+        return;
+    }
+
+    unk32 var3 = param2->mUnk_08 & 0x10 ? param2->mUnk_AE : -1;
+    if (var3 == actor->mUnk_124) {
+        if (((u8 *) &modelRender->mRenderObj.mUnk_1C)[1] == 2) {
+            param2->mUnk_92                              = 3;
+            ((u8 *) &modelRender->mRenderObj.mUnk_1C)[1] = 3;
+            return;
+        }
+
+        if (((u8 *) &modelRender->mRenderObj.mUnk_1C)[1] != 3) {
+            return;
+        }
+
+        Mat4x3p matx3;
+        Mat4x3p matx4;
+        G3d_GetCurrentMtx(&matx3, NULL);
+        func_01ffad5c(&matx3, &data_027e0964, &matx4);
+
+        VecFx32 vec;
+        vec.x           = matx4.wColumn.x;
+        vec.y           = matx4.wColumn.y;
+        vec.z           = matx4.wColumn.z;
+        actor->mUnk_25C = vec.x;
+        actor->mUnk_260 = vec.y;
+        actor->mUnk_264 = vec.z;
+
+        param2->mUnk_92                              = 2;
+        ((u8 *) &modelRender->mRenderObj.mUnk_1C)[1] = 2;
+    }
+}
+
 void ActorUnkCANS::vfunc_4C(void) {}
 void ActorUnkCANS::vfunc_50(void) {}
 
