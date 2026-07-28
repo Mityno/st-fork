@@ -329,21 +329,21 @@ void ActorUnkCANS::vfunc_20(void) {
 
             this->func_ov000_020989e0();
 
-            if (((*(u32 *) &mUnk_208) & 0x3FFFF) != 0) {
+            if (((*(u32 *) &mUnk_200.mUnk_08) & 0x3FFFF) != 0) {
 
                 unk32 res4 = func_ov000_02098d7c(this, &mUnk_200);
                 mUnk_236   = res4;
                 mUnk_234   = 0;
 
-                unk16 sVar2 = func_01ffbbe0(*(u32 *) &mUnk_210, mUnk_218);
+                unk16 sVar2 = func_01ffbbe0(*(u32 *) &mUnk_200.mUnk_10, mUnk_200.mUnk_18);
                 iVar5       = this->func_ov063_0215a56c(sVar2);
 
                 unk32 uVar9;
 
-                switch (mUnk_21C) {
+                switch (mUnk_200.mUnk_1C) {
                     case 12:
                         if (iVar5 != 0) {
-                            Actor *iVar6 = gpActorManager->func_01fff3b4(*(unk32 *) &mUnk_20C);
+                            Actor *iVar6 = gpActorManager->func_01fff3b4(mUnk_200.mUnk_0C.data);
                             if (iVar6 != 0) {
                                 ((ActorItemBoomerang *) iVar6)->func_ov031_020e49b0(0x8D70);
                             }
@@ -377,10 +377,10 @@ void ActorUnkCANS::vfunc_20(void) {
                         break;
                     case 8:
                         if (iVar5 != 0) {
-                            if ((u16) mUnk_20C == 0x102) {
+                            if (mUnk_200.mUnk_0C.type_index == 0x102) {
                                 unk32 uVar1 = 0;
-                                if ((u16) mUnk_20C == 0x102) {
-                                    if ((u16) mUnk_20E == 1 || (u16) mUnk_20E == 3) {
+                                if (mUnk_200.mUnk_0C.type_index == 0x102) {
+                                    if (mUnk_200.mUnk_0C.unk_id == 1 || mUnk_200.mUnk_0C.unk_id == 3) {
                                         uVar1 = 1;
                                     };
                                 }
@@ -527,7 +527,7 @@ void ActorUnkCANS::func_ov063_02158448(unk32 param1) {
 }
 
 void ActorUnkCANS::func_ov063_02158490(void) {
-    mUnk_48 -= mUnk_21E;
+    mUnk_48 -= mUnk_200.mUnk_1E;
     func_ov017_020bf050(this, &mUnk_200, 1);
     this->func_ov063_02158448(2);
 }
@@ -641,7 +641,7 @@ void ActorUnkCANS::func_ov063_02158db0(void) {
 void ActorUnkCANS::func_ov063_021590c8(void) {
     unk32 ret1 = this->func_ov063_0215a5bc();
     unk32 ret2 = this->func_ov063_0215a5d8();
-    func_ov017_020bf634(this, &mUnk_210, ret1, ret2);
+    func_ov017_020bf634(this, (unk16 *) &mUnk_200.mUnk_10, ret1, ret2);
     ((Actor_9C *) &mUnk_200)->func_ov000_02097bec();
 }
 
@@ -660,7 +660,8 @@ void ActorUnkCANS::func_ov063_02159100(void) {
         return;
     }
 
-    if ((u16) mUnk_22C < (u16) mUnk_22E) {
+    u16 *tmpArr = (u16 *) &mUnk_22C;
+    if (tmpArr[0] < tmpArr[1]) {
         this->func_ov063_02158448(4);
         return;
     }
@@ -928,7 +929,7 @@ void ActorUnkCANS::func_ov063_02159dfc(void) {
 void ActorUnkCANS::func_ov063_02159e1c(void) {}
 
 void ActorUnkCANS::func_ov063_02159e20(void) {
-    func_ov000_02098f34(this, &mUnk_210);
+    func_ov000_02098f34(this, (unk16 *) &mUnk_200.mUnk_10);
 
     vfunc_40();
 
@@ -956,9 +957,9 @@ void ActorUnkCANS::func_ov063_02159ec0(void) {
 
     func_ov000_02099a0c(&mUnk_224);
 
-    *(unk32 *) &mUnk_210 = 0;
-    mUnk_214             = 0;
-    mUnk_218             = 0;
+    mUnk_200.mUnk_10 = 0;
+    mUnk_200.mUnk_14 = 0;
+    mUnk_200.mUnk_18 = 0;
 
     this->func_ov063_02158448(4);
 
@@ -1114,7 +1115,13 @@ unk32 ActorUnkCANS::func_ov063_0215a56c(unk32 param1) {
 
 void ActorUnkCANS::func_ov063_0215a5a0(VecFx32 *param1) {
     // Does not match instruction order
-    VecFx32_Copy((VecFx32 *) &mUnk_250, param1);
+    VecFx32 vec;
+    vec.x     = ((VecFx32 *) &mUnk_250)->x;
+    vec.y     = ((VecFx32 *) &mUnk_250)->y;
+    vec.z     = ((VecFx32 *) &mUnk_250)->z;
+    param1->z = vec.z;
+    param1->x = vec.x;
+    param1->y = vec.y;
 }
 
 unk32 ActorUnkCANS::func_ov063_0215a5bc(void) {

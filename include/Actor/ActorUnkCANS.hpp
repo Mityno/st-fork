@@ -162,18 +162,6 @@ public:
     /* 1C8 */ STRUCT_PAD(0x1C8, 0x1F4);
     /* 1F4 */ Actor_Derived1_94 mUnk_1F4;
     /* 200 */ UnkStruct_ov063_02162e88 mUnk_200;
-    /* 204 */ STRUCT_PAD(0x204, 0x208);
-    /* 208 */ unk16 mUnk_208;
-    /* 20A */ unk16 mUnk_20A;
-    /* 20C */ unk16 mUnk_20C;
-    /* 20E */ unk16 mUnk_20E;
-    /* 210 */ unk16 mUnk_210;
-    /* 212 */ STRUCT_PAD(0x212, 0x214);
-    /* 214 */ unk32 mUnk_214;
-    /* 218 */ unk32 mUnk_218;
-    /* 21C */ u16 mUnk_21C;
-    /* 21E */ unk16 mUnk_21E;
-    /* 220 */ STRUCT_PAD(0x220, 0x224);
     /* 224 */ unk32 mUnk_224;
     /* 228 */ STRUCT_PAD(0x228, 0x22C);
     /* 22C */ unk16 mUnk_22C;
