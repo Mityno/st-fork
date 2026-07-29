@@ -1,7 +1,7 @@
 _ZN19ActorProfileUnkCANS10GetProfileEv kind:function(arm,size=0xc) addr:0x02157ea0
 _ZN19ActorProfileUnkCANS6CreateEv kind:function(arm,size=0x24) addr:0x02157eac
 _ZN19ActorProfileUnkCANSC1Ev kind:function(arm,size=0x50) addr:0x02157ed0
-_ZN24UnkStruct_ov063_02162ee8C2EP10G3d_Model_ kind:function(arm,size=0x5c) addr:0x02157f20
+_ZN24UnkStruct_ov063_02162ee8C1EP10G3d_Model_ kind:function(arm,size=0x5c) addr:0x02157f20
 _ZN24UnkStruct_ov063_02162e88C2EPv kind:function(arm,size=0x28) addr:0x02157f7c
 _ZN24UnkStruct_ov063_02162e888vfunc_04E8ActorRefiiPi kind:function(arm,size=0x178) addr:0x02157fa4
 _ZN12ActorUnkCANSC1Ev kind:function(arm,size=0x1dc) addr:0x0215811c
@@ -50,7 +50,7 @@ _ZN12ActorUnkCANS19func_ov063_0215a5bcEv kind:function(arm,size=0x1c) addr:0x021
 _ZN12ActorUnkCANS19func_ov063_0215a5d8Ev kind:function(arm,size=0x20) addr:0x0215a5d8
 _ZN12ActorUnkCANS8vfunc_10EP8Cylinder kind:function(arm,size=0x80) addr:0x0215a5f8
 _ZN12ActorUnkCANS19func_ov063_0215a678EPS_P29UnkStruct_func_ov063_0215a678 kind:function(arm,size=0x15c) addr:0x0215a678
-_ZN24UnkStruct_ov063_02162ea8C2Ev kind:function(arm,size=0x30) addr:0x0215a7d4
+_ZN24UnkStruct_ov063_02162ea8C1Ev kind:function(arm,size=0x30) addr:0x0215a7d4
 _ZN24UnkStruct_ov063_02162ea8D1Ev kind:function(arm,size=0x14) addr:0x0215a804
 _ZN24UnkStruct_ov063_02162ea8D0Ev kind:function(arm,size=0x1c) addr:0x0215a818
 _ZN24UnkStruct_ov063_02162ea88vfunc_08EP24UnkStruct_ov031_020f3310 kind:function(arm,size=0x4c) addr:0x0215a834
@@ -416,7 +416,7 @@ _ZTV24UnkStruct_ov063_02162e88 kind:data(any) addr:0x02162e80
 data_ov063_02162e90 kind:data(any) addr:0x02162e90
 _ZTV24UnkStruct_ov063_02162ea8 kind:data(any) addr:0x02162ea8
 _ZTV19data_ov063_02162ebc kind:data(any) addr:0x02162ebc
-_ZTV24UnkStruct_ov063_02162ee8 kind:data(any) addr:0x02162ee8
+_ZTV24UnkStruct_ov063_02162ee8 kind:data(any) addr:0x02162ee0
 _ZTV24UnkStruct_ov063_02162f14 kind:data(any) addr:0x02162f14
 data_ov063_02162f34 kind:data(any) addr:0x02162f34 ambiguous
 data_ov063_02162f58 kind:data(any) addr:0x02162f58

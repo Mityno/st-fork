@@ -139,7 +139,7 @@ class ActorUnkCANS : public Actor_Derived2 {
 public:
     /* 000 (base) */
     /* 0AE */ STRUCT_PAD(0xAE, 0xB0);
-    /* 0B0 */ ModelRender mUnk_B0;
+    /* 0B0 */ UnkStruct_ov063_02162ee8 mUnk_B0;
     /* 110 */ STRUCT_PAD(0x110, 0x11C);
     /* 11C */ unk32 mUnk_11C;
     /* 120 */ unk32 mUnk_120;
@@ -164,9 +164,7 @@ public:
     /* 238 */ u16 mUnk_238;
     /* 23A */ u16 mUnk_23A;
     /* 23C */ UnkStruct_ov063_02162ea8 mUnk_23C;
-    /* 250 */ unk32 mUnk_250;
-    /* 254 */ unk32 mUnk_254;
-    /* 258 */ unk32 mUnk_258;
+    /* 250 */ VecFx32 mUnk_250;
     /* 25C */ unk32 mUnk_25C;
     /* 260 */ unk32 mUnk_260;
     /* 264 */ unk32 mUnk_264;

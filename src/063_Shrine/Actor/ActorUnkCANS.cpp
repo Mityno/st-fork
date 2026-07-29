@@ -107,7 +107,9 @@ Actor *ActorProfileUnkCANS::Create() {
 ActorProfileUnkCANS::ActorProfileUnkCANS() :
     ActorProfile_Derived1(ActorId_CANS) {}
 
-UnkStruct_ov063_02162ea8::UnkStruct_ov063_02162ea8() {}
+UnkStruct_ov063_02162ea8::UnkStruct_ov063_02162ea8() {
+    VecFx32_Init(0, 0, 0, &mUnk_08);
+}
 UnkStruct_ov063_02162ea8::~UnkStruct_ov063_02162ea8() {}
 
 bool UnkStruct_ov063_02162ea8::vfunc_08(UnkStruct_ov031_020f3310 *param1) {
@@ -208,14 +210,27 @@ unk32 UnkStruct_ov063_02162e88::vfunc_04(ActorRef param1, unk32 param2, unk32 pa
 }
 
 ActorUnkCANS::ActorUnkCANS() :
-    mUnk_B0(NULL), //! INFO: Not the actual ctor
+    mUnk_B0(G3d_GetModelPtr(((MapObjectProfile_Derived2_20 *) GET_PROFILE(ActorProfileUnkCANS)->vfunc_04())->mUnk_50)),
     mUnk_154(&mUnk_174, NULL),
     mUnk_1A4(&mUnk_1C4, NULL),
     mUnk_200(this),
     mUnk_234(0),
     mUnk_236(0),
     mUnk_238(0),
-    mUnk_23A(0) {}
+    mUnk_23A(0),
+    mUnk_250(mUnk_5C.mInitialPos),
+    mUnk_274(0),
+    mUnk_270(0xCD) {
+    mFlags[0] |= 0x40;
+    Actor_38 *actor_38 = (Actor_38 *) &mUnk_1F4;
+    mUnk_38            = actor_38;
+    actor_38->mUnk_08  = 4;
+    this->func_ov000_0209862c(4);
+    mUnk_200.mUnk_04 &= 0xFFFFBFFF;
+    mUnk_276 = gRandom.Next32(0) & 0x80000000 ? 1 : -1;
+    mUnk_48  = 4;
+    mUnk_270 *= mUnk_276;
+}
 
 void ActorUnkCANS::vfunc_10(Cylinder *param1) {
     Cylinder *cylinder = this->mUnk_34;
@@ -832,7 +847,6 @@ void ActorUnkCANS::func_ov063_021598fc(void) {
 }
 
 void ActorUnkCANS::func_ov063_021599e4(void) {
-
     if (mUnk_128.vfunc_28()->func_02015080(0x1000) || mUnk_128.vfunc_28()->func_02015080(0xA000) ||
         mUnk_128.vfunc_28()->func_02015080(0x13000) || mUnk_128.vfunc_28()->func_02015080(0x1C000)) {
         data_027e09a8->func_ov000_02071b30(0x9864, &mPos, 0);
@@ -1166,12 +1180,13 @@ void ActorUnkCANS::func_ov063_0215a678(ActorUnkCANS *actor, UnkStruct_func_ov063
         func_01ffad5c(&matx1, &data_027e0964, &matx2);
 
         VecFx32 vec;
-        vec.x           = matx2.wColumn.x;
-        vec.z           = matx2.wColumn.z;
-        vec.y           = matx2.wColumn.y;
-        actor->mUnk_250 = vec.x;
-        actor->mUnk_254 = vec.y;
-        actor->mUnk_258 = vec.z;
+        // VecFx32_Copy(&matx2.wColumn, &actor->mUnk_250);
+        vec.x             = matx2.wColumn.x;
+        vec.z             = matx2.wColumn.z;
+        vec.y             = matx2.wColumn.y;
+        actor->mUnk_250.x = vec.x;
+        actor->mUnk_250.y = vec.y;
+        actor->mUnk_250.z = vec.z;
 
         param2->mUnk_92                              = 2;
         ((u8 *) &modelRender->mRenderObj.mUnk_1C)[1] = 2;
