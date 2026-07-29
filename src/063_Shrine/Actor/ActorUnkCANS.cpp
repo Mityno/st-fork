@@ -1160,10 +1160,10 @@ void ActorUnkCANS::func_ov063_0215a678(ActorUnkCANS *actor, UnkStruct_func_ov063
     } else {
         var1 = 0x1F;
     }
-    func_0200eab0(modelRender->mpModel, actor->mUnk_11C, var1);
+    func_0200eab0(modelRender->mpModel, actor->mUnk_B0.mUnk_5C, var1);
 
     unk32 var2 = param2->mUnk_08 & 0x10 ? param2->mUnk_AE : -1;
-    if (var2 == actor->mUnk_120) {
+    if (var2 == actor->mUnk_B0.mUnk_70) {
         if (((u8 *) &modelRender->mRenderObj.mUnk_1C)[1] == 2) {
             param2->mUnk_92                              = 3;
             ((u8 *) &modelRender->mRenderObj.mUnk_1C)[1] = 3;
@@ -1194,7 +1194,7 @@ void ActorUnkCANS::func_ov063_0215a678(ActorUnkCANS *actor, UnkStruct_func_ov063
     }
 
     unk32 var3 = param2->mUnk_08 & 0x10 ? param2->mUnk_AE : -1;
-    if (var3 == actor->mUnk_124) {
+    if (var3 == actor->mUnk_B0.mUnk_74) {
         if (((u8 *) &modelRender->mRenderObj.mUnk_1C)[1] == 2) {
             param2->mUnk_92                              = 3;
             ((u8 *) &modelRender->mRenderObj.mUnk_1C)[1] = 3;

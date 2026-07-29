@@ -140,10 +140,6 @@ public:
     /* 000 (base) */
     /* 0AE */ STRUCT_PAD(0xAE, 0xB0);
     /* 0B0 */ UnkStruct_ov063_02162ee8 mUnk_B0;
-    /* 110 */ STRUCT_PAD(0x110, 0x11C);
-    /* 11C */ unk32 mUnk_11C;
-    /* 120 */ unk32 mUnk_120;
-    /* 124 */ unk32 mUnk_124;
     /* 128 */ UnkStruct_func_ov063_02158b34 mUnk_128; //! INFO: Some kind of Actor, has vfunc_34, 1C (many args) and 28
     /* 12C */ STRUCT_PAD(0x12C, 0x154);
     /* 154 */ UnkSystem5 mUnk_154;
