@@ -47,21 +47,13 @@ class UnkStruct_ov063_02162ea8 : public UnkStruct_ov031_Items_00 {
 public:
     /* 00 (base) */
     /* 04 */ STRUCT_PAD(0x4, 0x8);
-    /* 08 */ union {
-        struct {
-            unk16 mUnk_08;
-            unk16 mUnk_0A;
-            unk16 mUnk_0C;
-        };
-        unk16 mUnk_08_array[3];
-    };
-    /* 0E */ STRUCT_PAD(0xE, 0x10);
-    /* 10 */ unk32 mUnk_10;
+    /* 08 */ VecFx32 mUnk_08;
+    /* 14 */
 
     UnkStruct_ov063_02162ea8();
 
     /* 00 (base) */ virtual ~UnkStruct_ov063_02162ea8();
-    /* 08 */ virtual bool vfunc_08(Actor *param1) override;
+    /* 08 */ virtual bool vfunc_08(UnkStruct_ov031_020f3310 *param1) override;
     /* 0C */ virtual bool vfunc_0C(const UnkStruct_ov031_020e54d4 *param1, unk32 param2, unk32 param3) override;
 };
 
@@ -171,9 +163,7 @@ public:
     /* 236 */ unk16 mUnk_236;
     /* 238 */ u16 mUnk_238;
     /* 23A */ u16 mUnk_23A;
-    /* 23C */ Actor_Derived1_94 mUnk_23C;
-    /* 248 */ unk32 mUnk_248;
-    /* 24C */ unk32 mUnk_24C;
+    /* 23C */ UnkStruct_ov063_02162ea8 mUnk_23C;
     /* 250 */ unk32 mUnk_250;
     /* 254 */ unk32 mUnk_254;
     /* 258 */ unk32 mUnk_258;
