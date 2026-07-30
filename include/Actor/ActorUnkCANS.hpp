@@ -74,12 +74,14 @@ public:
 
 class UnkStruct_ov063_02162f14 : public UnkStruct_ov000_020b31f0 {
 public:
-    /* 04 */ UnkSystem5 *mUnk_04;
-    /* 08 */ ModelRender *mUnk_08;
-    /* 0C */ STRUCT_PAD(0xC, 0x1C);
-    /* 1C */ UnkSystem5 *mUnk_1C;
+    /* 2C */
+    /* 2C */ UnkSystem5 mUnk_2C;
+    /* 4C */ unk32 mUnk_4C;
+    /* 50 */ STRUCT_PAD(0x50, 0x7C);
+    /* 7C */ UnkSystem5 mUnk_7C;
+    /* 9C */ unk32 mUnk_9C;
 
-    UnkStruct_ov063_02162f14();
+    UnkStruct_ov063_02162f14(void *param3, unk32 param4);
 
     /* 00 (base) */ virtual ~UnkStruct_ov063_02162f14() override;
     /* 38 */ virtual void vfunc_38(unk32 param1, unk32 param2) override;
@@ -104,24 +106,7 @@ struct UnkStruct_data_ov063_02163068 {
     /* 0C */ unk32 mUnk_0C;
     /* 10 */ unk32 mUnk_10;
     /* 14 */ unk32 mUnk_14;
-};
-
-class UnkStruct_func_ov063_02158b34 {
-public:
-    /* 00 */ virtual void vfunc_00();
-    /* 04 */ virtual void vfunc_04();
-    /* 08 */ virtual void vfunc_08();
-    /* 0C */ virtual void vfunc_0C();
-    /* 10 */ virtual void vfunc_10();
-    /* 14 */ virtual void vfunc_14();
-    /* 18 */ virtual void vfunc_18();
-    /* 1C */ virtual void vfunc_1C(UnkStruct_data_ov063_02163068, unk32, unk32, unk32) override;
-    /* 20 */ virtual void vfunc_20();
-    /* 24 */ virtual void vfunc_24();
-    /* 28 */ virtual UnkStruct_PlayerGet_50 *vfunc_28();
-    /* 2C */ virtual void vfunc_2C();
-    /* 30 */ virtual void vfunc_30();
-    /* 34 */ virtual void vfunc_34();
+    /* 18 */
 };
 
 class UnkStruct_func_ov063_0215a678 {
@@ -135,23 +120,25 @@ public:
     /* AE */ u8 mUnk_AE;
 };
 
+class UnkStruct_ActorUnkCANS_224 {
+public:
+    /* 00 (base) */
+    /* 04 */
+
+    UnkStruct_ActorUnkCANS_224(); // func_ov000_02099820
+};
+
 class ActorUnkCANS : public Actor_Derived2 {
 public:
     /* 000 (base) */
     /* 0AE */ STRUCT_PAD(0xAE, 0xB0);
     /* 0B0 */ UnkStruct_ov063_02162ee8 mUnk_B0;
-    /* 128 */ UnkStruct_func_ov063_02158b34 mUnk_128; //! INFO: Some kind of Actor, has vfunc_34, 1C (many args) and 28
-    /* 12C */ STRUCT_PAD(0x12C, 0x154);
-    /* 154 */ UnkSystem5 mUnk_154;
-    /* 174 */ unk32 mUnk_174;
-    /* 178 */ STRUCT_PAD(0x178, 0x1A4);
-    /* 1A4 */ UnkSystem5 mUnk_1A4;
-    /* 1C4 */ unk32 mUnk_1C4;
+    /* 128 */ UnkStruct_ov063_02162f14 mUnk_128;
     /* 1C8 */ STRUCT_PAD(0x1C8, 0x1F4);
     /* 1F4 */ Actor_Derived1_94 mUnk_1F4;
     /* 200 */ UnkStruct_ov063_02162e88 mUnk_200;
-    /* 224 */ unk32 mUnk_224;
-    /* 228 */ STRUCT_PAD(0x228, 0x22C);
+    /* 224 */ UnkStruct_ActorUnkCANS_224 mUnk_224;
+    /* 226 */ STRUCT_PAD(0x226, 0x22C);
     /* 22C */ unk16 mUnk_22C;
     /* 22E */ unk16 mUnk_22E;
     /* 230 */ STRUCT_PAD(0x230, 0x234);

@@ -4,19 +4,30 @@
 
 #include "Actor/Actor.hpp"
 #include "Actor/ActorProfile.hpp"
+#include "Player/PlayerGet.hpp"
 #include "Render/ModelRender.hpp"
 #include "global.h"
 #include "types.h"
 
 struct ActorUnkZLSL_AnimationTag {
-    unk32 index;
-    char name[0x14];
+    /* 00 */ unk32 index;
+    /* 04 */ char name[0x14];
+    /* 18 */
 };
 
 class UnkStruct_ov000_020b31a8 {
 public:
     /* 00 (vtable) */
-    /* 04 */
+    /* 04 */ UnkSystem5 *mUnk_04;
+    /* 08 */ ModelRender *mUnk_08;
+    /* 0C */ unk32 mUnk_0C;
+    /* 10 */ unk32 mUnk_10;
+    /* 14 */ unk32 mUnk_14;
+    /* 18 */ unk8 mUnk_18; // deduced from strb [..., 0x18]
+
+    /* 19 */
+
+    UnkStruct_ov000_020b31a8(unk32 param1, unk32 param2, unk32 param3); // func_ov000_02099a28 (heritage)
 
     // data_ov000_020b31a8
     /* 00 */ virtual ~UnkStruct_ov000_020b31a8(); // func_ov000_02099aec (T) & func_ov000_02099af0 (T)
@@ -29,7 +40,7 @@ public:
                                    unk32 param4);               // func_ov000_02099cb0
     /* 20 */ virtual void vfunc_20();                           // func_ov000_02099ba0
     /* 24 */ virtual void vfunc_24();                           // func_ov000_0209a06c
-    /* 28 */ virtual void vfunc_28();                           // func_ov000_0209a0f4
+    /* 28 */ virtual UnkStruct_PlayerGet_50 *vfunc_28();        // func_ov000_0209a0f4
     /* 2C */ virtual void vfunc_2C();                           // func_ov000_0209a10c
     /* 30 */ virtual s8 vfunc_30();                             // func_ov000_0209a180
     /* 34 */ virtual void vfunc_34();                           // func_ov000_0209a124
@@ -40,7 +51,16 @@ public:
 class UnkStruct_ov000_020b31f0 : public UnkStruct_ov000_020b31a8 {
 public:
     /* 00 (vtable) */
-    /* 04 */
+    /* 19 */ STRUCT_PAD(0x19, 0x1C);
+    /* 1C */ UnkSystem5 *mUnk_1C;
+    /* 20 */ unk32 mUnk_20;
+    /* 24 */ unk32 mUnk_24;
+    /* 28 */ unk8 mUnk_28; // deduced from strb [..., 0x18]
+    /* 29 */ STRUCT_PAD(0x29, 0x2A);
+    /* 2A */ unk16 mUnk_2A;
+    /* 2C */
+
+    UnkStruct_ov000_020b31f0(void *param1, void *param2, void *param3, unk32 param4); // func_ov000_02099a28 (heritage)
 
     // data_ov000_020b31f0
     /* 00 */ virtual ~UnkStruct_ov000_020b31f0() override; // func_ov000_0209a228 (T) & func_ov000_0209a234 (T)
@@ -48,10 +68,10 @@ public:
     /* 0C */ virtual void vfunc_0C() override;             // func_ov000_0209a288
     /* 10 */ virtual UnkSystem5 *vfunc_10() override;      // func_ov000_0209a320
     /* 14 */ virtual void vfunc_14() override;             // func_ov000_0209a334
-    /* 1C */ virtual void vfunc_1C(char param1[], unk32 param2, unk32 param3,
+    /* 1C */ virtual void vfunc_1C(ActorUnkZLSL_AnimationTag param1, unk32 param2, unk32 param3,
                                    unk32 param4) override;               // func_ov000_0209a35c
     /* 20 */ virtual void vfunc_20() override;                           // func_ov000_0209a3e4
-    /* 28 */ virtual void vfunc_28() override;                           // func_ov000_0209a2f0
+    /* 28 */ virtual UnkStruct_PlayerGet_50 *vfunc_28() override;        // func_ov000_0209a2f0
     /* 2C */ virtual void vfunc_2C() override;                           // func_ov000_0209a308
     /* 30 */ virtual s8 vfunc_30() override;                             // func_ov000_0209a348
     /* 34 */ virtual void vfunc_34() override;                           // func_ov000_0209a6d4

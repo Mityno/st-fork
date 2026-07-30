@@ -2,7 +2,7 @@ _ZN19ActorProfileUnkCANS10GetProfileEv kind:function(arm,size=0xc) addr:0x02157e
 _ZN19ActorProfileUnkCANS6CreateEv kind:function(arm,size=0x24) addr:0x02157eac
 _ZN19ActorProfileUnkCANSC1Ev kind:function(arm,size=0x50) addr:0x02157ed0
 _ZN24UnkStruct_ov063_02162ee8C1EP10G3d_Model_ kind:function(arm,size=0x5c) addr:0x02157f20
-_ZN24UnkStruct_ov063_02162e88C2EPv kind:function(arm,size=0x28) addr:0x02157f7c
+_ZN24UnkStruct_ov063_02162e88C1EPv kind:function(arm,size=0x28) addr:0x02157f7c
 _ZN24UnkStruct_ov063_02162e888vfunc_04E8ActorRefiiPi kind:function(arm,size=0x178) addr:0x02157fa4
 _ZN12ActorUnkCANSC1Ev kind:function(arm,size=0x1dc) addr:0x0215811c
 _ZN24UnkStruct_ov063_02162ee8D1Ev kind:function(arm,size=0x14) addr:0x021582f8
@@ -93,7 +93,7 @@ _ZN12ActorUnkCASE19func_ov063_0215b2c4Ev kind:function(arm,size=0x4) addr:0x0215
 _ZN12ActorUnkCASE19func_ov063_0215b2c8Ev kind:function(arm,size=0x24) addr:0x0215b2c8
 _ZN12ActorUnkCASE19func_ov063_0215b2ecEv kind:function(arm,size=0x338) addr:0x0215b2ec
 _ZN12ActorUnkCASE19func_ov063_0215b624Ev kind:function(arm,size=0xa4) addr:0x0215b624
-_ZN12ActorUnkCASE19func_ov063_0215b6c8EPi14UnkAngleStruct kind:function(arm,size=0x5c) addr:0x0215b6c8
+_ZN12ActorUnkCASE19func_ov063_0215b6c8EP7VecFx3214UnkAngleStruct kind:function(arm,size=0x5c) addr:0x0215b6c8
 _ZN12ActorUnkCASE19func_ov063_0215b724Ev kind:function(arm,size=0xa8) addr:0x0215b724
 _ZN12ActorUnkCASE19func_ov063_0215b7ccEv kind:function(arm,size=0x48) addr:0x0215b7cc
 _ZN12ActorUnkCASE19func_ov063_0215b814Ev kind:function(arm,size=0x40) addr:0x0215b814
@@ -417,11 +417,11 @@ data_ov063_02162e90 kind:data(any) addr:0x02162e90
 _ZTV24UnkStruct_ov063_02162ea8 kind:data(any) addr:0x02162ea8
 _ZTV19data_ov063_02162ebc kind:data(any) addr:0x02162ebc
 _ZTV24UnkStruct_ov063_02162ee8 kind:data(any) addr:0x02162ee0
-_ZTV24UnkStruct_ov063_02162f14 kind:data(any) addr:0x02162f14
+_ZTV24UnkStruct_ov063_02162f14 kind:data(any) addr:0x02162f0c
 data_ov063_02162f34 kind:data(any) addr:0x02162f34 ambiguous
 data_ov063_02162f58 kind:data(any) addr:0x02162f58
 data_ov063_02162fb0 kind:data(any) addr:0x02162fb0
-_ZTV19data_ov063_02163008 kind:data(any) addr:0x02163008
+_ZTV12ActorUnkCANS kind:data(any) addr:0x02163000
 data_ov063_02163068 kind:data(any) addr:0x02163068
 data_ov063_02163080 kind:data(any) addr:0x02163080
 data_ov063_02163098 kind:data(any) addr:0x02163098

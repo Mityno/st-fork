@@ -7,6 +7,7 @@
 #include "Actor/ActorRef.hpp"
 #include "Actor/ActorShotArrow.hpp"
 #include "Actor/ActorUnkCASE.hpp"
+#include "Actor/ActorUnkZLSL_ZSRS.hpp"
 #include "Map/MapObjectId.hpp"
 #include "MapObject/MapObject.hpp"
 #include "MapObject/MapObjectManager.hpp"
@@ -48,10 +49,10 @@ static PTMF<ActorUnkCANS> data_ov063_02162f58[0xA] = {
 };
 
 /* Contains a string somewhere with info such as "attack" or "guard" */
-extern UnkStruct_data_ov063_02163068 data_ov063_02163068; // = {0, 0x6B6C6177, 0x41, 0, 0, 0};
-extern UnkStruct_data_ov063_02163068 data_ov063_02163080;
-extern UnkStruct_data_ov063_02163068 data_ov063_02163098;
-extern UnkStruct_data_ov063_02163068 data_ov063_021630b0;
+extern ActorUnkZLSL_AnimationTag data_ov063_02163068; // = {0, 0x6B6C6177, 0x41, 0, 0, 0};
+extern ActorUnkZLSL_AnimationTag data_ov063_02163080;
+extern ActorUnkZLSL_AnimationTag data_ov063_02163098;
+extern ActorUnkZLSL_AnimationTag data_ov063_021630b0;
 
 extern VecFx32 data_027e07d4;
 extern Mat4x3p data_027e0964;
@@ -84,15 +85,15 @@ extern "C" bool func_ov000_020982d8();
 extern "C" void func_ov000_02098838(ActorUnkCANS *param1);
 extern "C" void func_ov000_02098f34(ActorUnkCANS *param1, unk16 *param2);
 extern "C" unk32 func_ov000_02098d7c(ActorUnkCANS *param1, UnkStruct_ov063_02162e88 *param2);
-extern "C" unk32 func_ov000_02099450(ActorUnkCANS *param1, unk32 *param2, VecFx32 *param3, unk32 param4, u16 param5);
+extern "C" unk32 func_ov000_02099450(ActorUnkCANS *param1, void *param2, VecFx32 *param3, unk32 param4, u16 param5);
 extern "C" unk32 func_ov000_02099820(unk32 *);
 extern "C" void func_ov000_020994a0(ActorUnkCANS *);
-extern "C" unk32 func_ov000_02099a0c(unk32 *param1);
+extern "C" unk32 func_ov000_02099a0c(void *param1);
 extern "C" void func_ov017_020bf050(ActorUnkCANS *param1, UnkStruct_ov063_02162e88 *param2, unk32 param3);
 extern "C" void func_ov017_020bf178(ActorUnkCANS *param1, UnkStruct_ov063_02162e88 *param2, unk32 param3);
 extern "C" void func_ov017_020bf634(ActorUnkCANS *param1, unk16 *param2, unk32 param3, unk32 param4);
 extern "C" void func_ov017_020bf688(ActorUnkCANS *param1);
-extern "C" void func_ov017_020bf894(ActorUnkCANS *param1, unk32 *param2);
+extern "C" void func_ov017_020bf894(ActorUnkCANS *param1, void *param2);
 extern "C" unk32 func_ov017_020bef4c(ActorUnkCANS *param1, unk32 param2);
 extern "C" unk32 func_ov031_020d9c04(UnkStruct_027e0d38 *param1, unk32 param2, unk32 param3, unk32 param4);
 
@@ -157,7 +158,15 @@ UnkStruct_ov063_02162ee8::UnkStruct_ov063_02162ee8(G3d_Model *pModel) :
     mUnk_74(ModelRenderBase::func_ov000_02057f18(data_ov063_02162548)) {}
 UnkStruct_ov063_02162ee8::~UnkStruct_ov063_02162ee8() {}
 
-UnkStruct_ov063_02162f14::UnkStruct_ov063_02162f14() {}
+inline UnkStruct_ov063_02162f14::UnkStruct_ov063_02162f14(void *param3, unk32 param4) :
+    UnkStruct_ov000_020b31f0(&mUnk_2C, &mUnk_7C, param3, param4),
+    mUnk_2C(&mUnk_4C, NULL),
+    mUnk_7C(&mUnk_9C, NULL) {
+    if (param4 != 0) {
+        *(unk32 *) &mUnk_7C = mUnk_10;
+        *(unk32 *) &mUnk_2C = mUnk_10;
+    }
+}
 UnkStruct_ov063_02162f14::~UnkStruct_ov063_02162f14() {}
 
 void UnkStruct_ov063_02162f14::vfunc_38(unk32 param1, unk32 param2) {
@@ -211,9 +220,10 @@ unk32 UnkStruct_ov063_02162e88::vfunc_04(ActorRef param1, unk32 param2, unk32 pa
 
 ActorUnkCANS::ActorUnkCANS() :
     mUnk_B0(G3d_GetModelPtr(((MapObjectProfile_Derived2_20 *) GET_PROFILE(ActorProfileUnkCANS)->vfunc_04())->mUnk_50)),
-    mUnk_154(&mUnk_174, NULL),
-    mUnk_1A4(&mUnk_1C4, NULL),
+    mUnk_128(&mUnk_B0, GET_PROFILE(ActorProfileUnkCANS)->vfunc_04()),
+    mUnk_1F4(),
     mUnk_200(this),
+    mUnk_224(),
     mUnk_234(0),
     mUnk_236(0),
     mUnk_238(0),
@@ -355,8 +365,6 @@ void ActorUnkCANS::vfunc_20(void) {
                 unk16 sVar2 = func_01ffbbe0(*(u32 *) &mUnk_200.mUnk_10, mUnk_200.mUnk_18);
                 iVar5       = this->func_ov063_0215a56c(sVar2);
 
-                unk32 uVar9;
-
                 switch (mUnk_200.mUnk_1C) {
                     case 12:
                         if (iVar5 != 0) {
@@ -452,23 +460,17 @@ void ActorUnkCANS::vfunc_20(void) {
 
     mUnk_128.vfunc_34();
 
-    if ((mFlags[0] & 1) != 0 && mUnk_48 <= 0) {
+    if (GET_FLAG(mFlags, ActorFlag_Alive) && mUnk_48 <= 0) {
         return;
     }
 
     // unk32 puVar11[0xF];
-    struct UnkStruct_b {
-        /* 00 */ VecFx32 pos;
-        /* 0C */ unk32 mUnk_0C;
-        /* 10 */ unk32 mUnk_10;
-    };
 
     if (mUnk_268 != NULL) {
         VecFx32 a;
         UnkStruct_ov000_0207de98 b;
         VecFx32 *aPtr = &a;
         // VecFx32 *aPtr     = (VecFx32 *) &puVar11[0xD];
-        // UnkStruct_b *bPtr = (UnkStruct_b *) &puVar11[8];
 
         VecFx32_Init(0x4CD, 0, 0, aPtr);
 
@@ -488,7 +490,6 @@ void ActorUnkCANS::vfunc_20(void) {
         UnkStruct_ov000_0207de98 b;
         VecFx32 *aPtr = &a;
         // VecFx32 *aPtr     = (VecFx32 *) &puVar11[0x5];
-        // UnkStruct_b *bPtr = (UnkStruct_b *) &puVar11[0];
 
         *aPtr = mPos;
         VecFx32_Copy(aPtr, &b.vec);
