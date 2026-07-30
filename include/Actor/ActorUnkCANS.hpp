@@ -57,8 +57,18 @@ public:
     /* 0C */ virtual bool vfunc_0C(const UnkStruct_ov031_020e54d4 *param1, unk32 param2, unk32 param3) override;
 };
 
+class UnkStruct_ov000_020b19f0 : public ModelRender {
+public:
+    UnkStruct_ov000_020b19f0(G3d_Model *pModel);
+};
+
+class UnkStruct_ov000_020b3268 : public UnkStruct_ov000_020b19f0 {
+public:
+    UnkStruct_ov000_020b3268(G3d_Model *pModel);
+};
+
 //! NOTE: Not the actual parent class, there are two classes in between this one and ModelRender
-class UnkStruct_ov063_02162ee8 : public ModelRender {
+class UnkStruct_ov063_02162ee8 : public UnkStruct_ov000_020b3268 {
 public:
     /* 00 (base) */
     /* 60 */ STRUCT_PAD(0x60, 0x6C);
@@ -68,8 +78,6 @@ public:
     /* 78 */
 
     UnkStruct_ov063_02162ee8(G3d_Model *pModel);
-
-    /* 00 (base) */ ~UnkStruct_ov063_02162ee8();
 };
 
 class UnkStruct_ov063_02162f14 : public UnkStruct_ov000_020b31f0 {
@@ -83,7 +91,6 @@ public:
 
     UnkStruct_ov063_02162f14(void *param3, unk32 param4);
 
-    /* 00 (base) */ virtual ~UnkStruct_ov063_02162f14() override;
     /* 38 */ virtual void vfunc_38(unk32 param1, unk32 param2) override;
     /* 3C */ virtual void vfunc_3C(void) override;
 };

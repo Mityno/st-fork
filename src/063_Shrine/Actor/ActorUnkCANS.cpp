@@ -150,13 +150,17 @@ bool UnkStruct_ov063_02162ea8::vfunc_0C(const UnkStruct_ov031_020e54d4 *param1, 
     return UnkStruct_027e0ce0_38_Base::vfunc_0C((const UnkStruct_ov031_020e54d4 *) param2Struct->mUnk_04, param2,
                                                 param2Struct->mUnk_04);
 }
+UnkStruct_ov000_020b19f0::UnkStruct_ov000_020b19f0(G3d_Model *pModel) :
+    ModelRender(pModel) {}
+
+UnkStruct_ov000_020b3268::UnkStruct_ov000_020b3268(G3d_Model *pModel) :
+    UnkStruct_ov000_020b19f0(pModel) {}
 
 UnkStruct_ov063_02162ee8::UnkStruct_ov063_02162ee8(G3d_Model *pModel) :
-    ModelRender(pModel),
+    UnkStruct_ov000_020b3268(pModel),
     mUnk_6C(ModelRenderBase::func_ov000_02057f40(data_ov063_02162528)),
     mUnk_70(ModelRenderBase::func_ov000_02057f18(data_ov063_02162538)),
     mUnk_74(ModelRenderBase::func_ov000_02057f18(data_ov063_02162548)) {}
-UnkStruct_ov063_02162ee8::~UnkStruct_ov063_02162ee8() {}
 
 inline UnkStruct_ov063_02162f14::UnkStruct_ov063_02162f14(void *param3, unk32 param4) :
     UnkStruct_ov000_020b31f0(&mUnk_2C, &mUnk_7C, param3, param4),
@@ -167,7 +171,6 @@ inline UnkStruct_ov063_02162f14::UnkStruct_ov063_02162f14(void *param3, unk32 pa
         *(unk32 *) &mUnk_2C = mUnk_10;
     }
 }
-UnkStruct_ov063_02162f14::~UnkStruct_ov063_02162f14() {}
 
 void UnkStruct_ov063_02162f14::vfunc_38(unk32 param1, unk32 param2) {
     func_ov000_020578a4(mUnk_04, param1, param2);
@@ -1161,7 +1164,7 @@ void ActorUnkCANS::func_ov063_0215a678(ActorUnkCANS *actor, UnkStruct_func_ov063
     } else {
         var1 = 0x1F;
     }
-    func_0200eab0(modelRender->mpModel, actor->mUnk_B0.mUnk_5C, var1);
+    func_0200eab0(modelRender->mpModel, actor->mUnk_B0.mUnk_6C, var1);
 
     unk32 var2 = param2->mUnk_08 & 0x10 ? param2->mUnk_AE : -1;
     if (var2 == actor->mUnk_B0.mUnk_70) {
