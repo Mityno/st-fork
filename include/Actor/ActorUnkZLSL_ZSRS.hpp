@@ -24,8 +24,8 @@ public:
     /* 10 */ unk32 mUnk_10;
     /* 14 */ unk32 mUnk_14;
     /* 18 */ unk8 mUnk_18; // deduced from strb [..., 0x18]
-
-    /* 19 */
+    /* 19 */ STRUCT_PAD(0x19, 0x1C);
+    /* 1C */
 
     UnkStruct_ov000_020b31a8(unk32 param1, unk32 param2, unk32 param3); // func_ov000_02099a28 (heritage)
 
@@ -51,7 +51,6 @@ public:
 class UnkStruct_ov000_020b31f0 : public UnkStruct_ov000_020b31a8 {
 public:
     /* 00 (vtable) */
-    /* 19 */ STRUCT_PAD(0x19, 0x1C);
     /* 1C */ UnkSystem5 *mUnk_1C;
     /* 20 */ unk32 mUnk_20;
     /* 24 */ unk32 mUnk_24;

@@ -421,7 +421,7 @@ _ZTV24UnkStruct_ov063_02162f14 kind:data(any) addr:0x02162f0c
 data_ov063_02162f34 kind:data(any) addr:0x02162f34 ambiguous
 data_ov063_02162f58 kind:data(any) addr:0x02162f58
 data_ov063_02162fb0 kind:data(any) addr:0x02162fb0
-_ZTV12ActorUnkCANS kind:data(any) addr:0x02163000
+_ZTV12ActorUnkCANS kind:data(any) addr:0x02163008
 data_ov063_02163068 kind:data(any) addr:0x02163068
 data_ov063_02163080 kind:data(any) addr:0x02163080
 data_ov063_02163098 kind:data(any) addr:0x02163098
