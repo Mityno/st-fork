@@ -1128,11 +1128,17 @@ unk32 ActorUnkCANS::func_ov063_0215a2c0(void) {
     stackVec.z = mPos.z + (((cos_val * 0x4000 + 0x800) >> 0xC) |
                            (((((u32) (s32) (s16) COS(angleVal)) >> 0x12) + (0xFFFFF7FF < cos_val)) * 0x100000));
 
-    VecFx32 *otherVec = data_027e0ce0->func_01fff148(0);
+    VecFx32 *otherVec    = data_027e0ce0->func_01fff148(0);
+    VecFx32 *otherVecPtr = otherVec;
+
+#if IS_JP
     VecFx32 otherVecStack;
     otherVecStack   = *otherVec;
     otherVecStack.y = mPos.y;
-    unk32 ret2      = func_01ff9a5c(&otherVecStack, &mPos, &stackVec);
+    otherVecPtr     = &otherVecStack;
+#endif
+
+    unk32 ret2 = func_01ff9a5c(otherVecPtr, &mPos, &stackVec);
     return ret2 < 0xB33;
 }
 
