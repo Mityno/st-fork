@@ -142,7 +142,7 @@ bool UnkStruct_ov063_02162ea8::vfunc_0C(const UnkStruct_ov031_020e54d4 *param1, 
 
         if (mapObject != NULL) {
             MapObjectId id = mapObject->GetMapObjectId();
-            bool idMatch   = id == 0x47525353 || id == 0x4c455653 || id == 0x53545348;
+            bool idMatch   = id == MapObjectId_GRSS || id == MapObjectId_LEVS || id == MapObjectId_STSH;
             if (idMatch) {
                 return false;
             }
@@ -202,7 +202,7 @@ unk32 UnkStruct_ov063_02162e88::vfunc_04(ActorRef param1, unk32 param2, unk32 pa
         param1.type != 0) {
         ActorShotArrow *ret4 = (ActorShotArrow *) gpActorManager->func_01fff3b4(param1);
 
-        if (ret4 != NULL && ret4->GetActorId() == 0x41524f57) {
+        if (ret4 != NULL && ret4->GetActorId() == ActorId_AROW) {
             u16 angle    = ((ActorUnkCANS *) mUnk_20)->mAngle;
             fx32 sin_val = MUL_FX32(SIN(angle), FLOAT_TO_FX32(1.f));
             fx32 cos_val = MUL_FX32(COS(angle), FLOAT_TO_FX32(1.f));
