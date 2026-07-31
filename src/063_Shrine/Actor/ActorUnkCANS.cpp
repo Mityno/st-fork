@@ -282,15 +282,14 @@ void ActorUnkCANS::vfunc_1C(void) {
     s16 r3_val = *((volatile s16 *) &var);
 
     var       = r2_val - mUnk_26C;
-    s16 iVar2 = r3_val - (s16) (mUnk_26C - DEG_TO_ANG(180));
+    int iVar2 = (s16) (r3_val - (s16) (mUnk_26C - DEG_TO_ANG(180)));
 
-    int iVar2_2 = iVar2;
-    int iVar1_2 = var;
+    int iVar1 = var;
 
-    iVar2_2 = ABS(iVar2_2);
-    iVar1_2 = ABS(iVar1_2);
+    iVar2 = ABS(iVar2);
+    iVar1 = ABS(iVar1);
 
-    if (iVar1_2 > iVar2_2) {
+    if (iVar1 > iVar2) {
         mUnk_26C += DEG_TO_ANG(180);
         mAngle += DEG_TO_ANG(180);
     }
