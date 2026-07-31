@@ -80,7 +80,6 @@ extern "C" void func_ov000_02057c98(ModelRender *param1, UnkSystem5 *param2);
 #if IS_JP
 extern "C" unk32 func_ov000_0205c384(VecFx32 *param1, VecFx32 *param2);
 #endif
-extern "C" void func_ov000_0207de98(void *param1, ActorRef param2, VecFx32 *param3, Actor_38 *param4);
 extern "C" void func_ov000_0208bd20(UnkStruct_027e0ce0 *param1, unk32 param2, unk32 param3, unk32 param4);
 extern "C" unk32 func_ov000_02097c20(ActorUnkCANS *param1, ActorRef param2, unk32 param3, unk32 param4, unk32 *param5);
 extern "C" void func_ov000_020986b4(s16 *param1, ActorUnkCANS *param2, unk32 param3);
