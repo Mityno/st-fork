@@ -77,6 +77,9 @@ extern "C" void func_01ffc6d4(ModelRender *param1, UnkAngleStruct param2, VecFx3
 extern "C" void func_0200eab0(G3d_Model *, unk32, u8);
 extern "C" void func_ov000_020578a4(UnkSystem5 *param1, unk32 param2, unk32 param3);
 extern "C" void func_ov000_02057c98(ModelRender *param1, UnkSystem5 *param2);
+#if IS_JP
+extern "C" unk32 func_ov000_0205c384(VecFx32 *param1, VecFx32 *param2);
+#endif
 extern "C" void func_ov000_0207de98(void *param1, ActorRef param2, VecFx32 *param3, Actor_38 *param4);
 extern "C" void func_ov000_0208bd20(UnkStruct_027e0ce0 *param1, unk32 param2, unk32 param3, unk32 param4);
 extern "C" unk32 func_ov000_02097c20(ActorUnkCANS *param1, ActorRef param2, unk32 param3, unk32 param4, unk32 *param5);
@@ -106,7 +109,11 @@ Actor *ActorProfileUnkCANS::Create() {
 }
 
 ActorProfileUnkCANS::ActorProfileUnkCANS() :
-    ActorProfile_Derived1(ActorId_CANS) {}
+    ActorProfile_Derived1(ActorId_CANS) {
+    mUnk_24 = 0x43415345;
+    VecFx32_Init(0, 0xCCD, 0, &mUnk_04.pos);
+    mUnk_04.size = 0xCCD;
+}
 
 UnkStruct_ov063_02162ea8::UnkStruct_ov063_02162ea8() {
     VecFx32_Init(0, 0, 0, &mUnk_08);
@@ -818,16 +825,26 @@ void ActorUnkCANS::func_ov063_02159784(void) {
     }
 
     if (0x7000 <= *(int *) (mUnk_128.vfunc_28() + 8) && *(int *) (mUnk_128.vfunc_28() + 8) <= 0xF000) {
-        Cylinder vec1;
-        vec1.Init(FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(1.2f));
+#if IS_JP
+        VecFx32 *ret1 = data_027e0ce0->func_01fff148(0);
+        fx32 yDiff    = ABS(ret1->y - mPos.y);
 
-        this->func_ov063_0215a5a0(&vec1.pos);
+        if (yDiff < 0x800) {
+#endif
 
-        VecFx32 *vec2Ptr = data_027e0ce0->func_01fff148(0);
-        VecFx32 vec2     = *vec2Ptr;
-        func_01ffb714(&vec2, &mPos, &vec2);
+            Cylinder vec1;
+            vec1.Init(FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(1.2f));
 
-        data_027e09c0->func_ov000_0207e458(2, 0, &vec1.pos, 3, &vec2, 0);
+            this->func_ov063_0215a5a0(&vec1.pos);
+
+            VecFx32 *vec2Ptr = data_027e0ce0->func_01fff148(0);
+            VecFx32 vec2     = *vec2Ptr;
+            func_01ffb714(&vec2, &mPos, &vec2);
+
+            data_027e09c0->func_ov000_0207e458(2, 0, &vec1.pos, 3, &vec2, 0);
+#if IS_JP
+        }
+#endif
     }
 
     if (!mUnk_128.vfunc_28()->func_01ff8fa8()) {
@@ -1106,9 +1123,21 @@ unk32 ActorUnkCANS::func_ov063_0215a474(void) {
     this->func_ov063_0215a5a0(&stackVec);
 
     VecFx32 *otherVec = data_027e0ce0->func_01fff148(0);
+    unk32 ret;
 
-    unk32 ret = func_01ff9258(otherVec->x - stackVec.x, otherVec->z - stackVec.z);
-    return ret < 0x1266;
+#if IS_JP
+    unk32 ret1_jp = func_ov000_0205c384(otherVec, &mPos);
+
+    if (ret1_jp != 0) {
+        otherVec = data_027e0ce0->func_01fff148(0);
+#endif
+        ret = func_01ff9258(otherVec->x - stackVec.x, otherVec->z - stackVec.z) < 0x1266;
+#if IS_JP
+    } else {
+        ret = 0;
+    }
+#endif
+    return ret;
 }
 
 unk32 ActorUnkCANS::func_ov063_0215a514(void) {
