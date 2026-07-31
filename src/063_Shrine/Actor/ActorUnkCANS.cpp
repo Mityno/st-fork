@@ -823,8 +823,9 @@ void ActorUnkCANS::func_ov063_02159784(void) {
         VecFx32 *ret1 = data_027e0ce0->func_01fff148(0);
         fx32 yDiff    = ABS(ret1->y - mPos.y);
 
-        if (yDiff < 0x800) {
+        if (yDiff < 0x800)
 #endif
+        {
 
             Cylinder vec1;
             vec1.Init(FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(1.2f));
@@ -836,9 +837,7 @@ void ActorUnkCANS::func_ov063_02159784(void) {
             func_01ffb714(&vec2, &mPos, &vec2);
 
             data_027e09c0->func_ov000_0207e458(2, 0, &vec1.pos, 3, &vec2, 0);
-#if IS_JP
         }
-#endif
     }
 
     if (!mUnk_128.vfunc_28()->func_01ff8fa8()) {
@@ -1163,21 +1162,22 @@ unk32 ActorUnkCANS::func_ov063_0215a474(void) {
     this->func_ov063_0215a5a0(&stackVec);
 
     VecFx32 *otherVec = data_027e0ce0->func_01fff148(0);
-    unk32 ret;
 
+    unk32 ret;
 #if IS_JP
     unk32 ret1_jp = func_ov000_0205c384(otherVec, &mPos);
 
     if (ret1_jp != 0) {
         otherVec = data_027e0ce0->func_01fff148(0);
-#endif
-        ret = func_01ff9258(otherVec->x - stackVec.x, otherVec->z - stackVec.z) < 0x1266;
-#if IS_JP
+        ret      = func_01ff9258(otherVec->x - stackVec.x, otherVec->z - stackVec.z) < 0x1266;
     } else {
         ret = 0;
     }
-#endif
     return ret;
+#else
+    ret = func_01ff9258(otherVec->x - stackVec.x, otherVec->z - stackVec.z);
+    return ret < 0x1266;
+#endif
 }
 
 unk32 ActorUnkCANS::func_ov063_0215a514(void) {
