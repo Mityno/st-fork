@@ -1094,7 +1094,47 @@ unk32 ActorUnkCANS::func_ov063_0215a0f0(void) {
     return ret3 < 0x4CD;
 }
 
-unk32 ActorUnkCANS::func_ov063_0215a2c0(void) {}
+unk32 ActorUnkCANS::func_ov063_0215a2c0(void) {
+    s16 var1;
+    func_ov000_020986b4((s16 *) &var1, this, 0);
+    unk32 val1 = ABS((s16) (var1 - mUnk_26C));
+
+    if (0x4000 <= val1) {
+        return 0;
+    }
+
+    s16 ret1 = func_01ffbbe0(mUnk_23C.mUnk_08.x, mUnk_23C.mUnk_08.z);
+    s16 var2;
+    func_ov000_020986b4((s16 *) &var2, this, 0);
+    s16 val2 = (var2 - ret1);
+
+    if (mUnk_46 & 0x3C) {
+        unk32 val3 = ABS(val2);
+        if (0x4000 < val3) {
+            return 1;
+        }
+    }
+
+    VecFx32 stackVec;
+
+    stackVec.y = mPos.y;
+
+    s16 angleVal = mUnk_26C;
+    u32 sin_val  = (fx16) SIN(angleVal);
+    u32 cos_val  = (fx16) COS(angleVal);
+
+    stackVec.x = mPos.x + (((sin_val * 0x4000 + 0x800) >> 0xC) |
+                           (((((u32) (s32) (s16) SIN(angleVal)) >> 0x12) + (0xFFFFF7FF < sin_val)) * 0x100000));
+    stackVec.z = mPos.z + (((cos_val * 0x4000 + 0x800) >> 0xC) |
+                           (((((u32) (s32) (s16) COS(angleVal)) >> 0x12) + (0xFFFFF7FF < cos_val)) * 0x100000));
+
+    VecFx32 *otherVec = data_027e0ce0->func_01fff148(0);
+    VecFx32 otherVecStack;
+    otherVecStack   = *otherVec;
+    otherVecStack.y = mPos.y;
+    unk32 ret2      = func_01ff9a5c(&otherVecStack, &mPos, &stackVec);
+    return ret2 < 0xB33;
+}
 
 void ActorUnkCANS::func_ov063_0215a428(void) {
     // A not very clean code to access 22C and 22E matching the asm
