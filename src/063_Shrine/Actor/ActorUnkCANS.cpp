@@ -81,14 +81,10 @@ extern "C" void func_ov000_02057c98(ModelRender *param1, UnkSystem5 *param2);
 extern "C" unk32 func_ov000_0205c384(VecFx32 *param1, VecFx32 *param2);
 #endif
 extern "C" void func_ov000_0208bd20(UnkStruct_027e0ce0 *param1, unk32 param2, unk32 param3, unk32 param4);
-extern "C" unk32 func_ov000_02097c20(ActorUnkCANS *param1, ActorRef param2, unk32 param3, unk32 param4, unk32 *param5);
 extern "C" void func_ov000_020986b4(s16 *param1, ActorUnkCANS *param2, unk32 param3);
-extern "C" bool func_ov000_020982d8();
-extern "C" void func_ov000_02098838(ActorUnkCANS *param1);
 extern "C" void func_ov000_02098f34(ActorUnkCANS *param1, unk16 *param2);
 extern "C" unk32 func_ov000_02098d7c(ActorUnkCANS *param1, UnkStruct_ov063_02162e88 *param2);
 extern "C" unk32 func_ov000_02099450(ActorUnkCANS *param1, void *param2, VecFx32 *param3, unk32 param4, u16 param5);
-extern "C" unk32 func_ov000_02099820(unk32 *);
 extern "C" void func_ov000_020994a0(ActorUnkCANS *);
 extern "C" unk32 func_ov000_02099a0c(void *param1);
 extern "C" void func_ov017_020bf050(ActorUnkCANS *param1, UnkStruct_ov063_02162e88 *param2, unk32 param3);
@@ -97,7 +93,6 @@ extern "C" void func_ov017_020bf634(ActorUnkCANS *param1, unk16 *param2, unk32 p
 extern "C" void func_ov017_020bf688(ActorUnkCANS *param1);
 extern "C" void func_ov017_020bf894(ActorUnkCANS *param1, void *param2);
 extern "C" unk32 func_ov017_020bef4c(ActorUnkCANS *param1, unk32 param2);
-extern "C" unk32 func_ov031_020d9c04(UnkStruct_027e0d38 *param1, unk32 param2, unk32 param3, unk32 param4);
 
 extern "C" void G3d_GetCurrentMtx(Mat4x3p *mtx1, Mat3p *mtx2);
 
