@@ -93,6 +93,9 @@ extern "C" void func_ov017_020bf634(ActorUnkCANS *param1, unk16 *param2, unk32 p
 extern "C" void func_ov017_020bf688(ActorUnkCANS *param1);
 extern "C" void func_ov017_020bf894(ActorUnkCANS *param1, void *param2);
 extern "C" unk32 func_ov017_020bef4c(ActorUnkCANS *param1, unk32 param2);
+#if IS_JP
+extern "C" void func_ov026_020f46a8(Actor *param1, VecFx32 *param2, bool param3);
+#endif
 
 extern "C" void G3d_GetCurrentMtx(Mat4x3p *mtx1, Mat3p *mtx2);
 
@@ -168,8 +171,8 @@ void UnkStruct_ov063_02162f14::vfunc_38(unk32 param1, unk32 param2) {
 }
 
 void UnkStruct_ov063_02162f14::vfunc_3C() {
-    func_ov000_02057c98(mUnk_08, mUnk_04);
-    func_ov000_02057c98(mUnk_08, mUnk_1C);
+    mUnk_08->func_ov000_02057c98(mUnk_04);
+    mUnk_08->func_ov000_02057c98(mUnk_1C);
 }
 
 UnkStruct_ov063_02162e88::UnkStruct_ov063_02162e88(void *param1) :
@@ -200,7 +203,11 @@ unk32 UnkStruct_ov063_02162e88::vfunc_04(ActorRef param1, unk32 param2, unk32 pa
             vec.x = sin_val;
             vec.z = cos_val;
             vec.y = 0;
+#if !IS_JP
             ret4->func_ov031_020f2cac(&vec, true);
+#else
+            func_ov026_020f46a8(ret4, &vec, true);
+#endif
             return 0;
         }
 

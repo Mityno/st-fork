@@ -414,7 +414,7 @@ __sinit_MapObjectUnkSWCR.cpp kind:function(arm,size=0x50) addr:0x02162df0
 .p__sinit_MapObjectUnkSWCR.cpp kind:data(word) addr:0x02162e74
 _ZTV24UnkStruct_ov063_02162e88 kind:data(any) addr:0x02162e80
 data_ov063_02162e90 kind:data(any) addr:0x02162e90
-_ZTV24UnkStruct_ov063_02162ea8 kind:data(any) addr:0x02162ea8
+_ZTV24UnkStruct_ov063_02162ea8 kind:data(any) addr:0x02162ea0
 _ZTV19ActorProfileUnkCANS kind:data(any) addr:0x02162ebc
 _ZTV24UnkStruct_ov063_02162ee8 kind:data(any) addr:0x02162ee0
 _ZTV24UnkStruct_ov063_02162f14 kind:data(any) addr:0x02162f0c
