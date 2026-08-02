@@ -193,7 +193,7 @@ unk32 UnkStruct_ov063_02162e88::vfunc_04(ActorRef param1, unk32 param2, unk32 pa
         param1.type != 0) {
         ActorShotArrow *ret4 = (ActorShotArrow *) gpActorManager->func_01fff3b4(param1);
 
-        if (ret4 != NULL && ret4->GetActorId() == ActorId_ArrowDrop) {
+        if (ret4 != NULL && ret4->GetActorId() == ActorId_ShotArrow) {
             u16 angle    = ((ActorUnkCANS *) mUnk_20)->mAngle;
             fx32 sin_val = MUL_FX32(SIN(angle), FLOAT_TO_FX32(1.f));
             fx32 cos_val = MUL_FX32(COS(angle), FLOAT_TO_FX32(1.f));
