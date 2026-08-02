@@ -1,5 +1,3 @@
-//! TODO: This file was generated automatically and might contain errors
-
 #include "Actor/ActorUnkCANS.hpp"
 #include "Actor/Actor.hpp"
 #include "Actor/ActorItemBoomerang.hpp"
