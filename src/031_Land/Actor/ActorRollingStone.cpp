@@ -56,18 +56,18 @@ Actor *ActorProfileRollingStone::Create() {
 }
 
 ActorProfileRollingStone::ActorProfileRollingStone() :
-    ActorProfile_Derived1(ActorId_RLST) {
+    ActorProfile_Derived1(ActorId_RollingStone) {
     this->mUnk_04.Init(FLOAT_TO_FX32(0.8f));
 }
 
 // non-matching
-bool ActorRollingStone_104::vfunc_0C(const UnkStruct_ov031_020e54d4 *param1, unk32 param2) {}
+bool ActorRollingStone_104::vfunc_0C(const UnkStruct_ov031_020e54d4 *param1, unk32 param2, unk32 param3) {}
 
 // non-matching
 void ActorRollingStone_104::vfunc_10() {}
 
 void ActorRollingStone_D4::vfunc_10(Actor *param1) {
-    if (param1->GetActorId() != ActorId_RLST) {
+    if (param1->GetActorId() != ActorId_RollingStone) {
         return;
     }
     this->mUnk_2C->SetState(ActorRollingStoneState_6);
@@ -298,7 +298,7 @@ void ActorRollingStone::func_ov031_020f8bc4() {
     }
     this->func_ov000_02098ab4(0x2, 0x5, 0x1, &this->mVel);
 
-    this->vfunc_10(&this->mUnk_D4.mUnk_0C);
+    this->vfunc_10(&this->mUnk_D4.mUnk_0C.pos);
 
     VecFx32 sp14;
     VecFx32_Copy(&this->mPos, &sp14);
@@ -352,7 +352,7 @@ void ActorRollingStone::func_ov031_020f8de8() {
 }
 
 void ActorRollingStone::func_ov031_020f8ed4() {
-    for (UnkStruct_PlayerGet_ec *ptr = this->mUnk_130; ptr != (void *) &this->mUnk_138; ++ptr) {
+    for (UnkStruct_PlayerGet_ec *ptr = this->mUnk_130; ptr != this->mUnk_130 + 0x2; ++ptr) {
         ptr->func_ov000_020a0334();
     }
     this->func_ov031_020f8880();
@@ -388,7 +388,7 @@ void ActorRollingStone::func_ov031_020f8f30() {
     sp14.mParams[0]    = 0x1;
 
     ActorRef ref;
-    this->func_ov000_020973f4(&ref, &data_ov000_020b539c_eur, ActorId_RLST, &sp14, 0x0);
+    this->func_ov000_020973f4(&ref, &data_ov000_020b539c_eur, ActorId_RollingStone, &sp14, 0x0);
     this->mUnk_150 = 0;
     this->mUnk_152 = this->mUnk_5C.mParams[1];
 }
@@ -483,7 +483,7 @@ void ActorRollingStone::func_ov031_020f9250() {
     this->vfunc_40();
 
     this->mUnk_2C = 0x0;
-    for (UnkStruct_PlayerGet_ec *ptr = this->mUnk_130; ptr != (void *) &this->mUnk_138; ++ptr) {
+    for (UnkStruct_PlayerGet_ec *ptr = this->mUnk_130; ptr != this->mUnk_130 + 0x2; ++ptr) {
         ptr->func_ov000_020a0334();
     }
 
@@ -635,7 +635,7 @@ void ActorRollingStone::func_ov031_020f9554() {
     }
     this->func_ov000_02098ab4(0x2, 0x5, 0x1, 0x0);
 
-    this->vfunc_10(&this->mUnk_D4.mUnk_0C);
+    this->vfunc_10(&this->mUnk_D4.mUnk_0C.pos);
 
     data_027e09c0->func_ov000_0207e58c(this->mRef, 0xB, 0x4, &this->mUnk_D4);
 
@@ -739,14 +739,15 @@ void ActorRollingStone::func_ov031_020f9af4() {}
 void ActorRollingStone::func_ov031_020f9af8() {
     const fx32 y = this->mPos.y + FLOAT_TO_FX32(0.4f);
     const fx32 x = this->mPos.x;
-    const fx32 z = this->mVel.z;
-    for (UnkStruct_PlayerGet_ec *ptr = this->mUnk_130; ptr != (void *) &this->mUnk_138; ++ptr) {
-        UnkSystem7_UnkStruct_00 *temp = ptr->mUnk_00;
-        if (temp != NULL) {
-            temp->mUnk_28 = x + ptr->mUnk_00->mUnk_20->mUnk_04.x;
-            temp->mUnk_2C = y + ptr->mUnk_00->mUnk_20->mUnk_04.y;
-            temp->mUnk_30 = z + ptr->mUnk_00->mUnk_20->mUnk_04.z;
+    const fx32 z = this->mPos.z;
+    for (UnkStruct_PlayerGet_ec *ptr = this->mUnk_130; ptr != this->mUnk_130 + 0x2; ++ptr) {
+        UnkSystem7_UnkStruct_00 *data = ptr->mUnk_00;
+        if (data == NULL) {
+            continue;
         }
+        data->mUnk_28 = x + data->mUnk_20->mUnk_00->mUnk_04.x;
+        data->mUnk_2C = y + data->mUnk_20->mUnk_00->mUnk_04.y;
+        data->mUnk_30 = z + data->mUnk_20->mUnk_00->mUnk_04.z;
     }
     data_027e09a8->func_ov000_02071d34(&this->mRef, 0x989F, &this->mPos, 0x0);
 }

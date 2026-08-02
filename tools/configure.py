@@ -16,6 +16,7 @@ parser.add_argument("--compiler", type=Path, required=False, help="Path to pre-i
 parser.add_argument("--no-extract", action="store_true", help="Skip extract step")
 parser.add_argument("--dsd", type=Path, required=False, help="Path to pre-installed dsd CLI")
 parser.add_argument("--version", "-v", help='Game version', required=False)
+parser.add_argument("--noclangd", "-c", help='Do not create clangd config', required=False, action="store_true")
 args = parser.parse_args()
 
 config = ProjectConfig("st", args.compiler, "dsi/1.2p1", args.wine, args.dsd, Path(__file__).resolve())
@@ -472,14 +473,14 @@ config.libs = [
             Object("031_Land/Actor/ActorRupee.cpp"),
             Object("031_Land/Actor/ActorShotArrow.cpp"),
             Object("031_Land/Actor/ActorUnkATTG.cpp"),
-            Object("031_Land/Actor/ActorUnkBLST.cpp"),
+            Object("031_Land/Actor/ActorBlast.cpp"),
             Object("031_Land/Actor/ActorUnkBOMB.cpp"),
             Object("031_Land/Actor/ActorUnkCLLT.cpp"),
             Object("031_Land/Actor/ActorUnkEFSB.cpp"),
             Object("031_Land/Actor/ActorUnkFLEN.cpp"),
             Object("031_Land/Actor/ActorHeart.cpp"),
             Object("031_Land/Actor/ActorItemBoomerang.cpp"),
-            Object("031_Land/Actor/ActorUnkITTD.cpp"),
+            Object("031_Land/Actor/ActorItemTornado.cpp"),
             Object("031_Land/Actor/ActorUnkMLCK.cpp"),
             Object("031_Land/Actor/ActorUnkNFSP.cpp"),
             Object("031_Land/Actor/ActorUnkNITF.cpp"),
@@ -510,7 +511,7 @@ config.libs = [
             Object("031_Land/MapObject/MapObjectDoorTouch.cpp"),
             Object("031_Land/MapObject/MapObjectUnkEXIT.cpp"),
             Object("031_Land/MapObject/MapObjectUnkGATE.cpp"),
-            Object("031_Land/MapObject/MapObjectUnkGRSS.cpp"),
+            Object("031_Land/MapObject/MapObjectGrass.cpp"),
             Object("031_Land/MapObject/MapObjectUnkGSST.cpp"),
             Object("031_Land/MapObject/MapObjectUnkITFL.cpp"),
             Object("031_Land/MapObject/MapObjectUnkRLSG.cpp"),
@@ -1415,6 +1416,18 @@ config.libs = [
         [
             Object("100_CollectMsg/CollectMsg.cpp"),
         ]
+    ),
+    GameLib(
+        "Overlay 101",
+        [
+            Object("101_SceneInitLand/Item/ItemManager_101.cpp"),
+            Object("101_SceneInitLand/UnkStruct_027e0ce0_40_101.cpp"),
+            Object("101_SceneInitLand/Player/PlayerLinkActor_A0_1C_101.cpp"),
+            Object("101_SceneInitLand/UnkStruct_027e09a4_54_101.cpp"),
+            Object("101_SceneInitLand/UnkStruct_027e0cd8_0C_101.cpp"),
+            Object("101_SceneInitLand/MapObjectProfile_Derived6_101.cpp"),
+        ],
+        extra_cflags=["-thumb"],
     ),
     GameLib(
         "Overlay 105",

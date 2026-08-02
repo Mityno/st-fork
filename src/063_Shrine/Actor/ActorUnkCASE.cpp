@@ -3,6 +3,7 @@
 #include "Actor/ActorUnkCASE.hpp"
 #include "Actor/ActorRef.hpp"
 #include "System/SysNew.hpp"
+#include "nitro/fx.h"
 
 DECL_PROFILE(ActorProfileUnkCASE);
 
@@ -42,7 +43,7 @@ void ActorUnkCASE::func_ov063_0215b2c4(void) {}
 void ActorUnkCASE::func_ov063_0215b2c8(void) {}
 void ActorUnkCASE::func_ov063_0215b2ec(void) {}
 void ActorUnkCASE::func_ov063_0215b624(void) {}
-void ActorUnkCASE::func_ov063_0215b6c8(unk32 *param1, UnkAngleStruct angle) {}
+void ActorUnkCASE::func_ov063_0215b6c8(VecFx32 *param1, UnkAngleStruct angle) {}
 void ActorUnkCASE::func_ov063_0215b724(void) {}
 void ActorUnkCASE::func_ov063_0215b7cc(void) {}
 void ActorUnkCASE::func_ov063_0215b814(void) {}

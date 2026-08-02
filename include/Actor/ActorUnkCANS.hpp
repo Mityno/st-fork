@@ -1,5 +1,3 @@
-//! TODO: This file was generated automatically and might contain errors
-
 #pragma once
 
 #include "Actor/Actor.hpp"
@@ -16,33 +14,48 @@
 #include "nns/g3d/g3d.h"
 #include "types.h"
 
-class ActorUnkCANS_C4 : public Actor_C4 {
-public:
-    ActorUnkCANS_C4(Actor *param1);
-
-    /* 00 */ virtual bool vfunc_00(ActorRef ref, unk32 param2) override;
-    /* 04 */ virtual void vfunc_04() override;
-    /* 08 */ virtual void vfunc_08() override;
-    /* 0C */ virtual void vfunc_0C(unk32 param1) override;
+// Try to match vfunc_0C but poor results
+struct UnkStruct_02162ea8_vfunc_0C {
+    /* 00 */ union {
+        unk32 mUnk_00;
+        Vec2bCpp vec;
+    };
+    /* 04 */ union {
+        unk32 mUnk_04;
+        struct {
+            u8 mUnk_04_0;
+            u8 mUnk_04_1;
+            u8 mUnk_04_2;
+            u8 mUnk_04_3;
+        };
+    };
 };
 
 class UnkStruct_ov063_02162ea8 : public UnkStruct_ov031_Items_00 {
 public:
     /* 00 (base) */
     /* 04 */ STRUCT_PAD(0x4, 0x8);
-    /* 08 */ unk32 mUnk_08;
-    /* 0C */ unk32 mUnk_0C;
-    /* 10 */ unk32 mUnk_10;
+    /* 08 */ VecFx32 mUnk_08;
+    /* 14 */
 
     UnkStruct_ov063_02162ea8();
 
     /* 00 (base) */ virtual ~UnkStruct_ov063_02162ea8();
-    /* 08 */ virtual void vfunc_08(void) override;
-    /* 0C */ virtual void vfunc_0C(void) override;
+    /* 08 */ virtual bool vfunc_08(UnkStruct_ov031_020f3310 *param1) override;
+    /* 0C */ virtual bool vfunc_0C(const UnkStruct_ov031_020e54d4 *param1, unk32 param2, unk32 param3) override;
 };
 
-//! NOTE: Not the actual parent class, there are two classes in between this one and ModelRender
-class UnkStruct_ov063_02162ee8 : public ModelRender {
+class UnkStruct_ov000_020b19f0 : public ModelRender {
+public:
+    UnkStruct_ov000_020b19f0(G3d_Model *pModel);
+};
+
+class UnkStruct_ov000_020b3268 : public UnkStruct_ov000_020b19f0 {
+public:
+    UnkStruct_ov000_020b3268(G3d_Model *pModel);
+};
+
+class UnkStruct_ov063_02162ee8 : public UnkStruct_ov000_020b3268 {
 public:
     /* 00 (base) */
     /* 60 */ STRUCT_PAD(0x60, 0x6C);
@@ -52,66 +65,84 @@ public:
     /* 78 */
 
     UnkStruct_ov063_02162ee8(G3d_Model *pModel);
-
-    /* 00 (base) */ ~UnkStruct_ov063_02162ee8();
 };
 
 class UnkStruct_ov063_02162f14 : public UnkStruct_ov000_020b31f0 {
 public:
-    /* 04 */ UnkSystem5 *mUnk_04;
-    /* 08 */ ModelRender *mUnk_08;
-    /* 0C */ STRUCT_PAD(0xC, 0x1C);
-    /* 1C */ UnkSystem5 *mUnk_1C;
+    /* 2C */ UnkSystem5 mUnk_2C;
+    /* 4C */ unk32 mUnk_4C;
+    /* 50 */ STRUCT_PAD(0x50, 0x7C);
+    /* 7C */ UnkSystem5 mUnk_7C;
+    /* 9C */ unk32 mUnk_9C;
 
-    UnkStruct_ov063_02162f14();
+    UnkStruct_ov063_02162f14(void *param3, unk32 param4) :
+        UnkStruct_ov000_020b31f0(&mUnk_2C, &mUnk_7C, param3, param4),
+        mUnk_2C(&mUnk_4C, NULL),
+        mUnk_7C(&mUnk_9C, NULL) {
+        if (param4 != 0) {
+            *(unk32 *) &mUnk_7C = mUnk_10;
+            *(unk32 *) &mUnk_2C = mUnk_10;
+        }
+    }
 
-    /* 00 (base) */ virtual ~UnkStruct_ov063_02162f14() override;
     /* 38 */ virtual void vfunc_38(unk32 param1, unk32 param2) override;
     /* 3C */ virtual void vfunc_3C(void) override;
 };
 
-class ActorUnkCANS : public Actor_Derived2 {
+class UnkStruct_ov063_02162e88 : public Actor_9C {
+public:
+    /* 20 */ void *mUnk_20; // ActorUnkCANS*
+    /* 24 */
+
+    UnkStruct_ov063_02162e88(void *param1);
+
+    /* 04 */ virtual unk32 vfunc_04(ActorRef param1, unk32 param2, unk32 param3, unk32 *param4) override;
+};
+
+class UnkStruct_func_ov063_0215a678 {
+public:
+    /* 00 */ STRUCT_PAD(0x00, 0x04);
+    /* 04 */ ModelRender *mUnk_04; //! INFO: Placeholder that matches
+    /* 08 */ unk32 mUnk_08;
+    /* 0C */ STRUCT_PAD(0x0C, 0x92);
+    /* 92 */ s8 mUnk_92;
+    /* 93 */ STRUCT_PAD(0x93, 0xAE);
+    /* AE */ u8 mUnk_AE;
+};
+
+class UnkStruct_ActorUnkCANS_224 {
 public:
     /* 00 (base) */
-    /* AE */ STRUCT_PAD(0xAE, 0xB0);
-    /* B0 */ ModelRender mUnk_B0;
-    /* 110 */ STRUCT_PAD(0x110, 0x128);
-    /* 128 */ unk32 mUnk_128; //! INFO: Some kind of Actor, has vfunc_34, 1C (many args) and 28
-    /* 12C */ STRUCT_PAD(0x12C, 0x154);
-    /* 154 */ UnkSystem5 mUnk_154;
-    /* 174 */ unk32 mUnk_174;
-    /* 178 */ STRUCT_PAD(0x178, 0x1A4);
-    /* 1A4 */ UnkSystem5 mUnk_1A4;
-    /* 1C4 */ unk32 mUnk_1C4;
+    /* 04 */
+
+    UnkStruct_ActorUnkCANS_224(); // func_ov000_02099820
+};
+
+class ActorUnkCANS : public Actor_Derived2 {
+public:
+    /* 000 (base) */
+    /* 0AE */ STRUCT_PAD(0xAE, 0xB0);
+    /* 0B0 */ UnkStruct_ov063_02162ee8 mUnk_B0;
+    /* 128 */ UnkStruct_ov063_02162f14 mUnk_128;
     /* 1C8 */ STRUCT_PAD(0x1C8, 0x1F4);
     /* 1F4 */ Actor_Derived1_94 mUnk_1F4;
-    /* 200 */ unk32 mUnk_200;
-    /* 204 */ STRUCT_PAD(0x204, 0x208);
-    /* 208 */ unk16 mUnk_208;
-    /* 20A */ unk16 mUnk_20A;
-    /* 20C */ unk16 mUnk_20C;
-    /* 20E */ unk16 mUnk_20E;
-    /* 210 */ unk16 mUnk_210;
-    /* 212 */ STRUCT_PAD(0x212, 0x218);
-    /* 218 */ unk32 mUnk_218;
-    /* 21C */ u16 mUnk_21C;
-    /* 21E */ unk16 mUnk_21E;
-    /* 220 */ STRUCT_PAD(0x220, 0x224);
-    /* 224 */ unk32 mUnk_224;
-    /* 228 */ STRUCT_PAD(0x228, 0x22C);
+    /* 200 */ UnkStruct_ov063_02162e88 mUnk_200;
+    /* 224 */ UnkStruct_ActorUnkCANS_224 mUnk_224;
+    /* 226 */ STRUCT_PAD(0x226, 0x22C);
     /* 22C */ unk16 mUnk_22C;
     /* 22E */ unk16 mUnk_22E;
     /* 230 */ STRUCT_PAD(0x230, 0x234);
-    /* 234 */ unk16 mUnk_234;
-    /* 236 */ unk16 mUnk_236;
-    /* 238 */ u16 mUnk_238;
+    /* 234 */ volatile u16 mUnk_234;
+    /* 236 */ u16 mUnk_236;
+    /* 238 */ volatile u16 mUnk_238;
     /* 23A */ u16 mUnk_23A;
-    /* 23C */ Actor_Derived1_94 mUnk_23C;
-    /* 24C */ unk32 mUnk_24C;
-    /* 250 */ unk32 mUnk_250;
-    /* 254 */ STRUCT_PAD(0x254, 0x268);
+    /* 23C */ UnkStruct_ov063_02162ea8 mUnk_23C;
+    /* 250 */ VecFx32 mUnk_250;
+    /* 25C */ unk32 mUnk_25C;
+    /* 260 */ unk32 mUnk_260;
+    /* 264 */ unk32 mUnk_264;
     /* 268 */ ActorUnkCASE *mUnk_268;
-    /* 26C */ fx16 mUnk_26C;
+    /* 26C */ fx16 mUnk_26C; // Some kind of angle, probably
     /* 26E */ STRUCT_PAD(0x26E, 0x270);
     /* 270 */ unk32 mUnk_270;
     /* 274 */ u16 mUnk_274;
@@ -128,10 +159,7 @@ public:
     /* 24 */ virtual void vfunc_24(void);
     /* 2C */ virtual void vfunc_2C(unk32 param1);
     /* 4C */ virtual ~ActorUnkCANS() override;
-    /* 4C */ void vfunc_4C(void); // vfunc_4C conflict ???
-    /* 50 */ void vfunc_50(void);
 
-    void func_ov063_02157f7c(void);
     unk32 func_ov063_02157fa4(ActorRef param1, unk32 param2, unk32 param3, unk32 *param4);
     void func_ov063_02158424(void);
     void func_ov063_02158448(unk32 param1);
@@ -160,16 +188,16 @@ public:
     void func_ov063_02159e20(void);
     void func_ov063_02159ec0(void);
     unk32 func_ov063_02159f3c(unk32 param1);
-    void func_ov063_0215a0f0(void);
-    void func_ov063_0215a2c0(void);
+    unk32 func_ov063_0215a0f0(void);
+    unk32 func_ov063_0215a2c0(void);
     void func_ov063_0215a428(void);
-    void func_ov063_0215a474(void);
+    unk32 func_ov063_0215a474(void);
     unk32 func_ov063_0215a514(void);
     unk32 func_ov063_0215a56c(unk32 param1);
-    void func_ov063_0215a5a0(void);
+    void func_ov063_0215a5a0(VecFx32 *param1);
     unk32 func_ov063_0215a5bc(void);
     unk32 func_ov063_0215a5d8(void);
-    static void func_ov063_0215a678(void);
+    static void func_ov063_0215a678(ActorUnkCANS *param1, UnkStruct_func_ov063_0215a678 *param2);
 };
 
 class ActorProfileUnkCANS : public ActorProfile_Derived1 {
