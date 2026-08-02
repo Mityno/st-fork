@@ -165,8 +165,8 @@ UnkStruct_ov063_02162ee8::UnkStruct_ov063_02162ee8(G3d_Model *pModel) :
     mUnk_74(ModelRenderBase::func_ov000_02057f18(data_ov063_02162548)) {}
 
 void UnkStruct_ov063_02162f14::vfunc_38(unk32 param1, unk32 param2) {
-    func_ov000_020578a4(mUnk_04, param1, param2);
-    func_ov000_020578a4(mUnk_1C, param1, param2);
+    mUnk_04->func_ov000_020578a4(param1, param2);
+    mUnk_1C->func_ov000_020578a4(param1, param2);
 }
 
 void UnkStruct_ov063_02162f14::vfunc_3C() {

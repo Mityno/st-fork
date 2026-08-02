@@ -69,7 +69,6 @@ public:
 
 class UnkStruct_ov063_02162f14 : public UnkStruct_ov000_020b31f0 {
 public:
-    /* 2C */
     /* 2C */ UnkSystem5 mUnk_2C;
     /* 4C */ unk32 mUnk_4C;
     /* 50 */ STRUCT_PAD(0x50, 0x7C);
