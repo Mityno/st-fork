@@ -89,7 +89,15 @@ public:
     /* 7C */ UnkSystem5 mUnk_7C;
     /* 9C */ unk32 mUnk_9C;
 
-    UnkStruct_ov063_02162f14(void *param3, unk32 param4);
+    UnkStruct_ov063_02162f14(void *param3, unk32 param4) :
+        UnkStruct_ov000_020b31f0(&mUnk_2C, &mUnk_7C, param3, param4),
+        mUnk_2C(&mUnk_4C, NULL),
+        mUnk_7C(&mUnk_9C, NULL) {
+        if (param4 != 0) {
+            *(unk32 *) &mUnk_7C = mUnk_10;
+            *(unk32 *) &mUnk_2C = mUnk_10;
+        }
+    }
 
     /* 38 */ virtual void vfunc_38(unk32 param1, unk32 param2) override;
     /* 3C */ virtual void vfunc_3C(void) override;
@@ -149,9 +157,9 @@ public:
     /* 22C */ unk16 mUnk_22C;
     /* 22E */ unk16 mUnk_22E;
     /* 230 */ STRUCT_PAD(0x230, 0x234);
-    /* 234 */ unk16 mUnk_234;
-    /* 236 */ unk16 mUnk_236;
-    /* 238 */ u16 mUnk_238;
+    /* 234 */ volatile u16 mUnk_234;
+    /* 236 */ u16 mUnk_236;
+    /* 238 */ volatile u16 mUnk_238;
     /* 23A */ u16 mUnk_23A;
     /* 23C */ UnkStruct_ov063_02162ea8 mUnk_23C;
     /* 250 */ VecFx32 mUnk_250;

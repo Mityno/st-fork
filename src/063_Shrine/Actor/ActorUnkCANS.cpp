@@ -142,8 +142,7 @@ bool UnkStruct_ov063_02162ea8::vfunc_0C(const UnkStruct_ov031_020e54d4 *param1, 
 
         if (mapObject != NULL) {
             MapObjectId id = mapObject->GetMapObjectId();
-            bool idMatch   = id == MapObjectId_GRSS || id == MapObjectId_LEVS || id == MapObjectId_STSH;
-            if (idMatch) {
+            if (id == MapObjectId_GRSS || id == MapObjectId_LEVS || id == MapObjectId_STSH) {
                 return false;
             }
         }
@@ -162,16 +161,6 @@ UnkStruct_ov063_02162ee8::UnkStruct_ov063_02162ee8(G3d_Model *pModel) :
     mUnk_6C(ModelRenderBase::func_ov000_02057f40(data_ov063_02162528)),
     mUnk_70(ModelRenderBase::func_ov000_02057f18(data_ov063_02162538)),
     mUnk_74(ModelRenderBase::func_ov000_02057f18(data_ov063_02162548)) {}
-
-inline UnkStruct_ov063_02162f14::UnkStruct_ov063_02162f14(void *param3, unk32 param4) :
-    UnkStruct_ov000_020b31f0(&mUnk_2C, &mUnk_7C, param3, param4),
-    mUnk_2C(&mUnk_4C, NULL),
-    mUnk_7C(&mUnk_9C, NULL) {
-    if (param4 != 0) {
-        *(unk32 *) &mUnk_7C = mUnk_10;
-        *(unk32 *) &mUnk_2C = mUnk_10;
-    }
-}
 
 void UnkStruct_ov063_02162f14::vfunc_38(unk32 param1, unk32 param2) {
     func_ov000_020578a4(mUnk_04, param1, param2);
@@ -299,7 +288,7 @@ void ActorUnkCANS::vfunc_1C(void) {
 
 void ActorUnkCANS::vfunc_20(void) {
     if (mUnk_238 < mUnk_23A) {
-        (*(volatile u16 *) &mUnk_238)++;
+        mUnk_238++;
     }
 
     if (!func_ov017_020bef4c(this, 0x4000) && mUnk_48 != 0 && mState != 4) {
@@ -339,8 +328,8 @@ void ActorUnkCANS::vfunc_20(void) {
 
     if (mUnk_48 > 0) {
         unk32 var;
-        if (((u16) mUnk_234 < (u16) mUnk_236)) {
-            (*(volatile u16 *) &mUnk_234)++;
+        if ((mUnk_234 < mUnk_236)) {
+            mUnk_234++;
             var = 0;
         } else {
             var = 1;
