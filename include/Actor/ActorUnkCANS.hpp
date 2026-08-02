@@ -8,7 +8,6 @@
 #include "Actor/ActorUnkZLSL_ZSRS.hpp"
 #include "Actor/Actor_Derived1.hpp"
 #include "Physics/Cylinder.hpp"
-#include "Player/PlayerGet.hpp"
 #include "Render/ModelRender.hpp"
 #include "Unknown/UnkStruct_ov031_Items.hpp"
 #include "global.h"
@@ -17,16 +16,7 @@
 #include "nns/g3d/g3d.h"
 #include "types.h"
 
-class ActorUnkCANS_C4 : public Actor_C4 {
-public:
-    ActorUnkCANS_C4(Actor *param1);
-
-    /* 00 */ virtual bool vfunc_00(ActorRef ref, unk32 param2) override;
-    /* 04 */ virtual bool vfunc_04() override;
-    /* 08 */ virtual void vfunc_08() override;
-    /* 0C */ virtual void vfunc_0C(unk32 param1) override;
-};
-
+// Try to match vfunc_0C but poor results
 struct UnkStruct_02162ea8_vfunc_0C {
     /* 00 */ union {
         unk32 mUnk_00;
@@ -67,7 +57,6 @@ public:
     UnkStruct_ov000_020b3268(G3d_Model *pModel);
 };
 
-//! NOTE: Not the actual parent class, there are two classes in between this one and ModelRender
 class UnkStruct_ov063_02162ee8 : public UnkStruct_ov000_020b3268 {
 public:
     /* 00 (base) */
@@ -111,17 +100,6 @@ public:
     UnkStruct_ov063_02162e88(void *param1);
 
     /* 04 */ virtual unk32 vfunc_04(ActorRef param1, unk32 param2, unk32 param3, unk32 *param4) override;
-};
-
-struct UnkStruct_data_ov063_02163068 {
-    /* Contains a string somewhere with info such as "attack" or "guard" */
-    /* 00 */ unk32 mUnk_00;
-    /* 04 */ unk32 mUnk_04;
-    /* 08 */ unk32 mUnk_08;
-    /* 0C */ unk32 mUnk_0C;
-    /* 10 */ unk32 mUnk_10;
-    /* 14 */ unk32 mUnk_14;
-    /* 18 */
 };
 
 class UnkStruct_func_ov063_0215a678 {
