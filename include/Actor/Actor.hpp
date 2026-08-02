@@ -223,6 +223,7 @@ public:
     unk32 func_ov000_020984c8();
     void func_ov000_020984d0();
     void func_ov000_020984f0();
+    unk32 func_ov000_0209867c(unk32 param1);
     u32 func_ov000_02098800(bool param1);
     bool func_ov000_02098838();
     unk32 func_ov000_02098910(UnkStruct_ov031_Items_00 *param1, unk32 param2);
@@ -248,6 +249,10 @@ public:
     void func_ov017_020bf5c4(VecFx32 *param1, unk32 param2, unk32 param3, unk32 param4, unk32 param5);
     void func_ov017_020bf9c8(Actor *param1);
     void func_ov017_020bfb18(Actor_9C *param1);
+
+    // overlay 71 (might be temporary)
+    void func_ov071_021540ac(unk32 param1);
+    void func_ov071_0215414c();
 };
 
 class Actor_C4_Base {
