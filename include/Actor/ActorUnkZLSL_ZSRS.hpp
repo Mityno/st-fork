@@ -77,11 +77,7 @@ public:
 class ActorUnkZLSL_27CC : public UnkStruct_ov000_020b31a8 {
 public:
     /* 00 (base) */
-    /* 04 */ unk32 mUnk_04;
-    /* 08 */ ModelRender *mUnk_08;
-    /* 0C */ STRUCT_PAD(0x0C, 0x18);
-    /* 18 */ s8 mUnk_18;
-    /* 19 */
+    /* 1C */
 
     ActorUnkZLSL_27CC();
 
