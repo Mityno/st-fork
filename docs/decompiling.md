@@ -5,6 +5,7 @@ stuck or need assistance.
 - [Decompiling a source file](#decompiling-a-source-file)
 - [Decompiling a function](#decompiling-a-function)
 - [Decompiling `.init` functions](#decompiling-init-functions)
+- [Decompiling data](#decompiling-data)
 - [About symbols](#about-symbols)
 - [The Ghidra project](#the-ghidra-project)
 
@@ -116,7 +117,9 @@ Other than `.text` and `.init` which contain code, there are the following secti
 - `.data`: Global or static variables (requires not using `const` except if it's used in a static initializer, in which case all of the data will be set to zero)
 - `.bss`: Global or static uninitialized variables
 
-You can see examples of these data sections in the [compilation section in `build_system.md`](/docs/build_system.md#compiling-code).
+You can see examples of these data sections in the [compilation section in `build_system.md` of PH documentation](https://github.com/zeldaret/ph/blob/main/docs/build_system.md#compiling-code)[^link_ph].
+
+[^link_ph]: This is a link to the PH decompilation project documentation which is very similar to this project's. For this part, the PH information should apply to ST without major changes.
 
 ## About symbols
 
