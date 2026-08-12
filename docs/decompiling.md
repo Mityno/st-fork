@@ -144,9 +144,12 @@ You can get a symbol's mangled name in `objdiff` by right clicking it's name. In
 
 Once you found the symbol to be renamed, copy the new mangled name (from `objdiff`, as explained just above) and replace the current symbol in `symbols.txt` by the new one. The symbol is only the first word of the line in `symbols.txt`, leave the rest of the line unchanged.
 
-After you updated the symbols, you can run `ninja objdiff` to re-generate `objdiff.json` and update `objdiff`'s config. After a short time (on WSL, it can take a while), `objdiff` should update its output and the names should line up as such:
+After you updated the symbols, you can run `ninja objdiff` to re-generate `objdiff.json` and update `objdiff`'s config. After a short time, `objdiff` should update its output and the names should line up as such:
 
 ![Symbols match in `objdiff`](images/objdiff_symbol_match.png)
+
+> [!NOTE]
+> On WSL, `objdiff` can take a while to refresh after running `ninja objdiff`. You can run `ninja delink` instead, which will not re-generate the whole `objdiff.json`, only the rom configuration, and should allow `objdiff` to refresh much faster. See [tips.md](tips.md#objdiff).
 
 ### Already existing symbols
 

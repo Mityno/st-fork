@@ -98,6 +98,7 @@ The default `ninja` commands run many checks and ensures that compilation gives 
 During development, you may want to run checks with re-compiling the whole project. The following section give details about targets that may help you with that.
 
 - [`objdiff`](#objdiff)
+- [`delink`](#delink)
 - [`report_<version>`](#report_version)
 - [`rom_<version>`](#rom_version)
 - [`check_<version>`](#check_version)
@@ -106,7 +107,10 @@ During development, you may want to run checks with re-compiling the whole proje
 
 ### `objdiff`
 
-`ninja objdiff` re-generated `objdiff.json` and will warn you about illegal name access, a wrong renaming or broken addresses.
+`ninja objdiff` re-generates `objdiff.json` and will warn you about illegal name access, a wrong renaming or broken addresses.
+
+### `delink`
+`ninja delink` is similar to `ninja objdiff`, but it does not re-generate the whole `objdiff.json`, only the rom configuration. This may be less robust over time (regenerating the objdiff configuration can be needed from time to time) but it should allow `objdiff` to refresh much faster (hence it can be useful when trying things).
 
 ### `report_<version>`
 
