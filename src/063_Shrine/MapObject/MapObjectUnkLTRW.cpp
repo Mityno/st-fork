@@ -6,7 +6,6 @@
 #include "Unknown/UnkStruct_027e09b8.hpp"
 #include "Unknown/UnkStruct_027e0cd8.hpp"
 #include "flags.h"
-#include "global.h"
 #include "nitro/fx.h"
 #include "nitro/math.h"
 #include "nns/g3d/g3d.h"
@@ -16,13 +15,24 @@
 extern "C" void func_ov031_020e0f30(ActorRef);
 
 struct UnkStruct_data_ov063_021639c4 {
-    /* 00 */ STRUCT_PAD(0x0, 0x08);
+    /* 00 */ unk32 mUnk_00;
+    /* 04 */ unk32 mUnk_04;
     /* 08 */ unk32 mUnk_08;
     /* 0C */ VecFx32 vec;
+
+    UnkStruct_data_ov063_021639c4(unk32 a, unk32 b, unk32 c) :
+        mUnk_04(b),
+        mUnk_08(c),
+        mUnk_00(a) {
+        VecFx32_Init(0, 0, 0, &vec);
+    }
 };
 
-extern UnkStruct_data_ov063_021639c4 data_ov063_021639c4;
 extern MapObject_10 data_ov063_021647dc;
+
+const unk32 param_data_ov063_021639c4 = 0x10002;
+const UnkStruct_data_ov063_021639c4 data_ov063_021639c4(param_data_ov063_021639c4 + 7, param_data_ov063_021639c4 + 4,
+                                                        param_data_ov063_021639c4);
 
 DECL_PROFILE(MapObjectProfileUnkLTRW);
 
