@@ -536,7 +536,6 @@ data_ov063_021646d8 kind:bss addr:0x021646d8
 _ZGVN15ProfileInstanceI23MapObjectProfileUnkLTRWE8sProfileE kind:bss addr:0x021646f8
 @12257 kind:bss addr:0x021646fc
 _ZN15ProfileInstanceI23MapObjectProfileUnkLTRWE8sProfileE kind:bss addr:0x02164708
-data_ov063_021647dc kind:bss addr:0x021647dc
 _ZGVN15ProfileInstanceI23MapObjectProfileUnkMTJRE8sProfileE kind:bss addr:0x02164800
 @12263 kind:bss addr:0x02164804
 _ZN15ProfileInstanceI23MapObjectProfileUnkMTJRE8sProfileE kind:bss addr:0x02164810

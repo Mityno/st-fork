@@ -20,19 +20,16 @@ struct UnkStruct_data_ov063_021639c4 {
     /* 08 */ unk32 mUnk_08;
     /* 0C */ VecFx32 vec;
 
-    UnkStruct_data_ov063_021639c4(unk32 a, unk32 b, unk32 c) :
-        mUnk_04(b),
-        mUnk_08(c),
-        mUnk_00(a) {
+    UnkStruct_data_ov063_021639c4(unk32 param) {
+        mUnk_08 = param;
+        mUnk_04 = param + 4;
+        mUnk_00 = param + 7;
         VecFx32_Init(0, 0, 0, &vec);
     }
 };
 
-extern MapObject_10 data_ov063_021647dc;
-
 const unk32 param_data_ov063_021639c4 = 0x10002;
-const UnkStruct_data_ov063_021639c4 data_ov063_021639c4(param_data_ov063_021639c4 + 7, param_data_ov063_021639c4 + 4,
-                                                        param_data_ov063_021639c4);
+const UnkStruct_data_ov063_021639c4 data_ov063_021639c4(param_data_ov063_021639c4);
 
 DECL_PROFILE(MapObjectProfileUnkLTRW);
 
@@ -61,7 +58,7 @@ MapObjectUnkLTRW::MapObjectUnkLTRW() :
 bool MapObjectUnkLTRW::vfunc_00() {
     mPos.x -= FLOAT_TO_FX32(.5f);
     mPos.z -= FLOAT_TO_FX32(.5f);
-    mUnk_10 = &data_ov063_021647dc;
+    mUnk_10 = &GET_PROFILE(MapObjectProfileUnkLTRW)->mUnk_D4;
     SET_FLAG(mFlags, MapObjFlag_9);
     mUnk_18[0]       = 0x10;
     mUnk_A8.mUnk_04h = mUnk_20.mUnk_08[0];
