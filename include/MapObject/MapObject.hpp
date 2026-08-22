@@ -94,6 +94,20 @@ public:
     /* 20 */
 };
 
+class MapObject_10_Derived1 : public MapObject_10 {
+public:
+    MapObject_10_Derived1() {}
+
+    /* 00 */ virtual void vfunc_00() override;
+    /* 04 */ virtual void vfunc_04() override;
+    /* 08 */ virtual void vfunc_08() override;
+    /* 0C */ virtual void vfunc_0C() override;
+    /* 10 */ virtual void vfunc_10(Cylinder *param1) override;
+    /* 14 */ virtual void vfunc_14() override;
+    /* 18 */ virtual void vfunc_18(VecFx32 *param1) override;
+    /* 1C */ virtual void vfunc_1C(VecFx32 *param1) override;
+};
+
 class MapObject_20 {
 public:
     /* 00 */ u16 mParams[4]; // parameters
