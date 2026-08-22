@@ -395,7 +395,7 @@ __sinit_ov063_021629c4 kind:function(arm,size=0x168) addr:0x021629c4
 __sinit_ActorUnkRBLS.cpp kind:function(arm,size=0x50) addr:0x02162b2c
 __sinit_MapObjectUnkSTAT.cpp kind:function(arm,size=0x50) addr:0x02162b7c
 __sinit_MapObjectUnkWLMS.cpp kind:function(arm,size=0x154) addr:0x02162bcc
-__sinit_MapObjectUnkLTRW.cpp kind:function(arm,size=0x80) addr:0x02162d20
+__sinit_MapObjectUnkLTRW.cpp kind:function(arm,size=0x80) addr:0x02162d20 local
 __sinit_MapObjectUnkMTJR.cpp kind:function(arm,size=0x50) addr:0x02162da0
 __sinit_MapObjectUnkSWCR.cpp kind:function(arm,size=0x50) addr:0x02162df0
 .p__sinit_ActorUnkCANS.cpp kind:data(word) addr:0x02162e40
@@ -409,7 +409,7 @@ __sinit_MapObjectUnkSWCR.cpp kind:function(arm,size=0x50) addr:0x02162df0
 .p__sinit_ActorUnkRBLS.cpp kind:data(word) addr:0x02162e60
 .p__sinit_MapObjectUnkSTAT.cpp kind:data(word) addr:0x02162e64
 .p__sinit_MapObjectUnkWLMS.cpp kind:data(word) addr:0x02162e68
-.p__sinit_MapObjectUnkLTRW.cpp kind:data(word) addr:0x02162e6c
+.p__sinit_MapObjectUnkLTRW.cpp kind:data(word) addr:0x02162e6c local
 .p__sinit_MapObjectUnkMTJR.cpp kind:data(word) addr:0x02162e70
 .p__sinit_MapObjectUnkSWCR.cpp kind:data(word) addr:0x02162e74
 _ZTV24UnkStruct_ov063_02162e88 kind:data(any) addr:0x02162e80
@@ -484,7 +484,7 @@ data_ov063_02163910 kind:data(any) addr:0x02163910
 data_ov063_02163928 kind:data(any) addr:0x02163928
 data_ov063_02163944 kind:data(any) addr:0x02163944
 _ZTV19data_ov063_02163980 kind:data(any) addr:0x02163980
-data_ov063_021639c4 kind:data(any) addr:0x021639c4
+data_ov063_021639c4 kind:data(any) addr:0x021639c4 local
 _ZTV24UnkStruct_ov063_021639e4 kind:data(any) addr:0x021639dc
 _ZTV28MapObjectProfileUnkLTRW_Base kind:data(any) addr:0x021639f4
 _ZTV23MapObjectProfileUnkLTRW kind:data(any) addr:0x02163a10
