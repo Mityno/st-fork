@@ -46,18 +46,16 @@ MapObjectUnkLTRW::MapObjectUnkLTRW() :
     mUnk_A0(1),
     mUnk_A4(0),
     mUnk_A6(0),
-    mUnk_A8(),
-    mUnk_AC(0),
-    mUnk_AE(0) {}
+    mUnk_A8() {}
 
 bool MapObjectUnkLTRW::vfunc_00() {
     mPos.x -= FLOAT_TO_FX32(.5f);
     mPos.z -= FLOAT_TO_FX32(.5f);
     mUnk_10 = &data_ov063_021647dc;
     SET_FLAG(mFlags, MapObjFlag_9);
-    mUnk_18[0] = 0x10;
-    mUnk_AC    = mUnk_20.mUnk_08[0];
-    mUnk_AE    = mUnk_20.mUnk_0A[0];
+    mUnk_18[0]       = 0x10;
+    mUnk_A8.mUnk_04h = mUnk_20.mUnk_08[0];
+    mUnk_A8.mUnk_06  = mUnk_20.mUnk_0A[0];
     this->func_ov063_02160d18(0);
     return true;
 }
@@ -97,7 +95,7 @@ unk32 MapObjectUnkLTRW::vfunc_28(unk32 param1) {
         varActor.mUnk_28 = (int) (long) this;
         varActor.mUnk_32 = 3;
         VecFx32_Copy(&mPos, &varActor.mUnk_34);
-        varActor.mUnk_04 = (MapObject_UnkStruct1 *) &mUnk_A8;
+        varActor.mUnk_04 = &mUnk_A8;
     } else {
         varActor.mUnk_0C = data_ov063_021639c4.mUnk_08;
         varActor.mUnk_14 = 0;
@@ -113,7 +111,6 @@ void MapObjectUnkLTRW::func_ov063_02160d18(unk32 param1) {
     mUnk_A4 = 0;
 }
 
-//! WARN: Is this actually static? The access pattern in the code does not match the MapObject members
-void MapObjectUnkLTRW::func_ov063_02160e18(unk16 *param1) {
-    data_027e0cd8->func_ov000_02081d7c(param1[3], param1[2], 1);
+void UnkStruct_ov063_021639e4::vfunc2_04() {
+    data_027e0cd8->func_ov000_02081d7c(mUnk_06, mUnk_04h, 1);
 }

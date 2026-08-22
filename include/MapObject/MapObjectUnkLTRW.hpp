@@ -1,17 +1,23 @@
 #pragma once
 
+#include "Actor/ActorUnkTLKT.hpp"
 #include "MapObject/MapObject.hpp"
 #include "MapObject/MapObjectProfile.hpp"
 #include "Render/ModelRender.hpp"
+#include "Unknown/Common.hpp"
 #include "global.h"
 
-class UnkStruct_ov063_021639e4 {
+class UnkStruct_ov063_021639e4 : public ActorUnkTLKT_9C_Base {
 public:
-    /* 00 */
+    /* 00 (vtable) */
+    /* 08 */
 
-    UnkStruct_ov063_021639e4() {};
+    UnkStruct_ov063_021639e4() {
+        mUnk_04h = 0;
+        mUnk_06  = 0;
+    };
 
-    /* 04 */ virtual void vfunc_04() override;
+    /* 04 */ virtual void vfunc2_04() override;
 };
 
 class MapObjectUnkLTRW : public MapObject {
@@ -22,8 +28,6 @@ public:
     /* A4 */ volatile u16 mUnk_A4;
     /* A6 */ u16 mUnk_A6;
     /* A8 */ UnkStruct_ov063_021639e4 mUnk_A8;
-    /* AC */ unk16 mUnk_AC; // Both members are probably part of mUnk_A8
-    /* AE */ unk16 mUnk_AE;
 
     MapObjectUnkLTRW();
 
@@ -34,9 +38,6 @@ public:
     /* 28 */ virtual unk32 vfunc_28(unk32 param1) override;
 
     void func_ov063_02160d18(unk32 param1);
-
-    //! WARN: Is this actually static? The access pattern in the code does not match the MapObject members
-    static void func_ov063_02160e18(unk16 *param1);
 };
 
 class MapObjectProfileUnkLTRW_Base_D4 : public MapObject_10 {
