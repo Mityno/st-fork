@@ -4,6 +4,7 @@
 #include "MapObject/MapObjectProfile.hpp"
 #include "Unknown/Common.hpp"
 #include "Unknown/UnkStruct_027e09b8.hpp"
+#include "Unknown/UnkStruct_027e0cd8.hpp"
 #include "flags.h"
 #include "global.h"
 #include "nitro/fx.h"
@@ -106,5 +107,13 @@ unk32 MapObjectUnkLTRW::vfunc_28(unk32 param1) {
     return 0;
 }
 
-void MapObjectUnkLTRW::func_ov063_02160d18(unk32 param1) {}
-void MapObjectUnkLTRW::func_ov063_02160e18(void) {}
+void MapObjectUnkLTRW::func_ov063_02160d18(unk32 param1) {
+    mUnk_A0 = param1;
+    mUnk_A6 = -1;
+    mUnk_A4 = 0;
+}
+
+//! WARN: Is this actually static? The access pattern in the code does not match the MapObject members
+void MapObjectUnkLTRW::func_ov063_02160e18(unk16 *param1) {
+    data_027e0cd8->func_ov000_02081d7c(param1[3], param1[2], 1);
+}

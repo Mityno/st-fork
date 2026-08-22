@@ -34,7 +34,9 @@ public:
     /* 28 */ virtual unk32 vfunc_28(unk32 param1) override;
 
     void func_ov063_02160d18(unk32 param1);
-    void func_ov063_02160e18(void);
+
+    //! WARN: Is this actually static? The access pattern in the code does not match the MapObject members
+    static void func_ov063_02160e18(unk16 *param1);
 };
 
 class MapObjectProfileUnkLTRW_Base_D4 : public MapObject_10 {
