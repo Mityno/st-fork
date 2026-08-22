@@ -1,5 +1,3 @@
-//! TODO: This file was generated automatically and might contain errors
-
 #pragma once
 
 #include "MapObject/MapObject.hpp"
@@ -21,22 +19,21 @@ public:
     /* 00 (base) */
     /* 40 */ ModelRender mUnk_40;
     /* A0 */ unk32 mUnk_A0;
-    /* A4 */ unk16 mUnk_A4;
-    /* A6 */ unk16 mUnk_A6;
+    /* A4 */ volatile u16 mUnk_A4;
+    /* A6 */ u16 mUnk_A6;
     /* A8 */ UnkStruct_ov063_021639e4 mUnk_A8;
     /* AC */ unk16 mUnk_AC; // Both members are probably part of mUnk_A8
     /* AE */ unk16 mUnk_AE;
 
     MapObjectUnkLTRW();
 
-    /* 30 */ virtual ~MapObjectUnkLTRW() override;
+    /* 00 */ virtual bool vfunc_00() override;
+    /* 08 */ virtual void vfunc_08() override;
+    /* 14 */ virtual void vfunc_14() override;
+    /* 1C */ virtual bool vfunc_1C(ActorRef param1, unk32 param2, VecFx32 *param3) override;
+    /* 28 */ virtual unk32 vfunc_28(unk32 param1) override;
 
-    void func_ov063_02160c6c(void);
-    void func_ov063_02160cc8(void);
-    void func_ov063_02160ce4(void);
-    void func_ov063_02160d18(void);
-    void func_ov063_02160d34(void);
-    void func_ov063_02160df8(void);
+    void func_ov063_02160d18(unk32 param1);
     void func_ov063_02160e18(void);
 };
 
@@ -60,7 +57,6 @@ public:
     /* 00 (base) */
 
     MapObjectProfileUnkLTRW();
-    ~MapObjectProfileUnkLTRW();
 
     /* 0C */ virtual MapObject *Create();
 
