@@ -481,9 +481,8 @@ data_ov063_021638fc kind:data(any) addr:0x021638fc
 data_ov063_02163900 kind:data(any) addr:0x02163900
 data_ov063_02163904 kind:data(any) addr:0x02163904
 data_ov063_02163910 kind:data(any) addr:0x02163910
-data_ov063_02163928 kind:data(any) addr:0x02163928
-data_ov063_02163944 kind:data(any) addr:0x02163944
-_ZTV19data_ov063_02163980 kind:data(any) addr:0x02163980
+_ZTV23MapObjectProfileUnkWLMS kind:data(any) addr:0x02163920
+_ZTV16MapObjectUnkWLMS kind:data(any) addr:0x0216393c
 data_ov063_021639c4 kind:data(any) addr:0x021639c4
 data_ov063_021639e4 kind:data(any) addr:0x021639e4
 data_ov063_021639fc kind:data(any) addr:0x021639fc

@@ -1,13 +1,12 @@
-//! TODO: This file was generated automatically and might contain errors
-
 #pragma once
 
 #include "MapObject/MapObject.hpp"
 #include "MapObject/MapObjectProfile.hpp"
+#include "MapObject/MapObjectUnkSTAT.hpp"
+#include "Unknown/UnkStruct_ov094_02177ff8.hpp"
 #include "global.h"
-#include "types.h"
 
-class MapObjectUnkWLMS : public MapObject {
+class MapObjectUnkWLMS : public UnkStruct_ov094_02177ff8 {
 public:
     /* 00 (base) */
     /* 40 */
@@ -34,7 +33,7 @@ public:
     void func_ov063_0216095c(void);
 };
 
-class MapObjectProfileUnkWLMS : public MapObjectProfile {
+class MapObjectProfileUnkWLMS : public MapObjectProfileUnkSTAT_Base {
 public:
     /* 00 (base) */
 
