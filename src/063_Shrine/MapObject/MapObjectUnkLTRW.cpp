@@ -28,8 +28,7 @@ struct UnkStruct_data_ov063_021639c4 {
     }
 };
 
-const unk32 param_data_ov063_021639c4 = 0x10002;
-const UnkStruct_data_ov063_021639c4 data_ov063_021639c4(param_data_ov063_021639c4);
+const UnkStruct_data_ov063_021639c4 data_ov063_021639c4(0x10002);
 
 DECL_PROFILE(MapObjectProfileUnkLTRW);
 
@@ -40,10 +39,10 @@ MapObject *MapObjectProfileUnkLTRW::Create() {
 MapObjectProfileUnkLTRW::MapObjectProfileUnkLTRW() :
     MapObjectProfileUnkLTRW_Base(MapObjectId_LTRW, MapObjectId_LTRW) {
     mUnk_D4.mUnk_08 = 0x04007007;
-    VecFx32_Init(data_ov063_021639c4.vec.x - 0x99A, data_ov063_021639c4.vec.y, data_ov063_021639c4.vec.z - 0x666,
-                 &mUnk_D4.mUnk_0C);
-    VecFx32_Init(data_ov063_021639c4.vec.x + 0x99A, data_ov063_021639c4.vec.y + 0x1333, data_ov063_021639c4.vec.z + 0x666,
-                 &mUnk_D4.mUnk_18);
+    VecFx32_Init(data_ov063_021639c4.vec.x - FLOAT_TO_FX32(.6f), data_ov063_021639c4.vec.y,
+                 data_ov063_021639c4.vec.z - FLOAT_TO_FX32(.4f), &mUnk_D4.mUnk_0C);
+    VecFx32_Init(data_ov063_021639c4.vec.x + FLOAT_TO_FX32(.6f), data_ov063_021639c4.vec.y + FLOAT_TO_FX32(1.2f),
+                 data_ov063_021639c4.vec.z + FLOAT_TO_FX32(.4f), &mUnk_D4.mUnk_18);
     mUnk_06 = 1;
     mUnk_0C = 0x1333;
 }
@@ -92,11 +91,11 @@ unk32 MapObjectUnkLTRW::vfunc_28(unk32 param1) {
 
     MapObject::func_ov000_0209d22c(plocal_60, this, param1);
 
-    unk16 val = plocal_60[0];
+    unk16 angle = plocal_60[0];
 
     ActorUnk_vfunc_B0 varActor = ActorUnk_vfunc_B0();
 
-    if ((val <= 0x4000) && (val >= -0x4000)) {
+    if ((angle <= DEG_TO_ANG(90)) && (angle >= -DEG_TO_ANG(90))) {
         varActor.mUnk_0C = mUnk_20.mUnk_10;
         varActor.mUnk_14 = 2;
         varActor.mUnk_28 = (int) (long) this;
