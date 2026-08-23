@@ -98,7 +98,7 @@ unk32 MapObjectUnkLTRW::vfunc_28(unk32 param1) {
     if ((angle <= DEG_TO_ANG(90)) && (angle >= -DEG_TO_ANG(90))) {
         varActor.mUnk_0C = mUnk_20.mUnk_10;
         varActor.mUnk_14 = 2;
-        varActor.mUnk_28 = (int) (long) this;
+        varActor.mUnk_28 = (uintptr_t) this;
         varActor.mUnk_32 = 3;
         VecFx32_Copy(&mPos, &varActor.mUnk_34);
         varActor.mUnk_04 = &mUnk_A8;
