@@ -9,6 +9,7 @@
 #include <nns/g3d/g3d.h>
 
 class UnkSystem5;
+class UnkStruct_PlayerGet_50;
 extern "C" void *func_ov000_02057750(size_t allocSize);
 
 struct ActorUnkZLSL_AnimationTag {
@@ -22,7 +23,8 @@ typedef void (*UnkSystem4_UnkCallback)(void *, unk32);
 class UnkSystem4_vfunc_1C_B4 {
 public:
     /* 00 */ unk32 mUnk_00;
-    /* 00 */ STRUCT_PAD(0x04, 0x4C);
+    /* 00 */ STRUCT_PAD(0x04, 0x28);
+    /* 28 */ Mat3p mUnk_28;
     /* 4C */ unk32 mUnk_4C;
     /* 50 */ unk32 mUnk_50;
     /* 54 */ unk32 mUnk_54;
@@ -55,6 +57,9 @@ public:
     /* 18 */ virtual void vfunc_18(VecFx32 *param1)                                 = 0;
     /* 1C */
 
+    void func_01ffc6d4(UnkAngleStruct angleStruct, VecFx32 *pos);
+
+    void func_ov000_02057cb0();
     unk32 func_ov000_02057f18(const void *param1);
     unk32 func_ov000_02057f40(const void *param1);
     const G3d_Model_14 *func_ov000_02057ee0() const;
@@ -117,8 +122,6 @@ public:
     // data_ov000_020b1968
     /* 00 */ virtual ~UnkSystem6_Derived2() {}
     /* 0C */ virtual void vfunc_0C() override;
-
-    void func_01ffc6d4(UnkAngleStruct angleStruct, VecFx32 *pos);
 };
 
 class ModelRender_ov000_020b198c : public ModelRenderBase {
@@ -144,16 +147,26 @@ public:
     unk32 func_ov000_02057ef4();
 };
 
-class UnkSystem5 {
+class UnkStruct_PlayerGet_50 {
 public:
-    /* 00 */ G3d_Model *mpModel;
-    /* 04 */ unk16 mUnk_04;
-    /* 08 */ unk32 mUnk_08;
+    /* 00 (base) */ unk16 mUnk_00;
+    /* 02 */ unk16 mUnk_02;
+    /* 04 */ fx32 mUnk_04;
+    /* 08 */ fx32 mUnk_08;
     /* 0C */ unk32 mUnk_0C;
     /* 10 */ unk32 mUnk_10;
     /* 14 */ unk32 mUnk_14;
-    /* 18 */ unk32 mUnk_18;
-    /* 1C */ unk32 mUnk_1C;
+    /* 18 */
+
+    unk32 func_01ff8fa8();
+    unk32 func_02015080(unk32 param1);
+};
+
+class UnkSystem5 {
+public:
+    /* 00 */ G3d_Model *mpModel;
+    /* 04 */ UnkStruct_PlayerGet_50 mUnk_04;
+    /* 1C */ void *mUnk_1C; // this is param1
     /* 20 */
 
     UnkSystem5(void *param1, G3d_Model *pModel);
