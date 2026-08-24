@@ -39,7 +39,7 @@ public:
     void func_ov063_02160d18(unk32 param1);
 };
 
-class MapObjectProfileUnkLTRW_Base_D4 : public MapObject_10_Derived1 {
+class MapObjectProfileUnkLTRW_Base_D4 : public MapObject_10 {
 public:
 };
 
