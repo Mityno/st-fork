@@ -26,6 +26,8 @@ MapObjectProfileUnkWLMS::MapObjectProfileUnkWLMS() :
 
 MapObjectUnkWLMS::MapObjectUnkWLMS() {}
 
+void MapObjectUnkWLMS::vfunc_38(void) {}
+
 void MapObjectUnkWLMS::func_ov063_0215fe74(void) {}
 void MapObjectUnkWLMS::func_ov063_0215fe88(void) {}
 void MapObjectUnkWLMS::func_ov063_0215feb0(void) {}
@@ -42,6 +44,3 @@ void MapObjectUnkWLMS::func_ov063_021608a8(void) {}
 void MapObjectUnkWLMS::func_ov063_02160918(void) {}
 void MapObjectUnkWLMS::func_ov063_02160938(void) {}
 void MapObjectUnkWLMS::func_ov063_0216095c(void) {}
-
-MapObjectUnkWLMS::~MapObjectUnkWLMS() {}
-MapObjectProfileUnkWLMS::~MapObjectProfileUnkWLMS() {}

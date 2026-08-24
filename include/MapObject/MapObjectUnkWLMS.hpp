@@ -13,7 +13,7 @@ public:
 
     MapObjectUnkWLMS();
 
-    /* 30 */ virtual ~MapObjectUnkWLMS() override;
+    /* 38 */ virtual void vfunc_38(void) override;
 
     void func_ov063_0215fe74(void);
     void func_ov063_0215fe88(void);
@@ -38,7 +38,6 @@ public:
     /* 00 (base) */
 
     MapObjectProfileUnkWLMS();
-    ~MapObjectProfileUnkWLMS();
 
     /* 0C */ virtual MapObject *Create();
 

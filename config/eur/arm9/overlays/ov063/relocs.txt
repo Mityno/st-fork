@@ -1080,7 +1080,7 @@ from:0x0215ffb8 kind:arm_call to:0x02060bac module:overlay(0)
 from:0x0215ffcc kind:arm_call to:0x0206082c module:overlay(0)
 from:0x0215ffd4 kind:arm_call to:0x02060bac module:overlay(0)
 from:0x0215ffe0 kind:load to:0x0216393c module:overlay(63) add:0x8
-from:0x0215ffe4 kind:load to:0x0216393c add:0x48 module:overlay(63)
+from:0x0215ffe4 kind:load to:0x0216393c add:0x4c module:overlay(63)
 from:0x0215ffe8 kind:load to:0x02164604 module:overlay(63)
 from:0x0215ffec kind:load to:0x021646d8 module:overlay(63)
 from:0x0215fff0 kind:load to:0x02164514 module:overlay(63)
