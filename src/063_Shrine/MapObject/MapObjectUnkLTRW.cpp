@@ -84,7 +84,7 @@ bool MapObjectUnkLTRW::vfunc_1C(ActorRef param1, unk32 param2, VecFx32 *param3) 
     return true;
 }
 
-unk32 MapObjectUnkLTRW::vfunc_28(unk32 param1) {
+unk32 MapObjectUnkLTRW::vfunc_28(unk32 param1, unk32 param2, unk32 param3) {
     unk16 *plocal_60;
     unk16 local_60;
     plocal_60 = (unk16 *) &local_60;
