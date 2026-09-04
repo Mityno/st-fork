@@ -4,6 +4,9 @@
 #include "System/SysNew.hpp"
 #include "flags.h"
 #include "nitro/math.h"
+#include "nitro/mi.h"
+#include "nns/g3d/g3d.h"
+#include "profile.hpp"
 
 DECL_PROFILE(MapObjectProfileUnkWLMS);
 
@@ -24,7 +27,8 @@ MapObjectProfileUnkWLMS::MapObjectProfileUnkWLMS() :
     SET_FLAG2(mUnk_1E, 0);
 }
 
-MapObjectUnkWLMS::MapObjectUnkWLMS() {}
+MapObjectUnkWLMS::MapObjectUnkWLMS() :
+    mUnk_70(G3d_GetModelPtr(GET_PROFILE(MapObjectProfileUnkWLMS)->mUnk_20.mUnk_50)) {}
 
 void MapObjectUnkWLMS::vfunc_38(void) {}
 

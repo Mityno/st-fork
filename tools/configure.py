@@ -1428,6 +1428,7 @@ config.libs = [
             Object("094_Land2/Actor/ActorUnkSYRN.cpp"),
             Object("094_Land2/Actor/ActorUnkVLCR.cpp"),
             Object("094_Land2/Actor/ActorUnkVRGN.cpp"),
+            Object("094_Land2/MapObject/UnkStruct_ov094_02177ff8.cpp"),
             Object("094_Land2/MapObject/MapObjectUnkBRGW.cpp"),
             Object("094_Land2/MapObject/MapObjectUnkCLMN.cpp"),
             Object("094_Land2/MapObject/MapObjectUnkFNCE.cpp"),

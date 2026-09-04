@@ -3,13 +3,15 @@
 #include "MapObject/MapObject.hpp"
 #include "MapObject/MapObjectProfile.hpp"
 #include "MapObject/MapObjectUnkSTAT.hpp"
+#include "Render/ModelRender.hpp"
 #include "Unknown/UnkStruct_ov094_02177ff8.hpp"
 #include "global.h"
 
 class MapObjectUnkWLMS : public UnkStruct_ov094_02177ff8 {
 public:
     /* 00 (base) */
-    /* 40 */
+    /* 70 */ ModelRender mUnk_70;
+    /* D0 */
 
     MapObjectUnkWLMS();
 
