@@ -28,7 +28,8 @@ MapObjectProfileUnkWLMS::MapObjectProfileUnkWLMS() :
 }
 
 MapObjectUnkWLMS::MapObjectUnkWLMS() :
-    mUnk_70(G3d_GetModelPtr(GET_PROFILE(MapObjectProfileUnkWLMS)->mUnk_20.mUnk_50)) {}
+    mUnk_70(G3d_GetModelPtr(GET_PROFILE(MapObjectProfileUnkWLMS)->mUnk_20.mUnk_50)),
+    mUnk_D0(&mUnk_F4, 0x80) {}
 
 void MapObjectUnkWLMS::vfunc_38(void) {}
 

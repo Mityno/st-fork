@@ -4,6 +4,7 @@
 #include "MapObject/MapObjectProfile.hpp"
 #include "MapObject/MapObjectUnkSTAT.hpp"
 #include "Render/ModelRender.hpp"
+#include "Unknown/UnkStruct_ov000_020b1c10.hpp"
 #include "Unknown/UnkStruct_ov094_02177ff8.hpp"
 #include "global.h"
 
@@ -11,7 +12,8 @@ class MapObjectUnkWLMS : public UnkStruct_ov094_02177ff8 {
 public:
     /* 00 (base) */
     /* 70 */ ModelRender mUnk_70;
-    /* D0 */
+    /* D0 */ UnkStruct_ov000_020b1c10 mUnk_D0;
+    /* F4 */ unk32 mUnk_F4;
 
     MapObjectUnkWLMS();
 

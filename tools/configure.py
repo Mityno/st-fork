@@ -227,6 +227,7 @@ config.libs = [
             Object("000_Second/code_020657fc.cpp"),
             Object("000_Second/UnkSystem1_Base.cpp"),
             Object("000_Second/UnkSystem1_Derived1.cpp"),
+            Object("000_Second/UnkStruct_ov000_020b1c10.cpp"),
             Object("000_Second/data_ov000_020af58c.cpp"),
             Object("000_Second/Actor/Actor.cpp"),
             Object("000_Second/Actor/ActorManager.cpp"),
