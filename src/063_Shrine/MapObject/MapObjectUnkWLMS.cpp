@@ -1,4 +1,7 @@
 #include "MapObject/MapObjectUnkWLMS.hpp"
+#include "Animation/CellAnimObject.hpp"
+#include "MapObject/MapObject.hpp"
+#include "Player/TouchControl.hpp"
 #include "System/SysNew.hpp"
 #include "flags.h"
 #include "nitro/math.h"
@@ -6,7 +9,15 @@
 #include "nns/g3d/g3d.h"
 #include "profile.hpp"
 
+extern MapObject_10 data_ov063_021646d8;
+extern CellAnimObject data_ov063_02164514;
+extern CellAnimObject data_ov063_0216458c;
+
 DECL_PROFILE(MapObjectProfileUnkWLMS);
+
+UnkStruct_ov063_02163910::UnkStruct_ov063_02163910(void *param1) {
+    mUnk_04 = (uintptr_t) param1;
+}
 
 MapObject *MapObjectProfileUnkWLMS::Create() {
     return new(HeapIndex_ITCM) MapObjectUnkWLMS();
@@ -26,8 +37,25 @@ MapObjectProfileUnkWLMS::MapObjectProfileUnkWLMS() :
 }
 
 MapObjectUnkWLMS::MapObjectUnkWLMS() :
-    mUnk_70(G3d_GetModelPtr(GET_PROFILE(MapObjectProfileUnkWLMS)->mUnk_20.mUnk_50)),
-    mUnk_D0(&mUnk_F4, 0x80) {}
+    mUnk_070(G3d_GetModelPtr(GET_PROFILE(MapObjectProfileUnkWLMS)->mUnk_20.mUnk_50)),
+    mUnk_0D0(&mUnk_0F4, 0x80),
+    mUnk_2F4(),
+    mUnk_31C(0),
+    mUnk_31E(0),
+    mUnk_320(this) {
+    mUnk_10          = &data_ov063_021646d8;
+    mUnk_0D0.mUnk_1C = 0x2000;
+    mUnk_316         = -1;
+    mUnk_318         = -1;
+    mUnk_31A         = -1;
+
+    _MI_CpuFill(0, &mUnk_0F4, 0x200);
+
+    data_ov063_02164514.func_ov000_0206082c(0x2e, 1);
+    data_ov063_02164514.func_ov000_02060bac();
+    data_ov063_0216458c.func_ov000_0206082c(0x2e, 1);
+    data_ov063_0216458c.func_ov000_02060bac();
+}
 
 void MapObjectUnkWLMS::vfunc_38(void) {}
 
