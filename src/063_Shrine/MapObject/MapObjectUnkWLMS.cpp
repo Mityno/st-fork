@@ -1,5 +1,3 @@
-//! TODO: This file was generated automatically and might contain errors
-
 #include "MapObject/MapObjectUnkWLMS.hpp"
 #include "System/SysNew.hpp"
 #include "flags.h"
