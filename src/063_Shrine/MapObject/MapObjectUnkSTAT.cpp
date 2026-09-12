@@ -36,7 +36,6 @@ struct UnkStruct_ov000_02077590 {
 extern "C" UnkStruct_ov000_02077590 *func_ov000_02077590(unk32);
 
 DECL_PROFILE(MapObjectProfileUnkSTAT);
-unk32 data_ov063_02164508[3]; // Is probably part of the profile?
 
 MapObject *MapObjectProfileUnkSTAT::Create() {
     return new(HeapIndex_ITCM) MapObjectUnkSTAT();
