@@ -1,9 +1,11 @@
 #include "MapObject/MapObjectUnkWLMS.hpp"
 #include "Animation/CellAnimObject.hpp"
+#include "LinkList.hpp"
 #include "MapObject/MapObject.hpp"
 #include "Player/TouchControl.hpp"
-#include "System/SysNew.hpp"
+#include "Unknown/UnkStruct_0204a088.hpp"
 #include "flags.h"
+#include "global.h"
 #include "nitro/math.h"
 #include "nitro/mi.h"
 #include "nns/g3d/g3d.h"
@@ -49,7 +51,7 @@ MapObjectUnkWLMS::MapObjectUnkWLMS() :
     mUnk_318         = -1;
     mUnk_31A         = -1;
 
-    _MI_CpuFill(0, &mUnk_0F4, 0x200);
+    MI_CpuFillFast(&mUnk_0F4, 0, 0x200);
 
     data_ov063_02164514.func_ov000_0206082c(0x2e, 1);
     data_ov063_02164514.func_ov000_02060bac();
@@ -57,21 +59,36 @@ MapObjectUnkWLMS::MapObjectUnkWLMS() :
     data_ov063_0216458c.func_ov000_02060bac();
 }
 
+struct UnkStruct_ov063_02163910_04 {
+    /* 00 */ STRUCT_PAD(0x0, 0x40);
+    /* 40 */ unk32 mUnk_40;
+    /* 44 */ LinkListNode mUnk_44;
+};
+void UnkStruct_ov063_02163910::vfunc2_00() {
+
+    void *ptr = mUnk_04p;
+    if (ptr != NULL) {
+        ptr = &((UnkStruct_ov063_02163910_04 *) mUnk_04p)->mUnk_40;
+    }
+
+    data_0204a088->func_ov000_020611dc(ptr, 7);
+}
+
+void UnkStruct_ov063_02163910::vfunc2_04() {
+    LinkListImpl::Detach(&((UnkStruct_ov063_02163910_04 *) mUnk_04p)->mUnk_44);
+}
+
+bool MapObjectUnkWLMS::vfunc_00() {}
+void MapObjectUnkWLMS::vfunc_14() {}
+void MapObjectUnkWLMS::vfunc_18(s8 *param1, s8 param2) {}
+unk32 MapObjectUnkWLMS::vfunc_28(unk32 param1, unk32 param2, unk32 param3) {}
 void MapObjectUnkWLMS::vfunc_38(void) {}
 
-void MapObjectUnkWLMS::func_ov063_0215fe74(void) {}
-void MapObjectUnkWLMS::func_ov063_0215fe88(void) {}
-void MapObjectUnkWLMS::func_ov063_0215feb0(void) {}
-void MapObjectUnkWLMS::func_ov063_0215fff8(void) {}
-void MapObjectUnkWLMS::func_ov063_02160030(void) {}
 void MapObjectUnkWLMS::func_ov063_02160254(void) {}
 void MapObjectUnkWLMS::func_ov063_02160548(void) {}
 void MapObjectUnkWLMS::func_ov063_02160580(void) {}
-void MapObjectUnkWLMS::func_ov063_02160688(void) {}
-void MapObjectUnkWLMS::func_ov063_021606b4(void) {}
-void MapObjectUnkWLMS::func_ov063_02160780(void) {}
-void MapObjectUnkWLMS::func_ov063_02160880(void) {}
-void MapObjectUnkWLMS::func_ov063_021608a8(void) {}
-void MapObjectUnkWLMS::func_ov063_02160918(void) {}
-void MapObjectUnkWLMS::func_ov063_02160938(void) {}
-void MapObjectUnkWLMS::func_ov063_0216095c(void) {}
+void MapObjectUnkWLMS::vfunc_60(void) {}
+void MapObjectUnkWLMS::vfunc_64(void) {}
+void MapObjectUnkWLMS::vfunc_68(void) {}
+void MapObjectUnkWLMS::vfunc_6C(void) {}
+void MapObjectUnkWLMS::vfunc_70(void) {}

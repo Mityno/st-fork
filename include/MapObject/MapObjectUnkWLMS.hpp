@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Actor/ActorUnkTLKT.hpp"
 #include "MapObject/MapObject.hpp"
 #include "MapObject/MapObjectProfile.hpp"
 #include "MapObject/MapObjectUnkSTAT.hpp"
@@ -11,7 +12,7 @@
 #include "global.h"
 #include "types.h"
 
-class UnkStruct_ov063_02163910 : public MapObject_UnkStruct1 {
+class UnkStruct_ov063_02163910 : public ActorUnkTLKT_9C_Base {
 public:
     UnkStruct_ov063_02163910(void *param1);
 
@@ -37,24 +38,20 @@ public:
 
     MapObjectUnkWLMS();
 
+    /* 00 */ virtual bool vfunc_00() override;
+    /* 14 */ virtual void vfunc_14() override;
+    /* 18 */ virtual void vfunc_18(s8 *param1, s8 param2) override;
+    /* 28 */ virtual unk32 vfunc_28(unk32 param1, unk32 param2, unk32 param3) override;
     /* 38 */ virtual void vfunc_38(void) override;
+    /* 60 */ virtual void vfunc_60(void);
+    /* 64 */ virtual void vfunc_64(void);
+    /* 68 */ virtual void vfunc_68(void);
+    /* 6C */ virtual void vfunc_6C(void);
+    /* 70 */ virtual void vfunc_70(void);
 
-    void func_ov063_0215fe74(void);
-    void func_ov063_0215fe88(void);
-    void func_ov063_0215feb0(void);
-    void func_ov063_0215fff8(void);
-    void func_ov063_02160030(void);
     void func_ov063_02160254(void);
     void func_ov063_02160548(void);
     void func_ov063_02160580(void);
-    void func_ov063_02160688(void);
-    void func_ov063_021606b4(void);
-    void func_ov063_02160780(void);
-    void func_ov063_02160880(void);
-    void func_ov063_021608a8(void);
-    void func_ov063_02160918(void);
-    void func_ov063_02160938(void);
-    void func_ov063_0216095c(void);
 };
 
 class MapObjectProfileUnkWLMS : public MapObjectProfileUnkSTAT_Base {
