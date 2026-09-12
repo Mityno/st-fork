@@ -44,14 +44,14 @@ public:
     /* 28 */ virtual unk32 vfunc_28(unk32 param1, unk32 param2, unk32 param3) override;
     /* 38 */ virtual void vfunc_38(void) override;
     /* 60 */ virtual void vfunc_60(void);
-    /* 64 */ virtual void vfunc_64(void);
+    /* 64 */ virtual void vfunc_64(unk32 param1, unk32 param2);
     /* 68 */ virtual void vfunc_68(void);
     /* 6C */ virtual void vfunc_6C(void);
     /* 70 */ virtual void vfunc_70(void);
 
     void func_ov063_02160254(void);
     void func_ov063_02160548(void);
-    void func_ov063_02160580(void);
+    void func_ov063_02160580(unk32 param1, unk32 param2);
 };
 
 class MapObjectProfileUnkWLMS : public MapObjectProfileUnkSTAT_Base {
