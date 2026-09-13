@@ -1,4 +1,5 @@
 #include "MapObject/MapObjectUnkWLMS.hpp"
+#include "Actor/ActorUnkE3GL.hpp"
 #include "Animation/CellAnimObject.hpp"
 #include "LinkList.hpp"
 #include "MapObject/MapObject.hpp"
@@ -6,6 +7,7 @@
 #include "Unknown/UnkStruct_0204a088.hpp"
 #include "Unknown/UnkStruct_0204af1c.hpp"
 #include "Unknown/UnkStruct_027e0954.hpp"
+#include "Unknown/UnkStruct_027e09b8.hpp"
 #include "Unknown/UnkStruct_027e09bc.hpp"
 #include "Unknown/UnkStruct_ov031_02118fa4.hpp"
 #include "flags.h"
@@ -123,7 +125,39 @@ void MapObjectUnkWLMS::func_ov063_02160548(void) {
     data_ov063_02164514.func_ov000_0206082c(0x2e, 1);
 }
 
-void MapObjectUnkWLMS::func_ov063_02160580(unk32 param1, unk32 param2) {}
+unk32 MapObjectUnkWLMS::func_ov063_02160580(unk32 param1, MapObjState param2) {
+    mState = param2;
+    switch (mState) {
+        case 0:
+            if (this->func_ov000_0209d29c(0)) {
+                UNSET_FLAG(mFlags, 9);
+            } else {
+                SET_FLAG(mFlags, 9);
+            }
+            break;
+        case 1: {
+            UNSET_FLAG(mFlags, 9);
+            stack_ov000_02073578 stack;
+            GET_PROFILE(ActorProfileUnkE3GL)->GetProfile();
+            break;
+        }
+        case 2:
+            break;
+        case 3:
+            ActorUnkE3GL();
+            break;
+        case 4:
+            mUnk_D0.mUnk_10.mUnk_04 = mUnk_D0.mUnk_10.mUnk_00;
+            break;
+        case 5:
+            break;
+        case 6:
+            break;
+        default:
+            break;
+    }
+    return 1;
+}
 
 unk32 MapObjectUnkWLMS::vfunc_28(unk32 param1, unk32 param2, unk32 param3) {
     if (!mState) {
