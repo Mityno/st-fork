@@ -5,8 +5,7 @@
 #include "nns/g3d/g3d.h"
 
 UnkStruct_ov094_02177ff8::UnkStruct_ov094_02177ff8() :
-    mUnk_4C(G3d_GetModelPtr(data_ov000_020b5d34.GetProfileFromId(MapObjectId_WLMP)->vfunc_04()->mUnk_50)),
-    mUnk_54(1),
+    mUnk_4C(G3d_GetModelPtr(data_ov000_020b5d34.GetProfileFromId(MapObjectId_WLMP)->vfunc_04()->mUnk_50), true),
     mUnk_58(0, NULL),
     mUnk_6C(-1) {}
 

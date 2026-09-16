@@ -8,8 +8,6 @@ public:
     /* 00 (vtable MapObject) */
     /* 40 (vtable FileSelectManager_UnkDrawBase) */
     /* 4C */ UnkSystem6_Derived2 mUnk_4C;
-    /* 54 */ unk8 mUnk_54; // strb in ctor
-    /* 55 */;
     /* 58 */ UnkSystem1_ov000_Derived1 mUnk_58;
     /* 6C */ unk32 mUnk_6C;
     /* 70 */
