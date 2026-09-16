@@ -31,7 +31,7 @@ public:
     /* 316 */ unk16 mUnk_316;
     /* 318 */ unk16 mUnk_318;
     /* 31A */ unk16 mUnk_31A;
-    /* 31C */ unk16 mUnk_31C;
+    /* 31C */ u16 mUnk_31C;
     /* 31E */ u8 mUnk_31E;
     /* 31F */ STRUCT_PAD(0x31F, 0x320);
     /* 320 */ UnkStruct_ov063_02163910 mUnk_320;

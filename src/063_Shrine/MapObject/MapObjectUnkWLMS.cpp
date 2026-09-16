@@ -6,10 +6,13 @@
 #include "MapObject/MapObject.hpp"
 #include "Player/TouchControl.hpp"
 #include "Unknown/UnkStruct_0204a088.hpp"
+#include "Unknown/UnkStruct_0204a110.hpp"
 #include "Unknown/UnkStruct_0204af1c.hpp"
 #include "Unknown/UnkStruct_027e0954.hpp"
+#include "Unknown/UnkStruct_027e09a8.hpp"
 #include "Unknown/UnkStruct_027e09b8.hpp"
 #include "Unknown/UnkStruct_027e09bc.hpp"
+#include "Unknown/UnkStruct_ov000_020b5214.hpp"
 #include "Unknown/UnkStruct_ov031_02118fa4.hpp"
 #include "flags.h"
 #include "global.h"
@@ -36,12 +39,17 @@ extern unk16 data_ov063_021638c2;
 extern UnkStruct_data_ov063_021638c8 data_ov063_021638c8;
 unk16 data_ov063_021638e8 = data_ov063_021638c8.mUnk_10;
 
-extern MapObject_10 data_ov063_021646d8;
 extern CellAnimObject data_ov063_02164514;
 extern CellAnimObject data_ov063_0216458c;
 
 // Overlay 9
 extern "C" void func_ov009_020b669c(UnkStruct_ov031_02118fa4 *param1, unk32 param2, unk32 param3);
+extern "C" void func_ov009_020b675c(UnkStruct_ov031_02118fa4 *param1, unk32 param2);
+
+// Overlay 94
+extern "C" void func_ov094_02170f7c(MapObjectUnkWLMS *, stack_ov000_02073578 *);
+extern "C" unk32 func_ov094_02170fa0();
+extern "C" void func_ov094_02170fd4(MapObjectUnkWLMS *);
 
 DECL_PROFILE(MapObjectProfileUnkWLMS);
 
@@ -92,7 +100,7 @@ MapObjectUnkWLMS::MapObjectUnkWLMS() :
     mUnk_31C(0),
     mUnk_31E(0),
     mUnk_320(this) {
-    mUnk_10         = &data_ov063_021646d8;
+    mUnk_10         = GET_PROFILE_D4(MapObjectProfileUnkWLMS);
     mUnk_D0.mUnk_1C = 0x2000;
     mUnk_316        = -1;
     mUnk_318        = -1;
@@ -115,7 +123,81 @@ bool MapObjectUnkWLMS::vfunc_00() {
     return true;
 }
 
-void MapObjectUnkWLMS::vfunc_38(void) {}
+void MapObjectUnkWLMS::vfunc_38(void) {
+    switch (mState) {
+        case 0:
+            break;
+        case 1: {
+            if (mUnk_20.mUnk_10 == 0) {
+                break;
+            }
+            bool cond = true;
+            if (data_0204a088->mUnk_04 == -1 && data_0204a088->mUnk_08 == -1) {
+                cond = false;
+            }
+            if (!cond || ((u16) data_0204a088->mUnk_128 != 1)) {
+                break;
+            }
+            func_ov009_020b675c(data_ov031_02118fa4, 1);
+            break;
+        }
+        case 2:
+            if (mUnk_20.mUnk_10 == 0) {
+                this->func_ov063_02160580(4, 0);
+            } else {
+                this->func_ov063_02160580(3, 0);
+            }
+            break;
+        case 3:
+            if ((u16) mUnk_58.mUnk_08 != 0xFFFF) {
+                mUnk_58.vfunc_04();
+                break;
+            }
+            this->func_ov063_02160580(4, 0);
+            func_ov009_020b675c(data_ov031_02118fa4, 0);
+            break;
+        case 4:
+            if (data_ov031_02118fa4) {
+                this->func_ov063_02160254();
+            }
+            if (data_0204a110.func_01ff9b50() == 6) {
+                data_0204a088->func_ov000_020611fc(2);
+                break;
+            }
+            if (data_0204a110.func_01ff9b50() != 5 || data_0204a088->mUnk_00 != 7) {
+                break;
+            }
+            this->func_ov063_02160580(6, 0);
+            break;
+        case 5:
+            if (mUnk_31C) {
+                mUnk_31C--;
+                break;
+            }
+            if ((mUnk_316 == 1 && mUnk_318 == 4) || (mUnk_316 == 4 && mUnk_318 == 1)) {
+                data_027e09a8->func_ov000_020716dc(0);
+                mUnk_31E = 1;
+            } else {
+                data_ov000_020b5214_eur.func_ov000_0206db44(0xA3);
+                mUnk_31E = 0;
+            }
+            this->func_ov063_02160580(6, 0);
+            break;
+        case 6:
+            if (!func_ov094_02170fa0()) {
+                break;
+            }
+            this->func_ov063_02160580(7, 0);
+            break;
+        case 7:
+            break;
+        default:
+            break;
+    }
+
+    data_ov063_02164514.func_ov000_020609c4();
+    data_ov063_0216458c.func_ov000_020609c4();
+}
 
 void MapObjectUnkWLMS::func_ov063_02160254(void) {}
 
@@ -127,33 +209,41 @@ void MapObjectUnkWLMS::func_ov063_02160548(void) {
 }
 
 unk32 MapObjectUnkWLMS::func_ov063_02160580(unk32 param1, MapObjState param2) {
-    mState = param2;
+    mState = param1;
     switch (mState) {
         case 0:
-            if (this->func_ov000_0209d29c(0)) {
-                UNSET_FLAG(mFlags, 9);
-            } else {
+            if (!this->func_ov000_0209d29c(0)) {
                 SET_FLAG(mFlags, 9);
+            } else {
+                UNSET_FLAG(mFlags, 9);
             }
             break;
         case 1: {
             UNSET_FLAG(mFlags, 9);
             stack_ov000_02073578 stack;
-            GET_PROFILE(ActorProfileUnkE3GL)->GetProfile();
+            stack.unk_08 = 0x7;
+            stack.unk_04 = (unk32) (uintptr_t) &mUnk_320;
+            func_ov094_02170f7c(this, &stack);
             break;
         }
         case 2:
             break;
         case 3:
-            ActorUnkE3GL();
+            func_ov094_02170fd4(this);
             break;
         case 4:
             mUnk_D0.mUnk_10.mUnk_04 = mUnk_D0.mUnk_10.mUnk_00;
             break;
         case 5:
+            func_ov009_020b669c(data_ov031_02118fa4, 0, 0);
+            mUnk_31C = 0x2D;
             break;
         case 6:
+            mUnk_316 = -1;
+            mUnk_318 = -1;
+            mUnk_31A = -1;
             break;
+        case 7:
         default:
             break;
     }
@@ -196,7 +286,7 @@ void MapObjectUnkWLMS::vfunc_18(s8 *param1, s8 param2) {
     }
 
     unk16 *start = &mUnk_316;
-    if (start < &mUnk_31C) {
+    if (start < (unk16 *) &mUnk_31C) {
         unk16 *ptr = start;
         do {
             unk16 val = *ptr;
@@ -212,7 +302,7 @@ void MapObjectUnkWLMS::vfunc_18(s8 *param1, s8 param2) {
                 }
             }
             ptr++;
-        } while (ptr < &mUnk_31C);
+        } while (ptr < (unk16 *) &mUnk_31C);
     }
 }
 
