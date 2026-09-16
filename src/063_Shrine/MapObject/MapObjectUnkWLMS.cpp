@@ -1,6 +1,7 @@
 #include "MapObject/MapObjectUnkWLMS.hpp"
 #include "Actor/ActorUnkE3GL.hpp"
 #include "Animation/CellAnimObject.hpp"
+#include "FileSelect/FileSelectUnkDraw.hpp"
 #include "LinkList.hpp"
 #include "MapObject/MapObject.hpp"
 #include "Player/TouchControl.hpp"
@@ -77,7 +78,7 @@ void UnkStruct_ov063_02163910::vfunc2_00() {
         ptr = &((UnkStruct_ov063_02163910_04 *) mUnk_04p)->mUnk_40;
     }
 
-    data_0204a088->func_ov000_020611dc(ptr, 7);
+    data_0204a088->func_ov000_020611dc((FileSelectManager_UnkDrawBase *) ptr, 7);
 }
 
 void UnkStruct_ov063_02163910::vfunc2_04() {
@@ -227,7 +228,7 @@ void MapObjectUnkWLMS::vfunc_64(unk32 param1, unk32 param2) {
     if (mState == 1 && param2 == 1) {
         UnkStruct_data_ov063_021638c8 stackVar = data_ov063_021638c8;
         stackVar.mUnk_06                       = mAngle;
-        data_027e09bc->mUnk_0C->func_ov000_0207834c(&mPos, &stackVar, 0);
+        data_027e09bc->mUnk_04[2]->func_ov000_0207834c(&mPos, &stackVar, 0);
     }
 }
 
@@ -245,7 +246,7 @@ void MapObjectUnkWLMS::vfunc_6C(unk32 param1) {
 
 void MapObjectUnkWLMS::vfunc_70(unk32 param1, unk32 param2) {
     if (param1 == 1 && mState == 7 && param2 == 1) {
-        data_027e09bc->mUnk_0C->func_ov000_02078230(0);
+        data_027e09bc->mUnk_04[2]->func_ov000_02078230(0);
 
         if (mUnk_31E != 0) {
             this->func_ov000_0209d2c4(0, true);
