@@ -10,9 +10,6 @@
 // Overlay 31
 extern "C" void func_ov031_020e0f30(ActorRef);
 
-// Overlay 63
-extern MapObject_10 data_ov063_021648e4;
-
 DECL_PROFILE(MapObjectProfileUnkMTJR);
 
 MapObject *MapObjectProfileUnkMTJR::Create() {
@@ -44,7 +41,7 @@ bool MapObjectUnkMTJR::vfunc_00() {
     if (this->func_ov000_0209d29c(0)) {
         mPos.x += FLOAT_TO_FX32(.5f);
         mPos.z += FLOAT_TO_FX32(.5f);
-        mUnk_10 = &data_ov063_021648e4;
+        mUnk_10 = GET_PROFILE_D4(MapObjectProfileUnkMTJR);
         mUnk_AC = 0x86F;
         mUnk_B0 = 4;
         mUnk_A8.func_ov000_020a0334();
