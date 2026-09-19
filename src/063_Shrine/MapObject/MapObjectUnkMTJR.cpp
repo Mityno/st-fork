@@ -1,5 +1,9 @@
 #include "MapObject/MapObjectUnkMTJR.hpp"
+#include "System/Random.hpp"
+#include "Unknown/UnkStruct_027e09a8.hpp"
+#include "Unknown/UnkStruct_027e0cec.hpp"
 #include "flags.h"
+#include "nitro/fx.h"
 #include "nitro/math.h"
 #include "profile.hpp"
 
@@ -50,7 +54,18 @@ bool MapObjectUnkMTJR::vfunc_00() {
     return false;
 }
 
-void MapObjectUnkMTJR::vfunc_08() {}
+void MapObjectUnkMTJR::vfunc_08() {
+    if (mUnk_A0 == 0) {
+        fx32 tmp_x        = mPos.x - FLOAT_TO_FX32(1.f) + (fx32) gRandom.Next32(0);
+        fx32 tmp_y        = mPos.y + (fx32) gRandom.Next32(0x1801);
+        fx32 tmp_z        = mPos.z - FLOAT_TO_FX32(1.f) + (fx32) gRandom.Next32(0);
+        VecFx32 stack_vec = {tmp_x, tmp_y, tmp_z};
+        data_027e0cec->func_ov000_020a0220(&mUnk_A8, &stack_vec);
+    }
+    if (mUnk_A4 < mUnk_A6) {
+        mUnk_A4++;
+    }
+}
 
 void MapObjectUnkMTJR::vfunc_0C() {
     this->vfunc_08();
@@ -98,7 +113,17 @@ void MapObjectUnkMTJR::func_ov063_02161254(unk32 param1) {
     }
 }
 
-void MapObjectUnkMTJR::func_ov063_02161288(void) {}
+void MapObjectUnkMTJR::func_ov063_02161288(void) {
+    data_027e09a8->func_ov000_02071b30(0xFC, &mPos, 0);
+    data_027e09a8->func_ov000_02071eac(&mPos);
+    VecFx32 vec = mPos;
+    data_027e0cec->func_ov000_0209feac(0xCC17, &vec, 4, 0, 0);
+    data_027e0cec->func_ov000_0209feac(0xCC18, &vec, 4, 0, 0);
+    data_027e0cec->func_ov000_0209feac(0xCC19, &vec, 4, 0, 0);
+    data_027e0cec->func_ov000_0209feac(0xCC1A, &vec, 4, 0, 0);
+    this->func_ov000_0209d2c4(1, true);
+    UNSET_FLAG(mFlags, 0);
+}
 
 void MapObjectUnkMTJR::vfunc_14() {
     this->func_ov000_0209d518(&mPos, 0xD9A, 0xD9A, 0x1F);
