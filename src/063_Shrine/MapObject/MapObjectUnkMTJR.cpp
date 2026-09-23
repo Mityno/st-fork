@@ -38,17 +38,18 @@ MapObjectUnkMTJR::MapObjectUnkMTJR() :
     mUnk_B0(0) {}
 
 bool MapObjectUnkMTJR::vfunc_00() {
-    if (this->func_ov000_0209d29c(0)) {
-        mPos.x += FLOAT_TO_FX32(.5f);
-        mPos.z += FLOAT_TO_FX32(.5f);
-        mUnk_10 = GET_PROFILE_D4(MapObjectProfileUnkMTJR);
-        mUnk_AC = 0x86F;
-        mUnk_B0 = 4;
-        mUnk_A8.func_ov000_020a0334();
-        this->func_ov063_02161254(0);
-        return true;
+    if (!this->func_ov000_0209d29c(0)) {
+        return false;
     }
-    return false;
+
+    mPos.x += FLOAT_TO_FX32(.5f);
+    mPos.z += FLOAT_TO_FX32(.5f);
+    mUnk_10 = GET_PROFILE_D4(MapObjectProfileUnkMTJR);
+    mUnk_AC = 0x86F;
+    mUnk_B0 = 4;
+    mUnk_A8.func_ov000_020a0334();
+    this->func_ov063_02161254(0);
+    return true;
 }
 
 void MapObjectUnkMTJR::vfunc_08() {
