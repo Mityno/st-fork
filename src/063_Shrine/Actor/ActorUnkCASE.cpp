@@ -139,7 +139,7 @@ void ActorUnkCASE::func_ov063_0215acec(ActorRef *ref1, ActorRef ref2) {
 }
 
 ActorUnkCASE::ActorUnkCASE() :
-    mUnk_0B0(G3d_GetModelPtr(((MapObjectProfile_Derived2_20 *) GET_PROFILE(ActorProfileUnkCASE)->vfunc_04())->mUnk_50)),
+    mUnk_0B0(G3d_GetModelPtr(GET_PROFILE(ActorProfileUnkCASE)->vfunc_04()->mUnk_50)),
     mUnk_120(0),
     mUnk_124(this),
     mUnk_14C(NULL),
