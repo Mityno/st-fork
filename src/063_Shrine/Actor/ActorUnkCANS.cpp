@@ -155,6 +155,7 @@ unk32 UnkStruct_ov063_02162e88::vfunc_04(ActorRef param1, unk32 param2, unk32 pa
     return ret1;
 }
 
+// non-matching
 ActorUnkCANS::ActorUnkCANS() :
     mUnk_0B0(G3d_GetModelPtr(GET_PROFILE(ActorProfileUnkCANS)->vfunc_04()->mUnk_50)),
     mUnk_128(&mUnk_0B0, GET_PROFILE(ActorProfileUnkCANS)->vfunc_04()),
@@ -243,6 +244,7 @@ void ActorUnkCANS::vfunc_24(void) {
     }
 }
 
+// non-matching
 void ActorUnkCANS::vfunc_20(void) {
     if (mUnk_238 < mUnk_23A) {
         mUnk_238++;
@@ -473,6 +475,7 @@ void ActorUnkCANS::func_ov063_02158b34(void) {
     mUnk_128.vfunc_1C(data_ov063_02163068, 0x1000, 0x19A, 0);
 }
 
+// non-matching
 void ActorUnkCANS::func_ov063_02158b98(void) {
     if (mUnk_128.vfunc_28()->func_02015080(0x1000) || mUnk_128.vfunc_28()->func_02015080(0x11000) ||
         mUnk_128.vfunc_28()->func_02015080(0x21000)) {
@@ -509,6 +512,7 @@ void ActorUnkCANS::func_ov063_02158d40(void) {
     mUnk_238 = 0;
 }
 
+// non-matching
 void ActorUnkCANS::func_ov063_02158db0(void) {
     if (mUnk_128.vfunc_28()->func_02015080(0x1000) || mUnk_128.vfunc_28()->func_02015080(0xD000) ||
         mUnk_128.vfunc_28()->func_02015080(0x19000) || mUnk_128.vfunc_28()->func_02015080(0x25000)) {
@@ -762,6 +766,7 @@ void ActorUnkCANS::func_ov063_021598fc(void) {
     mUnk_276 = gRandom.Next32(0) & 0x80000000 ? 1 : -1;
 }
 
+// non-matching
 void ActorUnkCANS::func_ov063_021599e4(void) {
     if (mUnk_128.vfunc_28()->func_02015080(0x1000) || mUnk_128.vfunc_28()->func_02015080(0xA000) ||
         mUnk_128.vfunc_28()->func_02015080(0x13000) || mUnk_128.vfunc_28()->func_02015080(0x1C000)) {
@@ -873,6 +878,7 @@ void ActorUnkCANS::func_ov063_02159e20(void) {
     mUnk_38->mUnk_08 = 3;
 }
 
+// non-matching
 void ActorUnkCANS::func_ov063_02159ec0(void) {
     this->vfunc_44();
 
@@ -893,6 +899,7 @@ void ActorUnkCANS::func_ov063_02159ec0(void) {
     *(s16 *) &mUnk_44 |= 0x20;
 }
 
+// non-matching
 // return bool ?
 unk32 ActorUnkCANS::func_ov063_02159f3c(unk32 param1) {
     s16 var;
@@ -935,6 +942,7 @@ unk32 ActorUnkCANS::func_ov063_02159f3c(unk32 param1) {
     return func_01ff9a5c(data_027e0ce0->func_01fff148(0), &vec1, &vec2) < param1;
 }
 
+// non-matching
 // return bool ?
 unk32 ActorUnkCANS::func_ov063_0215a0f0(void) {
     s16 var1;
@@ -982,6 +990,7 @@ unk32 ActorUnkCANS::func_ov063_0215a0f0(void) {
     return func_01ff9a5c(data_027e0ce0->func_01fff148(0), &mPos, &vec) < 0x4CD;
 }
 
+// non-matching
 unk32 ActorUnkCANS::func_ov063_0215a2c0(void) {
     s16 var1;
     func_ov000_020986b4((s16 *) &var1, this, 0);
@@ -1088,6 +1097,7 @@ unk32 ActorUnkCANS::func_ov063_0215a56c(unk32 param1) {
     return DEG_TO_ANG(90) <= ABS((s16) (param1 - mAngle));
 }
 
+// non-matching
 void ActorUnkCANS::func_ov063_0215a5a0(VecFx32 *param1) {
     // Does not match instruction order
     VecFx32 vec;
@@ -1113,6 +1123,7 @@ unk32 ActorUnkCANS::func_ov063_0215a5d8(void) {
     return data_ov000_020aecfc[0];
 }
 
+// non-matching
 void ActorUnkCANS::vfunc_10(Cylinder *param1) {
     Cylinder *cylinder = this->mUnk_34;
     *param1            = *cylinder;
@@ -1127,6 +1138,7 @@ void ActorUnkCANS::vfunc_10(Cylinder *param1) {
     }
 }
 
+// non-matching
 void ActorUnkCANS::func_ov063_0215a678(ActorUnkCANS *actor, UnkStruct_func_ov063_0215a678 *param2) {
     ModelRender *modelRender = param2->mUnk_04;
     u8 var1;
@@ -1204,6 +1216,7 @@ UnkStruct_ov063_02162ea8::UnkStruct_ov063_02162ea8() {
 
 UnkStruct_ov063_02162ea8::~UnkStruct_ov063_02162ea8() {}
 
+// non-matching
 bool UnkStruct_ov063_02162ea8::vfunc_08(const UnkStruct_ov031_020f3310 *param1) {
     bool retVal = UnkStruct_ov031_Items_00::vfunc_08(param1);
     if (retVal && func_01ff9258(param1->mUnk_08.x, param1->mUnk_08.z) > 0) {
@@ -1219,6 +1232,7 @@ bool UnkStruct_ov063_02162ea8::vfunc_08(const UnkStruct_ov031_020f3310 *param1) 
     return retVal;
 }
 
+// non-matching
 bool UnkStruct_ov063_02162ea8::vfunc_0C(const UnkStruct_ov031_020e54d4 *param1, unk32 *param2, unk32 param3) {
     UnkStruct_02162ea8_vfunc_0C *param2Struct = (UnkStruct_02162ea8_vfunc_0C *) param2;
     if ((*(u16 *) &param2Struct->mUnk_04 & 0x1000) != 0) {

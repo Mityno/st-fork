@@ -42,6 +42,7 @@ MapObject *MapObjectProfileUnkSTAT::Create() {
     return new(HeapIndex_ITCM) MapObjectUnkSTAT();
 }
 
+// non-matching
 MapObjectProfileUnkSTAT::MapObjectProfileUnkSTAT() :
     MapObjectProfileUnkSTAT_Base(MapObjectId_STAT, MapObjectId_STAT) {
     mUnk_D4.mUnk_08 = 0x7007;
@@ -67,6 +68,7 @@ MapObjectUnkSTAT::MapObjectUnkSTAT() :
     mUnk_10 = GET_PROFILE_D4(MapObjectProfileUnkSTAT);
 }
 
+// non-matching
 bool MapObjectUnkSTAT::vfunc_00(void) {
     unk32 val;
     switch (mUnk_20.mParams[0]) {
@@ -121,6 +123,7 @@ void MapObjectUnkSTAT::vfunc_14(void) {
     mUnk_40.func_01ffc6d4(mAngleStruct, &vec);
 }
 
+// non-matching
 void MapObjectUnkSTAT::func_ov063_0215f7ac(void) {
     if (!this->func_ov000_0209d29c(0) || this->func_ov000_0209d29c(1)) {
         return;

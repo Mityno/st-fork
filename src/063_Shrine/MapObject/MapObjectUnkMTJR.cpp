@@ -16,6 +16,7 @@ MapObject *MapObjectProfileUnkMTJR::Create() {
     return new(HeapIndex_ITCM) MapObjectUnkMTJR();
 }
 
+// non-matching
 MapObjectProfileUnkMTJR::MapObjectProfileUnkMTJR() :
     MapObjectProfileUnkSTAT_Base(MapObjectId_MTJR, MapObjectId_MTJR) {
     mUnk_D4.mUnk_08 = 0x7009;
@@ -52,6 +53,7 @@ bool MapObjectUnkMTJR::vfunc_00() {
     return true;
 }
 
+// non-matching
 void MapObjectUnkMTJR::vfunc_08() {
     if (mUnk_A0 == 0) {
         fx32 tmp_x        = mPos.x - FLOAT_TO_FX32(1.f) + (fx32) gRandom.Next32(0);

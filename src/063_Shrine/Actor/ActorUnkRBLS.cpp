@@ -17,6 +17,7 @@ Actor *ActorProfileUnkRBLS::Create() {
 ActorProfileUnkRBLS::ActorProfileUnkRBLS() :
     ActorProfile_Derived1(ActorId_RBLS) {}
 
+// non-matching
 ActorUnkRBLS::ActorUnkRBLS() :
     mUnk_94(G3d_GetModelPtr(GET_PROFILE(ActorProfileUnkRBLS)->mUnk_3C.mUnk_50)),
     mUnk_F4(&mUnk_94, GET_PROFILE(ActorProfileUnkRBLS)->vfunc_04()) {}
