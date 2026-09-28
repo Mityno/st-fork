@@ -72,7 +72,6 @@ void MapObjectUnkMTJR::vfunc_0C() {
 }
 
 bool MapObjectUnkMTJR::vfunc_1C(ActorRef param1, unk32 param2, VecFx32 *param3) {
-    // cases (0, 1, 7, 8) and (10, 11) have the same code, but the duplication is needed to match the asm
     switch (param2) {
         case 13:
             this->func_ov063_02161254(1);
