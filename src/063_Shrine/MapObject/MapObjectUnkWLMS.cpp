@@ -78,6 +78,7 @@ MapObject *MapObjectProfileUnkWLMS::Create() {
     return new(HeapIndex_ITCM) MapObjectUnkWLMS();
 }
 
+// non-matching (also dtor is non-matching)
 MapObjectProfileUnkWLMS::MapObjectProfileUnkWLMS() :
     MapObjectProfileUnkSTAT_Base(MapObjectId_WLMS, MapObjectId_WLMS) {
     mUnk_D4.mUnk_08 = 0x2bc07006;
@@ -220,6 +221,7 @@ void MapObjectUnkWLMS::vfunc_38(void) {
     data_ov063_0216458c.func_ov000_020609c4();
 }
 
+// non-matching
 void MapObjectUnkWLMS::func_ov063_02160254(void) {
     mUnk_2F4.func_02014478(&data_ov031_02118fa4->mUnk_00.mUnk_16C, 2);
     if (GET_FLAG2(mUnk_2F4.mFlags, TouchFlag_TouchedNow) && mUnk_318 < 0) {
@@ -354,6 +356,7 @@ void MapObjectUnkWLMS::vfunc_14() {
     }
 }
 
+// non-matching
 void MapObjectUnkWLMS::vfunc_18(s8 *param1, s8 param2) {
     if (param1[0] != 0 && param1[1] != 0) {
         return;
