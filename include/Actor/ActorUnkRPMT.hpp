@@ -11,7 +11,7 @@ class ActorUnkRPMT_C4 : public Actor_C4 {
 public:
     ActorUnkRPMT_C4(Actor *param1);
 
-    /* 00 */ virtual bool vfunc_00(ActorRef ref, unk32 param2) override;
+    /* 00 */ virtual bool vfunc_00(RefStruct ref, unk32 param2) override;
     /* 04 */ virtual bool vfunc_04() override;
     /* 08 */ virtual void vfunc_08() override;
     /* 0C */ virtual void vfunc_0C(unk32 param1) override;
@@ -26,8 +26,8 @@ enum ActorUnkRPMTState_ {
 class ActorUnkRPMT : public Actor {
 public:
     /* 00 (base) */
-    /* 94 */ STRUCT_PAD(0x94, 0xA4);
-    /* A4 */ bool mUnk_A4;
+    /* 94 */ PAD(0x94, 0xA4);
+    /* A4 */ u8 mUnk_A4;
     /* A5 */
 
     ActorUnkRPMT();

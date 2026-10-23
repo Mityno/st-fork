@@ -1,6 +1,5 @@
 #include "Actor/ActorUnkRMSW.hpp"
 #include "Actor/ActorId.hpp"
-#include "Actor/Actor_Derived1.hpp"
 #include "nns/g3d/g3d.h"
 #include "profile.hpp"
 #include "types.h"
@@ -22,18 +21,18 @@ ActorProfileUnkRMSW::ActorProfileUnkRMSW() :
 ActorUnkRMSW::ActorUnkRMSW() :
     mUnk_158(&mUnk_94, GET_PROFILE(ActorProfileUnkRMSW)->vfunc_04()) {}
 
-bool ActorUnkRMSW::vfunc_18(unk32 param1) {
-    bool res = ActorUnkRMSBase::vfunc_18(param1);
+bool ActorUnkRMSW::Init(unk32 param1) {
+    bool res = ActorUnkRMSBase::Init(param1);
     this->mUnk_158.func_ov000_02099ff8(data_ov063_02163388, 0x1000);
     return res;
 }
 
-void ActorUnkRMSW::vfunc_20(void) {
-    (*(Actor *) &this->mUnk_158).vfunc_34(); // Not an Actor
+void ActorUnkRMSW::Update(void) {
+    this->mUnk_158.vfunc_34();
 }
 
 void ActorUnkRMSW::vfunc_24(void) {
-    this->vfunc_20();
+    this->Update();
 }
 
 G3d_Model *ActorUnkRMSW::vfunc_54(void) {

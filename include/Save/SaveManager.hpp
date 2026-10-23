@@ -13,6 +13,7 @@
 #include <nitro/mi.h>
 
 #define SAVE_DATA_SIZE (sizeof(SaveSlot) + sizeof(u8) * NUM_UNK_BLOCKS * SIZE_UNK_BLOCK)
+#define SAVE_FILE_OFFSET(slot) FILE_BUFFER_OFFSETOF(slot *SAVE_DATA_SIZE)
 
 enum {
     SaveDataIndex_SaveInfo,
@@ -39,7 +40,7 @@ struct SaveManager_00 {
 
 class SaveManager_244 {
 public:
-    /* 00 */ STRUCT_PAD(0x00, 0x7E);
+    /* 00 */ PAD(0x00, 0x7E);
     /* 7E */ u16 mUnk_7E;
     /* 80 */
 
@@ -50,7 +51,7 @@ class SaveManager {
 public:
     /* 000 */ SaveManager_00 *mUnk_000; // related to mUnk_184, allocated from func_ov001_020ba670
     /* 004 */ unk32 mUnk_004;
-    /* 008 */ STRUCT_PAD(0x08, 0x204);
+    /* 008 */ PAD(0x08, 0x204);
     /* 204 */ u16 mCardId;
     /* 206 */ s16 mUnk_206; // this is a save slot index?
     /* 208 */ unk16 mUnk_208;
@@ -66,7 +67,7 @@ public:
     /* 248 */
 
     const size_t GetOffset() const {
-        return mUnk_206 * 0x7A700;
+        return SAVE_FILE_OFFSET(this->mUnk_206);
     }
 
     bool IsUnk20A() {
@@ -92,7 +93,8 @@ public:
     SaveManager();
 
     // overlay 0
-    void func_ov000_020a0b2c(UnkCallback param1, unk32 param2);
+    void func_ov000_020a0b2c(UnkCallback param1, GameSaveSlot *param2);
+    void func_ov000_020a0b58();
     bool func_ov000_020a0b70(void *param1, unk32 param2);
 
     // overlay 1
@@ -101,7 +103,12 @@ public:
     void func_ov001_020ba7c8(u16 saveSlotIndex);
 
     // overlay 17
-    void func_ov017_020c3040(void *param1, unk32 param2);
+    void func_ov017_020c2c08(GameSaveSlot *param1);
+    bool func_ov017_020c2f88(GameSaveSlot *param1);
+    bool func_ov017_020c3040(GameSaveSlot *param1, unk32 param2);
+
+    static void func_ov017_020c2b68(u16 param1);
+    static void func_ov017_020c2fc4(u16 param1);
 
     // overlay 19
     void func_ov019_020d08fc(unk32 param1, PTMF<SaveFile>::PTMFCallback param2);

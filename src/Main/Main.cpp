@@ -1,3 +1,4 @@
+#include "CommonFuncs.hpp"
 #include "Game/Game.hpp"
 #include "global.h"
 #include "types.h"
@@ -89,7 +90,7 @@ extern "C" void Entry(void) {
 }
 
 // non-matching
-void *func_0200093c(unk32 param1, u32 *param2, unk32 param3) {
+void *func_0200093c(unk32 param1, uint *param2, unk32 param3) {
     u32 *p = param2 + param3;
 
     while (param2 < p) {

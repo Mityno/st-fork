@@ -7,6 +7,9 @@
 
 typedef u32 ItemFlag;
 
+#define EXTERN_OVERLAY_ID(name_or_index) extern u32 OVERLAY_##name_or_index##_ID;
+#define OVERLAY_ID(name_or_index) ((u32) & OVERLAY_##name_or_index##_ID)
+
 EXTERN_OVERLAY_ID(0);
 EXTERN_OVERLAY_ID(1);
 EXTERN_OVERLAY_ID(2);
@@ -388,6 +391,8 @@ public:
     /* 48 */
 
     // clang-format off
+    const bool IsRabbitCapture() const { return this->mLoadedOverlays[OverlaySlot_1] == OverlayIndex_RabbitCapture; }
+
     const bool IsField() const { return this->mLoadedOverlays[OverlaySlot_7] == OverlayIndex_Field; }
 
     const bool IsTower() const { return this->mLoadedOverlays[OverlaySlot_8] == OverlayIndex_Tower; }

@@ -1,3 +1,4 @@
+#include "CommonFuncs.hpp"
 #include "MainGame/AdventureMode.hpp"
 #include "Unknown/Common.hpp"
 #include "Unknown/UnkFileSystem.hpp"
@@ -7,10 +8,6 @@
 
 #include <nitro/mi.h>
 #include <printf.h>
-
-extern "C" unk32 func_02032784(unk32 param1);
-extern "C" unk32 func_ov000_0205c7ac(unk32, unk32);
-extern "C" bool func_ov000_0205c74c(unk32, unk32, unk32, unk32);
 
 static const u8 data_ov024_020d756c[] = {0x01, 0x04, 0x10, 0x40};
 
@@ -79,8 +76,8 @@ void UnkDataStruct4::func_ov024_020d258c(u32 sceneIndex, u8 roomIndex) {
 
 void UnkDataStruct4::func_ov024_020d26b0(unk32 param1) {
     fx32 pos1 = INT_TO_FX32(param1);
-    fx32 pos3 = MUL_FX32(pos1 >> 1, INT_TO_FX32(this->mUnk_06));
-    fx32 pos2 = MUL_FX32(pos1 >> 1, INT_TO_FX32(this->mUnk_04));
+    fx32 pos3 = FX_MUL(pos1 >> 1, INT_TO_FX32(this->mUnk_06));
+    fx32 pos2 = FX_MUL(pos1 >> 1, INT_TO_FX32(this->mUnk_04));
 
     this->mUnk_08 = pos1;
     this->mUnk_0C = pos2;

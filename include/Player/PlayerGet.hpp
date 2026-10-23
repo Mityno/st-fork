@@ -124,14 +124,14 @@ public:
 class UnkStruct_PlayerGet_48 {
 public:
     /* 00 */ unk32 mUnk_00;
-    /* 04 */ STRUCT_PAD(0x04, 0x40);
+    /* 04 */ PAD(0x04, 0x40);
     /* 40 */ unk16 mUnk_40;
     /* 42 */ unk16 mUnk_42;
     /* 44 */ unk8 mUnk_44;
     /* 45 */ unk8 mUnk_45;
     /* 46 */ unk8 mUnk_46;
     /* 47 */ unk8 mUnk_47;
-    /* 48 */ STRUCT_PAD(0x48, 0x5E);
+    /* 48 */ PAD(0x48, 0x5E);
     /* 5E */ unk16 mUnk_5E;
     /* 60 */ unk8 mUnk_60;
     /* 61 */ unk8 mUnk_61;
@@ -149,10 +149,7 @@ public:
     /* 064 */ UnkStruct_PlayerGet_64_2 mUnk_64;
     /* 068 */ unk32 mUnk_68;
     /* 06C */ unk32 mUnk_6C; // scale
-    /* 070 */ union {
-        unk16 mAngle;
-        UnkAngleStruct mUnkAngleStruct;
-    }; // angle/rotation
+    /* 070 */ UnkAngleStruct mAngle;
     /* 070 */ u8 mUnk_72; // probably bools
     /* 070 */ u8 mUnk_73; // probably bools
     /* 074 */ UnkStruct_PlayerGet_74 mUnk_74;

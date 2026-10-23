@@ -20,7 +20,7 @@ class ActorHeart_C4 : public Actor_C4 {
 public:
     ActorHeart_C4(Actor *param1);
 
-    /* 00 */ virtual bool vfunc_00(ActorRef ref, unk32 param2) override;
+    /* 00 */ virtual bool vfunc_00(RefStruct ref, unk32 param2) override;
     /* 04 */ virtual bool vfunc_04() override;
     /* 08 */ virtual void vfunc_08() override;
     /* 0C */ virtual void vfunc_0C(VecFx32 *param1) override;
@@ -29,23 +29,22 @@ public:
 class ActorHeart : public Actor {
 public:
     /* 00 (base) */
-    /* 94 */ u16 mUnk_94;
-    /* 96 */ u16 mUnk_96;
+    /* 94 */ Timer mUnk_94;
     /* 98 */ Actor_9C mUnk_98;
     /* B8 */ s16 mUnk_B8;
     /* BA */ unk16 mUnk_BA;
     /* BC */ unk16 mUnk_BC;
-    /* BE */ s8 mUnk_BE;
-    /* BF */ STRUCT_PAD(0xBF, 0xC0);
-    /* C0 */ ActorRef mUnk_C0;
-    /* C4 */ ActorRef mUnk_C4;
+    /* BE */ bool mUnk_BE;
+    /* BF */ PAD(0xBF, 0xC0);
+    /* C0 */ RefStruct mUnk_C0;
+    /* C4 */ RefStruct mUnk_C4;
     /* C8 */ ActorHeart_C4 mUnk_C8;
     /* EC */ VecFx32 mUnk_EC;
 
     ActorHeart();
 
-    /* 18 */ virtual bool vfunc_18(unk32 param1) override;
-    /* 20 */ virtual void vfunc_20() override;
+    /* 18 */ virtual bool Init(unk32 param1) override;
+    /* 20 */ virtual void Update() override;
     /* 2C */ virtual void vfunc_2C(unk32 param1) override;
     /* 4C */ virtual ~ActorHeart() override {};
 
@@ -57,7 +56,7 @@ public:
     void func_ov031_020ef570();
     void func_ov031_020ef698();
 
-    static void func_ov031_020eed64(ActorRef *pOutRef, const VecFx32 *pPos, u32 params, ActorRef ref);
+    static void func_ov031_020eed64(RefStruct *pOutRef, const VecFx32 *pPos, u32 params, RefStruct ref);
 
     // data_ov031_02113d74
     void func_ov031_020ef2f8();

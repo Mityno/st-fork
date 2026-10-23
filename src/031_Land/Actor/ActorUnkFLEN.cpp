@@ -1,8 +1,11 @@
 #include "Actor/ActorUnkFLEN.hpp"
+#include "Actor/ActorId.hpp"
+#include "CommonFuncs.hpp"
 #include "System/SysNew.hpp"
 
-extern "C" u16 data_ov031_02110b90[];
-extern "C" ActorId data_ov031_02110b94[];
+static const u16 data_ov031_02110b90[] = {0x02, 0x00};
+
+static const ActorId data_ov031_02110b94[] = {ActorId_ChuChu};
 
 DECL_PROFILE(ActorProfileUnkFLEN);
 
@@ -12,16 +15,18 @@ Actor *ActorProfileUnkFLEN::Create() {
 
 ActorProfileUnkFLEN::ActorProfileUnkFLEN() :
     ActorProfile(ActorId_FLEN) {
-    this->mUnk_04.Init(FLOAT_TO_FX32(0.0f));
+    this->mUnk_04.Init(FX_F32_TO_FX32(0.0f));
 }
 
 ActorUnkFLEN::ActorUnkFLEN() :
     mUnk_94(0) {}
 
-bool ActorUnkFLEN::vfunc_18(int param1) {
+bool ActorUnkFLEN::Init(int param1) {
+#pragma unused(param1)
+
     this->mUnk_94 = this->mUnk_5C.mParams[1];
 
-    if (this->mUnk_5C.mParams[1] >= (s16) 0x2) {
+    if (this->mUnk_94 >= 0x02) {
         this->mUnk_94 = 0;
     }
 
@@ -33,8 +38,8 @@ bool ActorUnkFLEN::vfunc_18(int param1) {
     return true;
 }
 
-void ActorUnkFLEN::vfunc_20() {
-    this->IsTimerOut();
+void ActorUnkFLEN::Update() {
+    this->mTimer.Update();
 
     switch (this->mState) {
         case ActorUnkFLENState_0:
@@ -78,20 +83,20 @@ void ActorUnkFLEN::SetState(ActorState state) {
 
 bool ActorUnkFLEN::func_ov031_020f81f8() {
     ActorParams actorParams;
-    ActorRef actorRef;
+    RefStruct actorRef;
 
     actorParams.mUnk_28 = 0;
     actorParams.func_ov000_020975f8();
     actorParams.mUnk_28       = this->mRef;
-    actorParams.mInitialAngle = this->mAngle;
+    actorParams.mInitialAngle = this->mAngle.angle_s;
 
     VecFx32_Copy(&this->mPos, &actorParams.mInitialPos);
-    actorParams.mInitialPos.y += FLOAT_TO_FX32(5.0f);
+    actorParams.mInitialPos.y += FX_F32_TO_FX32(5.0f);
 
     u16 index              = this->mUnk_5C.mParams[0];
     actorParams.mParams[0] = data_ov031_02110b90[index];
 
     Actor::func_ov000_020973f4(&actorRef, &data_ov000_020b539c_eur, data_ov031_02110b94[index], &actorParams, 0x0);
 
-    return actorRef.type_index != 0;
+    return actorRef.common.unk_00 != 0;
 }

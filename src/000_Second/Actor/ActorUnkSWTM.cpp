@@ -28,11 +28,12 @@ ActorUnkSWTM::~ActorUnkSWTM() {
     }
 }
 
-// https://decomp.me/scratch/qkP8m
-bool ActorUnkSWTM::vfunc_18(unk32 param1) {
-    this->mUnk_9E = this->mUnk_5C.mUnk_1A[1];
+bool ActorUnkSWTM::Init(unk32 param1) {
+#pragma unused(param1)
+
     this->mUnk_98 = this->mUnk_5C.mParams[2];
     this->mUnk_A4 = this->mUnk_5C.mParams[1] * 30;
+    this->mUnk_9E = this->mUnk_5C.mUnk_1A[1];
     this->mUnk_A0 = this->mUnk_9E + this->mUnk_5C.mParams[0];
     this->mUnk_A2 = this->mUnk_5C.mUnk_18[1];
     this->mUnk_9C = this->mUnk_9E;
@@ -46,7 +47,7 @@ bool ActorUnkSWTM::vfunc_18(unk32 param1) {
     return true;
 }
 
-void ActorUnkSWTM::vfunc_20(void) {
+void ActorUnkSWTM::Update(void) {
     switch (this->mState) {
         case ActorUnkSWTMState_0:
             if (!this->func_ov000_0209afe4()) {
@@ -77,11 +78,9 @@ void ActorUnkSWTM::vfunc_20(void) {
         case ActorUnkSWTMState_2:
             break;
         case ActorUnkSWTMState_3:
-            if (this->mUnk_50 < this->mUnk_52) {
-                this->mUnk_50++;
-            }
+            this->mTimer.Update();
 
-            if ((s32) this->mUnk_50 >= 15) {
+            if (this->mTimer.GetValue() >= 15) {
                 this->func_ov000_0209b184();
                 this->SetState(ActorUnkSWTMState_0);
             }
@@ -109,13 +108,12 @@ void ActorUnkSWTM::SetState(ActorState state) {
             this->func_ov000_02098a88(0, 1);
 
             if (this->mUnk_94 == 0) {
-                UNSET_FLAG(this->mFlags, ActorFlag_Alive);
+                this->Kill();
             }
             break;
         case ActorUnkSWTMState_3:
             this->func_ov000_0209b160();
-            this->mUnk_50 = 0;
-            this->mUnk_52 = -1;
+            this->mTimer.Reset();
             break;
         default:
             break;

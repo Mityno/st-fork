@@ -27,7 +27,7 @@ bool ActorUnkRB1T::func_ov026_0211e3e0(int param1) {
         return true;
     }
 
-    this->Actor_Derived1::vfunc_18(param1);
+    this->Actor_Derived1::Init(param1);
     this->mUnk_0E4 = ActorUnkRB1T::func_ov026_021208a0;
 
     int result = this->func_ov026_0211e6cc();
@@ -106,7 +106,7 @@ void ActorUnkRB1T::func_ov026_0212052c(void) {}
 void ActorUnkRB1T::func_ov026_02120744(void) {}
 void ActorUnkRB1T::func_ov026_021207e0(void) {}
 void ActorUnkRB1T::func_ov026_02120874(void) {}
-void ActorUnkRB1T::func_ov026_021208a0(void) {}
+void ActorUnkRB1T::func_ov026_021208a0(Actor *param1, G3d_RenderState *param2) {}
 void ActorUnkRB1T::func_ov026_02120954(void) {}
 void ActorUnkRB1T::func_ov026_02120974(void) {}
 void ActorUnkRB1T::func_ov026_021209d8(void) {}

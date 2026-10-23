@@ -1,5 +1,6 @@
 #include "MapObject/MapObjectUnkLTRW.hpp"
 #include "Actor/Actor_Derived1.hpp"
+#include "CommonFuncs.hpp"
 #include "MapObject/MapObject.hpp"
 #include "MapObject/MapObjectProfile.hpp"
 #include "Unknown/Common.hpp"
@@ -12,7 +13,6 @@
 #include "profile.hpp"
 
 // Overlay 31
-extern "C" void func_ov031_020e0f30(ActorRef);
 
 struct UnkStruct_data_ov063_021639c4 {
     /* 00 */ unk32 mUnk_00;
@@ -39,25 +39,24 @@ MapObject *MapObjectProfileUnkLTRW::Create() {
 MapObjectProfileUnkLTRW::MapObjectProfileUnkLTRW() :
     MapObjectProfileUnkLTRW_Base(MapObjectId_LTRW, MapObjectId_LTRW) {
     mUnk_D4.mUnk_08 = 0x04007007;
-    VecFx32_Init(data_ov063_021639c4.vec.x - FLOAT_TO_FX32(.6f), data_ov063_021639c4.vec.y,
-                 data_ov063_021639c4.vec.z - FLOAT_TO_FX32(.4f), &mUnk_D4.mUnk_0C);
-    VecFx32_Init(data_ov063_021639c4.vec.x + FLOAT_TO_FX32(.6f), data_ov063_021639c4.vec.y + FLOAT_TO_FX32(1.2f),
-                 data_ov063_021639c4.vec.z + FLOAT_TO_FX32(.4f), &mUnk_D4.mUnk_18);
+    VecFx32_Init(data_ov063_021639c4.vec.x - FX_F32_TO_FX32(.6f), data_ov063_021639c4.vec.y,
+                 data_ov063_021639c4.vec.z - FX_F32_TO_FX32(.4f), &mUnk_D4.mUnk_0C);
+    VecFx32_Init(data_ov063_021639c4.vec.x + FX_F32_TO_FX32(.6f), data_ov063_021639c4.vec.y + FX_F32_TO_FX32(1.2f),
+                 data_ov063_021639c4.vec.z + FX_F32_TO_FX32(.4f), &mUnk_D4.mUnk_18);
     mUnk_06 = 1;
     mUnk_0C = 0x1333;
 }
 
 MapObjectUnkLTRW::MapObjectUnkLTRW() :
-    mUnk_40(G3d_GetModelPtr(GET_PROFILE(MapObjectProfileUnkLTRW)->mUnk_20.mUnk_50)),
+    mUnk_40(G3d_GetModelPtr(GET_PROFILE_20_50(MapObjectProfileUnkLTRW))),
     mUnk_A0(1),
-    mUnk_A4(0),
-    mUnk_A6(0),
+    mUnk_A4(0, 0),
     mUnk_A8() {}
 
-bool MapObjectUnkLTRW::vfunc_00() {
-    mPos.x -= FLOAT_TO_FX32(.5f);
-    mPos.z -= FLOAT_TO_FX32(.5f);
-    mUnk_10 = &GET_PROFILE(MapObjectProfileUnkLTRW)->mUnk_D4;
+bool MapObjectUnkLTRW::Init() {
+    mPos.x -= FX_F32_TO_FX32(.5f);
+    mPos.z -= FX_F32_TO_FX32(.5f);
+    mUnk_10 = GET_PROFILE_D4(MapObjectProfileUnkLTRW);
     SET_FLAG(mFlags, MapObjFlag_9);
     mUnk_18[0]       = 0x10;
     mUnk_A8.mUnk_04h = mUnk_20.mUnk_08[0];
@@ -67,16 +66,14 @@ bool MapObjectUnkLTRW::vfunc_00() {
 }
 
 void MapObjectUnkLTRW::vfunc_08() {
-    if (mUnk_A4 < mUnk_A6) {
-        mUnk_A4++;
-    }
+    this->mUnk_A4.Update();
 }
 
-void MapObjectUnkLTRW::vfunc_14() {
+void MapObjectUnkLTRW::vfunc_14(unk32 param1) {
     mUnk_40.vfunc_18(&mPos);
 }
 
-bool MapObjectUnkLTRW::vfunc_1C(ActorRef param1, unk32 param2, VecFx32 *param3) {
+bool MapObjectUnkLTRW::vfunc_1C(RefStruct param1, unk32 param2, VecFx32 *param3) {
     if (param2 == 0xD) {
         func_ov031_020e0f30(param1);
         return false;
@@ -112,9 +109,8 @@ unk32 MapObjectUnkLTRW::vfunc_28(unk32 param1, unk32 param2, unk32 param3) {
 }
 
 void MapObjectUnkLTRW::func_ov063_02160d18(unk32 param1) {
-    mUnk_A0 = param1;
-    mUnk_A6 = -1;
-    mUnk_A4 = 0;
+    this->mUnk_A0 = param1;
+    this->mUnk_A4.Reset();
 }
 
 void UnkStruct_ov063_021639e4::vfunc2_04() {

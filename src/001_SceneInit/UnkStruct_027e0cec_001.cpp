@@ -1,3 +1,4 @@
+#include "CommonFuncs.hpp"
 #include "Cutscene/Cutscene.hpp"
 #include "System/OverlayManager.hpp"
 #include "System/SysNew.hpp"
@@ -7,9 +8,7 @@
 
 #include <string.h>
 
-extern "C" BOOL func_02012fa8(const char *);
-
-DATA_ALIGN_FIX2();
+DUMMY_RODATA();
 
 enum EffectPathIndex_ {
     EffectPathIndex_Dungeon1   = 0,
@@ -196,7 +195,7 @@ void UnkStruct_027e0cec::func_ov001_020bf028() {
 
 ARM_BEGIN
 
-UnkStruct_027e0cec_00::UnkStruct_027e0cec_00(void *param1) :
+UnkStruct_027e0cec_00::UnkStruct_027e0cec_00(UnkStruct_027e0cec *param1) :
     mUnk_10(param1),
     mUnk_14(0) {}
 

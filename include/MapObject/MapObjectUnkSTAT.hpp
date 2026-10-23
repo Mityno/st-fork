@@ -4,6 +4,7 @@
 #include "MapObject/MapObjectProfile.hpp"
 #include "Render/ModelRender.hpp"
 #include "global.h"
+#include "timer.hpp"
 #include "types.h"
 
 class MapObjectUnkSTAT : public MapObject {
@@ -14,19 +15,18 @@ public:
     /* 50 */ unk32 mUnk_50;
     /* 54 */ unk32 mUnk_54;
     /* 58 */ unk16 mUnk_58;
-    /* 5A */ volatile u16 mUnk_5A;
-    /* 5C */ u16 mUnk_5C;
-    /* 5E */ STRUCT_PAD(0x5E, 0x60);
+    /* 5A */ Timer mUnk_5A;
+    /* 5E */ PAD(0x5E, 0x60);
     /* 60 */ unk32 mUnk_60;
     /* 64 */ unk32 mUnk_64;
     /* 68 */ unk32 mUnk_68;
 
     MapObjectUnkSTAT();
 
-    /* 00 */ virtual bool vfunc_00() override; // Init
+    /* 00 */ virtual bool Init() override;
     /* 08 */ virtual void vfunc_08() override;
     /* 0C */ virtual void vfunc_0C() override;
-    /* 14 */ virtual void vfunc_14() override;
+    /* 14 */ virtual void vfunc_14(unk32 param1) override;
 
     void func_ov063_0215f6d0(void);
     void func_ov063_0215f710(void);
@@ -39,6 +39,10 @@ public:
 
 class MapObjectProfileUnkSTAT_Base_D4 : public MapObject_10 {
 public:
+    /* 00 (vtable) */
+    /* 24 */
+
+    MapObjectProfileUnkSTAT_Base_D4() {}
 };
 
 class MapObjectProfileUnkSTAT_Base : public MapObjectProfile_Derived2 {

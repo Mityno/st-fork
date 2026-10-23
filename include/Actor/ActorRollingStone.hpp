@@ -8,6 +8,7 @@
 #include "Render/ModelRender.hpp"
 #include "Unknown/UnkStruct_ov031_Items.hpp"
 #include "global.h"
+#include "nitro/fx.h"
 #include "types.h"
 
 enum ActorRollingStoneState_ {
@@ -22,7 +23,7 @@ enum ActorRollingStoneState_ {
     ActorRollingStoneState_8  = 8,
     ActorRollingStoneState_9  = 9,
     ActorRollingStoneState_10 = 10,
-    ActorRollingStoneState_MAX
+    ActorRollingStoneState_Max
 };
 
 class ActorRollingStone;
@@ -33,9 +34,9 @@ public:
     /* 04 */
 
     // data_ov031_02114a5c
-    /* 0C */ virtual bool vfunc_0C(const UnkStruct_ov031_020e54d4 *param1, unk32 *param2,
-                                   unk32 param3) override;                  // func_ov031_020f8354
-    /* 10 */ virtual bool vfunc_10(ActorRef param1, unk32 param2) override; // func_ov031_020f83e4
+    /* 0C */ virtual bool vfunc_0C(RefStruct ref, UnkStruct_ov031_020e54d4 *param2, const VecFx32 *param3,
+                                   const VecFx32 *param4) override;
+    /* 10 */ virtual bool vfunc_10(RefStruct param1, unk32 param2) override; // func_ov031_020f83e4
     /* 14 */
 };
 
@@ -50,7 +51,7 @@ public:
     }
 
     // data_ov031_02114a40
-    /* 10 */ virtual void vfunc_10(Actor *param1) override; // func_ov031_020f849c
+    /* 10 */ virtual void vfunc_10(const Actor *param1) override; // func_ov031_020f849c
 };
 
 class ActorRollingStone : public Actor {
@@ -62,16 +63,14 @@ public:
     /* 0D4 */ ActorRollingStone_D4 mUnk_D4;
     /* 104 */ ActorRollingStone_104 mUnk_104;
     /* 108 */ u16 mUnk_108;
-    /* 10A */ STRUCT_PAD(0x10A, 0x10C);
-    /* 10C */ Mat3p mUnk_10C;
-    /* 130 */ UnkStruct_PlayerGet_ec mUnk_130[0x2];
+    /* 10A */ PAD(0x10A, 0x10C);
+    /* 10C */ MtxFx33 mUnk_10C;
+    /* 130 */ UnkSystem7 mUnk_130[0x2];
     /* 138 */ unk16 mUnk_138;
     /* 13C */ Cylinder mUnk_13C;
     /* 14C */ unk32 mUnk_14C;
-    /* 150 */ volatile u16 mUnk_150;
-    /* 152 */ volatile u16 mUnk_152;
-    /* 154 */ volatile u16 mUnk_154;
-    /* 156 */ volatile u16 mUnk_156;
+    /* 150 */ Timer mUnk_150;
+    /* 154 */ Timer mUnk_154;
     /* 158 */ bool mUnk_158;
     /* 159 */ bool mUnk_159;
     /* 15A */ s8 mUnk_15A;
@@ -81,28 +80,10 @@ public:
 
     ActorRollingStone();
 
-    /* 18 */ virtual bool vfunc_18(unk32 param1) override; // func_ov031_020f869c
-    /* 20 */ virtual void vfunc_20() override;             // func_ov031_020f878c
+    /* 18 */ virtual bool Init(unk32 param1) override;     // func_ov031_020f869c
+    /* 20 */ virtual void Update() override;               // func_ov031_020f878c
     /* 2C */ virtual void vfunc_2C(unk32 param1) override; // func_ov031_020f8948
     /* 54 */
-
-    bool IsInternalTimerOut1() {
-        if (this->mUnk_150 < this->mUnk_152) {
-            this->mUnk_150++;
-            return false;
-        }
-
-        return true;
-    }
-
-    bool IsInternalTimerOut2() {
-        if (this->mUnk_154 < this->mUnk_156) {
-            this->mUnk_154++;
-            return false;
-        }
-
-        return true;
-    }
 
     void SetState(ActorState state);
     void func_ov031_020f8880();

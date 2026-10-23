@@ -1,4 +1,5 @@
 #include "MapObject/MapObjectUnkSWHT.hpp"
+#include "CommonFuncs.hpp"
 
 #include "Actor/Actor.hpp"
 #include "Actor/ActorManager.hpp"
@@ -7,10 +8,9 @@
 #include "Unknown/UnkStruct_027e09b8.hpp"
 #include "Unknown/UnkStruct_027e0cec.hpp"
 #include "Unknown/UnkStruct_ov000_020b5214.hpp"
+#include "profile.hpp"
 
 extern const char data_ov031_02110ce0;
-
-extern "C" void func_ov031_020e0f30(ActorRef);
 
 DECL_PROFILE(MapObjectProfileUnkSWHT);
 
@@ -26,9 +26,9 @@ MapObject *MapObjectProfileUnkSWHT::Create() {
 MapObjectProfileUnkSWHT::MapObjectProfileUnkSWHT() :
     MapObjectProfilePot_Base(MapObjectId_SWHT, MapObjectId_SWHT) {
     this->mUnk_D4.mUnk_08 = 0x84007009;
-    VecFx32_Init(FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(0.0f), &this->mUnk_D4.mUnk_0C);
-    this->mUnk_D4.mUnk_18 = FLOAT_TO_FX32(0.35f);
-    this->mUnk_D4.mUnk_1C = FLOAT_TO_FX32(1.2f);
+    VecFx32_Init(FX_F32_TO_FX32(0.0f), FX_F32_TO_FX32(0.0f), FX_F32_TO_FX32(0.0f), &this->mUnk_D4.mUnk_0C);
+    this->mUnk_D4.mUnk_18 = FX_F32_TO_FX32(0.35f);
+    this->mUnk_D4.mUnk_1C = FX_F32_TO_FX32(1.2f);
     this->mUnk_06         = 0x0;
     this->mUnk_0C         = 0x1333;
     this->mUnk_20.mUnk_15 = 0x1;
@@ -40,7 +40,7 @@ MapObjectUnkSWHT::MapObjectUnkSWHT() :
     mUnk_0F4(NULL),
     mUnk_0F8(-0x1),
     mUnk_0FC(0x0) {
-    this->mUnk_054.vfunc_08(G3d_GetModelPtr(GET_PROFILE(MapObjectProfileUnkSWHT)->mUnk_20.mUnk_50));
+    this->mUnk_054.vfunc_08(G3d_GetModelPtr(GET_PROFILE_20_50(MapObjectProfileUnkSWHT)));
     this->mUnk_0B4.mpModel = this->mUnk_054.mpModel;
 
     unk32 param2                     = data_ov031_021179e8.func_ov000_02058a24();
@@ -65,7 +65,7 @@ MapObjectUnkSWHT::~MapObjectUnkSWHT() {
     }
 }
 
-bool MapObjectUnkSWHT::vfunc_00() {
+bool MapObjectUnkSWHT::Init() {
     SET_FLAGS(this->mFlags, MapObjFlag_9, MapObjFlag_10);
 
     this->mUnk_18[0] = 0x11;
@@ -195,12 +195,12 @@ void MapObjectUnkSWHT::vfunc_0C() {
     this->func_ov031_02101dd8();
 }
 
-void MapObjectUnkSWHT::vfunc_14() {
+void MapObjectUnkSWHT::vfunc_14(unk32 param1) {
     this->mUnk_054.vfunc_18(&this->mPos);
 }
 
-bool MapObjectUnkSWHT::vfunc_1C(ActorRef param1, unk32 param2, VecFx32 *param3) {
-    if (param1.type != 0x0) {
+bool MapObjectUnkSWHT::vfunc_1C(RefStruct param1, unk32 param2, VecFx32 *param3) {
+    if (param1.common.type != 0x0) {
         Actor *actor = gpActorManager->func_01fff3b4(param1);
         if (actor != NULL) {
             if (actor->GetActorId() == ActorId_SRST) {
@@ -223,7 +223,7 @@ bool MapObjectUnkSWHT::vfunc_1C(ActorRef param1, unk32 param2, VecFx32 *param3) 
             this->func_ov031_021020ec();
             return false;
         case 0xA:
-            if (param1.type != 0x0) {
+            if (param1.common.type != 0x0) {
                 Actor *actor = gpActorManager->func_01fff3b4(param1);
                 if (actor != NULL) {
                     if (actor->GetActorId() == ActorId_KEYB) {

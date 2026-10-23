@@ -14,7 +14,7 @@ void Actor_Derived1::func_ov000_020a8ae0(fx32 param1) {
     this->mVel.y = posY;
 }
 
-Actor_Derived1::Actor_Derived1(ModelRender *param1, Actor_Derived1_94_0C *param2) :
+Actor_Derived1::Actor_Derived1(ModelRender *param1, ActorUnkZSRS_120 *param2) :
     mUnk_094(param2),
     mUnk_0A4(param1),
     mUnk_0B0(0),
@@ -32,25 +32,24 @@ Actor_Derived1::Actor_Derived1(ModelRender *param1, Actor_Derived1_94_0C *param2
     mUnk_0DE(0xEAAB),
     mUnk_0E0(0x1555),
     mUnk_0E4(NULL),
-    mUnk_0E8(0),
-    mUnk_0EA(0),
+    mUnk_0E8(0, 0),
     mUnk_104(this->mUnk_34->size),
     mUnk_114(-1),
     mUnk_118(0x1000),
     mUnk_11C(0x019A) {
-    this->mUnk_30                  = &this->mUnk_104;
-    this->mUnk_4A[0]               = 5;
-    this->mUnk_44                  = 0x1F;
-    this->mUnk_094.mUnk_00.mUnk_08 = 3;
-    this->mUnk_38                  = &this->mUnk_094.mUnk_00;
+    this->mUnk_30          = &this->mUnk_104;
+    this->mUnk_4A[0]       = 5;
+    this->mUnk_44          = 0x1F;
+    this->mUnk_094.mUnk_08 = 3;
+    this->mUnk_38          = (Actor_38 *) &this->mUnk_094;
     this->mUnk_0B0 |= 0x08;
 }
 
 Actor_Derived1::~Actor_Derived1() {}
 
-bool Actor_Derived1::vfunc_18(unk32 param1) {
+bool Actor_Derived1::Init(unk32 param1) {
     if (this->mUnk_5C.mParams[2] == 0 && this->func_ov000_020a8dd0()) {
-        UNSET_FLAG(this->mFlags, ActorFlag_Alive);
+        this->Kill();
     }
 
     if (this->mUnk_0B0 & 8) {
@@ -64,7 +63,7 @@ bool Actor_Derived1::vfunc_18(unk32 param1) {
 
 void Actor_Derived1::vfunc_54(unk32 param1) {}
 
-void Actor_Derived1::vfunc_1C() {
+void Actor_Derived1::Setup() {
     this->func_ov031_020e3ca4();
 }
 
@@ -77,7 +76,7 @@ bool Actor_Derived1::func_ov000_020a8dd0() {
 }
 
 // non-matching
-void Actor_Derived1::func_ov000_020a8df0(ActorRef param1, unk32 param2) {
+void Actor_Derived1::func_ov000_020a8df0(RefStruct param1, unk32 param2) {
     if (!((u32) (((param2 + 8) - param2) / 2) < 2)) {
         this->mUnk_0B0 |= 2;
     } else {
@@ -87,9 +86,9 @@ void Actor_Derived1::func_ov000_020a8df0(ActorRef param1, unk32 param2) {
     if (this->mRef != param1) {
         this->vfunc_B4();
         *(u32 *) &this->mUnk_0BC = param1.Get32();
-        this->mUnk_0C0.x         = 0;
-        this->mUnk_0C0.y         = 0;
-        this->mUnk_0C0.z         = 0;
+        this->mUnk_0C0.vec.x     = 0;
+        this->mUnk_0C0.vec.y     = 0;
+        this->mUnk_0C0.vec.z     = 0;
         this->mUnk_0B0 |= 1;
     }
 }
@@ -104,9 +103,9 @@ void Actor_Derived1::func_ov000_020a8e9c(VecFx32 *param1) {
     fx32 y = param1->y;
     fx32 x = param1->z;
 
-    this->mUnk_0C0.x = x;
-    this->mUnk_0C0.y = y;
-    this->mUnk_0C0.z = x;
+    this->mUnk_0C0.vec.x = x;
+    this->mUnk_0C0.vec.y = y;
+    this->mUnk_0C0.vec.z = x;
     this->mUnk_0BC.Reset();
 }
 
@@ -222,13 +221,13 @@ unk32 Actor_Derived1::vfunc_A8() {
     return 1;
 }
 
-void Actor_Derived1::func_ov000_020a9804(void *param1, unk32 param2) {}
-void Actor_Derived1::vfunc_20() {}
+void Actor_Derived1::func_ov000_020a9804(Actor *param1, G3d_RenderState *param2) {}
+void Actor_Derived1::Update() {}
 
 // non-matching
 void Actor_Derived1::vfunc_24() {
     if (!data_027e09b8->func_ov000_020732dc(3) || !(this->mUnk_0B0 & 4)) {
-        this->vfunc_20();
+        this->Update();
     }
 
     if (!(this->mUnk_0B0 & 0x200)) {
@@ -252,7 +251,7 @@ void Actor_Derived1::vfunc_B8() {
     this->func_ov017_020bf5c4(&this->mPos, 0x666, 0x666, 0x1F, 0);
 }
 
-void Actor_Derived1::vfunc_14() {}
+bool Actor_Derived1::vfunc_14(Cylinder *param1) {}
 void Actor_Derived1::func_ov000_020a9a20() {}
 void Actor_Derived1::func_ov000_020a9a34() {}
 void Actor_Derived1::func_ov000_020a9a50() {}

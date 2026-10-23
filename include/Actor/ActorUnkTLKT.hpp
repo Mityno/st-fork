@@ -19,14 +19,14 @@ enum ActorUnkTLKTState_ {
 class ActorUnkTLKTnCLLT_Base : public Actor {
 public:
     /* 00 (base) */
-    /* 94 */ STRUCT_PAD(0x94, 0x9C);
+    /* 94 */ PAD(0x94, 0x9C);
     /* 9C */
 
     ActorUnkTLKTnCLLT_Base();
 
-    /* 18 */ virtual bool vfunc_18(unk32 param1) override;
-    /* 1C */ virtual void vfunc_1C() override;
-    /* 20 */ virtual void vfunc_20() override;
+    /* 18 */ virtual bool Init(unk32 param1) override;
+    /* 1C */ virtual void Setup() override;
+    /* 20 */ virtual void Update() override;
     /* 24 */ virtual void vfunc_24() override;
     /* 54 */ virtual void vfunc_54();
     /* 58 */ virtual void vfunc_58();

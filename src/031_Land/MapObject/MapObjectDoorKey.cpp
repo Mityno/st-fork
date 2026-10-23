@@ -1,11 +1,9 @@
 #include "MapObject/MapObjectDoorKey.hpp"
+#include "CommonFuncs.hpp"
 #include "System/SysNew.hpp"
 #include "Unknown/UnkStruct_027e09a8.hpp"
 #include "Unknown/UnkStruct_027e0ce0.hpp"
 #include "Unknown/UnkStruct_027e0cec.hpp"
-
-extern "C" f32 func_02039f04(unk32);
-extern "C" void func_01ffaf74(VecFx32 *, Mat4x3p *, VecFx32 *);
 
 const UnkStruct_ov031_021150b0 data_ov031_02115184(0x1E66);
 
@@ -32,7 +30,7 @@ MapObjectDoorKey::MapObjectDoorKey() :
     this->mUnk_18[0] = 0x0E;
 }
 
-bool MapObjectDoorKey::vfunc_00(void) {
+bool MapObjectDoorKey::Init(void) {
     this->func_ov031_020fbf10(true, false);
     return true;
 }
@@ -42,12 +40,12 @@ void MapObjectDoorKey::vfunc_08(void) {
     this->mUnk_A4 = false;
 }
 
-void MapObjectDoorKey::vfunc_18(s8 *param1, s8 param2) {
-    this->MapObjectDoorBase::func_ov031_020fcb78(param1, param2);
+void MapObjectDoorKey::vfunc_18(s8 *param1) {
+    this->MapObjectDoorBase::func_ov031_020fcb78(param1);
 }
 
 // https://decomp.me/scratch/XO3u2
-void MapObjectDoorKey::vfunc_14(void) {
+void MapObjectDoorKey::vfunc_14(unk32 param1) {
     f32 factor;
     f32 uVar3;
     s32 sVar2;
@@ -66,12 +64,12 @@ void MapObjectDoorKey::vfunc_14(void) {
     sVar2     = (s16) mul;
     u16 angle = (u16) sVar2;
 
-    Mat3p m;
+    MtxFx33 m;
     VecFx32 local_48;
     VecFx32 temp;
 
-    Mat3p_InitYRotation(&m, SIN(angle), COS(angle));
-    temp.x     = this->mPos.x - FLOAT_TO_FX32(1.0f) + this->mUnk_70;
+    MtxFx33_InitYRotation(&m, SIN(angle), COS(angle));
+    temp.x     = this->mPos.x - FX_F32_TO_FX32(1.0f) + this->mUnk_70;
     temp.z     = this->mPos.z;
     temp.y     = this->mPos.y;
     local_48.x = temp.x;
@@ -80,8 +78,8 @@ void MapObjectDoorKey::vfunc_14(void) {
     this->mUnk_94.vfunc_14(&m, &local_48);
 
     u16 var = (-0x8000 - sVar2);
-    Mat3p_InitYRotation(&m, SIN(var), COS(var));
-    temp.x     = this->mPos.x + FLOAT_TO_FX32(1.0f) - this->mUnk_70;
+    MtxFx33_InitYRotation(&m, SIN(var), COS(var));
+    temp.x     = this->mPos.x + FX_F32_TO_FX32(1.0f) - this->mUnk_70;
     temp.z     = this->mPos.z;
     temp.y     = this->mPos.y;
     local_48.x = temp.x;
@@ -161,15 +159,15 @@ bool MapObjectDoorKey::vfunc_6C(void) {
 }
 
 void MapObjectDoorKey::vfunc_74(void) {
-    data_027e0cec->func_ov000_0209ff8c(&this->mUnk_68, 0x89E, &this->mPos, 4);
-    data_027e0cec->func_ov000_0209ff8c(&this->mUnk_A0, 0x89E, &this->mPos, 4);
+    data_027e0cec->func_ov000_0209ff8c(&this->mUnk_68.mUnk_00, 0x89E, &this->mPos, 4);
+    data_027e0cec->func_ov000_0209ff8c(&this->mUnk_A0.mUnk_00, 0x89E, &this->mPos, 4);
 }
 
 void MapObjectDoorKey::vfunc_7C(void) {
     this->MapObjectDoorBase::vfunc_7C();
 
-    if (this->mUnk_A0.mUnk_00 != NULL) {
-        this->mUnk_A0.func_ov000_020a0334();
+    if (this->mUnk_A0.mUnk_00.mUnk_00 != NULL) {
+        this->mUnk_A0.mUnk_00.func_ov000_020a0334();
     }
 }
 
@@ -178,7 +176,7 @@ void MapObjectDoorKey::vfunc_78(void) {
     VecFx32 local_30;
     VecFx32 VStack_3c;
     VecFx32 VStack_48;
-    Mat4x3p m;
+    MtxFx43 m;
     VecFx32 local_84;
     VecFx32 local_90;
 
@@ -187,26 +185,26 @@ void MapObjectDoorKey::vfunc_78(void) {
     temp.z = this->mPos.z;
     temp.y = this->mPos.y;
 
-    local_24.x = temp.x - FLOAT_TO_FX32(0.999f);
+    local_24.x = temp.x - FX_F32_TO_FX32(0.999f);
     local_24.y = temp.y;
     local_24.z = temp.z;
 
-    local_30.x = temp.x + FLOAT_TO_FX32(0.999f);
+    local_30.x = temp.x + FX_F32_TO_FX32(0.999f);
     local_30.y = temp.y;
     local_30.z = temp.z;
 
     f32 div   = func_02039f04(this->mUnk_6C) / 4096.0f;
     s16 angle = 16384.0f * div;
 
-    Mat4x3p_InitYRotation(&m, SIN((u16) angle), COS((u16) angle));
+    MtxFx43_InitYRotation(&m, SIN((u16) angle), COS((u16) angle));
 
-    local_84.x = FLOAT_TO_FX32(1.0f);
+    local_84.x = FX_F32_TO_FX32(1.0f);
     local_84.y = 0;
     local_84.z = 0;
 
     local_90.x = 0;
     local_90.y = 0;
-    local_90.z = FLOAT_TO_FX32(0.3299f);
+    local_90.z = FX_F32_TO_FX32(0.3299f);
 
     func_01ffaf74(&local_90, &m, &local_90);
     func_01ffaf74(&local_84, &m, &local_84);
@@ -219,12 +217,12 @@ void MapObjectDoorKey::vfunc_78(void) {
     VecFx32_Add(&local_30, &local_90, &local_30);
     VecFx32_Add(&local_30, &local_84, &VStack_48);
 
-    if (this->mUnk_68.mUnk_00 != NULL) {
-        this->mUnk_68.mUnk_00->func_ov000_02052c48(&VStack_3c, &local_24);
+    if (this->mUnk_68.mUnk_00.mUnk_00 != NULL) {
+        this->mUnk_68.mUnk_00.mUnk_00->func_ov000_02052c48(&VStack_3c, &local_24);
     }
 
-    if (this->mUnk_A0.mUnk_00 != NULL) {
-        this->mUnk_A0.mUnk_00->func_ov000_02052c48(&VStack_48, &local_30);
+    if (this->mUnk_A0.mUnk_00.mUnk_00 != NULL) {
+        this->mUnk_A0.mUnk_00.mUnk_00->func_ov000_02052c48(&VStack_48, &local_30);
     }
 }
 
@@ -233,7 +231,7 @@ void MapObjectDoorKey::vfunc_40(void) {
 }
 
 void MapObjectDoorKey::vfunc_44(void) {
-    unk32 stack = *(u32 *) &this->mUnk_38;
+    unk32 stack = *(u32 *) &this->mRef;
     data_027e09a8->func_ov000_02071d34(&stack, 0x135, &this->mPos, 0);
 }
 

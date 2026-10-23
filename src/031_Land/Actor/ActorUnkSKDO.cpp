@@ -1,12 +1,10 @@
 #include "Actor/ActorUnkSKDO.hpp"
+#include "CommonFuncs.hpp"
 
 #include "Map/MapObjectId.hpp"
 #include "MapObject/MapObjectManager.hpp"
 #include "System/SysNew.hpp"
 #include "Unknown/UnkStruct_ov000_020b34c4.hpp"
-
-extern "C" bool func_ov000_0209c348();
-extern "C" fx32 func_01ffb9cc(VecFx32 *, VecFx32 *);
 
 DECL_PROFILE(ActorProfileUnkSKDO);
 
@@ -20,14 +18,14 @@ ActorProfileUnkSKDO::ActorProfileUnkSKDO() :
 ActorUnkSKDO::ActorUnkSKDO() :
     mUnk_98(NULL) {}
 
-bool ActorUnkSKDO::vfunc_18(unk32 param1) {
+bool ActorUnkSKDO::Init(unk32 param1) {
     return true;
 }
 
-void ActorUnkSKDO::vfunc_1C() {
+void ActorUnkSKDO::Setup() {
     ActorUnkSKDO_ov031_02115ce8 stack(MapObjectId_SKDI);
     stack.mUnk_08 = this->mPos;
-    stack.mUnk_14 = FLOAT_TO_FX32(2.0f);
+    stack.mUnk_14 = FX_F32_TO_FX32(2.0f);
 
     MapObject **mapObject = gpMapObjManager->func_01fff520(&stack, gpMapObjManager->mMapObjTable);
 
@@ -36,7 +34,7 @@ void ActorUnkSKDO::vfunc_1C() {
     }
 }
 
-void ActorUnkSKDO::vfunc_20() {
+void ActorUnkSKDO::Update() {
     unk32 var2 = 0x0;
     if (this->mUnk_98->vfunc_40() == 0x2) {
         var2 = 0x1;
@@ -49,7 +47,7 @@ void ActorUnkSKDO::vfunc_54(unk32 param1) {
 }
 
 bool ActorUnkSKDO_ov031_02115ce8::vfunc_00(MapObject *param1) {
-    if (func_ov000_0209c348()) {
+    if (this->UnkStruct_ov000_020b34c4::vfunc_00(param1)) {
         if (func_01ffb9cc(&param1->mPos, &this->mUnk_08) < this->mUnk_14) {
             return true;
         }

@@ -1,4 +1,5 @@
 #include "Actor/Actor.hpp"
+#include "CommonFuncs.hpp"
 #include "System/SysNew.hpp"
 #include "Unknown/UnkStruct_0204a088.hpp"
 #include "Unknown/UnkStruct_027e09b8.hpp"
@@ -12,7 +13,6 @@ struct UnkStruct_ov070_0214dc74 {
     /* 08 */
 };
 extern UnkStruct_ov070_0214dc74 data_ov070_0214dc74[18];
-extern "C" UnkStruct_ov070_0214dc74 *func_ov070_02143fe4(int index);
 
 UnkStruct_027e0cd8_0C::UnkStruct_027e0cd8_0C(UnkStruct_027e0cd8 *param1) :
     UnkStruct_027e0cd8_0C_Base(param1) {
@@ -97,7 +97,7 @@ void func_ov101_02183884(int index, unk32 param2, unk32 param3);
 
 void UnkStruct_027e0cd8_0C_1D0::func_ov101_021837a0() {
     ActorParams sp14;
-    ActorRef sp10;
+    RefStruct sp10;
     bool spC;
 
     struct {
@@ -163,7 +163,7 @@ void UnkStruct_027e0cd8_0C_1D0::func_ov101_021837a0() {
 
 void func_ov101_02183884(int index, unk32 param2, unk32 param3) {
     ActorParams params;
-    ActorRef ref;
+    RefStruct ref;
 
     params.mUnk_28.Reset();
     params.func_ov000_020975f8();

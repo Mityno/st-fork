@@ -1,4 +1,5 @@
 #include "Game/GameModeStartUp.hpp"
+#include "CommonFuncs.hpp"
 #include "Game/Game.hpp"
 #include "System/OverlayManager.hpp"
 #include "System/SysFault.hpp"
@@ -15,28 +16,11 @@
 #include <nitro/reg.h>
 #include <nitro/tp.h>
 
-extern "C" {
-void func_0201245c();
-void func_02027a28(void *param1, unk32 param2);
-void func_02013184();
-void func_020131b0();
-void func_02031e48(void *param1);
-
-UnkStruct_02011e10_Sub1 *func_020012e0(unk32 param1, unk32 param2, unk32 param3);
-unk32 func_0202d624(void *param1, unk32 param2);
-void *func_02001fd4(void *param1, size_t param2);
-void func_020013ac(void *param1);
-UnkStruct_02011e10_Sub1 *func_02001098(unk32 param1, unk32 param2, unk32 param3);
-unk32 func_020011f4();
-void func_0200a7b0(unk32 param1, void *param2, void *param3, void *param4, unk32 param5, unk32 param6, unk32 param7,
-                   unk32 param8);
-}
-
 static u8 data_ov018_020c5bc0;
 
 void SysFault::func_ov018_020c4840() {
     this->mUnk_05 = 0;
-    func_02027a28(func_0201245c, 0);
+    func_02027a28((void *) func_0201245c, 0);
     DC_FlushAll();
     this->mUnk_00 = 0;
     this->mUnk_04 = 0;
@@ -55,7 +39,7 @@ void Game::func_ov018_020c48a4() {
     OS_EnableIrqMask(1);
     GX_VBlankIntr(1);
     OS_WakeupThreadDirect(&this->mUnk_1C.mUnk_04);
-    func_02031e48(func_020131b0);
+    func_02031e48((void *) func_020131b0);
     this->TrySetCreateCallback((GameModeCreateCallback) Game::func_ov018_020c4ba8);
 }
 
@@ -75,8 +59,8 @@ UnkStruct_02049b18::UnkStruct_02049b18() {
 }
 
 void UnkStruct_02011e10::func_ov018_020c4980() {
-    unk32 arenaLo = OS_GetMainArenaLo();
-    unk32 arenaHi = OS_GetMainArenaHi();
+    u8 *arenaLo = (u8 *) OS_GetMainArenaLo();
+    u8 *arenaHi = (u8 *) OS_GetMainArenaHi();
 
     for (int i = 0; i < HeapIndex_Max; i++) {
         this->mUnk_00[i] = NULL;
@@ -107,20 +91,20 @@ void UnkStruct_02011e10::func_ov018_020c4980() {
 
 void UnkStruct_02011e10::func_ov018_020c4a5c() {
     UnkStruct_02011e10_Sub1 *temp_r2;
-    int temp_r5;
-    int temp_r7;
-    int temp_r0;
+    uintptr_t temp_r5;
+    u8 *temp_r7;
+    u8 *temp_r0;
 
     func_020013ac(this->mUnk_00[0]);
     temp_r2 = this->mUnk_00[0];
 
     temp_r5 = ((uintptr_t) temp_r2->mUnk_1C - (uintptr_t) temp_r2); //! TODO: fake match?
-    temp_r7 = OS_GetArenaLo(0);
+    temp_r7 = (u8 *) OS_GetArenaLo(0);
     temp_r7 += temp_r5;
 
-    temp_r0          = OS_GetMainArenaHi();
+    temp_r0          = (u8 *) OS_GetMainArenaHi();
     this->mUnk_00[1] = func_02001098(temp_r7, temp_r0 - temp_r7, 2);
-    this->mUnk_5C    = func_020011f4();
+    this->mUnk_5C    = func_020011f4(this->mUnk_00[1]);
     OS_SetMainArenaLo((void *) temp_r0);
     this->mUnk_74 = 1;
 }

@@ -3,7 +3,9 @@
 #include "Actor/Actor.hpp"
 #include "Actor/ActorProfile.hpp"
 #include "Actor_Derived1.hpp"
+#include "RefStruct.hpp"
 #include "global.h"
+#include "nns/g3d/sbc.h"
 #include "types.h"
 
 enum ActorBombState_ {
@@ -17,16 +19,6 @@ enum ActorBombState_ {
     ActorBombState_Max
 };
 
-class ActorBomb_unk : public UnkSystem7 {
-public:
-    /* 00 (base) */
-    /* 04 */ unk32 mUnk_04;
-    /* 08 */ unk32 mUnk_08;
-    /* 0C */
-
-    ActorBomb_unk();
-};
-
 class ActorBomb_19C : public UnkStruct_ov031_Items_01 {
 public:
     /* 00 (base) */
@@ -36,7 +28,7 @@ public:
     ActorBomb_19C(Actor *param1);
 
     // data_ov031_02112c94
-    /* 10 */ virtual void vfunc_10(Actor *actor) override;
+    /* 10 */ virtual void vfunc_10(const Actor *actor) override;
 };
 
 class ActorBomb_180 : public UnkStruct_ov031_Items_00 {
@@ -45,26 +37,29 @@ public:
     /* 04 */ u16 mUnk_04;
     /* 08 */ Actor *mUnk_08;
     /* 0C */ VecFx32 mUnk_0C; // cylinder ?
-    /* 18 */ unk32 mUnk_18;
+    /* 18 */ RefStruct mUnk_18;
     /* 1C */
 
     ActorBomb_180(Actor *param1);
 
     // data_ov031_02112c78
     /* 00 */ virtual ~ActorBomb_180() override;
-    /* 08 */ virtual bool vfunc_08(const UnkStruct_ov031_020f3310 *param1) override;
-    /* 0C */ virtual bool vfunc_0C(const UnkStruct_ov031_020e54d4 *param1, unk32 *param2, unk32 param3) override;
-    /* 10 */ virtual bool vfunc_10(ActorRef param1, unk32 param2) override;
+    /* 08 */ virtual bool vfunc_08(const UnkStruct_ov031_020f3310 *param1, unk32 param2) override;
+    /* 0C */ virtual bool vfunc_0C(RefStruct ref, UnkStruct_ov031_020e54d4 *param2, const VecFx32 *param3,
+                                   const VecFx32 *param4) override;
+    /* 10 */ virtual bool vfunc_10(RefStruct param1, unk32 param2) override;
 };
 
 class ActorBomb_ov031_020e2134 : public UnkStruct_ov031_Items_00 {
 public:
     /* 00 (base) */
-    /* 04 */ STRUCT_PAD(0x4, 0x8);
+    /* 04 */ PAD(0x04, 0x08);
     /* 08 */
 
+    ~ActorBomb_ov031_020e2134() {} // required to fix function order
+
     // data_ov031_02112cb0
-    /* 08 */ virtual bool vfunc_08(const UnkStruct_ov031_020f3310 *param1) override;
+    /* 08 */ virtual bool vfunc_08(const UnkStruct_ov031_020f3310 *param1, unk32 param2) override;
 };
 
 class ActorBomb : public Actor {
@@ -73,7 +68,7 @@ public:
     /* 094 */ ModelRender mUnk_094;
     /* 0F4 */ UnkSystem5 mUnk_0F4;
     /* 114 */ unk32 mUnk_114;
-    /* 118 */ STRUCT_PAD(0x118, 0x134);
+    /* 118 */ PAD(0x118, 0x134);
     /* 134 */ Actor_9C mUnk_134;
     /* 154 */ Cylinder mUnk_154;
     /* 164 */ ActorBomb_unk mUnk_164[0x2];
@@ -83,52 +78,44 @@ public:
     /* 1CC */ VecFx32 mUnk_1CC;
     /* 1D8 */ unk32 mUnk_1D8;
     /* 1D8 */ unk32 mUnk_1DC;
-    /* 1E0 */ ActorRef mUnk_1E0;
-    /* 1E4 */ ActorRef mUnk_1E4;
+    /* 1E0 */ RefStruct mUnk_1E0;
+    /* 1E4 */ RefStruct mUnk_1E4;
     /* 1E8 */ u8 mUnk_1E8;
     /* 1E8 */ u8 mUnk_1E9;
-    /* 1EA */ volatile u16 mUnk_1EA;
-    /* 1EC */ u16 mUnk_1EC;
+    /* 1EA */ Timer mUnk_1EA;
     /* 1EE */ bool mUnk_1EE;
     /* 1EF */ bool mUnk_1EF;
     /* 1F0 */ bool mUnk_1F0;
 #if IS_JP
     /* 1F1 */ bool mUnk_1F1;
 #else
-    /* 1F1 */ STRUCT_PAD(0x1F1, 0x1F2);
+    /* 1F1 */ PAD(0x1F1, 0x1F2);
 #endif
-    /* 1F2 */ STRUCT_PAD(0x1F2, 0x1F4);
+    /* 1F2 */ PAD(0x1F2, 0x1F4);
     /* 1F4 */ Actor_Derived1_94 mUnk_1F4;
     /* 200 */
 
     ActorBomb();
 
-    /* 18 */ virtual bool vfunc_18(unk32 param1) override;
-    /* 20 */ virtual void vfunc_20() override;
+    /* 18 */ virtual bool Init(unk32 param1) override;
+    /* 20 */ virtual void Update() override;
     /* 24 */ virtual void vfunc_24() override;
     /* 2C */ virtual void vfunc_2C(unk32 param1) override;
     /* 38 */ virtual bool Grab(ActorGrabParams grabParams) override;
     /* 3C */ virtual bool Drop(ActorGrabParams grabParams, const VecFx32 *pVel) override;
 
-    bool IsInternalTimerOut() {
-        if (this->mUnk_1EA < this->mUnk_1EC) {
-            ++this->mUnk_1EA;
-            return false;
-        }
-        return true;
-    }
-
     // check if really in ActorUnkBomb
     G3d_Model *func_ov031_020e1540(u16 param1);
     UnkStruct_ov000_02058a84 *func_ov031_020e15d0(u16 param1);
-    static void func_ov031_020e1634();
     void func_ov031_020e17f4();
+
+    static void func_ov031_020e1634(G3d_RenderState *param1);
 
     //
     void func_ov031_020e18a0();
     void SetState(ActorState state);
     void func_ov031_020e1908();
-    void func_ov031_020e1920(VecFx32 *param1);
+    void func_ov031_020e1920(const VecFx32 *param1);
     void func_ov031_020e193c();
     void func_ov031_020e1b1c();
     void func_ov031_020e1b7c();

@@ -13,6 +13,7 @@ CompileFlags:
     "-Wunused-parameter",
     "-Wunused-but-set-parameter",
     "-Wself-assign",
+    "-D__CLANGD__",
   ]
 Diagnostics:
   Suppress:
@@ -20,6 +21,8 @@ Diagnostics:
     - "illegal_union_or_anon_struct_member"
     - "main_returns_nonint"
     - "template_spec_needs_header"
+    - "goto_into_protected_scope"
+    - "init_list_bad_dest_type"
 Documentation:
   CommentFormat: Doxygen
 ---

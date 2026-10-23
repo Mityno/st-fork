@@ -1,7 +1,6 @@
 #include "Actor/ActorUnkEFSB.hpp"
+#include "CommonFuncs.hpp"
 #include "System/SysNew.hpp"
-
-extern "C" unk32 func_01ffb428(unk32, unk32);
 
 static ActorUnkZLSL_AnimationTag data_ov031_02114ed0[0x2] = {
     {.index = 0x0, .name = "statue_beam"},
@@ -19,10 +18,10 @@ ActorProfileUnkEFSB::ActorProfileUnkEFSB() :
 
 ActorUnkEFSB::ActorUnkEFSB() :
     mUnk_098(G3d_GetModelPtr(GET_PROFILE(ActorProfileUnkEFSB)->mUnk_3C.mUnk_50)),
-    mUnk_0F8(&this->mUnk_0F8.mUnk_1C, &this->mUnk_098, GET_PROFILE(ActorProfileUnkEFSB)->vfunc_04()),
-    mUnk_154(&this->mUnk_154.mUnk_1C, &this->mUnk_098, GET_PROFILE(ActorProfileUnkEFSB)->vfunc_04()) {}
+    mUnk_0F8(&this->mUnk_098, GET_PROFILE(ActorProfileUnkEFSB)->vfunc_04()),
+    mUnk_154(&this->mUnk_098, GET_PROFILE(ActorProfileUnkEFSB)->vfunc_04()) {}
 
-bool ActorUnkEFSB::vfunc_18(unk32 param1) {
+bool ActorUnkEFSB::Init(unk32 param1) {
     this->mUnk_0F8.vfunc_1C(data_ov031_02114ed0[0], 0x1000, 0x11F, 0x0);
     this->mUnk_154.func_ov000_02099ff8(data_ov031_02114ed0[0], 0x1000);
 
@@ -35,7 +34,7 @@ bool ActorUnkEFSB::vfunc_18(unk32 param1) {
     return true;
 }
 
-void ActorUnkEFSB::vfunc_20() {
+void ActorUnkEFSB::Update() {
     if (this->mUnk_094 != 0x0) {
         return;
     }
@@ -44,7 +43,7 @@ void ActorUnkEFSB::vfunc_20() {
 }
 
 void ActorUnkEFSB::vfunc_24() {
-    this->vfunc_20();
+    this->Update();
 }
 
 void ActorUnkEFSB::vfunc_54(unk32 param1) {
@@ -54,11 +53,11 @@ void ActorUnkEFSB::vfunc_54(unk32 param1) {
 void ActorUnkEFSB::vfunc_2C(unk32 param1) {
     VecFx32 vec;
 
-    VecFx32_Init(FLOAT_TO_FX32(1.0f), FLOAT_TO_FX32(1.0f), FLOAT_TO_FX32(1.0f), &vec);
+    VecFx32_Init(FX_F32_TO_FX32(1.0f), FX_F32_TO_FX32(1.0f), FX_F32_TO_FX32(1.0f), &vec);
     vec.z = func_01ffb428(this->mUnk_1B0, 0x8000);
 
     VecFx32 sp0 = this->mPos;
-    sp0.y += FLOAT_TO_FX32(0.85f);
+    sp0.y += FX_F32_TO_FX32(0.85f);
 
-    this->mUnk_098.func_01ffc634(&vec, this->mAngleStruct, &sp0);
+    this->mUnk_098.func_01ffc634(&vec, this->mAngle, &sp0);
 }

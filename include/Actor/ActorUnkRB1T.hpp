@@ -6,13 +6,14 @@
 #include "Actor/ActorProfile.hpp"
 #include "Actor/Actor_Derived1.hpp"
 #include "global.h"
+#include "nns/g3d/sbc.h"
 #include "types.h"
 
 class ActorUnkRB1T_C4 : public Actor_C4 {
 public:
     ActorUnkRB1T_C4(Actor *param1);
 
-    /* 00 */ virtual bool vfunc_00(ActorRef ref, unk32 param2) override;
+    /* 00 */ virtual bool vfunc_00(RefStruct ref, unk32 param2) override;
     /* 04 */ virtual bool vfunc_04() override;
     /* 08 */ virtual void vfunc_08() override;
     /* 0C */ virtual void vfunc_0C(unk32 param1) override;
@@ -21,15 +22,14 @@ public:
 class ActorUnkRB1T : public Actor_Derived1 {
 public:
     /* 000 (base) */
-    /* 120 */
-    Actor_Derived1_94_0C *mUnk_120;
-    /* 124 */ STRUCT_PAD(0x124, 0x20C);
+    /* 120 */ ActorUnkZSRS_120 *mUnk_120;
+    /* 124 */ PAD(0x124, 0x20C);
     /* 20C */ ModelRender mUnk_20C; // actually a derived class of a derived class
-    /* 26C */ STRUCT_PAD(0x26C, 0x280);
+    /* 26C */ PAD(0x26C, 0x280);
     /* 280 */ unk32 mUnk_280;
-    /* 284 */ STRUCT_PAD(0x284, 0x300);
+    /* 284 */ PAD(0x284, 0x300);
     /* 300 */ unk32 mUnk_300;
-    /* 304 */ STRUCT_PAD(0x304, 0x36C);
+    /* 304 */ PAD(0x304, 0x36C);
     /* 36C */ unk8 mUnk_36C;
     /* 36D */ unk8 mUnk_36D;
     /* 36E */ unk8 mUnk_36E;
@@ -99,7 +99,7 @@ public:
     void func_ov026_02120744(void);
     void func_ov026_021207e0(void);
     void func_ov026_02120874(void);
-    static void func_ov026_021208a0(void); //! TODO is this really static? can't make it work as a ptmf
+    static void func_ov026_021208a0(Actor *param1, G3d_RenderState *param2);
     void func_ov026_02120954(void);
     void func_ov026_02120974(void);
     void func_ov026_021209d8(void);

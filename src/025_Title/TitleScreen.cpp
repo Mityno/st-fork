@@ -1,4 +1,5 @@
 #include "TitleScreen/TitleScreen.hpp"
+#include "CommonFuncs.hpp"
 #include "Game/GameMode.hpp"
 #include "Unknown/UnkStruct_02049be0.hpp"
 #include "Unknown/UnkStruct_0204a060.hpp"
@@ -11,18 +12,13 @@
 
 #include <string.h>
 
-extern "C" {
-void func_ov000_0205be34(void *param1, unk32 param2);
-void func_ov000_0205bedc(void *param1, void *param2, void *param3, void *param4, unk32 param5, int);
-}
-
 static TitleScreenPTMF<TitleScreen> data_ov025_020c5aec[TitleScreenState_Max] = {
-    TitleScreen::func_ov025_020c5200, // TitleScreenState_None
-    TitleScreen::func_ov025_020c5204, // TitleScreenState_IdleBeforeUI
-    TitleScreen::func_ov025_020c5240, // TitleScreenState_DrawUIOnInput
-    TitleScreen::func_ov025_020c53d0, // TitleScreenState_DrawUIOnCsCmd
-    TitleScreen::func_ov025_020c55a4, // TitleScreenState_IdleBeforeFileSelect
-    TitleScreen::func_ov025_020c55e4, // TitleScreenState_ToFileSelect
+    &TitleScreen::func_ov025_020c5200, // TitleScreenState_None
+    &TitleScreen::func_ov025_020c5204, // TitleScreenState_IdleBeforeUI
+    &TitleScreen::func_ov025_020c5240, // TitleScreenState_DrawUIOnInput
+    &TitleScreen::func_ov025_020c53d0, // TitleScreenState_DrawUIOnCsCmd
+    &TitleScreen::func_ov025_020c55a4, // TitleScreenState_IdleBeforeFileSelect
+    &TitleScreen::func_ov025_020c55e4, // TitleScreenState_ToFileSelect
 };
 
 #if IS_JP

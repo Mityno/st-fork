@@ -33,15 +33,15 @@ class ActorUnkRMSV : public ActorUnkRMSBase {
 public:
     /* 00 (base) */
     /* 158 */ UnkStruct_ov063_021632e4 mUnk_158;
-    /* 198 */ STRUCT_PAD(0x198, 0x1D4); //! INFO: Force alignment to match ::Create
+    /* 198 */ PAD(0x198, 0x1D4); //! INFO: Force alignment to match ::Create
     /* 1D4 */ UnkStruct_ov063_021632e4 mUnk_1D4;
-    /* 214 */ STRUCT_PAD(0x214, 0x250); //! INFO: Force alignment to match ::Create
+    /* 214 */ PAD(0x214, 0x250); //! INFO: Force alignment to match ::Create
     /* 250 */
 
     ActorUnkRMSV();
 
-    /* 18 */ virtual bool vfunc_18(unk32 param1) override;
-    /* 20 */ virtual void vfunc_20(void) override;
+    /* 18 */ virtual bool Init(unk32 param1) override;
+    /* 20 */ virtual void Update(void) override;
     /* 24 */ virtual void vfunc_24(void) override;
     /* 54 */ virtual G3d_Model *vfunc_54(void) override;
     /* 58 */ virtual G3d_Model *vfunc_58(void) override;

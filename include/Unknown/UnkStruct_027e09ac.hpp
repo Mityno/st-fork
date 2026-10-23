@@ -30,7 +30,7 @@ public:
     /* 02 */ u16 mUnk_02;
     /* 04 */ u16 mUnk_04;
     /* 06 */ u16 mUnk_06;
-    /* 08 */ u16 mUnk_08;
+    /* 08 */ u16 mUnk_08; // used for G3_Color
     /* 0A */ u16 mUnk_0A;
     /* 0C */ u16 mUnk_0C;
     /* 0E */ u16 mUnk_0E;
@@ -78,6 +78,8 @@ public:
     ~UnkStruct_027e09ac();
 
     // overlay 0
+    void func_ov000_020723f4();
+    void func_ov000_02072684(void *param1);
     void func_ov000_020726f0(u16 param1, unk32 param2, unk32 param3);
     void func_ov000_020729c4(UnkStruct_027e09ac_14 *param1, u16 param2, u16 param3, s16 param4, s16 param5);
     void func_ov000_02072b08(unk32 param1, unk32 param2);

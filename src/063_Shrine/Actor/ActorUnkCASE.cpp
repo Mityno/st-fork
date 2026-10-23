@@ -1,15 +1,13 @@
-#define VECFX32_CTORS //! TODO: remove this hack
-
 #include "Actor/ActorUnkCASE.hpp"
 #include "Actor/Actor.hpp"
 #include "Actor/ActorId.hpp"
 #include "Actor/ActorManager.hpp"
-#include "Actor/ActorRef.hpp"
 #include "Actor/ActorShotArrow.hpp"
 #include "Actor/ActorUnkCANS.hpp"
 #include "Actor/ActorUnkITWP.hpp"
-#include "MapObject/MapObjectProfile_Derived2_20.hpp"
+#include "CommonFuncs.hpp"
 #include "Physics/Cylinder.hpp"
+#include "RefStruct.hpp"
 #include "Render/ModelRender.hpp"
 #include "Unknown/UnkStruct_027e09a8.hpp"
 #include "Unknown/UnkStruct_027e09c0.hpp"
@@ -24,20 +22,13 @@
 extern const Actor_Derived2_A8_PTR data_ov063_02162558;
 extern const void *data_ov063_02162568;
 
-extern Mat4x3p data_027e0964;
-extern "C" void func_01ffa60c(const Mat3p *, Mat3p *, Mat3p *);
-extern "C" void func_01ffa7a0(VecFx32 *, Mat3p *, VecFx32 *);
-extern "C" void func_01ffad5c(Mat4x3p *, Mat4x3p *, Mat4x3p *);
-extern "C" void func_01ffb714(VecFx32 *, VecFx32 *, VecFx32 *);
-extern "C" u16 func_01ffbbe0(fx32 x, fx32 z);
+extern MtxFx43 data_027e0964;
 
 // Overlay 0
 extern unk32 data_ov000_020aecf8[0x2]; //! INFO: Unsure about the size and type
 extern u16 data_ov000_020aed00;
-extern "C" void func_ov000_0207b70c(ActorUnkCASE_174 *param1, Actor *param2);
 
 // Other
-extern "C" void G3d_GetCurrentMtx(Mat4x3p *mtx1, Mat3p *mtx2);
 
 struct UnkStruct_data_ov063_021630c8 {
     /* 00 */ unk32 mUnk_00;
@@ -59,16 +50,19 @@ struct UnkStruct_data_ov063_021630c8 {
 
 const UnkStruct_data_ov063_021630c8 data_ov063_021630c8(0x5EC, 0x785, 0xFFFFFD48, 0x7AE, 0x112, 0xFFFFECA4);
 
-static PTMF<ActorUnkCASE> data_ov063_021630e0[0x6] = {ActorUnkCASE::func_ov063_0215af58, ActorUnkCASE::func_ov063_0215af60,
-                                                      ActorUnkCASE::func_ov063_0215afb8, ActorUnkCASE::func_ov063_0215b090,
-                                                      ActorUnkCASE::func_ov063_0215b244, ActorUnkCASE::func_ov063_0215b2c4};
+static PTMF<ActorUnkCASE> data_ov063_021630e0[0x6] = {
+    &ActorUnkCASE::func_ov063_0215af58, &ActorUnkCASE::func_ov063_0215af60, &ActorUnkCASE::func_ov063_0215afb8,
+    &ActorUnkCASE::func_ov063_0215b090, &ActorUnkCASE::func_ov063_0215b244, &ActorUnkCASE::func_ov063_0215b2c4,
+};
 
-static PTMF<ActorUnkCASE> data_ov063_02163110[0x6] = {ActorUnkCASE::func_ov063_0215af54, ActorUnkCASE::func_ov063_0215af5c,
-                                                      ActorUnkCASE::func_ov063_0215afa4, ActorUnkCASE::func_ov063_0215b054,
-                                                      ActorUnkCASE::func_ov063_0215b1bc, ActorUnkCASE::func_ov063_0215b2b0};
+static PTMF<ActorUnkCASE> data_ov063_02163110[0x6] = {
+    &ActorUnkCASE::func_ov063_0215af54, &ActorUnkCASE::func_ov063_0215af5c, &ActorUnkCASE::func_ov063_0215afa4,
+    &ActorUnkCASE::func_ov063_0215b054, &ActorUnkCASE::func_ov063_0215b1bc, &ActorUnkCASE::func_ov063_0215b2b0,
+};
 
 DECL_PROFILE(ActorProfileUnkCASE);
 
+// non-matching (profile is smaller than target)
 Actor *ActorProfileUnkCASE::Create() {
     return new(HeapIndex_2) ActorUnkCASE();
 }
@@ -89,7 +83,7 @@ ActorUnkCASE_150::ActorUnkCASE_150(Actor *param1) :
     mUnk_04 = 1;
 }
 
-bool ActorUnkCASE_150::vfunc_00(ActorRef ref, unk32 param2) {
+bool ActorUnkCASE_150::vfunc_00(RefStruct ref, unk32 param2) {
     ActorUnkCASE *actor = (ActorUnkCASE *) mUnk_20;
     if (actor->mUnk_1F4 == 0) {
         bool cond = true;
@@ -123,13 +117,13 @@ ActorUnkCASE_174::ActorUnkCASE_174(Actor *param1) {
     mUnk_2C = param1;
 }
 
-void ActorUnkCASE_174::vfunc_10(Actor *actor) {
+void ActorUnkCASE_174::vfunc_10(const Actor *actor) {
     ((ActorUnkCASE *) mUnk_2C)->func_ov063_0215b724();
-    func_ov000_0207b70c(this, actor);
+    func_ov000_0207b70c(this, (Actor *) actor);
 }
 
 // Static
-void ActorUnkCASE::func_ov063_0215acec(ActorRef *ref1, ActorRef ref2) {
+void ActorUnkCASE::func_ov063_0215acec(RefStruct *ref1, RefStruct ref2) {
     ActorParams params;
 
     params.mUnk_28 = 0;
@@ -139,7 +133,7 @@ void ActorUnkCASE::func_ov063_0215acec(ActorRef *ref1, ActorRef ref2) {
 }
 
 ActorUnkCASE::ActorUnkCASE() :
-    mUnk_0B0(G3d_GetModelPtr(((MapObjectProfile_Derived2_20 *) GET_PROFILE(ActorProfileUnkCASE)->vfunc_04())->mUnk_50)),
+    mUnk_0B0(G3d_GetModelPtr(GET_PROFILE(ActorProfileUnkCASE)->vfunc_04()->mUnk_50)),
     mUnk_120(0),
     mUnk_124(this),
     mUnk_14C(NULL),
@@ -162,7 +156,7 @@ ActorUnkCASE::ActorUnkCASE() :
     mUnk_A8          = (Actor_Derived2_A8_PTR *) &data_ov063_02162558;
 }
 
-bool ActorUnkCASE::vfunc_18(unk32 param1) {
+bool ActorUnkCASE::Init(unk32 param1) {
     mUnk_14C = gpActorManager->func_01fff3b4(mUnk_5C.mUnk_28);
 
     mUnk_0B0.func_ov000_02057c38(6, 2);
@@ -217,7 +211,7 @@ void ActorUnkCASE::func_ov063_0215afb8(void) {
         return;
     }
 
-    //! INFO: Actually a Mat3p, this is only used to allow a "batched" copy (all 9 elements at a time, not 3 by 3)
+    //! INFO: Actually a MtxFx33, this is only used to allow a "batched" copy (all 9 elements at a time, not 3 by 3)
     struct Fx32Array9 {
         fx32 array[9];
     };
@@ -237,18 +231,13 @@ void ActorUnkCASE::func_ov063_0215b054(void) {
     mVel.y = 0;
     mVel.z = mUnk_1E0;
     UNSET_FLAG2(*(s16 *) &mUnk_44, ActorFlag_5);
-    mUnk_52 = -1;
-    mUnk_50 = 0;
+    this->mTimer.Reset();
 }
 
 void ActorUnkCASE::func_ov063_0215b090(void) {
-    if (mUnk_50 < 4) {
+    if (this->mTimer.value < 4) {
         this->func_ov063_0215afb8();
-
-        if (mUnk_50 < mUnk_52) {
-            mUnk_50++;
-        }
-
+        this->mTimer.Update();
         this->vfunc_10(&mUnk_174.mUnk_0C);
         data_027e09c0->func_ov000_0207e58c(mRef, 3, 4, &mUnk_174);
         return;
@@ -277,11 +266,11 @@ void ActorUnkCASE::func_ov063_0215b1bc(void) {
     mVel.z = 0;
 
     VecFx32 vec;
-    VecFx32_Init(0, 0, FLOAT_TO_FX32(1.0f), &vec);
+    VecFx32_Init(0, 0, FX_F32_TO_FX32(1.0f), &vec);
     func_01ffa7a0(&vec, &mUnk_1A4, &vec);
 
     s16 angle = func_01ffbbe0(vec.x, vec.z);
-    Mat3p_InitYRotation(&mUnk_1A4, SIN((u16) angle), COS((u16) angle));
+    MtxFx33_InitYRotation(&mUnk_1A4, SIN((u16) angle), COS((u16) angle));
 }
 
 void ActorUnkCASE::func_ov063_0215b244(void) {
@@ -309,10 +298,11 @@ void ActorUnkCASE::vfunc_24() {
     if (mState != 1 && mState != 2) {
         return;
     }
-    this->vfunc_20();
+    this->Update();
 }
 
-void ActorUnkCASE::vfunc_20() {
+// non-matching
+void ActorUnkCASE::Update() {
     mUnk_150.mUnk_1C = 1;
 
     if (!this->func_ov017_020bef4c(0x4000) && mUnk_48 != 0) {
@@ -362,7 +352,7 @@ void ActorUnkCASE::vfunc_20() {
         x_neg    = vec2->x;
     } else if (mState == 5) {
         VecFx32 vec1;
-        vec1 = mUnk_1CC;
+        vec1 = mUnk_1CC.vec;
         func_01ffb714(&vec1, &mPos, &vec1);
 
         z = vec1.z;
@@ -374,7 +364,7 @@ void ActorUnkCASE::vfunc_20() {
         ((VecFx16 *) &mUnk_150.mUnk_0E)->z = z;
 
         vec2     = data_027e0ce0->func_01fff148(0);
-        vec_base = &mUnk_1CC;
+        vec_base = &mUnk_1CC.vec;
         z_pos    = vec_base->z;
         z_neg    = vec2->z;
         x_pos    = vec_base->x;
@@ -436,20 +426,21 @@ void ActorUnkCASE::vfunc_2C(unk32 param1) {
         fx32 sin_val = SIN((u16) mUnk_1C8);
         fx32 cos_val = COS((u16) mUnk_1C8);
 
-        Mat3p mat2;
-        Mat3p mat1;
-        Mat3p_InitZRotation(&mat1, sin_val, cos_val);
+        MtxFx33 mat2;
+        MtxFx33 mat1;
+        MtxFx33_InitZRotation(&mat1, sin_val, cos_val);
 
         func_01ffa60c(&mat1, &mUnk_1A4, &mat2);
         mUnk_0B0.vfunc_14(&mat2, &mPos);
     }
 }
 
+// non-matching
 void ActorUnkCASE::func_ov063_0215b6c8(VecFx32 *param1, UnkAngleStruct angle) {
     VecFx32 vec = *param1;
     VecFx32_Copy(&vec, &mPos);
     VecFx32_Copy(&vec, &mPrevPos);
-    mAngle = *(s16 *) &angle.angle;
+    this->mAngle.angle_s = angle.angle_s;
 }
 
 void ActorUnkCASE::func_ov063_0215b724(void) {
@@ -460,6 +451,7 @@ void ActorUnkCASE::func_ov063_0215b724(void) {
     data_027e09a8->func_ov000_02071b30(0x9865, &mPos, 0);
 }
 
+// non-matching
 void ActorUnkCASE::vfunc_10(Cylinder *param1) {
     if (mUnk_14C != NULL) {
         ((ActorUnkCASE *) mUnk_14C)->vfunc_10(param1);
@@ -469,7 +461,7 @@ void ActorUnkCASE::vfunc_10(Cylinder *param1) {
     param1->size = 0x800;
 }
 
-void ActorUnkCASE::func_ov063_0215b814(ActorRef ref) {
+void ActorUnkCASE::func_ov063_0215b814(RefStruct ref) {
     mUnk_1E4 = ref;
 
     if (mUnk_14C != NULL) {
@@ -479,6 +471,7 @@ void ActorUnkCASE::func_ov063_0215b814(ActorRef ref) {
     this->func_ov063_0215aefc(1);
 }
 
+// non-matching
 void ActorUnkCASE::func_ov063_0215b854(void) {
     if (mUnk_14C != NULL) {
         ActorUnkCANS *actorCans = (ActorUnkCANS *) mUnk_14C;
@@ -487,8 +480,7 @@ void ActorUnkCASE::func_ov063_0215b854(void) {
         VecFx32_Copy(&vec, &mPos);
         VecFx32_Copy(&vec, &mPrevPos);
 
-        actorCans->mUnk_236 = 20;
-        actorCans->mUnk_234 = 0;
+        actorCans->mUnk_234.Set(0, 20);
 
         actorCans = (ActorUnkCANS *) mUnk_14C;
         actorCans->func_ov063_02158b0c();
@@ -506,6 +498,7 @@ static inline bool VecFx32_IsZero(VecFx32 *vec) {
     return vec->x == 0 && vec->y == 0 && vec->z == 0;
 }
 
+// non-matching
 void ActorUnkCASE::func_ov063_0215b8e8(VecFx32 *param1) {
 
     if (mUnk_14C != NULL) {
@@ -559,16 +552,16 @@ void ActorUnkCASE::func_ov063_0215b99c(ActorUnkCASE *param1, UnkStruct_func_ov06
         return;
     }
 
-    Mat4x3p matx1, matx2;
+    MtxFx43 matx1, matx2;
     G3d_GetCurrentMtx(&matx1, NULL);
     func_01ffad5c(&matx1, &data_027e0964, &matx2);
     // VecFx32_Copy(&matx2.wColumn, &param1->mUnk_1CC);
-    fx32 x             = matx2.wColumn.x;
-    fx32 z             = matx2.wColumn.z;
-    fx32 y             = matx2.wColumn.y;
-    param1->mUnk_1CC.x = x;
-    param1->mUnk_1CC.y = y;
-    param1->mUnk_1CC.z = z;
+    fx32 x                 = matx2._30;
+    fx32 z                 = matx2._32;
+    fx32 y                 = matx2._31;
+    param1->mUnk_1CC.vec.x = x;
+    param1->mUnk_1CC.vec.y = y;
+    param1->mUnk_1CC.vec.z = z;
 
     param2->mUnk_92 = 2;
     var2[0x25]      = 2;

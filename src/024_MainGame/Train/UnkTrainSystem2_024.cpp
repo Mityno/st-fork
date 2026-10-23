@@ -1,3 +1,4 @@
+#include "CommonFuncs.hpp"
 #include "MainGame/AdventureMode.hpp"
 #include "MainGame/CargoManager.hpp"
 #include "MainGame/UnkTrainSystems.hpp"
@@ -7,9 +8,6 @@
 #include "Unknown/UnkStruct_027e09b8.hpp"
 #include "Unknown/UnkStruct_027e0d00.hpp"
 #include "Unknown/UnkStruct_ov000_020b5214.hpp"
-
-extern "C" void func_01ffcb94(unk16, unk16, Mat3p *);
-extern "C" void func_01ffa60c(const Mat3p *, Mat3p *, Mat3p *);
 
 const UnkStruct_ov024_020d86a8 data_ov024_020d78bc = {0};
 
@@ -43,8 +41,6 @@ UnkTrainSystem2::UnkTrainSystem2() :
 
 UnkTrainSystem2::~UnkTrainSystem2() {}
 
-extern "C" bool func_01ff916c(void *, int, int);
-
 void UnkTrainSystem2::func_ov024_020d5990() {
     if (this->func_ov024_020d5c40()) {
         this->mUnk_00 = 0x1000;
@@ -68,7 +64,7 @@ void UnkTrainSystem2::func_ov024_020d5990() {
     }
 }
 
-void UnkTrainSystem2::func_ov024_020d5afc(const Mat3p *param1, const VecFx32 *param2, unk32 param3) {
+void UnkTrainSystem2::func_ov024_020d5afc(const MtxFx33 *param1, const VecFx32 *param2, unk32 param3) {
     if (this->mUnk_00 <= 0) {
         return;
     }
@@ -77,11 +73,11 @@ void UnkTrainSystem2::func_ov024_020d5afc(const Mat3p *param1, const VecFx32 *pa
         return;
     }
 
-    fx32 scale = MUL_FX32(this->mUnk_00, param3);
+    fx32 scale = FX_MUL(this->mUnk_00, param3);
     this->SetModel();
 
     if (gpCargoManager->mUnk_18 > 0) {
-        Mat3p auStack_40;
+        MtxFx33 auStack_40;
         VecFx32 temp;
         func_01ffcb94(this->mUnk_64, this->mUnk_66, &auStack_40);
         func_01ffa60c(param1, &auStack_40, &auStack_40);

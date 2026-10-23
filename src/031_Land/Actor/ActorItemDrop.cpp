@@ -1,4 +1,5 @@
 #include "Actor/ActorItemDrop.hpp"
+#include "CommonFuncs.hpp"
 
 #include "Actor/ActorManager.hpp"
 #include "System/SysNew.hpp"
@@ -9,12 +10,6 @@
 #include "Unknown/UnkStruct_027e0d34.hpp"
 #include "nitro/fx.h"
 #include "versions.h"
-
-extern "C" void func_01ffedac(Vec2bCpp *, VecFx32 *);
-extern "C" void func_01fff05c(u32 *, UnkStruct_027e0cd8_0C_Base *, VecFx32 *);
-extern "C" void func_ov000_0205c1f0(unk32 *, u16);
-extern "C" void func_ov000_0205c204(unk32 *, VecFx32 *, unk32, unk32, unk32);
-extern "C" void func_ov017_020bf99c();
 
 static const Cylinder data_ov031_02114ba0(0x800);
 
@@ -74,7 +69,7 @@ ActorProfileTreasureDrop::ActorProfileTreasureDrop() :
     this->mUnk_04.Init(0x400);
 }
 
-void ActorItemDrop::func_ov031_020f9f8c(ActorRef *pOutRef, const VecFx32 *pPos, u32 params, ActorRef ref) {
+void ActorItemDrop::func_ov031_020f9f8c(RefStruct *pOutRef, const VecFx32 *pPos, u32 params, RefStruct ref) {
     ActorParams actorParams;
 
     actorParams.mUnk_28.Reset();
@@ -91,17 +86,16 @@ void ActorItemDrop::func_ov031_020f9f8c(ActorRef *pOutRef, const VecFx32 *pPos, 
 }
 
 ActorItemDrop::ActorItemDrop() :
-    mUnk_AE(0x0),
-    mUnk_B0(0x6),
-    mUnk_D8(FLOAT_TO_FX32(0.5f)),
+    mUnk_AE(0, 6),
+    mUnk_D8(FX_F32_TO_FX32(0.5f)),
     mUnk_DC(0),
     mUnk_E0(0),
     mUnk_E4(this),
     mUnk_108(0x0) {
 
-    this->mUnk_10C.x = FLOAT_TO_FX32(0.0f);
-    this->mUnk_10C.y = FLOAT_TO_FX32(0.0f);
-    this->mUnk_10C.z = FLOAT_TO_FX32(0.0f);
+    this->mUnk_10C.x = FX_F32_TO_FX32(0.0f);
+    this->mUnk_10C.y = FX_F32_TO_FX32(0.0f);
+    this->mUnk_10C.z = FX_F32_TO_FX32(0.0f);
     this->mUnk_118   = false;
     this->mUnk_119   = false;
 
@@ -109,7 +103,7 @@ ActorItemDrop::ActorItemDrop() :
         case ActorId_ArrowDrop:
             if (data_027e0ce0->mUnk_2C->HasItem(ItemFlag_Bow)) {
                 this->mItemTypeId = ItemDropType_Arrow;
-                this->mUnk_D8     = FLOAT_TO_FX32(0.5f);
+                this->mUnk_D8     = FX_F32_TO_FX32(0.5f);
             } else {
                 this->mItemTypeId = ItemDropType_Unknown;
             }
@@ -117,14 +111,14 @@ ActorItemDrop::ActorItemDrop() :
         case ActorId_BombDrop:
             if (data_027e0ce0->mUnk_2C->HasItem(ItemFlag_Bombs)) {
                 this->mItemTypeId = ItemDropType_Bomb;
-                this->mUnk_D8     = FLOAT_TO_FX32(0.3f);
+                this->mUnk_D8     = FX_F32_TO_FX32(0.3f);
             } else {
                 this->mItemTypeId = ItemDropType_Unknown;
             }
             break;
         case ActorId_RedPotionDrop:
             this->mItemTypeId = ItemDropType_RedPotion;
-            this->mUnk_D8     = FLOAT_TO_FX32(0.4f);
+            this->mUnk_D8     = FX_F32_TO_FX32(0.4f);
             this->mUnk_119    = true;
             break;
         case ActorId_TreasureDrop:
@@ -155,7 +149,7 @@ ActorItemDrop::ActorItemDrop() :
             }
 
             this->mItemTypeId = itemType;
-            this->mUnk_D8     = FLOAT_TO_FX32(0.3f);
+            this->mUnk_D8     = FX_F32_TO_FX32(0.3f);
             this->mUnk_119    = true;
             break;
         default:
@@ -174,18 +168,17 @@ ActorItemDrop::ActorItemDrop() :
     }
 }
 
-bool ActorItemDrop::vfunc_18(unk32 param1) {
+bool ActorItemDrop::Init(unk32 param1) {
     if (this->mItemTypeId >= ItemDropType_Unknown) {
         return false;
     }
 
-    this->mUnk_52 = FLOAT_TO_FX32(0.1173f);
-    this->mUnk_50 = FLOAT_TO_FX32(0.0f);
+    this->mTimer.Set(0, 480);
     this->SetState(ActorItemDropState_0);
     return true;
 }
 
-void ActorItemDrop::vfunc_20() {
+void ActorItemDrop::Update() {
     this->func_ov031_020fa260();
 }
 
@@ -196,13 +189,13 @@ void ActorItemDrop::vfunc_24() {
 }
 
 static PTMF<ActorItemDrop> data_ov031_02114bb0[ActorItemDropState_Max] = {
-    ActorItemDrop::func_ov031_020fa46c, // ActorItemDropState_0
-    ActorItemDrop::func_ov031_020fa4a0, // ActorItemDropState_1
-    ActorItemDrop::func_ov031_020fa568, // ActorItemDropState_2
-    ActorItemDrop::func_ov031_020fa5f0, // ActorItemDropState_3
-    ActorItemDrop::func_ov031_020fa664, // ActorItemDropState_4
-    ActorItemDrop::func_ov031_020fa678, // ActorItemDropState_5
-    ActorItemDrop::func_ov031_020fa72c, // ActorItemDropState_6
+    &ActorItemDrop::func_ov031_020fa46c, // ActorItemDropState_0
+    &ActorItemDrop::func_ov031_020fa4a0, // ActorItemDropState_1
+    &ActorItemDrop::func_ov031_020fa568, // ActorItemDropState_2
+    &ActorItemDrop::func_ov031_020fa5f0, // ActorItemDropState_3
+    &ActorItemDrop::func_ov031_020fa664, // ActorItemDropState_4
+    &ActorItemDrop::func_ov031_020fa678, // ActorItemDropState_5
+    &ActorItemDrop::func_ov031_020fa72c, // ActorItemDropState_6
 };
 
 void ActorItemDrop::func_ov031_020fa260() {
@@ -210,7 +203,7 @@ void ActorItemDrop::func_ov031_020fa260() {
 
     CALL_PTMF(PTMF<ActorItemDrop>, data_ov031_02114bb0[this->mState]);
 
-    if (this->IsTimerOut()) {
+    if (this->mUnk_AE.HasExpired()) {
         this->func_ov000_020989e0();
 
         if (this->mUnk_B4.mUnk_08 & 0x3FFFF) {
@@ -220,15 +213,15 @@ void ActorItemDrop::func_ov031_020fa260() {
                     if (this->mUnk_119) {
                         bool var_r1_3 = false;
 
-                        if (this->mUnk_B4.mUnk_0C.type_index == 0x100 && this->mUnk_B4.mUnk_0C.unk_id == 0) {
+                        if (this->mUnk_B4.mUnk_0C.acRef.type_index == 0x100 && this->mUnk_B4.mUnk_0C.acRef.unk_id == 0) {
                             var_r1_3 = true;
                         }
 
-                        if (var_r1_3 || (this->mUnk_B4.mUnk_0C.type_index == 0x100 && this->mUnk_B4.mUnk_0C.unk_id == 1 &&
-                                         data_027e0ce0->func_01fff1e0())) {
+                        if (var_r1_3 || (this->mUnk_B4.mUnk_0C.acRef.type_index == 0x100 &&
+                                         this->mUnk_B4.mUnk_0C.acRef.unk_id == 1 && data_027e0ce0->func_01fff1e0())) {
                             this->SetState(ActorItemDropState_6);
                         }
-                    } else if (this->mUnk_B4.mUnk_0C.type_index & 0x100) {
+                    } else if (this->mUnk_B4.mUnk_0C.acRef.type_index & 0x100) {
                         this->SetState(ActorItemDropState_6);
                     }
                     break;
@@ -255,23 +248,23 @@ void ActorItemDrop::func_ov031_020fa260() {
     }
 
     if (this->mUnk_46 & 3) {
-        this->mVel.y = FLOAT_TO_FX32(0.0f);
+        this->mVel.y = FX_F32_TO_FX32(0.0f);
     }
 
     VecFx32_Add(&this->mPos, &this->mUnk_10C, &this->mPos);
-    this->mUnk_10C.x = FLOAT_TO_FX32(0.0f);
-    this->mUnk_10C.y = FLOAT_TO_FX32(0.0f);
-    this->mUnk_10C.z = FLOAT_TO_FX32(0.0f);
+    this->mUnk_10C.x = FX_F32_TO_FX32(0.0f);
+    this->mUnk_10C.y = FX_F32_TO_FX32(0.0f);
+    this->mUnk_10C.z = FX_F32_TO_FX32(0.0f);
 }
 
 static PTMF<ActorItemDrop> data_ov031_02114be8[ActorItemDropState_Max] = {
-    ActorItemDrop::func_ov031_020fa468, // ActorItemDropState_0
-    ActorItemDrop::func_ov031_020fa494, // ActorItemDropState_1
-    ActorItemDrop::func_ov031_020fa524, // ActorItemDropState_2
-    ActorItemDrop::func_ov031_020fa5d8, // ActorItemDropState_3
-    ActorItemDrop::func_ov031_020fa650, // ActorItemDropState_4
-    ActorItemDrop::func_ov031_020fa668, // ActorItemDropState_5
-    ActorItemDrop::func_ov031_020fa6c8, // ActorItemDropState_6
+    &ActorItemDrop::func_ov031_020fa468, // ActorItemDropState_0
+    &ActorItemDrop::func_ov031_020fa494, // ActorItemDropState_1
+    &ActorItemDrop::func_ov031_020fa524, // ActorItemDropState_2
+    &ActorItemDrop::func_ov031_020fa5d8, // ActorItemDropState_3
+    &ActorItemDrop::func_ov031_020fa650, // ActorItemDropState_4
+    &ActorItemDrop::func_ov031_020fa668, // ActorItemDropState_5
+    &ActorItemDrop::func_ov031_020fa6c8, // ActorItemDropState_6
 };
 
 void ActorItemDrop::SetState(ActorState state) {
@@ -291,7 +284,7 @@ void ActorItemDrop::func_ov031_020fa468() {}
 void ActorItemDrop::func_ov031_020fa46c() {
     func_ov000_02098838();
 
-    if (this->mVel.y > FLOAT_TO_FX32(0.0f)) {
+    if (this->mVel.y > FX_F32_TO_FX32(0.0f)) {
         return;
     }
 
@@ -322,13 +315,12 @@ void ActorItemDrop::func_ov031_020fa4a0() {
 }
 
 void ActorItemDrop::func_ov031_020fa524() {
-    this->mVel.x = FLOAT_TO_FX32(0.0f);
-    this->mVel.y = FLOAT_TO_FX32(0.0f);
-    this->mVel.z = FLOAT_TO_FX32(0.0f);
+    this->mVel.x = FX_F32_TO_FX32(0.0f);
+    this->mVel.y = FX_F32_TO_FX32(0.0f);
+    this->mVel.z = FX_F32_TO_FX32(0.0f);
 
-    if (!this->mUnk_118 && this->mUnk_52 - this->mUnk_50 > FLOAT_TO_FX32(0.044f)) {
-        this->mUnk_52 = FLOAT_TO_FX32(0.044f);
-        this->mUnk_50 = FLOAT_TO_FX32(0.0f);
+    if (!this->mUnk_118 && this->mTimer.GetRemainingTime() > 180) {
+        this->mTimer.Set(0, 180);
     }
 
     this->mUnk_44 = 0x9F;
@@ -350,9 +342,9 @@ void ActorItemDrop::func_ov031_020fa568() {
             this->func_ov000_02098838();
 
             if (this->mUnk_46 & 0x3) {
-                this->mVel.x   = FLOAT_TO_FX32(0.0f);
-                this->mVel.y   = FLOAT_TO_FX32(0.0f);
-                this->mVel.z   = FLOAT_TO_FX32(0.0f);
+                this->mVel.x   = FX_F32_TO_FX32(0.0f);
+                this->mVel.y   = FX_F32_TO_FX32(0.0f);
+                this->mVel.z   = FX_F32_TO_FX32(0.0f);
                 this->mUnk_108 = 0x0;
             }
 
@@ -363,7 +355,7 @@ void ActorItemDrop::func_ov031_020fa568() {
 }
 
 void ActorItemDrop::func_ov031_020fa5d8() {
-    func_ov017_020bf99c();
+    Actor::func_ov017_020bf99c();
     this->mUnk_B4.func_ov000_02097bec();
 }
 
@@ -371,31 +363,31 @@ void ActorItemDrop::func_ov031_020fa5f0() {
     this->func_ov017_020bf9c8(gpActorManager->func_01fff3b4(this->mUnk_DC));
 
     if (GET_FLAG(this->mFlags, ActorFlag_5)) {
-        this->mVel.x = FLOAT_TO_FX32(0.0f);
-        this->mVel.y = FLOAT_TO_FX32(0.0f);
-        this->mVel.z = FLOAT_TO_FX32(0.0f);
+        this->mVel.x = FX_F32_TO_FX32(0.0f);
+        this->mVel.y = FX_F32_TO_FX32(0.0f);
+        this->mVel.z = FX_F32_TO_FX32(0.0f);
         this->mUnk_B4.mUnk_04 |= 0x1000;
         this->SetState(ActorItemDropState_1);
     }
 }
 
 void ActorItemDrop::func_ov031_020fa650() {
-    this->mVel.x = FLOAT_TO_FX32(0.0f);
-    this->mVel.y = FLOAT_TO_FX32(0.0f);
-    this->mVel.z = FLOAT_TO_FX32(0.0f);
+    this->mVel.x = FX_F32_TO_FX32(0.0f);
+    this->mVel.y = FX_F32_TO_FX32(0.0f);
+    this->mVel.z = FX_F32_TO_FX32(0.0f);
 }
 
 void ActorItemDrop::func_ov031_020fa664() {}
 
 void ActorItemDrop::func_ov031_020fa668() {
-    this->mVel.x = FLOAT_TO_FX32(0.0f);
-    this->mVel.z = FLOAT_TO_FX32(0.0f);
+    this->mVel.x = FX_F32_TO_FX32(0.0f);
+    this->mVel.z = FX_F32_TO_FX32(0.0f);
 }
 
 class UnkActor_ov031_020fa678 : public Actor {
 public:
     /* 000 (base) */
-    /* 94 */ STRUCT_PAD(0x94, 0xE8);
+    /* 94 */ PAD(0x94, 0xE8);
     /* E8 */ VecFx32 mUnk_E8;
 };
 
@@ -411,11 +403,10 @@ void ActorItemDrop::func_ov031_020fa678() {
 }
 
 void ActorItemDrop::func_ov031_020fa6c8() {
-    this->mUnk_52    = FLOAT_TO_FX32(15.9998f);
-    this->mUnk_50    = FLOAT_TO_FX32(0.0f);
-    this->mVel.x     = FLOAT_TO_FX32(0.0f);
-    this->mVel.y     = FLOAT_TO_FX32(0.0f);
-    this->mVel.z     = FLOAT_TO_FX32(0.0f);
+    this->mTimer.Reset();
+    this->mVel.x     = FX_F32_TO_FX32(0.0f);
+    this->mVel.y     = FX_F32_TO_FX32(0.0f);
+    this->mVel.z     = FX_F32_TO_FX32(0.0f);
     this->mUnk_4A[0] = 0x0;
     this->mUnk_44    = 0x0;
 
@@ -480,7 +471,7 @@ void ActorItemDrop::vfunc_2C(unk32 param1) {
     }
 
     vec1 = this->mPos;
-    vec1.y += FLOAT_TO_FX32(0.03113);
+    vec1.y += FX_F32_TO_FX32(0.03113);
     this->func_ov017_020bf5c4(&vec1, 0x400, 0x400, 0x1F, 0x0);
 
     func_ov000_0205c1f0(&value, data_ov031_02110bc8[this->mItemTypeId]);
@@ -509,19 +500,18 @@ void ActorItemDrop::func_ov031_020fa900() {
     if (var_r2) {
         SET_FLAG(this->mFlags, ActorFlag_Visible);
     } else if (!this->mUnk_118) {
-        if (this->Actor::IsTimerOut()) {
+        if (this->mTimer.HasExpired()) {
             this->mUnk_118 = true;
-            this->mUnk_52  = 60;
-            this->mUnk_50  = 0;
+            this->mTimer.Set(0, 60);
         }
     } else {
-        if ((this->mUnk_50 % 8) < 4) {
+        if ((this->mTimer.value % 8) < 4) {
             UNSET_FLAG(this->mFlags, ActorFlag_Visible);
         } else {
             SET_FLAG(this->mFlags, ActorFlag_Visible);
         }
 
-        if (this->Actor::IsTimerOut()) {
+        if (this->mTimer.HasExpired()) {
             this->func_ov000_020984d0();
         }
     }
@@ -533,7 +523,7 @@ ActorItemDrop_C4::ActorItemDrop_C4(Actor *param1) :
     this->mUnk_04 = 0x1;
 }
 
-bool ActorItemDrop_C4::vfunc_00(ActorRef ref, unk32 param2) {
+bool ActorItemDrop_C4::vfunc_00(RefStruct ref, unk32 param2) {
     if (param2 != 0) {
         ActorItemDrop *actorDroppedItem = this->GetActorPtr<ActorItemDrop>();
         actorDroppedItem->mUnk_E0       = ref;

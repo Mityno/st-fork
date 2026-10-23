@@ -23,48 +23,38 @@ public:
 #else
     /* 094 */ ActorUnkTGTZ_ModelRender mUnk_094;
     /* 100 */ unk32 mUnk_100;
-    /* 104 */ STRUCT_PAD(0x104, 0x190);
+    /* 104 */ PAD(0x104, 0x190);
 #endif
-    /* 190 */ Mat3p mUnk_190;
+    /* 190 */ MtxFx33 mUnk_190;
     /* 1B4 */ ActorUnkNTTZ *mUnk_1B4;
     /* 1B8 */ unk32 mUnk_1B8;
     /* 1BC */ unk32 mUnk_1BC;
-    /* 1C0 */ volatile u16 mUnk_1C0;
-    /* 1C2 */ u16 mUnk_1C2;
+    /* 1C0 */ Timer mUnk_1C0;
     /* 1CC */ fx32 mUnk_1C4;
     /* 1C8 */ UnkStruct_ov019_020d24c8_28_258_00 *mUnk_1C8;
     /* 1CC */ unk32 mUnk_1CC;
-    /* 1D0 */ volatile u16 mUnk_1D0;
-    /* 1D2 */ u16 mUnk_1D2;
+    /* 1D0 */ Timer mUnk_1D0;
     /* 1D4 */ u16 mUnk_1D4;
     /* 1D6 */ u16 mUnk_1D6;
     /* 1D8 */ bool mUnk_1D8;
-    /* 1DC */ ActorRef mUnk_1DC;
+    /* 1DC */ RefStruct mUnk_1DC;
     /* 1E0 */
 
     ActorUnkTGTZ();
 
-    /* 18 */ virtual bool vfunc_18(unk32 param1) override;
-    /* 20 */ virtual void vfunc_20() override;
+    /* 18 */ virtual bool Init(unk32 param1) override;
+    /* 20 */ virtual void Update() override;
     /* 24 */ virtual void vfunc_24() override;
     /* 30 */ virtual void vfunc_2C(unk32 param1) override;
     /* 34 */ virtual void vfunc_30(Actor_vfunc_30 *param1) override;
 
-    bool IsInternalTimerOut() {
-        if (this->mUnk_1D0 < this->mUnk_1D2) {
-            ++this->mUnk_1D0;
-            return false;
-        }
-        return true;
-    }
-
-    void func_ov031_020f6984();
-    static void func_ov031_020f6e5c(ActorRef param1);
-    static void func_ov031_020f6ea8(ActorRef *param0, u16 param1, const VecFx32 *param2, s16 param3, u16 param4);
     void func_ov031_020f6f20(unk32 param1);
     void func_ov031_020f7358();
     void func_ov031_020f73e4();
     void func_ov031_020f73f0();
+
+    static void func_ov031_020f6e5c(RefStruct param1);
+    static void func_ov031_020f6ea8(RefStruct *param0, u16 param1, const VecFx32 *param2, s16 param3, u16 param4);
 };
 
 class ActorProfileUnkTGTZ : public ActorProfile_Derived1 {

@@ -35,6 +35,15 @@ typedef enum {
     G3D_RENDERST_FLAG_SKIP_SBC_MTXCALC = 0x400  // skips the execution of matrix calculation commands
 } G3d_RenderStateFlag;
 
+typedef struct G3d_RenderState_B4_ {
+    /* 00 */ s32 mUnk_00;
+    /* 04 */ PAD(0x04, 0x28);
+    /* 28 */ MtxFx33 mUnk_28;
+    /* 4C */ s32 mUnk_4C;
+    /* 50 */ s32 mUnk_50;
+    /* 54 */ s32 mUnk_54;
+} G3d_RenderState_B4; // size = ?
+
 typedef struct G3d_RenderState_ {
     /* 00 */ u8 *currentCmd;                         // current command being processed
     /* 04 */ G3d_RenderObject *renderObj;            // current render object being processed
@@ -46,8 +55,8 @@ typedef struct G3d_RenderState_ {
     /* AE */ u8 currentBoneMtxId;
     /* AF */ u8 dummy;
     /* B0 */ G3d_MaterialAnimation *matAnim;
-    /* B4 */ void *mUnk_19;
-    /* B8 */ u8 *visibilityPtr; // points to isVisible (0x187)
+    /* B4 */ G3d_RenderState_B4 *mUnk_B4;
+    /* B8 */ BOOL *visibilityPtr; // points to isVisible (0x187)
     /* BC */ u32 mUnk_BC[2];
     /* C4 */ u32 mUnk_C4[2];
     /* CC */ u32 mUnk_CC[2];
@@ -61,14 +70,13 @@ typedef struct G3d_RenderState_ {
     /* F0 */ void *textureHandler;    // texture matrix handler
     /* F4 */ u8 mUnk_F4[0x93];
     /* 187 */ u8 isVisible;
-    /* 188 */
-} G3d_RenderState;
+} G3d_RenderState; // size = 0x188
 
 typedef struct UnkStruct_0205ae08_ {
     /* 00 */ u8 mUnk_00[0x1400];
     /* 1400 */ struct {
-        Mat4p mtx1;
-        Mat3p mtx2;
+        MtxFx44 mtx1;
+        MtxFx33 mtx2;
     } mUnk_1400[64];
 } UnkStruct_0205ae08;
 
@@ -94,15 +102,15 @@ static inline void G3d_RestoreMtx_inline(u32 idx) {
     PushGeometryCommand(0x14, &idx, 1);
 }
 
-static inline void G3d_MtxMult33_inline(const Mat3p *m) {
+static inline void G3d_MtxMult33_inline(const MtxFx33 *m) {
     PushGeometryCommand(0x1A, (u32 *) m, 9);
 }
 
-static inline void G3d_MtxMult43_inline(const Mat4x3p *m) {
+static inline void G3d_MtxMult43_inline(const MtxFx43 *m) {
     PushGeometryCommand(0x19, (u32 *) m, 12);
 }
 
-static inline void G3d_MtxMult44_inline(const Mat4p *m) {
+static inline void G3d_MtxMult44_inline(const MtxFx44 *m) {
     PushGeometryCommand(0x18, (u32 *) m, 0x10);
 }
 

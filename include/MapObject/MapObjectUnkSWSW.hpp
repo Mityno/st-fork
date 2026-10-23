@@ -3,6 +3,7 @@
 #include "MapObject/MapObject.hpp"
 #include "MapObject/MapObjectProfile.hpp"
 #include "global.h"
+#include "timer.hpp"
 #include "types.h"
 
 class ActorUnkNSSW;
@@ -19,7 +20,7 @@ public:
     MapObjectUnkSWSW_40(G3d_Model *pModel);
 
     // data_ov032_021227ac
-    /* 1C */ virtual void vfunc_1C(UnkSystem4_vfunc_1C *param1) override;
+    /* 1C */ virtual void vfunc_1C(G3d_RenderState *param1) override;
 
     void func_ov032_021210a0(fx32 param1);
 };
@@ -30,36 +31,26 @@ public:
     /* 040 */ MapObjectUnkSWSW_40 mUnk_040;
     /* 0AC */ UnkSystem5 mUnk_0AC;
     /* 0CC */ unk32 mUnk_0CC;
-    /* 0E0 */ STRUCT_PAD(0xD0, 0xEC);
-    /* 0EC */ VecFx32 mUnk_0EC;
+    /* 0E0 */ PAD(0xD0, 0xEC);
+    /* 0EC */ VecFx32Cpp mUnk_0EC;
     /* 0F8 */ ActorUnkNSSW *mUnk_0F8;
     /* 0FC */ unk32 mUnk_0FC;
-    /* 100 */ volatile u16 mUnk_100;
-    /* 102 */ u16 mUnk_102;
+    /* 100 */ Timer mUnk_100;
     /* 104 */ u8 mUnk_104;
     /* 105 */ u8 mUnk_105;
-    /* 106 */ STRUCT_PAD(0x106, 0x108);
+    /* 106 */ PAD(0x106, 0x108);
     /* 108 */ fx32 mUnk_108;
     /* 10C */ unk16 mUnk_10C;
-    /* 10E */ volatile u16 mUnk_10E;
-    /* 110 */ u16 mUnk_110;
+    /* 10E */ Timer mUnk_10E;
     /* 114 */ ActorUnkNSSW *mUnk_114;
     /* 118 */
 
     MapObjectUnkSWSW();
 
-    bool IsInternalTimerOut() {
-        if (this->mUnk_100 < this->mUnk_102) {
-            ++this->mUnk_100;
-            return false;
-        }
-        return true;
-    }
-
-    /* 00 */ virtual bool vfunc_00() override;
+    /* 00 */ virtual bool Init() override;
     /* 08 */ virtual void vfunc_08() override;
-    /* 14 */ virtual void vfunc_14() override;
-    /* 1C */ virtual bool vfunc_1C(ActorRef param1, unk32 param2, VecFx32 *param3) override;
+    /* 14 */ virtual void vfunc_14(unk32 param1) override;
+    /* 1C */ virtual bool vfunc_1C(RefStruct param1, unk32 param2, VecFx32 *param3) override;
     /* 38 */ virtual void vfunc_38();
     /* 3C */ virtual void vfunc_3C(unk32 param1);
 

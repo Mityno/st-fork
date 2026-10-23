@@ -16,8 +16,8 @@ ActorProfileUnkKEYN::ActorProfileUnkKEYN() :
 
 ActorUnkKEYN::ActorUnkKEYN() {}
 
-void ActorUnkKEYN::func_ov070_0214143c(ActorRef *param1, VecFx32 *param2, ActorRef param3, s16 param4, u8 param5, u16 param6) {
-}
+void ActorUnkKEYN::func_ov070_0214143c(RefStruct *param1, VecFx32 *param2, RefStruct param3, s16 param4, u8 param5,
+                                       u16 param6) {}
 void ActorUnkKEYN::func_ov070_02141618(void) {}
 void ActorUnkKEYN::func_ov070_0214162c(void) {}
 void ActorUnkKEYN::func_ov070_02141750(void) {}
@@ -43,9 +43,7 @@ void ActorUnkKEYN::func_ov070_021420a4(void) {}
 void ActorUnkKEYN::func_ov070_021420d8(void) {}
 
 void ActorUnkKEYN::func_ov070_02142140(void) {
-    if (this->mUnk_50 < this->mUnk_52) {
-        this->mUnk_50++;
-    }
+    this->mTimer.Update();
 
     if (!data_027e09b8->func_01ffd420()) {
         if (data_027e0d34->TryItemGive(this->mItemId)) {

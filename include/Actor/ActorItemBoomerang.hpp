@@ -2,6 +2,7 @@
 
 #include "Actor/Actor.hpp"
 #include "Actor/ActorProfile.hpp"
+#include "RefStruct.hpp"
 #include "Render/ModelRender.hpp"
 #include "Unknown/UnkStruct_ov031_Items.hpp"
 #include "global.h"
@@ -22,21 +23,21 @@ public:
     /* 10 */
 
     void func_ov031_020e45fc();
-    void func_ov031_020e5704();
 };
 
 class ActorItemBoomerang_11C : public UnkStruct_ov031_Items_00 {
 public:
     /* 00 (vtable) */
-    /* 04 */ STRUCT_PAD(0x04, 0x08);
+    /* 04 */ PAD(0x04, 0x08);
     /* 08 */ ActorItemBoomerang *mUnk_08;
     /* 0C */
 
     ActorItemBoomerang_11C(ActorItemBoomerang *param1);
 
     /* 00 */ virtual ~ActorItemBoomerang_11C() override;
-    /* 08 */ virtual bool vfunc_08(const UnkStruct_ov031_020f3310 *param1) override;
-    /* 0C */ virtual bool vfunc_0C(const UnkStruct_ov031_020e54d4 *param1, unk32 *param2, unk32 param3) override;
+    /* 08 */ virtual bool vfunc_08(const UnkStruct_ov031_020f3310 *param1, unk32 param2) override;
+    /* 0C */ virtual bool vfunc_0C(RefStruct ref, UnkStruct_ov031_020e54d4 *param2, const VecFx32 *param3,
+                                   const VecFx32 *param4) override;
 };
 
 class ActorItemBoomerang_A0 : public UnkStruct_ov031_Items_01 {
@@ -44,13 +45,13 @@ public:
     /* 00 (vtable) */
     /* 04 */
 
-    /* 10 */ virtual void vfunc_10(Actor *actor) override;
+    /* 10 */ virtual void vfunc_10(const Actor *actor) override;
 };
 
 class ActorItemBoomerang_CC : public UnkStruct_ov031_Items_01 {
 public:
     /* 00 (vtable) */
-    /* 2C */ unk32 mUnk_2C;
+    /* 2C */ RefStruct mUnk_2C;
     /* 30 */ ActorItemBoomerang_Unknown mUnk_30;
     /* 40 */
 
@@ -58,7 +59,7 @@ public:
         mUnk_2C(0x0) {}
 
     /* 0C */ virtual bool vfunc_0C(Actor *actor, VecFx32 *param2) override;
-    /* 10 */ virtual void vfunc_10(Actor *actor) override;
+    /* 10 */ virtual void vfunc_10(const Actor *actor) override;
 };
 
 class ActorItemBoomerang : public Actor {
@@ -71,19 +72,18 @@ public:
     /* 118 */ unk32 mUnk_118;
     /* 11C */ ActorItemBoomerang_11C mUnk_11C;
     /* 128 */ u32 mUnk_128;
-    /* 12C */ UnkStruct_PlayerGet_ec mUnk_12C[0x3];
-    /* 138 */ u16 mUnk_138; // timer ?
-    /* 13A */ u16 mUnk_13A;
+    /* 12C */ UnkSystem7 mUnk_12C[0x3];
+    /* 138 */ Timer mUnk_138;
     /* 13C */ u16 mUnk_13C;
-    /* 13E */ STRUCT_PAD(0x13E, 0x140);
+    /* 13E */ PAD(0x13E, 0x140);
     /* 140 */ UnkStruct_ov031_Items_02 mUnk_140;
-    /* 14C */ STRUCT_PAD(0x14C, 0x188);
+    /* 14C */ PAD(0x14C, 0x188);
     /* 188 */
 
     ActorItemBoomerang();
 
-    /* 18 */ virtual bool vfunc_18(unk32 param1) override;
-    /* 20 */ virtual void vfunc_20() override;
+    /* 18 */ virtual bool Init(unk32 param1) override;
+    /* 20 */ virtual void Update() override;
     /* 2C */ virtual void vfunc_2C(unk32 param1) override;
     /* 4C */ virtual ~ActorItemBoomerang() override;
 

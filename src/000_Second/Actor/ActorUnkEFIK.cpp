@@ -1,12 +1,11 @@
 #include "Actor/ActorUnkEFIK.hpp"
+#include "CommonFuncs.hpp"
 #include "System/Random.hpp"
 #include "System/SysNew.hpp"
 #include "Unknown/UnkStruct_0204a110.hpp"
 #include "Unknown/UnkStruct_027e0cd8.hpp"
 #include "Unknown/UnkStruct_027e0cec.hpp"
 #include "Unknown/UnkStruct_ov000_020aed1c.hpp"
-
-extern "C" void Unknown_func_ov000_0207fd7c(void *, void *, unk32);
 
 DECL_PROFILE(ActorProfileUnkEFIK);
 
@@ -17,13 +16,14 @@ Actor *ActorProfileUnkEFIK::Create() {
 ActorProfileUnkEFIK::ActorProfileUnkEFIK() :
     ActorProfile(ActorId_EFIK) {}
 
-ActorUnkEFIK::ActorUnkEFIK() :
-    mUnk_98(NULL) {
+ActorUnkEFIK::ActorUnkEFIK() {
     this->mUnk_9C = -1;
     this->mUnk_A0 = 0;
 }
 
-bool ActorUnkEFIK::vfunc_18(unk32 param1) {
+bool ActorUnkEFIK::Init(unk32 param1) {
+#pragma unused(param1)
+
     this->mUnk_9C = 0x86F;
     this->mUnk_A0 = 4;
     this->mUnk_98.func_ov000_020a0334();
@@ -31,7 +31,7 @@ bool ActorUnkEFIK::vfunc_18(unk32 param1) {
     return true;
 }
 
-void ActorUnkEFIK::vfunc_20() {
+void ActorUnkEFIK::Update() {
     if (this->mUnk_94 != 0) {
         return;
     }
@@ -81,7 +81,7 @@ void ActorUnkEFIK::vfunc_20() {
 }
 
 void ActorUnkEFIK::vfunc_24() {
-    this->vfunc_20();
+    this->Update();
 }
 
 void ActorUnkEFIK::vfunc_54(unk32 param1) {

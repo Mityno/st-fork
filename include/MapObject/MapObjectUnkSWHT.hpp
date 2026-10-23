@@ -23,7 +23,7 @@ public:
     /* 054 */ ModelRender mUnk_054;
     /* 0B4 */ UnkSystem5 mUnk_0B4;
     /* 0D4 */ unk32 mUnk_0D4;
-    /* 0D8 */ STRUCT_PAD(0x0D8, 0x0F4);
+    /* 0D8 */ PAD(0x0D8, 0x0F4);
     /* 0F4 */ UnkSystem7 mUnk_0F4;
     /* 0F8 */ unk32 mUnk_0F8;
     /* 0FC */ unk32 mUnk_0FC;
@@ -31,11 +31,11 @@ public:
 
     MapObjectUnkSWHT();
 
-    /* 00 */ virtual bool vfunc_00() override;
+    /* 00 */ virtual bool Init() override;
     /* 08 */ virtual void vfunc_08() override;
     /* 0C */ virtual void vfunc_0C() override;
-    /* 14 */ virtual void vfunc_14() override;
-    /* 1C */ virtual bool vfunc_1C(ActorRef param1, unk32 param2, VecFx32 *param3) override;
+    /* 14 */ virtual void vfunc_14(unk32 param1) override;
+    /* 1C */ virtual bool vfunc_1C(RefStruct param1, unk32 param2, VecFx32 *param3) override;
     /* 30 */ virtual ~MapObjectUnkSWHT() override;
 
     void func_ov031_02101dd8();

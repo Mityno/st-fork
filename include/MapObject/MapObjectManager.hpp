@@ -1,11 +1,12 @@
 #pragma once
 
-#include "MapObject/MapObject.hpp"
 #include "Unknown/UnkStruct_ov000_020b34c4.hpp"
 #include "files.h"
 #include "types.h"
 
 #include "math.hpp"
+
+struct MapObject;
 
 typedef void (*UnkCallback_func_01fff4cc)(void *, void *);
 
@@ -32,7 +33,7 @@ public:
     /* 1E */ unk16 mUnk_1E;
     /* 20 */ unk16 mUnk_20;
     /* 22 */ unk16 mUnk_22;
-    /* 24 */ STRUCT_PAD(0x24, 0x6C);
+    /* 24 */ PAD(0x24, 0x6C);
     /* 6C */ void *mUnk_6C;
     /* 70 */
 
@@ -66,6 +67,21 @@ public:
 
     static MapObjectManager *Create();
     static void Destroy();
+
+    // overlay 5
+    void func_ov005_020b6570(unk32 param1);
+
+    // overlay 17
+    bool func_ov017_020c007c(unk32 param1);
+    void func_ov017_020c00dc(unk32 param1);
+    void func_ov017_020c01c8(void *param1);
+    void func_ov017_020c01cc(unk32 param1);
+    void func_ov017_020c023c(s8 *param1);
+    void func_ov017_020c02ac(volatile unk32 param1, Vec2bCpp param2);
+    void func_ov017_020c02f4(volatile unk32 param1, VecFx32 *param2);
+    unk32 func_ov017_020c050c(unk32 param1, unk32 param2, unk32 param3, unk32 param4);
+
+    static void func_ov017_020c033c(unk32 *param1, MapObjectManager *thisx, const Vec2s *param2, unk32 param3, unk32 param4);
 };
 
 extern MapObjectManager *gpMapObjManager;

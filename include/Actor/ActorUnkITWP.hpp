@@ -12,7 +12,7 @@ class ActorUnkITWP_C4 : public Actor_C4 {
 public:
     ActorUnkITWP_C4(Actor *param1);
 
-    /* 00 */ virtual bool vfunc_00(ActorRef ref, unk32 param2) override;
+    /* 00 */ virtual bool vfunc_00(RefStruct ref, unk32 param2) override;
     /* 04 */ virtual bool vfunc_04() override;
     /* 08 */ virtual void vfunc_08() override;
     /* 0C */ virtual void vfunc_0C(unk32 param1) override;
@@ -21,10 +21,10 @@ public:
 class ActorUnkITWP : public Actor {
 public:
     /* 00 (base) */
-    /* 094 */ STRUCT_PAD(0x094, 0x0E8);
+    /* 094 */ PAD(0x094, 0x0E8);
     /* 0E8 */ VecFx32 mUnk_0E8;
-    /* 0F4 */ STRUCT_PAD(0x0F4, 0x154);
-    /* 154 */ Mat3p mUnk_154;
+    /* 0F4 */ PAD(0x0F4, 0x154);
+    /* 154 */ MtxFx33 mUnk_154;
 
     ActorUnkITWP();
 

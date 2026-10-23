@@ -1,17 +1,153 @@
 #pragma once
 
+#include "global.h"
+
 #include <nitro/math.h>
 
-//! TODO: find a way to make VecFx32 work in ctor init lists
-struct Vec3p {
-    fx32 x, y, z;
+// some kind of angle conversion? only used for angle values so far
+#define MUL_FX32_FX64(a, b) (fx32)(((((a) * (b)) + 0x80000000000LL) >> 32))
+#define UNK_FX_OPERATION_1(a) (MUL_FX32_FX64((u64) (a), 0xB60B60B60BLL) >> FX32_SHIFT)
+#define MUL_FX32_U(a, b) (fx32)((((u64) (a)) * ((u64) (b)) + 0x800) >> FX32_SHIFT)
+#define UNK_FX_OPERATION_2(a) MUL_FX32_U((u64) (a), FX_F32_TO_FX32(1.2f))
+#define DEG_TO_ANG(n) ((n) * 0x10000 / 360)
+#define DEG_TO_ANG_ALT(n) DEG_TO_ANG((u64) (n))
+#define GET_DIRECTION(angle) ((u16) ((s16) angle + DEG_TO_ANG(45)) / DEG_TO_ANG(90))
+#define MUL_FXUNK(a, b) (fx32)((((s16) (a)) * ((s16) (b)) + 0x800) >> FX32_SHIFT)
+#define MUL_FXUNK2(a, b) (fx32)((((s32) (a)) * ((s32) (b)) + 0x800) >> FX32_SHIFT)
 
-    Vec3p(fx32 X, fx32 Y, fx32 Z) {
-        x = X;
-        y = Y;
-        z = Z;
+#define ABS(x) ((x) < 0 ? -(x) : (x))
+#define ABS2(x) ((x) >= 0 ? (x) : -(x))
+#define CLAMP(x, min, max) ((x) > (max) ? (max) : (x) < (min) ? (min) : (x))
+#define CLAMP2(x, min, max) ((x) > (max) ? (max) : (x) >= (min) ? (x) : (min))
+#define CLAMP3(x, min, max) ((x) >= (max) ? (max) : (x) <= (min) ? (min) : (x))
+#define POW_2(x) (x * x)
+
+static inline const s32 ClampValue(s32 value, const s32 min, const s32 max) {
+    if (value > max) {
+        value = max;
+    } else if (value < min) {
+        value = min;
+    }
+
+    return value;
+}
+
+static inline void ClampValue16(s16 *value, const s32 min, const s32 max) {
+    if (*value > max) {
+        *value = max;
+    } else if (*value < min) {
+        *value = min;
+    }
+}
+
+struct VecFx32x2 {
+    /* 00 */ VecFx32 unk_00;
+    /* 0C */ VecFx32 unk_0C;
+};
+
+struct UnkVecFx32Struct {
+    /* 00 */ VecFx32 unk_00;
+    /* 0C */ fx32 unk_0C;
+};
+
+// C++ wrapper for VecFx32
+struct VecFx32Cpp {
+    VecFx32 vec;
+
+    VecFx32Cpp() {}
+    VecFx32Cpp(fx32 X, fx32 Y, fx32 Z) {
+        vec.x = X;
+        vec.y = Y;
+        vec.z = Z;
+    }
+
+    void Set(fx32 X, fx32 Y, fx32 Z) {
+        VecFx32_Init(X, Y, Z, &this->vec);
+    }
+
+    void Reset() {
+        VecFx32_Reset(&this->vec);
+    }
+
+    void CopyIn(VecFx32Cpp *vec) {
+        VecFx32_Copy(&this->vec, &vec->vec);
+    }
+
+    void CopyIn(VecFx32 *vec) {
+        VecFx32_Copy(&this->vec, vec);
+    }
+
+    bool TryNormalize() {
+        return VecFx32_TryNormalize(&this->vec);
     }
 };
+
+// C++ wrapper for VecFx16
+struct VecFx16Cpp {
+    VecFx16 vec;
+
+    VecFx16Cpp() {}
+    VecFx16Cpp(fx16 X, fx16 Y, fx16 Z) {
+        vec.x = X;
+        vec.y = Y;
+        vec.z = Z;
+    }
+};
+
+union Vec2p {
+    struct {
+        /* 0 */ fx32 x;
+        /* 4 */ fx32 y;
+        /* 8 */
+    };
+    fx32 coords[2];
+};
+
+#define Vec2p_Add(a, b, dst) Vec2_Add(Vec2p, a, b, dst)
+#define Vec2p_Sub(a, b, dst) Vec2_Sub(Vec2p, a, b, dst)
+#define Vec2p_Set(a, dst) Vec2_Set(Vec2p, a, dst)
+#define Vec2p_Clear(dst) Vec2_Clear(fx32, dst)
+static inline void Vec2p_Copy(const Vec2p *src, Vec2p *dst) {
+#if __MWERKS__
+    dst->coords = src->coords;
+#else
+    dst->x = src->x;
+    dst->y = src->y;
+#endif
+}
+
+#if __MWERKS__
+    #define Vec2_Set(a, dst)             \
+        {                                \
+            (dst)->coords = (a)->coords; \
+        }                                \
+        ((void) 0)
+#else
+    #define Vec2_Set(a, dst)   \
+        {                      \
+            (dst)->x = (a)->x; \
+            (dst)->y = (a)->y; \
+        }                      \
+        ((void) 0)
+#endif
+
+#define Vec2_CopyAdd(type, a, b, dst) \
+    {                                 \
+        type temp;                    \
+        temp.x = (a)->x + (b)->x;     \
+        temp.y = (a)->y + (b)->y;     \
+        Vec2_Set(&temp, dst);         \
+    }                                 \
+    ((void) 0)
+
+#define Vec2_CopySub(type, a, b, dst) \
+    {                                 \
+        type temp;                    \
+        temp.x = (a)->x - (b)->x;     \
+        temp.y = (a)->y - (b)->y;     \
+        Vec2_Set(&temp, dst);         \
+    }                                 \
+    ((void) 0)
 
 extern "C" {
 //! TODO: find a way to remove that
@@ -369,9 +505,68 @@ union Vec2sb {
     }
 };
 
+union Vec3s {
+    struct {
+        /* 0 */ s16 x;
+        /* 2 */ s16 y;
+        /* 4 */ s16 z;
+        /* 6 */
+    };
+    s16 coords[3];
+
+    void operator=(const Vec3s &from) {
+        this->x = from.x;
+        this->y = from.y;
+        this->z = from.z;
+    }
+
+    Vec3s() {}
+
+    Vec3s(Vec3s *from) {
+#if __MWERKS__
+        this->coords = from->coords;
+#else
+        this->x = from->x;
+        this->y = from->y;
+        this->z = from->z;
+#endif
+    }
+
+    Vec3s(s16 X, s16 Y, s16 Z) {
+        x = X;
+        y = Y;
+        y = Z;
+    }
+};
+
 struct UnkAngleStruct {
     union {
-        u16 angle;
-        s16 angle_signed;
+        u16 angle_u;
+        s16 angle_s;
     };
+
+    UnkAngleStruct() {}
+    UnkAngleStruct(s16 angle) :
+        angle_s(angle) {}
+
+    // clang-format off
+    UnkAngleStruct& operator+=(const u16 value) { this->angle_u += value; return *this; }
+    UnkAngleStruct& operator+=(const unsigned int value) { this->angle_u += value; return *this; }
+    UnkAngleStruct& operator+=(const s16 value) { this->angle_s += value; return *this; }
+    UnkAngleStruct& operator+=(const int value) { this->angle_s += value; return *this; }
+    UnkAngleStruct& operator++() { this->angle_s += 1; return *this; }
+    UnkAngleStruct& operator++(int) { this->angle_s += 1; return *this; }
+
+    UnkAngleStruct& operator-=(const u16 value) { this->angle_u -= value; return *this; }
+    UnkAngleStruct& operator-=(const unsigned int value) { this->angle_u -= value; return *this; }
+    UnkAngleStruct& operator-=(const s16 value) { this->angle_s -= value; return *this; }
+    UnkAngleStruct& operator-=(const int value) { this->angle_s -= value; return *this; }
+    UnkAngleStruct& operator--() { this->angle_s -= 1; return *this; }
+    UnkAngleStruct& operator--(int) { this->angle_s -= 1; return *this; }
+
+    UnkAngleStruct& operator=(const u16 value) { this->angle_u = value; return *this; }
+    UnkAngleStruct& operator=(const unsigned int value) { this->angle_u += value; return *this; }
+    UnkAngleStruct& operator=(const s16 value) { this->angle_s = value; return *this; }
+    UnkAngleStruct& operator=(const int value) { this->angle_s = value; return *this; }
+    // clang-format on
 };

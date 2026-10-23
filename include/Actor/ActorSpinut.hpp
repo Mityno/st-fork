@@ -34,7 +34,7 @@ enum ActorSpinutState_ {
 class ActorSpinut_268 : public UnkStruct_ov031_Items_00 {
 public:
     /* 00 (base) */
-    /* 04 */ STRUCT_PAD(0x04, 0x08);
+    /* 04 */ PAD(0x04, 0x08);
     /* 08 */ VecFx32 mUnk_08;
     /* 14 */
 
@@ -42,7 +42,7 @@ public:
 
     // data_ov032_021221bc
     /* 00 */ virtual ~ActorSpinut_268();
-    /* 08 */ virtual bool vfunc_08(const UnkStruct_ov031_020f3310 *param1) override;
+    /* 08 */ virtual bool vfunc_08(const UnkStruct_ov031_020f3310 *param1, unk32 param2) override;
 };
 
 class ActorSpinut_110 : public UnkStruct_ov000_020b31f0 {
@@ -50,7 +50,7 @@ public:
     /* 00 (base) */
     /* 2C */ UnkSystem5 mUnk_2C;
     /* 4C */ unk32 mUnk_4C;
-    /* 50 */ STRUCT_PAD(0x50, 0x6C);
+    /* 50 */ PAD(0x50, 0x6C);
     /* 6C */ UnkSystem5 mUnk_6C;
     /* 8C */ unk32 mUnk_8C;
     /* 90 */
@@ -94,12 +94,12 @@ public:
 class ActorSpinut : public Actor_Derived2 {
 public:
     /* 000 (base) */
-    /* 0AE */ STRUCT_PAD(0x0AE, 0x0B0);
+    /* 0AE */ PAD(0x0AE, 0x0B0);
     /* 0B0 */ ModelRender_ov000_020b1a1c mUnk_0B0;
     /* 110 */ ActorSpinut_110 mUnk_110;
-    /* 1A0 */ STRUCT_PAD(0x1A0, 0x1BC);
+    /* 1A0 */ PAD(0x1A0, 0x1BC);
     /* 1BC */ ActorSpinut_1BC mUnk_1BC;
-    /* 1FC */ STRUCT_PAD(0x1FC, 0x218);
+    /* 1FC */ PAD(0x1FC, 0x218);
     /* 218 */ unk16 mUnk_218;
     /* 21C */ unk32 mUnk_21C;
     /* 220 */ unk32 mUnk_220;
@@ -112,24 +112,14 @@ public:
     /* 27C */ VecFx32 mUnk_27C;
     /* 288 */ VecFx32 mUnk_288;
     /* 294 */ bool mUnk_294;
-    /* 296 */ volatile u16 mUnk_296;
-    /* 298 */ u16 mUnk_298;
+    /* 296 */ Timer mUnk_296;
     /* 29A */
 
     ActorSpinut();
 
-    bool IsInternalTimerOut() {
-        if (this->mUnk_296 < this->mUnk_298) {
-            this->mUnk_296++;
-            return false;
-        }
-
-        return true;
-    }
-
-    /* 18 */ virtual bool vfunc_18(unk32 param1) override;
-    /* 1C */ virtual void vfunc_1C() override;
-    /* 20 */ virtual void vfunc_20() override;
+    /* 18 */ virtual bool Init(unk32 param1) override;
+    /* 1C */ virtual void Setup() override;
+    /* 20 */ virtual void Update() override;
     /* 2C */ virtual void vfunc_2C(unk32 param1) override;
     /* 4C */ virtual ~ActorSpinut() override;
     /* 54 */ virtual void vfunc_54(unk32 param1) override;
@@ -167,7 +157,7 @@ public:
     void func_ov032_0211b190(s32 param1, s32 param2);
     void func_ov032_0211b1e0();
     void func_ov032_0211b298();
-    static void func_ov032_0211b37c(ActorSpinut *, u16 param1);
+    static void func_ov032_0211b37c(Actor *thisx, Actor_vfunc_30 *param1);
     void func_ov032_0211b3b0();
 };
 

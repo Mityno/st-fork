@@ -18,7 +18,7 @@ struct UnkStruct_027e0cf8_00_18_00 {
 struct UnkStruct_027e0cf8_00_18 {
     /* 0000 */ UnkStruct_027e0cf8_00_18_00 mUnk_00[48];
     /* 18C0 */ Vec2p mUnk_18C0;
-    /* 18C8 */ STRUCT_PAD(0x18C8, 0x2220);
+    /* 18C8 */ PAD(0x18C8, 0x2220);
     /* 2220 */
 };
 
@@ -36,9 +36,27 @@ public:
     /* 2254 */ unk32 mUnk_2254;
     /* 2258 */
 
+    const bool UnkCheck1() const {
+        bool result = false;
+
+        if (!(this->mUnk_2244 > this->mUnk_224C) && !(this->mUnk_224C >= this->mUnk_2244 + this->mUnk_2248)) {
+            result = true;
+        }
+
+        return result;
+    }
+
     UnkStruct_027e0cf8_00();
     ~UnkStruct_027e0cf8_00();
 
+    // overlay 17
+    void func_ov017_020c3414();
+    void func_ov017_020c3574(unk8 *param1);
+    void func_ov017_020c3644(UnkStruct_027e0cf8_00_18_00 *param1);
+    void func_ov017_020c3668(const UnkStruct_027e0cf8_00_18_00 *param1, const unk8 *param2) const;
+    s32 func_ov017_020c35e8();
+
+    // overlay 24
     void func_ov024_020cf9d4(UnkStruct_027e0cf8_00_18_00 *param1);
     void func_ov024_020cfb7c(UnkDataStruct4 *param1, Vec2s *param2, unk32 param3, u16 param4, unk32 param5, unk32 param6);
 
@@ -51,11 +69,14 @@ public:
 
 class UnkStruct_027e0cf8_04 {
 public:
-    /* 00 */ STRUCT_PAD(0x00, 0x1C);
+    /* 00 */ PAD(0x00, 0x1C);
 
     UnkStruct_027e0cf8_04();
 
+    // overlay 26
     void func_ov026_020dc300();
+    void func_ov026_020dc33c();
+    void func_ov026_020dc394();
 };
 
 typedef Vec2s UnkArrayDataType2[7];
@@ -101,7 +122,7 @@ public:
 class UnkStruct_027e0cf8_08 {
 public:
     /* 000 */ UnkStruct_027e0cf8_08_00 *mUnk_000;
-    /* 004 */ unk32 mUnk_004;
+    /* 004 */ unk32 mUnk_004; // volatile?
     /* 008 */ unk32 mUnk_008;
     /* 00C */ unk32 mUnk_00C;
     /* 010 */ UnkArrayDataType1 mUnk_010;
@@ -114,6 +135,10 @@ public:
     UnkStruct_027e0cf8_08();
     ~UnkStruct_027e0cf8_08();
 
+    // overlay 17
+    void func_ov017_020be8a8();
+
+    // overlay 24
     void func_ov024_020d32b4(unk8 *param1);
     void func_ov024_020d32d8();
     void func_ov024_020d32e8(Vec2s *param1);
@@ -162,6 +187,11 @@ public:
     UnkStruct_027e0cf8_0C();
     ~UnkStruct_027e0cf8_0C();
 
+    // overlay 17
+    void func_ov017_020c3748(unk8 *param1);
+    void func_ov017_020c378c(const unk8 *param1, const UnkStruct_027e0cf8_0C_00 *param2) const;
+
+    // overlay 24
     void func_ov024_020cff8c(UnkDataStruct4 *param1, Vec2s *param2);
     void func_ov024_020d0004();
     void func_ov024_020d002c(const UnkDataStruct4 *param1);
@@ -197,10 +227,12 @@ public:
     UnkStruct_027e0cf8();
     ~UnkStruct_027e0cf8();
 
-    void func_ov017_020c390c();
-    void func_ov017_020c397c();
-    void func_ov017_020c39d4();
+    // overlay 17
+    void func_ov017_020c390c(Input *pButtons, TouchControl *pTouchControl);
+    void func_ov017_020c397c(unk8 *param1);
+    void func_ov017_020c39d4(unk8 *param1);
 
+    // overlay 24
     void func_ov024_020c755c(UnkDataStruct4 *param1);
     void func_ov024_020c75d0(UnkDataStruct4 *param1, unk32 param2, u16 param3);
     void func_ov024_020c7724();

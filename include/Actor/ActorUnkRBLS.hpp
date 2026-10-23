@@ -21,13 +21,13 @@ public:
     /* 00 (base) */
     /* 94 */ ModelRender mUnk_94;
     /* F4 */ UnkStruct_ov063_02163784 mUnk_F4;
-    /* 134 */ STRUCT_PAD(0x134, 0x160);
+    /* 134 */ PAD(0x134, 0x160);
     /* 160 */
 
     ActorUnkRBLS();
 
-    /* 18 */ virtual bool vfunc_18(unk32 param1) override;
-    /* 20 */ virtual void vfunc_20(void) override;
+    /* 18 */ virtual bool Init(unk32 param1) override;
+    /* 20 */ virtual void Update(void) override;
     /* 24 */ virtual void vfunc_24(void) override;
     /* 2C */ virtual void vfunc_2C(unk32 param1) override;
 

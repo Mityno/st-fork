@@ -1,4 +1,5 @@
 #include "Actor/ActorRupee.hpp"
+#include "CommonFuncs.hpp"
 #include "System/Random.hpp"
 #include "Unknown/UnkStruct_027e09a8.hpp"
 #include "Unknown/UnkStruct_027e09b8.hpp"
@@ -9,44 +10,36 @@
 #include "nitro/fx.h"
 
 static PTMF<ActorRupee> data_ov031_02113588[0xD] = {
-    ActorRupee::func_ov031_020e91a8, // ActorRupeeState_0
-    ActorRupee::func_ov031_020e9254, // ActorRupeeState_1
-    ActorRupee::func_ov031_020e9310, // ActorRupeeState_2
-    ActorRupee::func_ov031_020e942c, // ActorRupeeState_3
-    ActorRupee::func_ov031_020e9434, // ActorRupeeState_4
-    ActorRupee::func_ov031_020e951c, // ActorRupeeState_5
-    ActorRupee::func_ov031_020e9450, // ActorRupeeState_6
-    ActorRupee::func_ov031_020e95ac, // ActorRupeeState_7
-    ActorRupee::func_ov031_020e95c0, // ActorRupeeState_8
-    ActorRupee::func_ov031_020e9624, // ActorRupeeState_9
-    ActorRupee::func_ov031_020e96bc, // ActorRupeeState_10
-    ActorRupee::func_ov031_020e9740, // ActorRupeeState_11
-    ActorRupee::func_ov031_020e98c4, // ActorRupeeState_12
+    &ActorRupee::func_ov031_020e91a8, // ActorRupeeState_0
+    &ActorRupee::func_ov031_020e9254, // ActorRupeeState_1
+    &ActorRupee::func_ov031_020e9310, // ActorRupeeState_2
+    &ActorRupee::func_ov031_020e942c, // ActorRupeeState_3
+    &ActorRupee::func_ov031_020e9434, // ActorRupeeState_4
+    &ActorRupee::func_ov031_020e951c, // ActorRupeeState_5
+    &ActorRupee::func_ov031_020e9450, // ActorRupeeState_6
+    &ActorRupee::func_ov031_020e95ac, // ActorRupeeState_7
+    &ActorRupee::func_ov031_020e95c0, // ActorRupeeState_8
+    &ActorRupee::func_ov031_020e9624, // ActorRupeeState_9
+    &ActorRupee::func_ov031_020e96bc, // ActorRupeeState_10
+    &ActorRupee::func_ov031_020e9740, // ActorRupeeState_11
+    &ActorRupee::func_ov031_020e98c4, // ActorRupeeState_12
 };
 
 static PTMF<ActorRupee> data_ov031_02113520[0xD] = {
-    ActorRupee::func_ov031_020e9108, // ActorRupeeState_0
-    ActorRupee::func_ov031_020e9234, // ActorRupeeState_1
-    ActorRupee::func_ov031_020e92e0, // ActorRupeeState_2
-    ActorRupee::func_ov031_020e9428, // ActorRupeeState_3
-    ActorRupee::func_ov031_020e9430, // ActorRupeeState_4
-    ActorRupee::func_ov031_020e94d4, // ActorRupeeState_5
-    ActorRupee::func_ov031_020e9438, // ActorRupeeState_6
-    ActorRupee::func_ov031_020e9598, // ActorRupeeState_7
-    ActorRupee::func_ov031_020e95b0, // ActorRupeeState_8
-    ActorRupee::func_ov031_020e9610, // ActorRupeeState_9
-    ActorRupee::func_ov031_020e9638, // ActorRupeeState_10
-    ActorRupee::func_ov031_020e970c, // ActorRupeeState_11
-    ActorRupee::func_ov031_020e9838, // ActorRupeeState_12
+    &ActorRupee::func_ov031_020e9108, // ActorRupeeState_0
+    &ActorRupee::func_ov031_020e9234, // ActorRupeeState_1
+    &ActorRupee::func_ov031_020e92e0, // ActorRupeeState_2
+    &ActorRupee::func_ov031_020e9428, // ActorRupeeState_3
+    &ActorRupee::func_ov031_020e9430, // ActorRupeeState_4
+    &ActorRupee::func_ov031_020e94d4, // ActorRupeeState_5
+    &ActorRupee::func_ov031_020e9438, // ActorRupeeState_6
+    &ActorRupee::func_ov031_020e9598, // ActorRupeeState_7
+    &ActorRupee::func_ov031_020e95b0, // ActorRupeeState_8
+    &ActorRupee::func_ov031_020e9610, // ActorRupeeState_9
+    &ActorRupee::func_ov031_020e9638, // ActorRupeeState_10
+    &ActorRupee::func_ov031_020e970c, // ActorRupeeState_11
+    &ActorRupee::func_ov031_020e9838, // ActorRupeeState_12
 };
-
-extern "C" void func_01ffedac(u16 *, VecFx32 *);
-extern "C" void func_01fff05c(u32 *, UnkStruct_027e0cd8_0C_Base *, VecFx32 *);
-extern "C" unk32 func_02017158();
-extern "C" void func_ov017_020bf99c();
-extern "C" void func_ov031_0210acd4(u8);
-extern "C" unk32 func_ov031_0210af50(u16, unk32 *);
-extern void func_ov031_0210b0e4(u16, unk32);
 
 extern Cylinder data_ov031_02113478;
 
@@ -64,7 +57,7 @@ ActorProfileRupee::ActorProfileRupee() :
     this->mUnk_04.size  = 0x556;
 }
 
-void ActorRupee::func_ov031_020e8d2c(ActorRef *pOutRef, const VecFx32 *pPos, u32 params, u32 unk_2C, ActorRef ref) {
+void ActorRupee::func_ov031_020e8d2c(RefStruct *pOutRef, const VecFx32 *pPos, u32 params, u32 unk_2C, RefStruct ref) {
     ActorParams actorParams;
 
     actorParams.mUnk_28.Reset();
@@ -97,7 +90,7 @@ ActorRupee::ActorRupee() :
 }
 
 // https://decomp.me/scratch/wunA4
-bool ActorRupee::vfunc_18(unk32 param1) {
+bool ActorRupee::Init(unk32 param1) {
     if (this->func_ov031_020e9d54()) {
         this->mUnk_30 = &data_ov031_02113478;
         this->mUnk_34 = &data_ov031_02113478;
@@ -244,9 +237,7 @@ void ActorRupee::func_ov031_020e9108() {
 void ActorRupee::func_ov031_020e91a8() {
     u32 sp0;
 
-    if (this->mUnk_50 < this->mUnk_52) {
-        this->mUnk_50++;
-    }
+    this->mTimer.Update();
 
     this->func_ov031_020e9b88();
 
@@ -274,9 +265,7 @@ void ActorRupee::func_ov031_020e9234() {
 void ActorRupee::func_ov031_020e9254() {
     u32 sp0;
 
-    if (this->mUnk_50 < this->mUnk_52) {
-        this->mUnk_50++;
-    }
+    this->mTimer.Update();
 
     this->func_ov031_020e9be8();
 
@@ -309,9 +298,7 @@ void ActorRupee::func_ov031_020e92e0() {
 void ActorRupee::func_ov031_020e9310() {
     u32 sp0;
 
-    if (this->mUnk_50 < this->mUnk_52) {
-        this->mUnk_50++;
-    }
+    this->mTimer.Update();
 
     switch (this->mUnk_EC) {
         case 0:
@@ -358,7 +345,7 @@ void ActorRupee::func_ov031_020e9430() {}
 void ActorRupee::func_ov031_020e9434() {}
 
 void ActorRupee::func_ov031_020e9438() {
-    func_ov017_020bf99c();
+    Actor::func_ov017_020bf99c();
     this->mUnk_9C.func_ov000_02097bec();
 }
 
@@ -379,8 +366,7 @@ void ActorRupee::func_ov031_020e9450() {
 }
 
 void ActorRupee::func_ov031_020e94d4() {
-    this->mUnk_52    = -1;
-    this->mUnk_50    = 0;
+    this->mTimer.Reset();
     this->mVel.x     = 0;
     this->mVel.y     = 0;
     this->mVel.z     = 0;
@@ -468,17 +454,16 @@ void ActorRupee::func_ov031_020e9638() {
 
     if (this->mUnk_5C.mParams[1] == 2) {
         this->mUnk_4A[0] = 1;
-        data_027e0cec->func_ov000_0209ff8c(&this->mUnk_F0, 0xD00C, &this->mPos, 2);
+        data_027e0cec->func_ov000_0209ff8c(&this->mUnk_F0.mUnk_00, 0xD00C, &this->mPos, 2);
     } else {
         this->mUnk_4A[0] = 0;
     }
 
-    this->mPos.y -= FLOAT_TO_FX32(1.2);
+    this->mPos.y -= FX_F32_TO_FX32(1.2);
 }
 
-// non-matching
 void ActorRupee::func_ov031_020e96bc() {
-    u16 sp0;
+    Vec2bCpp sp0;
 
     func_01ffedac(&sp0, &this->mPos);
 
@@ -495,13 +480,11 @@ void ActorRupee::func_ov031_020e970c() {
     this->mVel.z = 0;
     SET_FLAG(this->mFlags, ActorFlag_Visible);
     this->mUnk_4A[0] = 1;
-    this->mUnk_52    = -1;
-    this->mUnk_50    = 0;
+    this->mTimer.Reset();
 }
 
-// non-matching
 void ActorRupee::func_ov031_020e9740() {
-    u16 sp0;
+    Vec2bCpp sp0;
     unk32 sp4;
     unk32 *psp4;
     s32 temp_r2;
@@ -515,10 +498,9 @@ void ActorRupee::func_ov031_020e9740() {
         temp_r2 = (sp4 - 0x800) + temp_r0->vfunc_28(&this->mPos, 0, 0);
 
         if (this->mPos.y != temp_r2) {
-            this->mPos.y  = temp_r2;
-            this->mUnk_52 = -1;
-            this->mUnk_50 = 0;
-        } else if (this->mUnk_50 == 8) {
+            this->mPos.y = temp_r2;
+            this->mTimer.Reset();
+        } else if (this->mTimer.GetValue() == 8) {
             this->SetState(ActorRupeeState_12);
         }
     } else {
@@ -527,26 +509,23 @@ void ActorRupee::func_ov031_020e9740() {
         this->SetState(ActorRupeeState_12);
     }
 
-    if (this->mUnk_50 < this->mUnk_52) {
-        this->mUnk_50++;
-    }
+    this->mTimer.Update();
 }
 
 // non-matching
 void ActorRupee::func_ov031_020e9838() {
-    u16 sp2;
+    Vec2bCpp sp2;
 
     func_01ffedac(&sp2, &this->mPos);
     this->mUnk_C4.mUnk_04 = 1;
     func_ov031_0210b0e4(sp2, 0);
     func_ov031_0210acd4(sp2);
     func_ov031_0210acd4(sp2);
-    data_027e0cec->func_ov000_020a0110(&this->mUnk_F0);
+    data_027e0cec->func_ov000_020a0110(&this->mUnk_F0.mUnk_00);
 }
 
-// non-matching
 void ActorRupee::func_ov031_020e98c4() {
-    u16 sp0;
+    Vec2bCpp sp0;
 
     func_01ffedac(&sp0, &this->mPos);
     func_ov031_0210b0e4(sp0, 1);
@@ -554,18 +533,14 @@ void ActorRupee::func_ov031_020e98c4() {
 }
 
 void ActorRupee::SetState(ActorState state) {
-    this->mState  = state;
-    this->mUnk_52 = -1;
-    this->mUnk_50 = 0;
+    this->mState = state;
+    this->mTimer.Reset();
     this->mUnk_EC = 0;
     CALL_PTMF(PTMF<ActorRupee>, data_ov031_02113520[this->mState]);
 }
 
-extern "C" void func_01fff17c(unk16 *, UnkStruct_027e0ce0 *, unk32);
-extern "C" void func_02018114(unk16 *, unk32);
-
 // non-matching
-void ActorRupee::vfunc_20() {
+void ActorRupee::Update() {
     short sVar1;
     unk16 uVar2;
     unk16 uVar3;
@@ -577,8 +552,8 @@ void ActorRupee::vfunc_20() {
     unk16 uStack_18;
     unk16 uStack_1a;
     short sStack_1c;
-    u16 uStack_1e;
-    u16 uStack_20;
+    Vec2bCpp uStack_1e;
+    Vec2bCpp uStack_20;
     VecFx32 test;
 
     uStack_1a = 0;
@@ -588,24 +563,23 @@ void ActorRupee::vfunc_20() {
 
     func_01fff17c(&sStack_1c, data_027e0ce0, 0);
     func_02018114(&uStack_1a, sStack_1c);
-    this->mUnk_C4.mUnk_08 = uStack_1a;
-    this->mUnk_C4.mUnk_0A = uStack_18;
-    this->mUnk_C4.mUnk_0C = uStack_16;
+    this->mUnk_C4.mUnk_08.x = uStack_1a;
+    this->mUnk_C4.mUnk_08.y = uStack_18;
+    this->mUnk_C4.mUnk_08.z = uStack_16;
 
-    uStack_1a             = 0;
-    uStack_18             = 0x666;
-    uStack_16             = 0;
-    this->mUnk_C4.mUnk_0E = 0;
-    this->mUnk_C4.mUnk_10 = 0x666;
-    sVar1                 = this->mState;
+    uStack_1a               = 0;
+    uStack_18               = 0x666;
+    uStack_16               = 0;
+    this->mUnk_C4.mUnk_0E.x = 0;
+    this->mUnk_C4.mUnk_0E.y = 0x666;
+    this->mUnk_C4.mUnk_0E.z = 0;
+    sVar1                   = this->mState;
 
     test = this->mPos;
 
     if (sVar1 != ActorRupeeState_5) {
         iVar4 = (int) (short) this->mState;
     }
-
-    this->mUnk_C4.mUnk_12 = 0;
 
     this->mPrevPos = test;
 
@@ -630,7 +604,7 @@ void ActorRupee::vfunc_20() {
                 switch (this->mUnk_9C.mUnk_1C) {
                     case 0x08:
                     case 0x10:
-                        if ((this->mUnk_9C.mUnk_0C.type_index & 0x100) != 0) {
+                        if ((this->mUnk_9C.mUnk_0C.acRef.type_index & 0x100) != 0) {
                             this->func_ov031_020e9068();
                             uVar3 = uStack_18;
                         }
@@ -693,10 +667,8 @@ void ActorRupee::func_ov031_020e9be8() {
     }
 }
 
-extern "C" void func_ov000_0205c1f0(unk32 *, unk16);
 extern unk32 data_ov031_02110aa0[];
 extern unk32 data_ov031_02113468[];
-extern "C" void func_ov000_0205c204(unk32 *, VecFx32 *, unk32, unk32, unk32);
 
 // non-matching
 void ActorRupee::vfunc_2C(unk32 param1) {
@@ -849,7 +821,7 @@ ActorRupee_C4::ActorRupee_C4(Actor *param1) :
     this->mUnk_04 = 1;
 }
 
-bool ActorRupee_C4::vfunc_00(ActorRef ref, unk32 param2) {
+bool ActorRupee_C4::vfunc_00(RefStruct ref, unk32 param2) {
     if (param2 != 0) {
         ActorRupee *pRupee = this->GetActorPtr<ActorRupee>();
         pRupee->mUnk_C0    = ref.Get32();

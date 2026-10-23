@@ -14,7 +14,7 @@ class ActorUnkNFSP_C0 : public Actor_C4 {
 public:
     ActorUnkNFSP_C0(ActorUnkNFSP *param1);
 
-    /* 00 */ virtual bool vfunc_00(ActorRef ref, unk32 param2) override;
+    /* 00 */ virtual bool vfunc_00(RefStruct ref, unk32 param2) override;
     /* 04 */ virtual bool vfunc_04() override;
     /* 08 */ virtual void vfunc_08() override;
     /* 0C */ virtual void vfunc_0C(VecFx32 *param1) override;
@@ -24,18 +24,17 @@ class ActorUnkNFSP : public Actor {
 public:
     /* 00 (base) */
     /* 94 */ unk32 mUnk_94;
-    /* 98 */ volatile u16 mUnk_98;
-    /* 9A */ u16 mUnk_9A;
+    /* 98 */ Timer mUnk_98;
     /* 9C */ MapObjectUnkSWFS *mUnk_9C;
     /* A0 */ Actor_9C mUnk_A0;
     /* C0 */ ActorUnkNFSP_C0 mUnk_C0;
-    /* E4 */ ActorRef mUnk_E4;
+    /* E4 */ RefStruct mUnk_E4;
     /* E8 */
 
     ActorUnkNFSP();
 
-    /* 18 */ virtual bool vfunc_18(unk32 param1) override;
-    /* 20 */ virtual void vfunc_20() override;
+    /* 18 */ virtual bool Init(unk32 param1) override;
+    /* 20 */ virtual void Update() override;
     /* 2C */ virtual void vfunc_2C(unk32 param1) override;
     /* 54 */ virtual void vfunc_54(unk32 param1);
 
@@ -44,7 +43,7 @@ public:
     void func_ov031_020fb9b4();
     void func_ov031_020fba60();
     void func_ov031_020fbb8c();
-    void func_ov031_020fbba0(ActorRef ref);
+    void func_ov031_020fbba0(RefStruct ref);
     void func_ov031_020fbbe0();
 };
 

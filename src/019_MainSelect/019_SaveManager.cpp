@@ -1,16 +1,12 @@
+#include "CommonFuncs.hpp"
 #include "Save/SaveManager.hpp"
 
 #include "Unknown/UnkStruct_02049b80.hpp"
 #include "Unknown/UnkStruct_02049bd4.hpp"
 
+#include <cstddef>
 #include <nitro/card.h>
 #include <wstring.h>
-
-extern "C" {
-unk32 func_020328c8(void *, void *, size_t);
-bool func_ov000_020a0a90(size_t param1, void *param2, size_t param3);
-void func_ov000_020a0b58();
-};
 
 const size_t data_ov019_020d1bd4[] = {
     sizeof(SaveInfoData),
@@ -39,7 +35,7 @@ void SaveManager::func_ov019_020d086c(u16 param1) {
     if (gSaveManager.mUnk_210 != 2) {
         gSaveManager.mUnk_210 = 0;
     } else {
-        func_ov000_020a0b58();
+        gSaveManager.func_ov000_020a0b58();
     }
 }
 
@@ -59,7 +55,7 @@ bool SaveManager::func_ov019_020d0964() {
     data_02049b80.func_02013ee8(0, 1);
 
     if (this->mUnk_20A == 0) {
-        this->func_ov019_020d08fc(1, SaveFile::func_ov019_020d17e0);
+        this->func_ov019_020d08fc(1, &SaveFile::func_ov019_020d17e0);
         return true;
     }
 
@@ -68,12 +64,12 @@ bool SaveManager::func_ov019_020d0964() {
 
 void SaveManager::func_ov019_020d09dc(u16 saveSlotIndex) {
     this->mpSaveFile->mSaveSlotIndex = saveSlotIndex;
-    this->func_ov019_020d08fc(2, SaveFile::func_ov019_020d1434);
+    this->func_ov019_020d08fc(2, &SaveFile::func_ov019_020d1434);
 }
 
 void SaveManager::func_ov019_020d0a04(u16 saveSlotIndex) {
     this->mpSaveFile->mSaveSlotIndex = saveSlotIndex;
-    this->func_ov019_020d08fc(2, SaveFile::func_ov019_020d1538);
+    this->func_ov019_020d08fc(2, &SaveFile::func_ov019_020d1538);
 }
 
 void SaveManager::func_ov019_020d0a2c(u16 saveSlotIndex) {
@@ -201,29 +197,28 @@ void SaveFile::func_ov019_020d0d50() {
     CARD_WriteAndVerifyFlashAsync((u32) stack, (void *) (SAVE_DATA_SIZE * 2), sizeof(stack_struct) * 2, NULL, NULL);
 }
 
-// https://decomp.me/scratch/gJJbb
 void SaveFile::func_ov019_020d0e18(unk32 param1) {
-    size_t offset    = param1 * SAVE_DATA_SIZE;
+    size_t offset    = SAVE_FILE_OFFSET(param1);
     SaveSlot *puVar3 = &this->mSlots[param1];
 
-    if (!func_ov000_020a0a90(offset + offsetof(SaveSlot, mInfoData), &puVar3->mInfoData, sizeof(puVar3->mInfoData))) {
+    if (!func_ov000_020a0a90(offset + offsetof(SaveSlot, mInfoData), (unk32) &puVar3->mInfoData, sizeof(puVar3->mInfoData))) {
         return;
     }
 
-    if (!func_ov000_020a0a90(offset + offsetof(SaveSlot, mTreasureData), &puVar3->mTreasureData,
+    if (!func_ov000_020a0a90(offset + offsetof(SaveSlot, mTreasureData), (unk32) &puVar3->mTreasureData,
                              sizeof(puVar3->mTreasureData))) {
         return;
     }
 
-    if (!func_ov000_020a0a90(offset + offsetof(SaveSlot, mUnk_1D00), &puVar3->mUnk_1D00, sizeof(puVar3->mUnk_1D00))) {
+    if (!func_ov000_020a0a90(offset + offsetof(SaveSlot, mUnk_1D00), (unk32) &puVar3->mUnk_1D00, sizeof(puVar3->mUnk_1D00))) {
         return;
     }
 
-    if (!func_ov000_020a0a90(offset + offsetof(SaveSlot, mUnk_2500), &puVar3->mUnk_2500, sizeof(puVar3->mUnk_2500))) {
+    if (!func_ov000_020a0a90(offset + offsetof(SaveSlot, mUnk_2500), (unk32) &puVar3->mUnk_2500, sizeof(puVar3->mUnk_2500))) {
         return;
     }
 
-    if (!func_ov000_020a0a90(offset + offsetof(SaveSlot, mUnk_2600), &puVar3->mUnk_2600, sizeof(puVar3->mUnk_2600))) {
+    if (!func_ov000_020a0a90(offset + offsetof(SaveSlot, mUnk_2600), (unk32) &puVar3->mUnk_2600, sizeof(puVar3->mUnk_2600))) {
         return;
     }
 }
@@ -241,7 +236,7 @@ void SaveFile::func_ov019_020d13b8() {
     SaveSlot::func_ov019_020d1400(this->mSlots[this->mSaveSlotIndex].mUnk_2600);
 
     func_ov000_020a0a90(saveSlotIndex * SAVE_DATA_SIZE + offsetof(SaveSlot, mUnk_2600),
-                        this->mSlots[this->mSaveSlotIndex].mUnk_2600, sizeof(this->mSlots->mUnk_2600));
+                        (unk32) this->mSlots[this->mSaveSlotIndex].mUnk_2600, sizeof(this->mSlots->mUnk_2600));
 }
 
 void SaveSlot::func_ov019_020d1400(SaveFile_00000_2600_Data *param1) {
@@ -249,18 +244,17 @@ void SaveSlot::func_ov019_020d1400(SaveFile_00000_2600_Data *param1) {
     MI_CpuCopyFast(param1, (u8 *) param1 + sizeof(SaveFile_00000_2600_Data), sizeof(SaveFile_00000_2600_Data));
 }
 
-// non-matching
 void SaveFile::func_ov019_020d1434() {
-    size_t offset = this->mSaveSlotIndex * SAVE_DATA_SIZE;
+    size_t offset = SAVE_FILE_OFFSET(this->mSaveSlotIndex);
 
     SaveSlot::func_ov019_020d14fc(this->mSlots[this->mSaveSlotIndex].mInfoData);
-    if (!func_ov000_020a0a90(offset, &this->mSlots[this->mSaveSlotIndex].mInfoData,
+    if (!func_ov000_020a0a90(offset, (unk32) & this->mSlots[this->mSaveSlotIndex].mInfoData,
                              sizeof(this->mSlots[this->mSaveSlotIndex].mInfoData))) {
         return;
     }
 
     SaveSlot::func_ov019_020d14c0(this->mSlots[this->mSaveSlotIndex].mUnk_1D00);
-    if (!func_ov000_020a0a90(offset + offsetof(SaveSlot, mUnk_1D00), &this->mSlots[this->mSaveSlotIndex].mUnk_1D00,
+    if (!func_ov000_020a0a90(offset + offsetof(SaveSlot, mUnk_1D00), (unk32) & this->mSlots[this->mSaveSlotIndex].mUnk_1D00,
                              sizeof(this->mSlots[this->mSaveSlotIndex].mUnk_1D00))) {
         return;
     }
@@ -278,20 +272,18 @@ void SaveSlot::func_ov019_020d14fc(SaveInfoData *param1) {
     MI_CpuCopyFast(param1, (u8 *) param1 + sizeof(SaveInfoData), sizeof(SaveInfoData));
 }
 
-//! TODO: weird sizeof
 void SaveFile::func_ov019_020d1538() {
-    size_t offset;
-
-    offset = this->mSaveSlotIndex * SAVE_DATA_SIZE;
+    size_t offset = this->mSaveSlotIndex * SAVE_DATA_SIZE;
 
     SaveSlot::func_ov019_020d1600(this->mSlots[this->mSaveSlotIndex].mTreasureData);
-    if (!func_ov000_020a0a90(offset + offsetof(SaveSlot, mTreasureData), &this->mSlots[this->mSaveSlotIndex].mTreasureData,
-                             0x1C00)) {
+    if (!func_ov000_020a0a90(offset + offsetof(SaveSlot, mTreasureData),
+                             (unk32) & this->mSlots[this->mSaveSlotIndex].mTreasureData, sizeof(SaveInfoData) * 2)) {
         return;
     }
 
     SaveSlot::func_ov019_020d15cc(this->mSlots[this->mSaveSlotIndex].mUnk_2500);
-    if (!func_ov000_020a0a90(offset + offsetof(SaveSlot, mUnk_2500), &this->mSlots[this->mSaveSlotIndex].mUnk_2500, 0x800)) {
+    if (!func_ov000_020a0a90(offset + offsetof(SaveSlot, mUnk_2500), (unk32) & this->mSlots[this->mSaveSlotIndex].mUnk_2500,
+                             sizeof(SaveFile_00000_1D00_Data) * 2)) {
         return;
     }
 
@@ -304,14 +296,14 @@ void SaveSlot::func_ov019_020d15cc(SaveFile_00000_2500_Data *param1) {
 }
 
 void SaveSlot::func_ov019_020d1600(SaveTreasureData *param1) {
-    param1->unk_7E = func_020328c8(&gSaveManager.mUnk_004, param1, offsetof(SaveTreasureData, unk_7E));
+    param1->unk_5C.unk_22 = func_020328c8(&gSaveManager.mUnk_004, param1,
+                                          offsetof(SaveTreasureData, unk_5C) + offsetof(TreasureManager_5C, unk_22));
     MI_CpuCopyFast(param1, (u8 *) param1 + sizeof(SaveTreasureData), sizeof(SaveTreasureData));
 }
 
-// https://decomp.me/scratch/ibnQS
 void SaveFile::func_ov019_020d1634() {
     SaveSlot *pSlot = &this->mSlots[this->mSaveSlotIndex];
-    size_t offset   = this->mSaveSlotIndex * SAVE_DATA_SIZE;
+    size_t offset   = SAVE_FILE_OFFSET(this->mSaveSlotIndex);
 
     for (int i = 0; i < NUM_UNK_BLOCKS; i++) {
         if (GET_FLAG(pSlot->mInfoData[0].unk_C84.unk_00, i)) {
@@ -342,8 +334,8 @@ void SaveFile::func_ov019_020d16d0() {
 
     for (int i = 0; i < NUM_UNK_BLOCKS; i++) {
         if (pSub2->mInfoData[i >> 5].unk_C84.unk_00[0] & (1 << (i & 0x1F))) {
-            func_ov000_020a0a90(saveSlotIndex * SAVE_DATA_SIZE + i * SIZE_UNK_BLOCK + sizeof(SaveSlot),
-                                &this->mUnk_04E0C[i * SIZE_UNK_BLOCK], SIZE_UNK_BLOCK);
+            func_ov000_020a0a90(SAVE_FILE_OFFSET(saveSlotIndex) + i * SIZE_UNK_BLOCK + sizeof(SaveSlot),
+                                (unk32) & this->mUnk_04E0C[i * SIZE_UNK_BLOCK], SIZE_UNK_BLOCK);
         }
     }
 }
@@ -377,7 +369,7 @@ void SaveFile::func_ov019_020d1808(unk32 param1) {
         stack1[SaveDataIndex_Treasures].mUnk_00 =
             func_020328c8(&gSaveManager.mUnk_004, &pSub2->mTreasureData[i], sizeof(SaveTreasureData) - sizeof(u16));
         stack1[SaveDataIndex_Treasures].mUnk_04 =
-            pSub2->mTreasureData[i].unk_7E == stack1[SaveDataIndex_Treasures].mUnk_00 ? true : false;
+            pSub2->mTreasureData[i].unk_5C.unk_22 == stack1[SaveDataIndex_Treasures].mUnk_00 ? true : false;
 
         stack1[SaveDataIndex_02].mUnk_00 =
             func_020328c8(&gSaveManager.mUnk_004, &pSub2->mUnk_1D00[i], sizeof(SaveFile_00000_1D00_Data) - sizeof(u16));

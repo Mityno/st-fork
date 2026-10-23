@@ -1,3 +1,4 @@
+#include "CommonFuncs.hpp"
 #include "MainGame/AdventureMode.hpp"
 #include "Save/AdventureFlags.hpp"
 #include "Unknown/UnkStruct_02049f8c.hpp"
@@ -11,20 +12,16 @@
 
 #include <nitro/g2.h>
 
-extern "C" AdventureModeManager_18C_10 *func_ov011_020b6520(void *, int);
-extern "C" void func_ov011_020b84f0(s16 *param1, void *, unk32 param2);
-extern "C" void func_02019b3c();
-
 THUMB_BEGIN
 
 AdventureModeManager_18C_14::AdventureModeManager_18C_14() {}
 
-bool AdventureModeManager_18C_14::vfunc_0C(void) {
-    return data_0204a088->func_ov000_02061224();
+void AdventureModeManager_18C_14::vfunc_0C(void) {
+    data_0204a088->func_ov000_02061224();
 }
 
-bool AdventureModeManager_18C_14::vfunc_10(void) {
-    return data_0204a088->func_ov000_02061224();
+void AdventureModeManager_18C_14::vfunc_10(void) {
+    data_0204a088->func_ov000_02061224();
 }
 
 AdventureModeManager_18C::AdventureModeManager_18C(GameModeManagerBase_104 *param1) :

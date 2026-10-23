@@ -1,13 +1,13 @@
 #include "MapObject/MapObjectUnkSKDI.hpp"
 
 #include "Actor/ActorManager.hpp"
+#include "CommonFuncs.hpp"
 #include "System/SysNew.hpp"
 #include "Unknown/UnkStruct_027e09a8.hpp"
 #include "Unknown/UnkStruct_027e09b8.hpp"
 #include "Unknown/UnkStruct_027e0cd8.hpp"
 #include "Unknown/UnkStruct_027e0cec.hpp"
 
-struct UnkStackStruct;
 DECL_PROFILE(MapObjectProfileUnkSKDI);
 
 MapObject *MapObjectProfileUnkSKDI::Create() {
@@ -30,8 +30,7 @@ MapObjectUnkSKDI::MapObjectUnkSKDI() :
     mUnk_088(0x0),
     mUnk_089(0x0),
     mUnk_08C(0x3000, 0x1),
-    mUnk_0F8(0x0),
-    mUnk_0FA(0x0),
+    mUnk_0F8(0, 0),
     mUnk_0FC(0x0) {
     SET_FLAG(this->mFlags, MapObjFlag_10);
     this->mUnk_18[1] = 0x12;
@@ -71,7 +70,7 @@ void MapObjectUnkSKDI::func_ov031_021061dc() {
 }
 
 // non-matching
-bool MapObjectUnkSKDI::vfunc_00() {
+bool MapObjectUnkSKDI::Init() {
     unk32 var1;
     if (this->mUnk_20.mParams[2] == 0x1) {
         var1 = 0x1;
@@ -87,8 +86,8 @@ bool MapObjectUnkSKDI::vfunc_00() {
     }
 
     this->mUnk_0D4.mUnk_08 = (var1 & ~0x7000) | 0x7000;
-    VecFx32_Init(FLOAT_TO_FX32(-0.5002f), FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(-0.5002f), &this->mUnk_0D4.mUnk_0C);
-    VecFx32_Init(FLOAT_TO_FX32(0.5f), FLOAT_TO_FX32(1.2f), FLOAT_TO_FX32(0.5f), &this->mUnk_0D4.mUnk_18);
+    VecFx32_Init(FX_F32_TO_FX32(-0.5002f), FX_F32_TO_FX32(0.0f), FX_F32_TO_FX32(-0.5002f), &this->mUnk_0D4.mUnk_0C);
+    VecFx32_Init(FX_F32_TO_FX32(0.5f), FX_F32_TO_FX32(1.2f), FX_F32_TO_FX32(0.5f), &this->mUnk_0D4.mUnk_18);
 
     if (this->mUnk_07C == 0x0) {
         this->func_ov031_02106190();
@@ -106,7 +105,7 @@ bool MapObjectUnkSKDI::vfunc_00() {
     return true;
 }
 
-void MapObjectUnkSKDI::vfunc_04() {
+void MapObjectUnkSKDI::Setup() {
     data_027e0cd8->mUnk_0C->func_ov000_02080a5c(&this->mUnk_08C.mUnk_00);
 
     if (this->mUnk_20.mParams[0] == 0x0) {
@@ -160,9 +159,9 @@ void MapObjectUnkSKDI::func_ov031_0210643c(unk32 param1) {
             this->func_ov031_02106678(MapObjUnkSKDIState_0, 0x0);
             break;
         case MapObjUnkSKDIState_1:
-            if (this->func_ov000_0209d3b4(0x0, FLOAT_TO_FX32(2.0f)) != 0x0) {
+            if (this->func_ov000_0209d3b4(0x0, FX_F32_TO_FX32(2.0f)) != 0x0) {
                 VecFx32 vec;
-                VecFx32_Init(this->mPos.x, this->mPos.y + FLOAT_TO_FX32(1.25f), this->mPos.z, &vec);
+                VecFx32_Init(this->mPos.x, this->mPos.y + FX_F32_TO_FX32(1.25f), this->mPos.z, &vec);
                 UnkStruct_027e0cec *data = data_027e0cec;
                 for (ActorBomb_unk *ptr = this->mUnk_04C; ptr != this->mUnk_04C + ARRAY_LEN(this->mUnk_04C); ++ptr) {
                     data->func_ov000_020a0140(ptr, &vec);
@@ -183,7 +182,7 @@ void MapObjectUnkSKDI::func_ov031_0210643c(unk32 param1) {
             }
             this->func_ov031_02106678(MapObjUnkSKDIState_2, 0x0);
             break;
-        case MapObjUnkSKDIState_2:
+        case MapObjUnkSKDIState_2: {
             if (this->func_ov000_0209d29c(0x1) != 0x0) {
                 if (this->mUnk_086 != 0) {
                     this->func_ov031_02106678(MapObjUnkSKDIState_3, 0x0);
@@ -191,19 +190,19 @@ void MapObjectUnkSKDI::func_ov031_0210643c(unk32 param1) {
                     this->func_ov031_02106678(MapObjUnkSKDIState_0, 0x0);
                 }
             }
-            unk32 temp_r1 = this->mUnk_0FA;
-            if (temp_r1 != 0 && ((u32) this->mUnk_0F8 >= (u32) temp_r1)) {
+
+            if (this->mUnk_0F8.max != 0 && this->mUnk_0F8.GetValueU() >= this->mUnk_0F8.max) {
                 this->func_ov031_02106678(MapObjUnkSKDIState_0, 0x0);
-                this->mUnk_0FA = 0x0;
-                this->mUnk_0F8 = 0x0;
+                this->mUnk_0F8.Init();
             }
+
             if (data_027e09b8->func_01ffd420()) {
                 return;
             }
-            if (this->mUnk_0F8 < this->mUnk_0FA) {
-                ++this->mUnk_0F8;
-            }
+
+            this->mUnk_0F8.Update();
             break;
+        }
         default:
             break;
     }
@@ -215,7 +214,7 @@ void MapObjectUnkSKDI::func_ov031_02106678(MapObjState state, unk32 param2) {
         return;
     }
     this->mState = state;
-    VecFx32_Init(this->mPos.x, this->mPos.y + FLOAT_TO_FX32(1.25f), this->mPos.z, &sp48);
+    VecFx32_Init(this->mPos.x, this->mPos.y + FX_F32_TO_FX32(1.25f), this->mPos.z, &sp48);
 
     switch (this->mState) {
         case MapObjUnkSKDIState_0:
@@ -254,7 +253,7 @@ void MapObjectUnkSKDI::func_ov031_02106678(MapObjState state, unk32 param2) {
             }
             this->func_ov031_02106678(MapObjUnkSKDIState_0, 0x0);
             break;
-        case MapObjUnkSKDIState_1:
+        case MapObjUnkSKDIState_1: {
             SET_FLAG(this->mFlags, MapObjFlag_7);
             SET_FLAG(this->mFlags, MapObjFlag_8);
             if (param2 == 0x0) {
@@ -278,11 +277,12 @@ void MapObjectUnkSKDI::func_ov031_02106678(MapObjState state, unk32 param2) {
             this->mUnk_0BC         = 0x3000;
             UNSET_FLAG(this->mFlags, MapObjFlag_10);
             break;
+        }
         case MapObjUnkSKDIState_2:
             SET_FLAG(this->mFlags, MapObjFlag_7);
             this->mFlags[0] &= 0xFEFF;
-            this->mUnk_0FA = 0x0;
-            this->mUnk_0F8 = 0x0;
+            this->mUnk_0F8.Init();
+
             if (param2 == 0) {
                 this->func_ov000_0209d2c4(0x0, false);
                 UnkStruct_027e0cec *data = data_027e0cec;
@@ -317,20 +317,19 @@ void MapObjectUnkSKDI::func_ov031_02106a70() {
 class ActorUnk_MapObjectUnkSKDI_vfunc_1C : public Actor {
 public:
     /* 000 (base) */
-    /* 094 */ STRUCT_PAD(0x094, 0x128);
+    /* 094 */ PAD(0x094, 0x128);
     /* 128 */ unk32 mUnk_128;
     /* 12C */
 };
 
-// non-matching
-bool MapObjectUnkSKDI::vfunc_1C(ActorRef param1, unk32 param2, VecFx32 *param3) {
+bool MapObjectUnkSKDI::vfunc_1C(RefStruct param1, unk32 param2, VecFx32 *param3) {
     bool var_r1 = false;
-    if (param1.type_index == 0x102) {
-        if (param1.unk_id == 1 || param1.unk_id == 3) {
+    if (param1.acRef.type_index == 0x102) {
+        if (param1.acRef.unk_id == 1 || param1.acRef.unk_id == 3) {
             var_r1 = true;
         }
     }
-    if (var_r1 != 0 && param1.unk_id == 1) {
+    if (var_r1 != 0 && param1.acRef.unk_id == 1) {
         if (data_027e0ce0->mEquippedItem != ActorId_PMTB) {
             return false;
         }
@@ -342,19 +341,21 @@ bool MapObjectUnkSKDI::vfunc_1C(ActorRef param1, unk32 param2, VecFx32 *param3) 
         case 0x4:
             if (this->mState != MapObjUnkSKDIState_2) {
                 this->func_ov031_02106678(MapObjUnkSKDIState_2, 0x0);
-                this->mUnk_0F8 = 0;
-                unk32 var      = 0x28;
+
+                u16 max = 40;
+
                 if (this->mUnk_20.mParams[3] != 0) {
-                    var = this->mUnk_20.mParams[3];
+                    max = this->mUnk_20.mParams[3];
                 }
-                this->mUnk_0FA = var;
+
+                this->mUnk_0F8.Set(0, max);
             }
             return false;
         case 0x3:
             return false;
         case 0xC:
             var_r1 = true;
-            if (data_027e09a4->mUnk_00.sceneIndex == SceneIndex_d_snow26 && this->mUnk_0FA != 0x0) {
+            if (data_027e09a4->mUnk_00.sceneIndex == SceneIndex_d_snow26 && this->mUnk_0F8.max != 0x0) {
                 var_r1 = false;
             }
             if (this->mState == MapObjUnkSKDIState_2 && var_r1) {
@@ -401,7 +402,7 @@ bool MapObjectUnkSKDI::vfunc_1C(ActorRef param1, unk32 param2, VecFx32 *param3) 
     }
 }
 
-void MapObjectUnkSKDI::vfunc_14() {
+void MapObjectUnkSKDI::vfunc_14(unk32 param1) {
     this->mUnk_040.vfunc_18(&this->mPos);
 }
 

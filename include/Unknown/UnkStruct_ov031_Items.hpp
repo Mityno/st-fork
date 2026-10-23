@@ -21,13 +21,13 @@ public:
     UnkStruct_ov031_Items_00();
 
     // data_ov000_020b30d0
-    /* 08 */ virtual bool vfunc_08(const UnkStruct_ov031_020f3310 *param1) override; // func_ov000_020982d8
+    /* 08 */ virtual bool vfunc_08(const UnkStruct_ov031_020f3310 *param1, unk32 param2) override; // func_ov000_020982d8
 };
 
 class UnkStruct_ov031_Items_01_Base {
 public:
     /* 00 (vtable) */
-    /* 04 */ ActorRef mUnk_04;
+    /* 04 */ RefStruct mUnk_04;
     /* 08 */ unk16 mUnk_08;
     /* 0C */
 
@@ -50,7 +50,7 @@ public:
     /* 2C */
 
     UnkStruct_ov031_Items_01() {
-        this->mUnk_0C.Init(FLOAT_TO_FX32(0.0f));
+        this->mUnk_0C.Init(FX_F32_TO_FX32(0.0f));
         this->mUnk_1C = 0;
         this->mUnk_20 = 0;
         this->mUnk_24 = 0;
@@ -60,7 +60,7 @@ public:
     // data_ov000_020b27c8
     /* 08 */ virtual void vfunc_08();
     /* 0C */ virtual bool vfunc_0C(Actor *param1, VecFx32 *vector);
-    /* 10 */ virtual void vfunc_10(Actor *actor);
+    /* 10 */ virtual void vfunc_10(const Actor *actor);
 };
 
 class UnkStruct_ov031_Items_02 {

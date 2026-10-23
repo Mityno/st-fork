@@ -1,12 +1,10 @@
 #include "Actor/ActorUnkRMTG.hpp"
+#include "CommonFuncs.hpp"
 #include "System/SysNew.hpp"
 #include "Unknown/UnkStruct_027e09bc.hpp"
 #include "Unknown/UnkStruct_027e0cd8.hpp"
 
-extern "C" const char data_ov031_02110ad0;
-
-extern "C" void func_01ffedac(Vec2bCpp *, VecFx32 *);
-extern "C" void *func_ov000_02077590(unk32);
+extern const char data_ov031_02110ad0;
 
 DECL_PROFILE(ActorProfileUnkRMTG);
 
@@ -20,9 +18,9 @@ ActorProfileUnkRMTG::ActorProfileUnkRMTG() :
 ActorUnkRMTG::ActorUnkRMTG() :
     mUnk_94(NULL) {}
 
-bool ActorUnkRMTG::vfunc_18(unk32 param1) {
-    this->mPos.x -= FLOAT_TO_FX32(0.5f);
-    this->mPos.z -= FLOAT_TO_FX32(0.5f);
+bool ActorUnkRMTG::Init(unk32 param1) {
+    this->mPos.x -= FX_F32_TO_FX32(0.5f);
+    this->mPos.z -= FX_F32_TO_FX32(0.5f);
 
     UnkStruct_027e0cd8_0C_Base *data = data_027e0cd8->mUnk_0C;
 
@@ -39,7 +37,7 @@ bool ActorUnkRMTG::vfunc_18(unk32 param1) {
     return true;
 }
 
-void ActorUnkRMTG::vfunc_1C() {
+void ActorUnkRMTG::Setup() {
     UnkStruct_027e09bc_0C *data = data_027e09bc->mUnk_04[2];
     data->func_ov000_0207834c(&this->mPos, func_ov000_02077590(0x7), 0x0);
 }

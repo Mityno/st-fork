@@ -1,12 +1,10 @@
 #include "Unknown/UnkStruct_027e0d00.hpp"
+#include "CommonFuncs.hpp"
 #include "MainGame/CargoManager.hpp"
 #include "System/SysNew.hpp"
 #include "Unknown/UnkStruct_027e09a4.hpp"
 #include "Unknown/UnkStruct_027e0ce0.hpp"
 #include "versions.h"
-
-extern "C" bool func_ov026_020f4be0(int, int);
-extern "C" unk32 func_02012fc4(unk32);
 
 const UnkStruct_ov024_020d7624 data_ov024_020d7624 = {0x13, {0}};
 static const unk32 data_ov024_020d764c[]           = {0x0320, 0x0300, 0x0500, 0x0200};
@@ -96,7 +94,7 @@ void UnkStruct_027e0d00::func_ov024_020d4ab4() {
 }
 
 #if IS_JP
-extern "C" void func_ov000_0205a1f4(void *, int, int, int, int);
+
 #endif
 
 void UnkStruct_027e0d00::func_ov024_020d4af4() {
@@ -118,7 +116,7 @@ void UnkStruct_027e0d00::func_ov024_020d4af4() {
         if (pUnk20 != NULL && pUnk20->mUnk_20.mUnk_04 != NULL) {
 #if IS_JP
             UnkStruct_027e0d00_00 *ptr = this->mUnk_000[local_1c];
-            func_ov000_0205a1f4(ptr, ptr->mUnk_1C, ptr->mUnk_20, ptr->mUnk_24, ptr->mUnk_1B);
+            func_ov000_02058c74(ptr, ptr->mUnk_1C, ptr->mUnk_20, ptr->mUnk_24, ptr->mUnk_1B);
 #endif
 
             pUnk20->func_ov000_02058914(this->mUnk_000[local_1c]);
@@ -178,7 +176,7 @@ void UnkStruct_027e0d00::func_ov024_020d4d44() {
     if (this->mUnk_0F4 != NULL && this->mUnk_0F4->mUnk_20.mUnk_04 != NULL) {
 #if IS_JP
         UnkStruct_027e0d00_00 *ptr = this->mUnk_0F8;
-        func_ov000_0205a1f4(ptr, ptr->mUnk_1C, ptr->mUnk_20, ptr->mUnk_24, ptr->mUnk_1B);
+        func_ov000_02058c74(ptr, ptr->mUnk_1C, ptr->mUnk_20, ptr->mUnk_24, ptr->mUnk_1B);
 #endif
         this->mUnk_0F4->func_ov000_02058914(this->mUnk_0F8);
     }

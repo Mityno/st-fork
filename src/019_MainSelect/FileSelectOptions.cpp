@@ -3,17 +3,13 @@
 #include "FileSelect/FileSelectOptions.hpp"
 // clang-format on
 
+#include "CommonFuncs.hpp"
 #include "FileSelect/FileSelect.hpp"
 #include "Unknown/UnkStruct_0204a088.hpp"
 #include "Unknown/UnkStruct_0204a110.hpp"
 #include "Unknown/UnkStruct_0204af1c.hpp"
 #include "Unknown/UnkStruct_ov000_020b50c0.hpp"
 #include "Unknown/UnkStruct_ov000_020b5214.hpp"
-
-extern "C" {
-void func_ov000_02062e44(void *param1, void *param2);
-void func_ov000_020623d8(void *param1, unk32 param2);
-};
 
 class UnkStruct_ov019_020d215c {
 public:
@@ -74,23 +70,23 @@ UnkStruct_ov019_020d215c UnkStruct_ov019_020d2170::data_ov019_020d215c = {
 static const UnkStruct_ov019_020d2170 data_ov019_020d2170;
 
 static PTMF<FileSelectOptions> data_ov019_020d21c0[FSOptionsState_Max] = {
-    FileSelectOptions::func_ov019_020cce04, // FSOptionsState_Idle
-    FileSelectOptions::func_ov019_020cce30, // FSOptionsState_OptionsFromChooseMode
-    FileSelectOptions::func_ov019_020cd16c, // FSOptionsState_OptionsToChooseMode
-    FileSelectOptions::func_ov019_020cd41c, // FSOptionsState_OptionsToMicTest
-    FileSelectOptions::func_ov019_020cd5f8, // FSOptionsState_MicTestIdle
-    FileSelectOptions::func_ov019_020cd614, // FSOptionsState_OptionsFromMicTest
-    FileSelectOptions::func_ov019_020cd788, // FSOptionsState_SaveSettings
+    &FileSelectOptions::func_ov019_020cce04, // FSOptionsState_Idle
+    &FileSelectOptions::func_ov019_020cce30, // FSOptionsState_OptionsFromChooseMode
+    &FileSelectOptions::func_ov019_020cd16c, // FSOptionsState_OptionsToChooseMode
+    &FileSelectOptions::func_ov019_020cd41c, // FSOptionsState_OptionsToMicTest
+    &FileSelectOptions::func_ov019_020cd5f8, // FSOptionsState_MicTestIdle
+    &FileSelectOptions::func_ov019_020cd614, // FSOptionsState_OptionsFromMicTest
+    &FileSelectOptions::func_ov019_020cd788, // FSOptionsState_SaveSettings
 };
 
 static PTMF<FileSelectOptions> data_ov019_020d2188[FSOptionsState_Max] = {
-    FileSelectOptions::func_ov019_020cd7f8, // FSOptionsState_Idle
-    FileSelectOptions::func_ov019_020cdc0c, // FSOptionsState_OptionsFromChooseMode
-    FileSelectOptions::func_ov019_020cdc38, // FSOptionsState_OptionsToChooseMode
-    FileSelectOptions::func_ov019_020cdc60, // FSOptionsState_OptionsToMicTest
-    FileSelectOptions::func_ov019_020cdc5c, // FSOptionsState_MicTestIdle
-    FileSelectOptions::func_ov019_020cdc8c, // FSOptionsState_OptionsFromMicTest
-    FileSelectOptions::func_ov019_020cdcb8, // FSOptionsState_SaveSettings
+    &FileSelectOptions::func_ov019_020cd7f8, // FSOptionsState_Idle
+    &FileSelectOptions::func_ov019_020cdc0c, // FSOptionsState_OptionsFromChooseMode
+    &FileSelectOptions::func_ov019_020cdc38, // FSOptionsState_OptionsToChooseMode
+    &FileSelectOptions::func_ov019_020cdc60, // FSOptionsState_OptionsToMicTest
+    &FileSelectOptions::func_ov019_020cdc5c, // FSOptionsState_MicTestIdle
+    &FileSelectOptions::func_ov019_020cdc8c, // FSOptionsState_OptionsFromMicTest
+    &FileSelectOptions::func_ov019_020cdcb8, // FSOptionsState_SaveSettings
 };
 
 GameModeManagerBase_104 *FileSelectOptionsManager::Create(void *param1, s32 saveSlotIndex) {
@@ -123,20 +119,22 @@ void FileSelectOptionsManager::vfunc_08(Input *pButtons, TouchControl *pTouchCon
     this->mUnk_20 = 0;
 
     switch (this->mUnk_1C) {
-        case 0:
+        case 0: {
             FileSelectOptions *pFVar4 = this->mpOptions;
             this->mUnk_24->Append(pFVar4);
             pFVar4->vfunc_18();
             this->mpOptions->func_ov019_020cde9c();
             this->mpMicTest->Detach();
             break;
-        case 1:
+        }
+        case 1: {
             FileSelectMicTest *pFVar5 = this->mpMicTest;
             this->mUnk_24->Append(pFVar5);
             pFVar5->vfunc_18();
             this->mpMicTest->func_ov019_020cefe4();
             this->mpOptions->Detach();
             break;
+        }
         case 2:
             this->mpOptions->func_ov019_020ccdf4();
             break;
@@ -452,14 +450,14 @@ void FileSelectOptions::func_ov019_020cd614() {
     }
     this->mUnk_1064.mUnk_08 = 0;
 
-    func_ov000_02062e44(&local_34, &this->mUnk_1388);
+    func_ov000_02062e44((Vec2s *) &local_34, &this->mUnk_1388);
     this->mUnk_1420.func_ov000_0206415c(&local_34, 0, 0xC, 0);
 
-    func_ov000_02062e44(&local_40, &this->mUnk_16AC);
+    func_ov000_02062e44((Vec2s *) &local_40, &this->mUnk_16AC);
     local_34 = local_40;
     this->mUnk_1744.func_ov000_0206415c(&local_34, 0, 0xC, 0);
 
-    func_ov000_02062e44(&local_44, &this->mUnk_19D0);
+    func_ov000_02062e44((Vec2s *) &local_44, &this->mUnk_19D0);
     local_34 = local_44;
     this->mUnk_1A68.func_ov000_0206415c(&local_34, 0, 0xC, 0);
 }

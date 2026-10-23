@@ -14,7 +14,7 @@ public:
     ModelRender_ov031_0211578c(const G3d_Model *model, unk32 param1, unk32 param2);
 
     // data_ov031_0211578c
-    /* 1C */ virtual void vfunc_1C(UnkSystem4_vfunc_1C *param1) override;
+    /* 1C */ virtual void vfunc_1C(G3d_RenderState *param1) override;
 
     void func_ov031_02102c00();
 };
@@ -35,13 +35,13 @@ class ActorItemFlower : public Actor_ov031_02113fd4 {
 public:
     /* 000 (base) */
     /* 110 */ ModelRender_ov031_0211578c mUnk_110;
-    /* 170 */ STRUCT_PAD(0x170, 0x17C);
+    /* 170 */ PAD(0x170, 0x17C);
     /* 17C */
 
     ActorItemFlower();
 
-    /* 18 */ bool vfunc_18(unk32 param1);
-    /* 20 */ virtual void vfunc_20() override;
+    /* 18 */ virtual bool Init(unk32 param1);
+    /* 20 */ virtual void Update() override;
     /* 2C */ virtual void vfunc_2C(unk32 param1) override;
     /* 5C */ virtual void vfunc_5C(ActorState state) override;
 

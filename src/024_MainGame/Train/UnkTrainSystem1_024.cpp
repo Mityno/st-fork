@@ -1,3 +1,4 @@
+#include "CommonFuncs.hpp"
 #include "MainGame/AdventureMode.hpp"
 #include "MainGame/PassengerManager.hpp"
 #include "MainGame/UnkTrainSystems.hpp"
@@ -7,9 +8,6 @@
 #include "Unknown/UnkStruct_ov024_020d86a0.hpp"
 #include "types.h"
 #include "versions.h"
-
-extern "C" void func_ov000_0205c1f0(unk32 *, u16);
-extern "C" void func_ov000_0205c204(void *, VecFx32 *, int, int, u8);
 
 struct UnkStruct_ov024_020d86a8_Mgr {
     const UnkStruct_ov024_020d86a8 *pInstance;
@@ -109,8 +107,8 @@ void UnkTrainSystem1::func_ov024_020d562c(const VecFx32 *param1, fx32 param2) {
     if (data_ov024_020d86a8.pInstance->mUnk_00_1 == 0) {
         UnkStruct_027e09bc *ptr = data_027e09bc;
         fx32 temp               = this->mUnk_00 + this->mUnk_04;
-        fx32 temp_r1            = MUL_FX32(temp, param2);
-        new_var3                = MUL_FX32(param2, 0x266);
+        fx32 temp_r1            = FX_MUL(temp, param2);
+        new_var3                = FX_MUL(param2, 0x266);
 
         new_var5 = param1->z;
         new_var6 = param1->y + new_var3;
@@ -134,9 +132,9 @@ void UnkTrainSystem1::func_ov024_020d562c(const VecFx32 *param1, fx32 param2) {
         temp_r1_3.z -= param1->z;
         temp_r1_3.y -= param1->y;
 
-        sp14.x = MUL_FX32(temp_r1_3.x, 0x2E1);
-        sp14.y = MUL_FX32(temp_r1_3.y, 0x2E1);
-        sp14.z = MUL_FX32(temp_r1_3.z, 0x2E1);
+        sp14.x = FX_MUL(temp_r1_3.x, 0x2E1);
+        sp14.y = FX_MUL(temp_r1_3.y, 0x2E1);
+        sp14.z = FX_MUL(temp_r1_3.z, 0x2E1);
 
         sp20 = sp14;
 

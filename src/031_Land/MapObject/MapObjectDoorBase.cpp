@@ -1,3 +1,4 @@
+#include "CommonFuncs.hpp"
 #define DOORBASE_DTOR_NOINLINE
 #include "MapObject/MapObjectDoorBase.hpp"
 
@@ -9,11 +10,6 @@
 #include "Unknown/UnkStruct_027e0ce0.hpp"
 
 #include <nitro/mi.h>
-
-extern "C" unk32 func_01ffb464(unk32 param1);
-extern "C" void func_01ff9218(void *, unk32, unk32);
-extern "C" unk32 func_01ffb428(unk32, unk32);
-extern "C" void *func_ov000_02077590(unk32);
 
 class UnkStruct_ov031_02117210 {
 public:
@@ -28,30 +24,30 @@ UnkStruct_ov031_02117210 data_ov031_02117210;
 UnkStruct_ov019_020d24c8_28_258_00 data_ov031_02117204(NULL, 0);
 
 UnkStruct_ov031_02117210::UnkStruct_ov031_02117210() {
-    this->mUnk_00[0].mUnk_0C.x = -FLOAT_TO_FX32(1.0f);
-    this->mUnk_00[0].mUnk_0C.y = FLOAT_TO_FX32(0.0f);
-    this->mUnk_00[0].mUnk_0C.z = -FLOAT_TO_FX32(0.35f);
-    this->mUnk_00[0].mUnk_18.x = FLOAT_TO_FX32(1.0f);
-    this->mUnk_00[0].mUnk_18.y = FLOAT_TO_FX32(2.4f);
-    this->mUnk_00[0].mUnk_18.z = FLOAT_TO_FX32(0.35f);
+    this->mUnk_00[0].mUnk_0C.x = -FX_F32_TO_FX32(1.0f);
+    this->mUnk_00[0].mUnk_0C.y = FX_F32_TO_FX32(0.0f);
+    this->mUnk_00[0].mUnk_0C.z = -FX_F32_TO_FX32(0.35f);
+    this->mUnk_00[0].mUnk_18.x = FX_F32_TO_FX32(1.0f);
+    this->mUnk_00[0].mUnk_18.y = FX_F32_TO_FX32(2.4f);
+    this->mUnk_00[0].mUnk_18.z = FX_F32_TO_FX32(0.35f);
     this->mUnk_00[0].mUnk_04 &= 0xFE;
     this->mUnk_00[0].mUnk_08 = 0x7009;
 
-    this->mUnk_00[1].mUnk_0C.x = -FLOAT_TO_FX32(1.0f);
-    this->mUnk_00[1].mUnk_0C.y = FLOAT_TO_FX32(0.0f);
-    this->mUnk_00[1].mUnk_0C.z = -FLOAT_TO_FX32(1.35f);
-    this->mUnk_00[1].mUnk_18.x = FLOAT_TO_FX32(1.0f);
-    this->mUnk_00[1].mUnk_18.y = FLOAT_TO_FX32(2.4f);
-    this->mUnk_00[1].mUnk_18.z = FLOAT_TO_FX32(0.35f);
+    this->mUnk_00[1].mUnk_0C.x = -FX_F32_TO_FX32(1.0f);
+    this->mUnk_00[1].mUnk_0C.y = FX_F32_TO_FX32(0.0f);
+    this->mUnk_00[1].mUnk_0C.z = -FX_F32_TO_FX32(1.35f);
+    this->mUnk_00[1].mUnk_18.x = FX_F32_TO_FX32(1.0f);
+    this->mUnk_00[1].mUnk_18.y = FX_F32_TO_FX32(2.4f);
+    this->mUnk_00[1].mUnk_18.z = FX_F32_TO_FX32(0.35f);
     this->mUnk_00[1].mUnk_04 &= 0xFE;
     this->mUnk_00[1].mUnk_08 = 0x7009;
 
-    this->mUnk_00[2].mUnk_0C.x = -FLOAT_TO_FX32(0.35f);
-    this->mUnk_00[2].mUnk_0C.y = FLOAT_TO_FX32(0.0f);
-    this->mUnk_00[2].mUnk_0C.z = -FLOAT_TO_FX32(1.0f);
-    this->mUnk_00[2].mUnk_18.x = FLOAT_TO_FX32(0.35f);
-    this->mUnk_00[2].mUnk_18.y = FLOAT_TO_FX32(2.4f);
-    this->mUnk_00[2].mUnk_18.z = FLOAT_TO_FX32(1.0f);
+    this->mUnk_00[2].mUnk_0C.x = -FX_F32_TO_FX32(0.35f);
+    this->mUnk_00[2].mUnk_0C.y = FX_F32_TO_FX32(0.0f);
+    this->mUnk_00[2].mUnk_0C.z = -FX_F32_TO_FX32(1.0f);
+    this->mUnk_00[2].mUnk_18.x = FX_F32_TO_FX32(0.35f);
+    this->mUnk_00[2].mUnk_18.y = FX_F32_TO_FX32(2.4f);
+    this->mUnk_00[2].mUnk_18.z = FX_F32_TO_FX32(1.0f);
     this->mUnk_00[2].mUnk_04 &= 0xFE;
     this->mUnk_00[2].mUnk_08 = 0x7009;
 }
@@ -85,12 +81,12 @@ MapObjectDoorBase::MapObjectDoorBase() :
 
 void MapObjectDoorBase::func_ov031_020fbf10(bool param1, bool param2) {
     if (this->IsOrientedVertically()) {
-        this->mPos.z += FLOAT_TO_FX32(0.5f);
+        this->mPos.z += FX_F32_TO_FX32(0.5f);
         Vec2bCpp local_16(1, 2);
         this->func_ov000_0209d2f0(5, 1, &local_16);
 
     } else {
-        this->mPos.x += FLOAT_TO_FX32(0.5f);
+        this->mPos.x += FX_F32_TO_FX32(0.5f);
         Vec2bCpp local_18(2, 1);
         this->func_ov000_0209d2f0(5, 1, &local_18);
     }
@@ -281,19 +277,19 @@ void MapObjectDoorBase::vfunc_0C() {
 void MapObjectDoorBase::vfunc_60() {
     switch (this->mState) {
         case MapObjDoorBaseState_0:
-            if (!this->mUnk_86 && !GET_FLAG(this->mFlags, MapObjFlag_1) && this->mUnk_6C <= FLOAT_TO_FX32(0.5f)) {
+            if (!this->mUnk_86 && !GET_FLAG(this->mFlags, MapObjFlag_1) && this->mUnk_6C <= FX_F32_TO_FX32(0.5f)) {
                 this->func_ov031_020fcf0c(1);
             }
             this->vfunc_54();
             break;
         case MapObjDoorBaseState_2:
-            if (this->mUnk_86 && !GET_FLAG(this->mFlags, MapObjFlag_1) && this->mUnk_6C <= FLOAT_TO_FX32(0.5f)) {
+            if (this->mUnk_86 && !GET_FLAG(this->mFlags, MapObjFlag_1) && this->mUnk_6C <= FX_F32_TO_FX32(0.5f)) {
                 this->func_ov031_020fcf0c(1);
                 this->vfunc_58();
             }
             break;
         case MapObjDoorBaseState_5:
-            if (GET_FLAG(this->mFlags, MapObjFlag_1) && this->mUnk_6C >= FLOAT_TO_FX32(0.5f)) {
+            if (GET_FLAG(this->mFlags, MapObjFlag_1) && this->mUnk_6C >= FX_F32_TO_FX32(0.5f)) {
                 this->func_ov031_020fcf0c(0);
             }
             break;
@@ -307,19 +303,6 @@ void MapObjectDoorBase::vfunc_60() {
             break;
     }
 }
-
-struct UnkStackStruct {
-    s16 mUnk_00;
-    s16 mUnk_02;
-    s16 mUnk_04;
-    s16 mUnk_06;
-    unk32 mUnk_08;
-    VecFx32 mUnk_0C;
-    u16 mUnk_18;
-    u16 mUnk_1A;
-    u16 mUnk_1C;
-    u16 mUnk_1E;
-};
 
 void MapObjectDoorBase::vfunc_5C(MapObjState state, unk32 param2) {
     UnkStackStruct1 auStack_5c;
@@ -335,7 +318,7 @@ void MapObjectDoorBase::vfunc_5C(MapObjState state, unk32 param2) {
             this->mUnk_82 = 0;
             this->mUnk_84 = 0x0D;
             this->mUnk_80 =
-                (MUL_FX32(INT_TO_FX32(this->mUnk_7A), func_01ffb428(this->mUnk_6C, 0x1000)) + FLOAT_TO_FX32(0.5f)) >> 12;
+                (FX_MUL(INT_TO_FX32(this->mUnk_7A), func_01ffb428(this->mUnk_6C, 0x1000)) + FX_F32_TO_FX32(0.5f)) >> 12;
 
             this->vfunc_50();
 
@@ -366,26 +349,9 @@ void MapObjectDoorBase::vfunc_5C(MapObjState state, unk32 param2) {
                     auStack_5c.mUnk_3B = 0;
                 }
 
-                UnkStackStruct *puVar5 = (UnkStackStruct *) func_ov000_02077590(3);
-                auStack_5c.mUnk_18     = puVar5->mUnk_00;
-                auStack_5c.mUnk_1A     = puVar5->mUnk_02;
-                auStack_5c.mUnk_1C     = puVar5->mUnk_04;
-                auStack_5c.mUnk_1E     = puVar5->mUnk_06;
-                auStack_5c.mUnk_20     = puVar5->mUnk_08;
-                auStack_5c.mUnk_24     = puVar5->mUnk_0C;
-
-                u16 unk_18         = puVar5->mUnk_18;
-                u16 unk_1A         = puVar5->mUnk_1A;
-                auStack_5c.mUnk_32 = unk_1A;
-                auStack_5c.mUnk_30 = unk_18;
-
-                u16 unk_1C         = puVar5->mUnk_1C;
-                u16 unk_1E         = puVar5->mUnk_1E;
-                auStack_5c.mUnk_36 = unk_1E;
-                auStack_5c.mUnk_34 = unk_1C;
-
-                auStack_5c.mUnk_1E = this->mAngle;
-                this->mUnk_74      = data_027e09b8->func_ov000_02073388(&auStack_5c, 0);
+                auStack_5c.mUnk_18.Copy(3);
+                auStack_5c.mUnk_18.s.mUnk_06 = this->mAngle.angle_s;
+                this->mUnk_74                = data_027e09b8->func_ov000_02073388(&auStack_5c, 0);
             }
 
             if (param2 == 0) {
@@ -408,7 +374,7 @@ void MapObjectDoorBase::vfunc_5C(MapObjState state, unk32 param2) {
             this->vfunc_7C();
 
             this->mUnk_80 =
-                (MUL_FX32(INT_TO_FX32(this->mUnk_78), func_01ffb428(0x1000 - this->mUnk_6C, 0x1000)) + FLOAT_TO_FX32(0.5f)) >>
+                (FX_MUL(INT_TO_FX32(this->mUnk_78), func_01ffb428(0x1000 - this->mUnk_6C, 0x1000)) + FX_F32_TO_FX32(0.5f)) >>
                 12;
 
             if (this->mUnk_8A) {
@@ -449,27 +415,9 @@ void MapObjectDoorBase::vfunc_5C(MapObjState state, unk32 param2) {
                     }
 
                     auStack_9c.mUnk_38 |= 0x200;
-
-                    UnkStackStruct *puVar5 = (UnkStackStruct *) func_ov000_02077590(2);
-                    auStack_9c.mUnk_18     = puVar5->mUnk_00;
-                    auStack_9c.mUnk_1A     = puVar5->mUnk_02;
-                    auStack_9c.mUnk_1C     = puVar5->mUnk_04;
-                    auStack_9c.mUnk_1E     = puVar5->mUnk_06;
-                    auStack_9c.mUnk_20     = puVar5->mUnk_08;
-                    auStack_9c.mUnk_24     = puVar5->mUnk_0C;
-
-                    u16 unk_18         = puVar5->mUnk_18;
-                    u16 unk_1A         = puVar5->mUnk_1A;
-                    auStack_9c.mUnk_32 = unk_1A;
-                    auStack_9c.mUnk_30 = unk_18;
-
-                    u16 unk_1C         = puVar5->mUnk_1C;
-                    u16 unk_1E         = puVar5->mUnk_1E;
-                    auStack_9c.mUnk_36 = unk_1E;
-                    auStack_9c.mUnk_34 = unk_1C;
-
-                    auStack_9c.mUnk_1E = this->mAngle;
-                    this->mUnk_74      = data_027e09b8->func_ov000_02073388(&auStack_9c, 0);
+                    auStack_9c.mUnk_18.Copy(2);
+                    auStack_9c.mUnk_18.s.mUnk_06 = this->mAngle.angle_s;
+                    this->mUnk_74                = data_027e09b8->func_ov000_02073388(&auStack_9c, 0);
 
                     this->mUnk_84 = 0x0D;
                 }
@@ -492,7 +440,7 @@ void MapObjectDoorBase::vfunc_5C(MapObjState state, unk32 param2) {
                 }
 
                 if (this->mUnk_87) {
-                    ActorRef sp8;
+                    RefStruct sp8;
                     MapObject::func_ov000_0209d54c(&sp8, this, 1, &this->mPos, var_r1_2, var_r5);
                 }
             }
@@ -546,13 +494,12 @@ struct stack_struct {
     /* 08 */
 };
 
-extern "C" void func_01ff9fbc(Mat2p *, unk32, Mat2p *);
 extern fx16 data_0203f964[];
 
-void MapObjectDoorBase::func_ov031_020fcb78(s8 *param1, s8 param2) {
+void MapObjectDoorBase::func_ov031_020fcb78(s8 *param1) {
     Vec2s sp10;
     stack_struct sp8;
-    u32 sp4;
+    RefStruct sp4;
     bool var_r2;
 
     if (!GET_FLAG(this->mFlags, MapObjFlag_5)) {
@@ -568,15 +515,15 @@ void MapObjectDoorBase::func_ov031_020fcb78(s8 *param1, s8 param2) {
     bool uVar4 = (this->mUnk_84 % 0x1A) >= 0x0D ? true : false;
 
     //! TODO: fake match?
-    sp4 = *(u32 *) &this->mUnk_38;
+    sp4 = *(RefStruct *) &this->mRef; //! TODO: ref conflicts
 
-    if (data_027e0998->vfunc_00(&this->mPos, &sp10, (u16 *) &sp4) && uVar4 != 0) {
-        Mat2p m;
+    if (data_027e0998->vfunc_00(&this->mPos, &sp10, &sp4) && uVar4 != 0) {
+        MtxFx22 m;
 
         if (this->IsOrientedVertically()) {
-            Mat2p_InitRotation(&m, data_0203f964[0], data_0203f964[1]);
+            MtxFx22_InitRotation(&m, data_0203f964[0], data_0203f964[1]);
         } else {
-            Mat2p_InitIdentity(&m);
+            MtxFx22_InitIdentity(&m);
         }
 
         func_01ff9fbc(&m, data_027e0998->func_ov000_02061a70(), &m);
@@ -595,7 +542,7 @@ void MapObjectDoorBase::vfunc_74() {}
 void MapObjectDoorBase::vfunc_78() {}
 
 void MapObjectDoorBase::vfunc_7C() {
-    this->mUnk_68.func_ov000_020a0334();
+    this->mUnk_68.mUnk_00.func_ov000_020a0334();
 }
 
 void MapObjectDoorBase::vfunc_80() {
@@ -650,15 +597,15 @@ void MapObjectDoorBase::vfunc_4C() {}
 
 void MapObjectDoorBase::vfunc_84(unk32 param1, VecFx32 *param2, unk16 *param3) {
     VecFx32 local_20;
-    *param3 = this->mAngle;
+    *param3 = this->mAngle.angle_s;
 
     if (param1 != 0) {
-        local_20.x = MUL_FX32(SIN((u16) this->mAngle), 0x1000);
-        local_20.z = MUL_FX32(COS((u16) this->mAngle), 0x1000);
+        local_20.x = FX_MUL(SIN((u16) this->mAngle.angle_s), 0x1000);
+        local_20.z = FX_MUL(COS((u16) this->mAngle.angle_s), 0x1000);
         local_20.y = 0;
     } else {
-        local_20.x = MUL_FX32(SIN((u16) this->mAngle), 0xC00);
-        local_20.z = MUL_FX32(COS((u16) this->mAngle), 0xC00);
+        local_20.x = FX_MUL(SIN((u16) this->mAngle.angle_s), 0xC00);
+        local_20.z = FX_MUL(COS((u16) this->mAngle.angle_s), 0xC00);
         local_20.y = 0;
 
         *param3 += -DEG_TO_ANG(180);
@@ -701,14 +648,15 @@ void MapObjectDoorBase::vfunc2_08() {
     u16 *temp_r3;
     u16 *temp_r3_2;
 
-    if (this->mState != MapObjDoorBaseState_1 || !this->mUnk_8C || (u16) (this->mAngle + 0x2000) / DEG_TO_ANG(90) != 2) {
+    if (this->mState != MapObjDoorBaseState_1 || !this->mUnk_8C ||
+        (u16) (this->mAngle.angle_s + 0x2000) / DEG_TO_ANG(90) != 2) {
         return;
     }
 
     bool result = data_027e0ce0->func_01fff1a4();
     temp_r0     = this->mPos.x;
     temp_r1     = this->mPos.y;
-    temp_r2     = this->mPos.z - FLOAT_TO_FX32(3.0f);
+    temp_r2     = this->mPos.z - FX_F32_TO_FX32(3.0f);
 
     if (!result) {
         this->mUnk_4C.x = temp_r0;
@@ -721,7 +669,7 @@ void MapObjectDoorBase::vfunc2_08() {
         return;
     }
 
-    this->mUnk_4C.x = temp_r0 - FLOAT_TO_FX32(1.0f);
+    this->mUnk_4C.x = temp_r0 - FX_F32_TO_FX32(1.0f);
     this->mUnk_4C.y = temp_r1;
     this->mUnk_4C.z = temp_r2;
 
@@ -729,9 +677,9 @@ void MapObjectDoorBase::vfunc2_08() {
     // *temp_r3_2  = this->mUnk_4A;
     data_027e0ce0->func_ov000_0208bbd4(this->mUnk_04, &this->mUnk_4C, this->mUnk_4A);
 
-    this->mUnk_5C.x = this->mPos.x + FLOAT_TO_FX32(1.0f);
+    this->mUnk_5C.x = this->mPos.x + FX_F32_TO_FX32(1.0f);
     this->mUnk_5C.y = this->mPos.y;
-    this->mUnk_5C.z = this->mPos.z - FLOAT_TO_FX32(3.0f);
+    this->mUnk_5C.z = this->mPos.z - FX_F32_TO_FX32(3.0f);
     this->mUnk_5A   = this->mUnk_4A;
 
     // temp_r2_2   = sp - 4;

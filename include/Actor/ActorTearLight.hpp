@@ -37,7 +37,7 @@ public:
     ActorTearLight_194(ActorTearLight *param1);
 
     // data_ov071_02164c00
-    /* 00 */ virtual bool vfunc_00(ActorRef ref, unk32 param2) override;
+    /* 00 */ virtual bool vfunc_00(RefStruct ref, unk32 param2) override;
     /* 04 */ virtual bool vfunc_04() override;
     /* 08 */ virtual void vfunc_08() override;
     /* 0C */ virtual void vfunc_0C(VecFx32 *param1) override;
@@ -92,25 +92,25 @@ public:
     /* 104 */ ActorTearLight_104 mUnk_104;
     /* 120 */ UnkSystem5 mUnk_120;
     /* 140 */ unk32 mUnk_140;
-    /* 144 */ STRUCT_PAD(0x144, 0x160);
+    /* 144 */ PAD(0x144, 0x160);
     /* 160 */ ActorTearLight_UnkStruct mUnk_160;
     /* 168 */ Actor_9C mUnk_168;
     /* 188 */ unk32 mUnk_188;
     /* 18C */ bool mUnk_18C;
     /* 18D */ bool mUnk_18D;
-    /* 190 */ ActorRef mUnk_190;
+    /* 190 */ RefStruct mUnk_190;
     /* 194 */ ActorTearLight_194 mUnk_194;
     /* 1B8 */ u8 mUnk_1B8;
     /* 1B9 */ unk8 mUnk_1B9;
     /* 1BC */ UnkStruct_ov031_Items_02 mUnk_1BC;
-    /* 1C8 */ STRUCT_PAD(0x1C8, 0x204);
+    /* 1C8 */ PAD(0x1C8, 0x204);
     /* 204 */ ActorTearLight_204 mUnk_204[0x2];
 
     ActorTearLight();
 
-    /* 18 */ virtual bool vfunc_18(unk32 param1) override;
-    /* 1C */ virtual void vfunc_1C() override;
-    /* 20 */ virtual void vfunc_20() override;
+    /* 18 */ virtual bool Init(unk32 param1) override;
+    /* 1C */ virtual void Setup() override;
+    /* 20 */ virtual void Update() override;
     /* 24 */ virtual void vfunc_24() override;
     /* 2C */ virtual void vfunc_2C(unk32 param1) override;
     /* 30 */ virtual void vfunc_30(Actor_vfunc_30 *param1) override;

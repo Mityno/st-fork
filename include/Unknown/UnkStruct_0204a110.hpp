@@ -29,11 +29,11 @@ struct UnkStruct_0204a110_Sub2_000 {
     unk32 mUnk_34[2];
     unk32 mUnk_3C[2];
     unk32 mUnk_44[2];
-    STRUCT_PAD(0x4C, 0x150);
+    PAD(0x4C, 0x150);
     unk32 mUnk_150;
     unk32 mUnk_154;
     UnkStruct_0204a110_Sub2_000_158 mUnk_158[16];
-    STRUCT_PAD(0x258, 0x358);
+    PAD(0x258, 0x358);
     unk32 mUnk_358;
 };
 
@@ -56,7 +56,7 @@ public:
     /* 034 */ unk32 mUnk_034[2];
     /* 03C */ unk32 mUnk_03C[2];
     /* 044 */ unk32 mUnk_044[2];
-    /* 04C */ STRUCT_PAD(0x4C, 0x150);
+    /* 04C */ PAD(0x4C, 0x150);
     /* 150 */ unk32 mUnk_150[2];
     /* 158 */ UnkStruct_0204a110_Sub2_158 mUnk_158[2][16];
     /* 358 */ unk32 mUnk_358[2];
@@ -144,7 +144,7 @@ public:
 class UnkStruct_0204a110_Sub7_08 : public UnkSubStruct1_Base {
 public:
     /* 00 (vtable) */
-    /* 0B */ STRUCT_PAD(0x20, 0x30);
+    /* 0B */ PAD(0x20, 0x30);
     /* 30 */
 
     UnkStruct_0204a110_Sub7_08();
@@ -235,19 +235,19 @@ public:
     /* 010 */ UnkStruct_0204a110_Sub2 mUnk_010;
     /* 370 */ UnkStruct_0204a110_Sub3 mUnk_370;
     /* 794 */ UnkStruct_0204a110_Sub4 mUnk_794;
-    /* 798 */ STRUCT_PAD(0x798, 0xD9C);
+    /* 798 */ PAD(0x798, 0xD9C);
     /* D9C */ UnkStruct_0204a110_Sub5 mUnk_D9C;
     /* DA4 */ unk8 mUnk_DA4;
     /* DA5 */ unk8 mUnk_DA5;
     /* DA6 */ unk8 mUnk_DA6;
     /* DA7 */ unk8 mUnk_DA7;
     /* DA8 */ UnkStruct_0204a110_Sub6 mUnk_DA8;
-    /* DBC */ STRUCT_PAD(0xDBC, 0xDC0);
+    /* DBC */ PAD(0xDBC, 0xDC0);
     /* DC0 */ UnkStruct_0204a110_Sub7 mUnk_DC0;
     /* DDC */ UnkStruct_0204a110_Sub8 mUnk_DDC;
     /* DEC */ GameModeManagerBase *mpManager;
     /* DF0 */ u16 mUnk_DF0;
-    /* DF2 */ unk8 mUnk_DF2;
+    /* DF2 */ s8 mUnk_DF2;
     /* DF3 */ unk8 mUnk_DF3;
     /* DF4 */ unk32 mUnk_DF4;
     /* DF8 */ unk32 mUnk_DF8;
@@ -286,6 +286,7 @@ public:
     void func_0201967c(unk32 param2, unk32 param3, unk32 param4, unk32 param5, unk32 param6);
     void func_02019538(unk32 param1, unk32 param2);
     unk32 func_02019300(unk32 param1);
+    bool func_02019340(unk32 param1);
     void func_02019350();
     void func_020194dc();
     void func_02019408();
@@ -294,6 +295,8 @@ public:
     void func_02019528();
     bool func_02019548();
     UnkStruct_func_02019590 *func_02019590(unk16 param1, unk32 param2);
+    unk32 func_01ff9b64();
+    unk32 func_01ff9b78();
 
     // overlay 1
     void func_ov001_020bd514(unk32 param1, GameModeMgrCreateCallback createCallback, bool param3, bool param4);

@@ -1,5 +1,6 @@
 #include "Actor/ActorUnkPMST.hpp"
 #include "Actor/ActorUnkPMTT.hpp"
+#include "CommonFuncs.hpp"
 #include "MapObject/MapObjectManager.hpp"
 #include "System/OverlayManager.hpp"
 #include "System/SysNew.hpp"
@@ -8,8 +9,6 @@
 #include "versions.h"
 
 #include <nitro/mi.h>
-
-extern "C" bool func_ov026_0210d664(SceneIndex sceneIndex, MapObjectId mapObjId);
 
 MapObjectManager *MapObjectManager::Create() {
     return new(HeapIndex_1) MapObjectManager();
@@ -43,7 +42,7 @@ void MapObjectManager::func_ov001_020bac9c() {
         if (pMapObj != NULL) {
             // alive and uninitialized?
             if (GET_FLAG(pMapObj->mFlags, MapObjFlag_Alive) && !GET_FLAG(pMapObj->mFlags, MapObjFlag_4)) {
-                pMapObj->vfunc_04();
+                pMapObj->Setup();
                 SET_FLAG(pMapObj->mFlags, MapObjFlag_4);
             }
         }

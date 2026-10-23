@@ -1,4 +1,5 @@
 #include "Actor/ActorUnkROCK.hpp"
+#include "CommonFuncs.hpp"
 
 #include "MapObject/MapObject_10_Pot.hpp"
 #include "System/SysNew.hpp"
@@ -6,9 +7,7 @@
 #include "Unknown/UnkStruct_027e09b4.hpp"
 #include "Unknown/UnkStruct_027e09c0.hpp"
 
-extern "C" Mat3p data_027e0130;
-
-static MapObject_10_Pot data_ov031_021166b8;
+extern MtxFx33 data_027e0130;
 
 DECL_PROFILE(ActorProfileUnkROCK);
 
@@ -19,10 +18,11 @@ Actor *ActorProfileUnkROCK::Create() {
 // non-matching
 ActorProfileUnkROCK::ActorProfileUnkROCK() :
     ActorProfileUnkROCK_Base(ActorId_ROCK) {
-    this->mUnk_04.Init(FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(0.5f));
-    VecFx32_Init(FLOAT_TO_FX32(7.0017f), FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(0.0f), &this->mUnk_D8.mUnk_0C);
-    this->mUnk_D8.mUnk_18 = FLOAT_TO_FX32(0.6f);
-    this->mUnk_D8.mUnk_1C = FLOAT_TO_FX32(1.2f);
+    this->mUnk_04.Init(FX_F32_TO_FX32(0.5f));
+    this->mUnk_D8.mUnk_08 = 0x7007;
+    VecFx32_Reset(&this->mUnk_D8.mUnk_0C);
+    this->mUnk_D8.mUnk_18 = 0x99A;
+    this->mUnk_D8.mUnk_1C = 0x1333;
 }
 
 ActorUnkROCK::ActorUnkROCK() :
@@ -31,17 +31,18 @@ ActorUnkROCK::ActorUnkROCK() :
     this->mUnk_4A[1] = 0x02;
 }
 
-bool ActorUnkROCK::vfunc_18(unk32 param1) {
+bool ActorUnkROCK::Init(unk32 param1) {
+#pragma unused(param1)
     this->mUnk_A0.mUnk_04 = this->mRef;
     this->mUnk_A0.mUnk_08 = &this->mPos;
-    this->mUnk_A0.mUnk_0C = &data_ov031_021166b8;
+    this->mUnk_A0.mUnk_0C = GET_PROFILE_D8(ActorProfileUnkROCK);
 
     this->func_ov031_020e8a48(ActorUnkROCKState_0);
 
     return true;
 }
 
-void ActorUnkROCK::vfunc_20() {
+void ActorUnkROCK::Update() {
     VecFx32_Copy(&this->mPos, &this->mPrevPos);
     switch (this->mState) {
         case ActorUnkROCKState_1:
@@ -64,8 +65,7 @@ void ActorUnkROCK::vfunc_20() {
 }
 
 void ActorUnkROCK::func_ov031_020e8a48(ActorState state) {
-    this->mUnk_52 = 0xFFFF;
-    this->mUnk_50 = 0x0000;
+    this->mTimer.Reset();
 
     if (this->mState == ActorUnkROCKState_0) {
         data_027e09c0->func_ov000_0207e254(&this->mUnk_A0);
@@ -97,10 +97,10 @@ void ActorUnkROCK::vfunc_2C(unk32 param1) {
         return;
     }
     VecFx32 vecSp18;
-    VecFx32_Init(FLOAT_TO_FX32(1.2f), FLOAT_TO_FX32(1.2f), FLOAT_TO_FX32(1.2f), &vecSp18);
+    VecFx32_Init(FX_F32_TO_FX32(1.2f), FX_F32_TO_FX32(1.2f), FX_F32_TO_FX32(1.2f), &vecSp18);
 
     VecFx32 vecSp0C = this->mPos;
-    vecSp0C.y += FLOAT_TO_FX32(0.8f);
+    vecSp0C.y += FX_F32_TO_FX32(0.8f);
 
     this->mUnk_94.vfunc_10(&vecSp18, &data_027e0130, &vecSp0C);
 
@@ -108,7 +108,7 @@ void ActorUnkROCK::vfunc_2C(unk32 param1) {
 }
 
 bool ActorUnkROCK::Grab(ActorGrabParams param1) {
-    if (param1.mUnk_00.type_index != 0x100 || param1.mUnk_00.unk_id != 1) {
+    if (param1.mUnk_00.acRef.type_index != 0x100 || param1.mUnk_00.acRef.unk_id != 1) {
         return false;
     }
     if (!this->Actor::Grab(param1)) {

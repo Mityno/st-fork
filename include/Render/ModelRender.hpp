@@ -3,41 +3,26 @@
 #include "global.h"
 #include "math.hpp"
 #include "nitro/fx.h"
+#include "nns/g3d/sbc.h"
 #include "profile.hpp"
+#include "stdbool.h"
 #include "types.h"
 
 #include <nns/g3d/g3d.h>
 
 class UnkSystem5;
 class UnkStruct_PlayerGet_50;
+class Actor;
 extern "C" void *func_ov000_02057750(size_t allocSize);
 
 struct ActorUnkZLSL_AnimationTag {
-    unk32 index;
-    char name[0x10];
-    u32 unknown;
+    /* 00 */ unk32 index;
+    /* 04 */ char name[16];
+    /* 14 */ u32 unknown;
+    /* 18 */
 };
 
-typedef void (*UnkSystem4_UnkCallback)(void *, unk32);
-
-class UnkSystem4_vfunc_1C_B4 {
-public:
-    /* 00 */ unk32 mUnk_00;
-    /* 00 */ STRUCT_PAD(0x04, 0x28);
-    /* 28 */ Mat3p mUnk_28;
-    /* 4C */ unk32 mUnk_4C;
-    /* 50 */ unk32 mUnk_50;
-    /* 54 */ unk32 mUnk_54;
-};
-
-class UnkSystem4_vfunc_1C {
-public:
-    /* 00 */ u8 *mUnk_00;
-    /* 04 */ unk32 *mUnk_04;
-    /* 08 */ STRUCT_PAD(0x08, 0xB4);
-    /* B4 */ UnkSystem4_vfunc_1C_B4 *mUnk_B4;
-    /* 00 */ unk32 *mUnk_B8;
-};
+typedef void (*UnkSystem4_UnkCallback)(Actor *, G3d_RenderState *);
 
 class ModelRenderBase {
 public:
@@ -51,14 +36,14 @@ public:
     // data_ov000_020b1a98
     /* 00 */ virtual ~ModelRenderBase();
     /* 08 */ virtual void vfunc_08(G3d_Model *pModel);
-    /* 0C */ virtual void vfunc_0C()                                                = 0;
-    /* 10 */ virtual void vfunc_10(VecFx32 *param1, Mat3p *param2, VecFx32 *param3) = 0;
-    /* 14 */ virtual void vfunc_14(Mat3p *param1, VecFx32 *param2)                  = 0;
-    /* 18 */ virtual void vfunc_18(VecFx32 *param1)                                 = 0;
+    /* 0C */ virtual void vfunc_0C()                                                  = 0;
+    /* 10 */ virtual void vfunc_10(VecFx32 *param1, MtxFx33 *param2, VecFx32 *param3) = 0;
+    /* 14 */ virtual void vfunc_14(MtxFx33 *param1, VecFx32 *param2)                  = 0;
+    /* 18 */ virtual void vfunc_18(VecFx32 *param1)                                   = 0;
     /* 1C */
 
     void func_01ffc634(VecFx32 *param1, UnkAngleStruct param2, VecFx32 *param3);
-    void func_01ffc6d4(UnkAngleStruct angleStruct, VecFx32 *pos);
+    VecFx32 *func_01ffc6d4(UnkAngleStruct angleStruct, VecFx32 *pos);
 
     void func_ov000_02057cb0();
     unk32 func_ov000_02057f18(const void *param1);
@@ -79,10 +64,10 @@ public:
     /* 00 */ virtual ~ModelRender();
     /* 08 */ virtual void vfunc_08(G3d_Model *pModel) override;
     /* 0C */ virtual void vfunc_0C() override;
-    /* 10 */ virtual void vfunc_10(VecFx32 *param1, Mat3p *param2, VecFx32 *param3) override; // SetTransform?
-    /* 14 */ virtual void vfunc_14(Mat3p *param1, VecFx32 *param2) override;                  // SetRotationTranslation?
+    /* 10 */ virtual void vfunc_10(VecFx32 *param1, MtxFx33 *param2, VecFx32 *param3) override; // SetTransform?
+    /* 14 */ virtual void vfunc_14(MtxFx33 *param1, VecFx32 *param2) override;                  // SetRotationTranslation?
     /* 18 */ virtual void vfunc_18(VecFx32 *param1) override;
-    /* 1C */ virtual void vfunc_1C(UnkSystem4_vfunc_1C *param1);
+    /* 1C */ virtual void vfunc_1C(G3d_RenderState *param1);
     /* 20 */ virtual void vfunc_20();
 
     void func_ov000_02057c38(unk32 param1, unk32 param2);
@@ -104,8 +89,8 @@ public:
 
     // data_ov000_020b1a48
     /* 00 */ virtual ~UnkSystem6_Derived1() override {}
-    /* 10 */ virtual void vfunc_10(VecFx32 *param1, Mat3p *param2, VecFx32 *param3) override;
-    /* 14 */ virtual void vfunc_14(Mat3p *param1, VecFx32 *param2) override;
+    /* 10 */ virtual void vfunc_10(VecFx32 *param1, MtxFx33 *param2, VecFx32 *param3) override;
+    /* 14 */ virtual void vfunc_14(MtxFx33 *param1, VecFx32 *param2) override;
     /* 18 */ virtual void vfunc_18(VecFx32 *param1) override;
 };
 
@@ -138,7 +123,7 @@ class ModelRender_ov000_020b198c : public ModelRenderBase {
 public:
     /* 00 (base) */
     /* 08 */ unk8 mUnk_08;
-    /* 09 */ STRUCT_PAD(0x09, 0x0A);
+    /* 09 */ PAD(0x09, 0x0A);
     /* 0A */ unk16 mUnk_0A;
     /* 0C */ unk16 mUnk_0C;
     /* 0E */
@@ -149,8 +134,8 @@ public:
     // data_ov000_020b198c
     /* 08 */ virtual void vfunc_08(G3d_Model *pModel) override; // func_ov000_02057908
     /* 0C */ virtual void vfunc_0C() override;                  // func_ov000_0205793c
-    /* 10 */ virtual void vfunc_10(VecFx32 *param1, Mat3p *param2, VecFx32 *param3) override;
-    /* 14 */ virtual void vfunc_14(Mat3p *param1, VecFx32 *param2) override;
+    /* 10 */ virtual void vfunc_10(VecFx32 *param1, MtxFx33 *param2, VecFx32 *param3) override;
+    /* 14 */ virtual void vfunc_14(MtxFx33 *param1, VecFx32 *param2) override;
     /* 18 */ virtual void vfunc_18(VecFx32 *param1) override;
 
     void func_ov000_02057ed8(G3d_Model *pModel);
@@ -183,24 +168,49 @@ public:
 
     void func_01ffc3b4();
 
-    void func_ov000_020577a4(UnkStruct_ov000_02058a84 *param1, unk32 param2, unk32 param3);
+    void func_ov000_020577a4(UnkStruct_ov000_02058a84 *param1, unk32 param2, bool param3);
     void func_ov000_020577f8(unk32 param1);
     void func_ov000_020578a4(unk32 param1, unk32 param2);
 };
 
-class UnkSystem5_Derived1 : public UnkSystem5 {
+class UnkSystem5_Derived1 {
 public:
-    UnkSystem5_Derived1(void *param1, G3d_Model *param2, UnkStruct_ov000_02058a84 *param3) :
-        UnkSystem5(param1, param2) {
-        unk32 value = 0;
+    /* 00 */ UnkSystem5 mUnk_00;
 
-        //! TODO: struct
-        if (!(*((u32 *) param3 + 2) & 2)) {
-            value = 1;
+    UnkSystem5_Derived1(void *param1, G3d_Model *param2, UnkStruct_ov000_02058a84 *param3) :
+        mUnk_00(param1, param2) {
+        bool value = false;
+
+        if (!(param3->mUnk_08 & 2)) {
+            value = true;
         }
 
-        this->func_ov000_020577a4(param3, 0, value);
+        this->mUnk_00.func_ov000_020577a4(param3, 0, value);
     }
+};
+
+class UnkSystem5_Derived2 {
+public:
+    /* 00 */ UnkSystem5 mUnk_00;
+    /* 20 */ unk32 mUnk_20;
+    /* 24 */ PAD(0x24, 0x40);
+    /* 40 */
+
+    UnkSystem5_Derived2(UnkStruct_ov000_02058a84 *param1, G3d_Model *param2) :
+        mUnk_00(&this->mUnk_20, param2) {
+        this->mUnk_00.func_ov000_020577a4(param1, 0, false);
+    }
+};
+
+class UnkSystem5_Derived3 {
+public:
+    /* 00 */ UnkSystem5 mUnk_00;
+    /* 20 */ unk32 mUnk_20;
+    /* 24 */ PAD(0x24, 0x60);
+    /* 60 */
+
+    UnkSystem5_Derived3(G3d_Model *param1) :
+        mUnk_00(&this->mUnk_20, param1) {}
 };
 
 class ModelRender_Derived1 : public ModelRender {
@@ -216,7 +226,7 @@ public:
     // data_ov000_020b1be4
     /* 00 */ virtual ~ModelRender_Derived1() override {}
     /* 08 */ virtual void vfunc_08(G3d_Model *pModel) override;
-    /* 1C */ virtual void vfunc_1C(UnkSystem4_vfunc_1C *param1) override;
+    /* 1C */ virtual void vfunc_1C(G3d_RenderState *param1) override;
 
     unk32 func_ov000_0205a778(const char *param1);
     VecFx32 *func_ov000_0205a7a8(unk32 param1);

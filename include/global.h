@@ -1,9 +1,4 @@
-#ifndef GLOBAL_H
-#define GLOBAL_H
-
-// Prevent the IDE from reporting errors that the compiler/linker won't report
-#ifndef __MWERKS__
-#endif
+#pragma once
 
 // start of thumb region, using thumb instructions
 #define THUMB_BEGIN _Pragma("thumb on")
@@ -34,28 +29,22 @@
     #define DECL_SECTION(x) __declspec(section x)
     #define EXPORT __declspec(export)
     #define WEAK __declspec(weak)
-    #define ASM asm
 #else
     #define AT_ADDRESS(xyz)
     #define DECL_SECTION(x)
     #define EXPORT
     #define WEAK
-    #define ASM
     #define NO_INLINE
 #endif
-
-#define STRUCT_PAD(from, to) unsigned char _pad_##from[(to) - (from)]
 
 #define DF_CONCAT3_(a, b, c) a##b##c
 #define DF_CONCAT3(a, b, c) DF_CONCAT3_(a, b, c)
 #define DF_UNIQUE_IDENT(ident_) DF_CONCAT3(ident_, _, __LINE__)
 
-// sometimes we need something in .bss
-// to force things in .data to align properly
-#define DATA_ALIGN_FIX() int DF_UNIQUE_IDENT(__data_align_fix)
-
-// for cases where `DATA_ALIGN_FIX` doesn't work
-#define DATA_ALIGN_FIX2()                                   \
+// sometimes we need dummy variables to force a section to align properly
+#define DUMMY_BSS() int DF_UNIQUE_IDENT(__data_align_fix)
+#define DUMMY_DATA(n) char DF_UNIQUE_IDENT(__data_align_fix)[n] = {1}
+#define DUMMY_RODATA()                                      \
     static const int DF_UNIQUE_IDENT(__data_align_fix) = 0; \
     void DF_UNIQUE_IDENT(__data_align_fix_func)() {         \
         *(int *) &DF_UNIQUE_IDENT(__data_align_fix) = 0;    \
@@ -119,4 +108,14 @@
     }                             \
     (void) 0
 
-#endif
+#define FILE_BUFFER_OFFSETOF(offset) ((size_t) (((u8 *) 0) + (offset)))
+
+//! TODO: move in an appropriate place
+typedef union Vec2b {
+    struct {
+        /* 0 */ unsigned char x;
+        /* 4 */ unsigned char y;
+        /* 8 */
+    };
+    unsigned char coords[2];
+} Vec2b;

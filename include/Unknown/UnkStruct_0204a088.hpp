@@ -24,13 +24,31 @@ public:
     /* 128 */ unk16 mUnk_128;
     /* 12C */
 
+    const BOOL IsUnknownCheck1(unk32 value1, unk32 value2) const {
+        bool ret = false;
+
+        if (!(this->mUnk_04 != value1 || this->mUnk_08 != value2)) {
+            ret = true;
+        }
+
+        return ret;
+    }
+
+    const bool IsUnknownCheck2(unk32 value1, unk32 value2) const {
+        return this->mUnk_04 == value1 && this->mUnk_08 == value2;
+    }
+
+    const bool IsUnknownCheck3(unk32 value1, unk32 value2) const {
+        return *(volatile u32 *) &this->mUnk_04 != value1 || this->mUnk_08 != value2;
+    }
+
     UnkStruct_0204a088();
 
     // overlay 0
     void func_ov000_02061098(void);
     void func_ov000_020611dc(FileSelectManager_UnkDrawBase *param1, unk32 param2);
     bool func_ov000_020611fc(unk32 param2); // sets new index
-    bool func_ov000_02061224(void);
+    void func_ov000_02061224(void);
     void func_ov000_02061230(void);
     void func_ov000_02061248(void);
 

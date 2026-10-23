@@ -39,18 +39,18 @@ class Actor_ov031_02113fd4 : public Actor {
 public:
     /* 000 (base) */
     /* 094 */ UnkStruct_ov031_Items_01 mUnk_94;
-    /* 0C0 */ STRUCT_PAD(0x0C0, 0x0EC);
+    /* 0C0 */ PAD(0x0C0, 0x0EC);
     /* 0EC */ u16 mUnk_EC;
-    /* 0EE */ STRUCT_PAD(0x0EE, 0xF0);
+    /* 0EE */ PAD(0x0EE, 0xF0);
     /* 0F0 */ UnkStruct_ov031_02113fb8 mUnk_F0;
-    /* 0F4 */ STRUCT_PAD(0xF4, 0x110);
+    /* 0F4 */ PAD(0xF4, 0x110);
     /* 110 */
 
     Actor_ov031_02113fd4();
 
     // data_ov031_02113fd4
-    /* 18 */ virtual bool vfunc_18(unk32 param1) override;
-    /* 20 */ virtual void vfunc_20() override;
+    /* 18 */ virtual bool Init(unk32 param1) override;
+    /* 20 */ virtual void Update() override;
     /* 24 */ virtual void vfunc_24() override;
     /* 38 */ virtual bool Grab(ActorGrabParams grabParams) override;
     /* 3C */ virtual bool Drop(ActorGrabParams grabParams, const VecFx32 *pVel) override;
@@ -86,8 +86,8 @@ public:
 
     ActorPot();
 
-    /* 18 */ virtual bool vfunc_18(unk32 param1) override;
-    /* 20 */ virtual void vfunc_20() override;
+    /* 18 */ virtual bool Init(unk32 param1) override;
+    /* 20 */ virtual void Update() override;
     /* 2C */ virtual void vfunc_2C(unk32 param1) override;
     /* 5C */ virtual void vfunc_5C(ActorState state) override;
 

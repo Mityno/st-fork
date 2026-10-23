@@ -5,6 +5,7 @@
 #include "MapObject/MapObject.hpp"
 #include "MapObject/MapObjectProfile.hpp"
 #include "global.h"
+#include "timer.hpp"
 
 typedef MapObjState MapObjectUnkPTFLState;
 enum MapObjectUnkPTFLState_ {
@@ -25,8 +26,7 @@ public:
     /* 4C */ unk32 mUnk_4C;
     /* 50 */ unk32 mUnk_50;
     /* 54 */ fx16 mUnk_54;
-    /* 56 */ volatile u16 mUnk_56;
-    /* 58 */ volatile u16 mUnk_58;
+    /* 56 */ Timer mUnk_56;
     /* 5A */ u8 mUnk_5A;
     /* 5B */ bool mUnk_5B;
     /* 5C */ bool mUnk_5C;
@@ -35,7 +35,7 @@ public:
 
     /* 08 */ virtual void vfunc_08();
     /* 0C */ virtual void vfunc_0C();
-    /* 0C */ virtual void vfunc_14();
+    /* 0C */ virtual void vfunc_14(unk32 param1);
     /* 30 */ virtual ~MapObjectUnkPTFL() override;
 
     // overlay 70

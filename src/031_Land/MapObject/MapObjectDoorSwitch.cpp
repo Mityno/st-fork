@@ -1,13 +1,10 @@
 #include "MapObject/MapObjectDoorSwitch.hpp"
+#include "CommonFuncs.hpp"
 #include "System/SysNew.hpp"
 #include "Unknown/UnkStruct_027e09a8.hpp"
 #include "Unknown/UnkStruct_027e09b8.hpp"
 #include "Unknown/UnkStruct_027e0cec.hpp"
 #include "versions.h"
-
-extern "C" void func_01ffaf74(VecFx32 *, Mat4x3p *, VecFx32 *);
-extern "C" fx32 func_01ffb464(fx32);
-extern "C" void func_01ff9218(fx32 *, fx32, fx32);
 
 const UnkStruct_ov031_021150b0 data_ov031_02115254(0x1E66);
 
@@ -25,7 +22,7 @@ MapObjectProfileDoorSwitch::MapObjectProfileDoorSwitch() :
 
 MapObjectDoorSwitch::MapObjectDoorSwitch() :
     mUnk_094(NULL) {
-    this->mUnkPos = FLOAT_TO_FX32(0.0f);
+    this->mUnkPos = FX_F32_TO_FX32(0.0f);
 
 #if IS_JP
     this->mUnk_140 = false;
@@ -37,7 +34,7 @@ MapObjectDoorSwitch::MapObjectDoorSwitch() :
     this->mUnk_89 = true;
 }
 
-bool MapObjectDoorSwitch::vfunc_00(void) {
+bool MapObjectDoorSwitch::Init(void) {
     this->mUnk_094.vfunc_08(this->GetModel());
     this->func_ov031_020fbf10(true, true);
 
@@ -51,25 +48,25 @@ bool MapObjectDoorSwitch::vfunc_00(void) {
     }
 #endif
 
-    this->mUnk_0F4.mUnk_0C.x = -FLOAT_TO_FX32(1.0f);
-    this->mUnk_0F4.mUnk_0C.y = FLOAT_TO_FX32(0.0f);
-    this->mUnk_0F4.mUnk_0C.z = -FLOAT_TO_FX32(1.35f);
+    this->mUnk_0F4.mUnk_0C.x = -FX_F32_TO_FX32(1.0f);
+    this->mUnk_0F4.mUnk_0C.y = FX_F32_TO_FX32(0.0f);
+    this->mUnk_0F4.mUnk_0C.z = -FX_F32_TO_FX32(1.35f);
 
-    this->mUnk_0F4.mUnk_18.x = FLOAT_TO_FX32(1.0f);
-    this->mUnk_0F4.mUnk_18.y = FLOAT_TO_FX32(2.4f);
-    this->mUnk_0F4.mUnk_18.z = FLOAT_TO_FX32(0.35f);
+    this->mUnk_0F4.mUnk_18.x = FX_F32_TO_FX32(1.0f);
+    this->mUnk_0F4.mUnk_18.y = FX_F32_TO_FX32(2.4f);
+    this->mUnk_0F4.mUnk_18.z = FX_F32_TO_FX32(0.35f);
 
     this->mUnk_0F4.mUnk_04 &= ~0x01;
     this->mUnk_0F4.mUnk_08 = 0x7009;
 
 #if IS_JP
-    this->mUnk_118.mUnk_0C.x = -FLOAT_TO_FX32(0.35f);
-    this->mUnk_118.mUnk_0C.y = FLOAT_TO_FX32(0.0f);
-    this->mUnk_118.mUnk_0C.z = -FLOAT_TO_FX32(1.0f);
+    this->mUnk_118.mUnk_0C.x = -FX_F32_TO_FX32(0.35f);
+    this->mUnk_118.mUnk_0C.y = FX_F32_TO_FX32(0.0f);
+    this->mUnk_118.mUnk_0C.z = -FX_F32_TO_FX32(1.0f);
 
-    this->mUnk_118.mUnk_18.x = FLOAT_TO_FX32(0.35f);
-    this->mUnk_118.mUnk_18.y = FLOAT_TO_FX32(2.4f);
-    this->mUnk_118.mUnk_18.z = FLOAT_TO_FX32(1.0f);
+    this->mUnk_118.mUnk_18.x = FX_F32_TO_FX32(0.35f);
+    this->mUnk_118.mUnk_18.y = FX_F32_TO_FX32(2.4f);
+    this->mUnk_118.mUnk_18.z = FX_F32_TO_FX32(1.0f);
 
     this->mUnk_118.mUnk_04 &= ~0x01;
     this->mUnk_118.mUnk_08 = 0x7009;
@@ -112,19 +109,19 @@ bool MapObjectDoorSwitch::vfunc_6C(void) {
     return true;
 }
 
-void MapObjectDoorSwitch::vfunc_14(void) {
-    u16 angle = this->mAngle;
-    Mat3p m;
+void MapObjectDoorSwitch::vfunc_14(unk32 param1) {
+    u16 angle = this->mAngle.angle_s;
+    MtxFx33 m;
 
-    Mat3p_InitYRotation(&m, SIN(angle), COS(angle));
+    MtxFx33_InitYRotation(&m, SIN(angle), COS(angle));
 
     VecFx32 local_40(this->mPos);
     local_40.y -= this->mUnk_6C * 2;
     this->mUnk_094.vfunc_14(&m, &local_40);
 }
 
-void MapObjectDoorSwitch::vfunc_18(s8 *param1, s8 param2) {
-    this->func_ov031_020fcb78(param1, param2);
+void MapObjectDoorSwitch::vfunc_18(s8 *param1) {
+    this->func_ov031_020fcb78(param1);
 }
 
 void MapObjectDoorSwitch::vfunc_74(void) {
@@ -132,17 +129,17 @@ void MapObjectDoorSwitch::vfunc_74(void) {
     VecFx32 local_2c;
     VecFx32_Init(0, 0, 0x666, &local_2c);
 
-    Mat4x3p m;
-    u16 angle = this->mAngle;
+    MtxFx43 m;
+    u16 angle = this->mAngle.angle_s;
 
-    Mat4x3p_InitYRotation(&m, SIN(angle), COS(angle));
+    MtxFx43_InitYRotation(&m, SIN(angle), COS(angle));
     func_01ffaf74(&local_2c, &m, &local_2c);
     VecFx32_Add(&local_20, &local_2c, &local_20);
 
-    data_027e0cec->func_ov000_0209ff8c(&this->mUnk_68, 0x8CF, &local_20, 4);
+    data_027e0cec->func_ov000_0209ff8c(&this->mUnk_68.mUnk_00, 0x8CF, &local_20, 4);
 
-    if (this->mUnk_68.mUnk_00 != NULL) {
-        this->mUnk_68.mUnk_00->mUnk_A4 = this->mAngle;
+    if (this->mUnk_68.mUnk_00.mUnk_00 != NULL) {
+        this->mUnk_68.mUnk_00.mUnk_00->mUnk_A4 = this->mAngle.angle_s;
     }
 }
 
@@ -159,15 +156,15 @@ void MapObjectDoorSwitch::vfunc_50(void) {
     u16 uVar1 = this->GetDirection();
 
     if (!this->IsOrientedVertically()) {
-        this->mUnkPos = FLOAT_TO_FX32(0.35f);
+        this->mUnkPos = FX_F32_TO_FX32(0.35f);
 
-        this->mUnk_0F4.mUnk_0C.x = -FLOAT_TO_FX32(1.0f);
-        this->mUnk_0F4.mUnk_0C.y = FLOAT_TO_FX32(0.0f);
-        this->mUnk_0F4.mUnk_0C.z = FLOAT_TO_FX32(0.35f);
+        this->mUnk_0F4.mUnk_0C.x = -FX_F32_TO_FX32(1.0f);
+        this->mUnk_0F4.mUnk_0C.y = FX_F32_TO_FX32(0.0f);
+        this->mUnk_0F4.mUnk_0C.z = FX_F32_TO_FX32(0.35f);
 
-        this->mUnk_0F4.mUnk_18.x = FLOAT_TO_FX32(1.0f);
-        this->mUnk_0F4.mUnk_18.y = FLOAT_TO_FX32(2.4f);
-        this->mUnk_0F4.mUnk_18.z = FLOAT_TO_FX32(0.35f);
+        this->mUnk_0F4.mUnk_18.x = FX_F32_TO_FX32(1.0f);
+        this->mUnk_0F4.mUnk_18.y = FX_F32_TO_FX32(2.4f);
+        this->mUnk_0F4.mUnk_18.z = FX_F32_TO_FX32(0.35f);
         return;
     }
 
@@ -176,36 +173,36 @@ void MapObjectDoorSwitch::vfunc_50(void) {
     }
 
     if (uVar1 == 3) {
-        this->mUnkPos = FLOAT_TO_FX32(0.35f);
+        this->mUnkPos = FX_F32_TO_FX32(0.35f);
 
-        this->mUnk_118.mUnk_0C.x = FLOAT_TO_FX32(0.35f);
-        this->mUnk_118.mUnk_0C.y = FLOAT_TO_FX32(0.0f);
-        this->mUnk_118.mUnk_0C.z = -FLOAT_TO_FX32(1.0f);
+        this->mUnk_118.mUnk_0C.x = FX_F32_TO_FX32(0.35f);
+        this->mUnk_118.mUnk_0C.y = FX_F32_TO_FX32(0.0f);
+        this->mUnk_118.mUnk_0C.z = -FX_F32_TO_FX32(1.0f);
 
-        this->mUnk_118.mUnk_18.x = FLOAT_TO_FX32(0.35f);
-        this->mUnk_118.mUnk_18.y = FLOAT_TO_FX32(2.4f);
-        this->mUnk_118.mUnk_18.z = FLOAT_TO_FX32(1.0f);
+        this->mUnk_118.mUnk_18.x = FX_F32_TO_FX32(0.35f);
+        this->mUnk_118.mUnk_18.y = FX_F32_TO_FX32(2.4f);
+        this->mUnk_118.mUnk_18.z = FX_F32_TO_FX32(1.0f);
     } else {
-        this->mUnkPos = -FLOAT_TO_FX32(0.35f);
+        this->mUnkPos = -FX_F32_TO_FX32(0.35f);
 
-        this->mUnk_118.mUnk_0C.x = -FLOAT_TO_FX32(0.35f);
-        this->mUnk_118.mUnk_0C.y = FLOAT_TO_FX32(0.0f);
-        this->mUnk_118.mUnk_0C.z = -FLOAT_TO_FX32(1.0f);
+        this->mUnk_118.mUnk_0C.x = -FX_F32_TO_FX32(0.35f);
+        this->mUnk_118.mUnk_0C.y = FX_F32_TO_FX32(0.0f);
+        this->mUnk_118.mUnk_0C.z = -FX_F32_TO_FX32(1.0f);
 
-        this->mUnk_118.mUnk_18.x = -FLOAT_TO_FX32(0.35f);
-        this->mUnk_118.mUnk_18.y = FLOAT_TO_FX32(2.4f);
-        this->mUnk_118.mUnk_18.z = FLOAT_TO_FX32(1.0f);
+        this->mUnk_118.mUnk_18.x = -FX_F32_TO_FX32(0.35f);
+        this->mUnk_118.mUnk_18.y = FX_F32_TO_FX32(2.4f);
+        this->mUnk_118.mUnk_18.z = FX_F32_TO_FX32(1.0f);
     }
 #else
-    this->mUnkPos = FLOAT_TO_FX32(0.35f);
+    this->mUnkPos = FX_F32_TO_FX32(0.35f);
 
-    this->mUnk_0F4.mUnk_0C.x = -FLOAT_TO_FX32(1.0f);
-    this->mUnk_0F4.mUnk_0C.y = FLOAT_TO_FX32(0.0f);
-    this->mUnk_0F4.mUnk_0C.z = FLOAT_TO_FX32(0.35f);
+    this->mUnk_0F4.mUnk_0C.x = -FX_F32_TO_FX32(1.0f);
+    this->mUnk_0F4.mUnk_0C.y = FX_F32_TO_FX32(0.0f);
+    this->mUnk_0F4.mUnk_0C.z = FX_F32_TO_FX32(0.35f);
 
-    this->mUnk_0F4.mUnk_18.x = FLOAT_TO_FX32(1.0f);
-    this->mUnk_0F4.mUnk_18.y = FLOAT_TO_FX32(2.4f);
-    this->mUnk_0F4.mUnk_18.z = FLOAT_TO_FX32(0.35f);
+    this->mUnk_0F4.mUnk_18.x = FX_F32_TO_FX32(1.0f);
+    this->mUnk_0F4.mUnk_18.y = FX_F32_TO_FX32(2.4f);
+    this->mUnk_0F4.mUnk_18.z = FX_F32_TO_FX32(0.35f);
 #endif
 }
 
@@ -221,17 +218,17 @@ void MapObjectDoorSwitch::vfunc_54(void) {
 
     if (!this->IsOrientedVertically()) {
         if (this->mUnk_80 > 0) {
-            func_01ff9218(&this->mUnkPos, -FLOAT_TO_FX32(1.35f), func_01ffb464(INT_TO_FX32(this->mUnk_80)));
+            func_01ff9218(&this->mUnkPos, -FX_F32_TO_FX32(1.35f), func_01ffb464(INT_TO_FX32(this->mUnk_80)));
         }
 
         fx32 temp_118            = this->mUnkPos;
-        this->mUnk_0F4.mUnk_0C.x = -FLOAT_TO_FX32(1.0f);
-        this->mUnk_0F4.mUnk_0C.y = FLOAT_TO_FX32(0.0f);
+        this->mUnk_0F4.mUnk_0C.x = -FX_F32_TO_FX32(1.0f);
+        this->mUnk_0F4.mUnk_0C.y = FX_F32_TO_FX32(0.0f);
         this->mUnk_0F4.mUnk_0C.z = temp_118;
 
-        this->mUnk_0F4.mUnk_18.x = FLOAT_TO_FX32(1.0f);
-        this->mUnk_0F4.mUnk_18.y = FLOAT_TO_FX32(2.4f);
-        this->mUnk_0F4.mUnk_18.z = FLOAT_TO_FX32(0.35f);
+        this->mUnk_0F4.mUnk_18.x = FX_F32_TO_FX32(1.0f);
+        this->mUnk_0F4.mUnk_18.y = FX_F32_TO_FX32(2.4f);
+        this->mUnk_0F4.mUnk_18.z = FX_F32_TO_FX32(0.35f);
         return;
     }
 
@@ -243,42 +240,42 @@ void MapObjectDoorSwitch::vfunc_54(void) {
 
     if (uVar1 == 3) {
         if (this->mUnk_80 > 0) {
-            func_01ff9218(&this->mUnkPos, -FLOAT_TO_FX32(0.35f), func_01ffb464(INT_TO_FX32(this->mUnk_80)));
+            func_01ff9218(&this->mUnkPos, -FX_F32_TO_FX32(0.35f), func_01ffb464(INT_TO_FX32(this->mUnk_80)));
         }
 
         this->mUnk_118.mUnk_0C.x = this->mUnkPos;
-        this->mUnk_118.mUnk_0C.y = FLOAT_TO_FX32(0.0f);
-        this->mUnk_118.mUnk_0C.z = -FLOAT_TO_FX32(1.0f);
+        this->mUnk_118.mUnk_0C.y = FX_F32_TO_FX32(0.0f);
+        this->mUnk_118.mUnk_0C.z = -FX_F32_TO_FX32(1.0f);
 
-        this->mUnk_118.mUnk_18.x = FLOAT_TO_FX32(0.35f);
-        this->mUnk_118.mUnk_18.y = FLOAT_TO_FX32(2.4f);
-        this->mUnk_118.mUnk_18.z = FLOAT_TO_FX32(1.0f);
+        this->mUnk_118.mUnk_18.x = FX_F32_TO_FX32(0.35f);
+        this->mUnk_118.mUnk_18.y = FX_F32_TO_FX32(2.4f);
+        this->mUnk_118.mUnk_18.z = FX_F32_TO_FX32(1.0f);
     } else {
         if (this->mUnk_80 > 0) {
-            func_01ff9218(&this->mUnkPos, FLOAT_TO_FX32(0.35f), func_01ffb464(INT_TO_FX32(this->mUnk_80)));
+            func_01ff9218(&this->mUnkPos, FX_F32_TO_FX32(0.35f), func_01ffb464(INT_TO_FX32(this->mUnk_80)));
         }
 
-        this->mUnk_118.mUnk_0C.x = -FLOAT_TO_FX32(0.35f);
-        this->mUnk_118.mUnk_0C.y = FLOAT_TO_FX32(0.0f);
-        this->mUnk_118.mUnk_0C.z = -FLOAT_TO_FX32(1.0f);
+        this->mUnk_118.mUnk_0C.x = -FX_F32_TO_FX32(0.35f);
+        this->mUnk_118.mUnk_0C.y = FX_F32_TO_FX32(0.0f);
+        this->mUnk_118.mUnk_0C.z = -FX_F32_TO_FX32(1.0f);
 
         this->mUnk_118.mUnk_18.x = this->mUnkPos;
-        this->mUnk_118.mUnk_18.y = FLOAT_TO_FX32(2.4f);
-        this->mUnk_118.mUnk_18.z = FLOAT_TO_FX32(1.0f);
+        this->mUnk_118.mUnk_18.y = FX_F32_TO_FX32(2.4f);
+        this->mUnk_118.mUnk_18.z = FX_F32_TO_FX32(1.0f);
     }
 #else
     if (this->mUnk_80 > 0) {
-        func_01ff9218(&this->mUnkPos, -FLOAT_TO_FX32(1.35f), func_01ffb464(INT_TO_FX32(this->mUnk_80)));
+        func_01ff9218(&this->mUnkPos, -FX_F32_TO_FX32(1.35f), func_01ffb464(INT_TO_FX32(this->mUnk_80)));
     }
 
     fx32 temp_118            = this->mUnkPos;
-    this->mUnk_0F4.mUnk_0C.x = -FLOAT_TO_FX32(1.0f);
-    this->mUnk_0F4.mUnk_0C.y = FLOAT_TO_FX32(0.0f);
+    this->mUnk_0F4.mUnk_0C.x = -FX_F32_TO_FX32(1.0f);
+    this->mUnk_0F4.mUnk_0C.y = FX_F32_TO_FX32(0.0f);
     this->mUnk_0F4.mUnk_0C.z = temp_118;
 
-    this->mUnk_0F4.mUnk_18.x = FLOAT_TO_FX32(1.0f);
-    this->mUnk_0F4.mUnk_18.y = FLOAT_TO_FX32(2.4f);
-    this->mUnk_0F4.mUnk_18.z = FLOAT_TO_FX32(0.35f);
+    this->mUnk_0F4.mUnk_18.x = FX_F32_TO_FX32(1.0f);
+    this->mUnk_0F4.mUnk_18.y = FX_F32_TO_FX32(2.4f);
+    this->mUnk_0F4.mUnk_18.z = FX_F32_TO_FX32(0.35f);
 #endif
 }
 
@@ -289,32 +286,32 @@ void MapObjectDoorSwitch::vfunc_58(void) {
     }
 
     if (!this->IsOrientedVertically()) {
-        this->mUnk_0F4.mUnk_0C.x = -FLOAT_TO_FX32(1.0f);
-        this->mUnk_0F4.mUnk_0C.y = FLOAT_TO_FX32(0.0f);
-        this->mUnk_0F4.mUnk_0C.z = -FLOAT_TO_FX32(1.35f);
+        this->mUnk_0F4.mUnk_0C.x = -FX_F32_TO_FX32(1.0f);
+        this->mUnk_0F4.mUnk_0C.y = FX_F32_TO_FX32(0.0f);
+        this->mUnk_0F4.mUnk_0C.z = -FX_F32_TO_FX32(1.35f);
 
-        this->mUnk_0F4.mUnk_18.x = FLOAT_TO_FX32(1.0f);
-        this->mUnk_0F4.mUnk_18.y = FLOAT_TO_FX32(2.4f);
-        this->mUnk_0F4.mUnk_18.z = FLOAT_TO_FX32(0.35f);
+        this->mUnk_0F4.mUnk_18.x = FX_F32_TO_FX32(1.0f);
+        this->mUnk_0F4.mUnk_18.y = FX_F32_TO_FX32(2.4f);
+        this->mUnk_0F4.mUnk_18.z = FX_F32_TO_FX32(0.35f);
     } else {
         if (this->mUnk_141) {
-            this->mUnk_118.mUnk_0C.x = -FLOAT_TO_FX32(0.35f);
-            this->mUnk_118.mUnk_0C.y = FLOAT_TO_FX32(0.0f);
-            this->mUnk_118.mUnk_0C.z = -FLOAT_TO_FX32(1.0f);
+            this->mUnk_118.mUnk_0C.x = -FX_F32_TO_FX32(0.35f);
+            this->mUnk_118.mUnk_0C.y = FX_F32_TO_FX32(0.0f);
+            this->mUnk_118.mUnk_0C.z = -FX_F32_TO_FX32(1.0f);
 
-            this->mUnk_118.mUnk_18.x = FLOAT_TO_FX32(0.35f);
-            this->mUnk_118.mUnk_18.y = FLOAT_TO_FX32(2.4f);
-            this->mUnk_118.mUnk_18.z = FLOAT_TO_FX32(1.0f);
+            this->mUnk_118.mUnk_18.x = FX_F32_TO_FX32(0.35f);
+            this->mUnk_118.mUnk_18.y = FX_F32_TO_FX32(2.4f);
+            this->mUnk_118.mUnk_18.z = FX_F32_TO_FX32(1.0f);
         }
     }
 #else
-    this->mUnk_0F4.mUnk_0C.x = -FLOAT_TO_FX32(1.0f);
-    this->mUnk_0F4.mUnk_0C.y = FLOAT_TO_FX32(0.0f);
-    this->mUnk_0F4.mUnk_0C.z = -FLOAT_TO_FX32(1.35f);
+    this->mUnk_0F4.mUnk_0C.x = -FX_F32_TO_FX32(1.0f);
+    this->mUnk_0F4.mUnk_0C.y = FX_F32_TO_FX32(0.0f);
+    this->mUnk_0F4.mUnk_0C.z = -FX_F32_TO_FX32(1.35f);
 
-    this->mUnk_0F4.mUnk_18.x = FLOAT_TO_FX32(1.0f);
-    this->mUnk_0F4.mUnk_18.y = FLOAT_TO_FX32(2.4f);
-    this->mUnk_0F4.mUnk_18.z = FLOAT_TO_FX32(0.35f);
+    this->mUnk_0F4.mUnk_18.x = FX_F32_TO_FX32(1.0f);
+    this->mUnk_0F4.mUnk_18.y = FX_F32_TO_FX32(2.4f);
+    this->mUnk_0F4.mUnk_18.z = FX_F32_TO_FX32(0.35f);
 #endif
 }
 
@@ -323,7 +320,7 @@ void MapObjectDoorSwitch::vfunc_40(void) {
 }
 
 void MapObjectDoorSwitch::vfunc_44(void) {
-    unk32 local_c = *(u32 *) &this->mUnk_38;
+    unk32 local_c = *(u32 *) &this->mRef;
     data_027e09a8->func_ov000_02071d34(&local_c, 0x130, &this->mPos, 0);
 }
 
@@ -332,7 +329,7 @@ void MapObjectDoorSwitch::vfunc_48(void) {
 }
 
 void MapObjectDoorSwitch::vfunc_4C(void) {
-    unk32 local_c = *(u32 *) &this->mUnk_38;
+    unk32 local_c = *(u32 *) &this->mRef;
     data_027e09a8->func_ov000_02071d34(&local_c, 0x132, &this->mPos, 0);
 }
 

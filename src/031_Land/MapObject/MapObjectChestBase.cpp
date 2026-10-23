@@ -1,15 +1,13 @@
 #include "MapObject/MapObjectChestBase.hpp"
+#include "CommonFuncs.hpp"
+
+#include "MapObject/MapObjectManager.hpp"
 #include "Unknown/UnkStruct_027e09a8.hpp"
 #include "Unknown/UnkStruct_027e0cd8.hpp"
 #include "Unknown/UnkStruct_027e0ce0.hpp"
 #include "Unknown/UnkStruct_027e0cec.hpp"
 
 #pragma readonly_strings on
-
-extern "C" unk32 func_0200f218(unk32, const char *);
-extern "C" void func_0200b58c(G3d_RenderObject *);
-extern "C" void func_01ffb714(VecFx32 *, VecFx32 *, void *);
-extern "C" void func_01ffcfcc(VecFx32 *, VecFx32 *, VecFx32 *);
 
 struct UnkStruct_ov031_02117c84 {
     u16 mUnk_00;
@@ -27,26 +25,12 @@ MapObjectTreasureSpawned_74::MapObjectTreasureSpawned_74(G3d_Model *param1) :
     ModelRender(param1),
     mUnk_60(1) {}
 
-void MapObjectTreasureSpawned_74::vfunc_1C(UnkSystem4_vfunc_1C *param1) {
-    unk32 iVar1;
-    unk32 uVar2;
+void MapObjectTreasureSpawned_74::vfunc_1C(G3d_RenderState *param1) {
+    G3d_NameList *iVar1 = G3d_GetBoneList(param1->renderObj->model);
+    uint uVar2          = iVar1 != NULL ? func_0200f218(iVar1, "box_B") : -1;
 
-    if (param1->mUnk_04[1] != 0) {
-        iVar1 = param1->mUnk_04[1] + 0x40;
-    } else {
-        iVar1 = 0;
-    }
-
-    if (iVar1 != 0) {
-        uVar2 = func_0200f218(iVar1, "box_B");
-    } else {
-        uVar2 = -1;
-    }
-
-    if (param1->mUnk_00[1] == uVar2) {
-        if (!this->mUnk_60) {
-            *param1->mUnk_B8 = 0;
-        }
+    if (param1->currentCmd[1] == uVar2 && !this->mUnk_60) {
+        *param1->visibilityPtr = false;
     }
 }
 
@@ -67,7 +51,7 @@ MapObjectChestBase::MapObjectChestBase(unk32 param1) :
 
 MapObjectChestBase::~MapObjectChestBase() {}
 
-bool MapObjectChestBase::vfunc_00() {
+bool MapObjectChestBase::Init() {
     SET_FLAG(this->mFlags, MapObjFlag_9);
     this->mUnk_18[0] = 0x0D;
 
@@ -76,7 +60,7 @@ bool MapObjectChestBase::vfunc_00() {
     if (this->mUnk_20.mParams[3] == 1) {
         this->mPos.x += 0x7FC;
 
-        Vec2bCpp sp48(this->mUnk_3A.x, this->mUnk_3A.y);
+        Vec2bCpp sp48(this->mRef.moRef.unk_02.x, this->mRef.moRef.unk_02.y);
         pUVar2->func_ov000_020801b0(&sp48, 7, 1);
 
         sp48.x++;
@@ -89,7 +73,7 @@ bool MapObjectChestBase::vfunc_00() {
 }
 
 // non-matching
-void MapObjectChestBase::vfunc_04() {
+void MapObjectChestBase::Setup() {
     fx32 iVar2;
     UnkStruct_027e0cd8_0C_Base *pUVar5;
     VecFx32 sp48;
@@ -107,76 +91,76 @@ void MapObjectChestBase::vfunc_04() {
 
     pUVar5 = data_027e0cd8->mUnk_0C;
 
-    sp48.x = FLOAT_TO_FX32(0.0f);
-    sp48.y = FLOAT_TO_FX32(0.0f);
-    sp48.z = FLOAT_TO_FX32(0.0f);
+    sp48.x = FX_F32_TO_FX32(0.0f);
+    sp48.y = FX_F32_TO_FX32(0.0f);
+    sp48.z = FX_F32_TO_FX32(0.0f);
 
-    sp3C.x = FLOAT_TO_FX32(0.0f);
-    sp3C.y = FLOAT_TO_FX32(0.0f);
-    sp3C.z = FLOAT_TO_FX32(0.0f);
+    sp3C.x = FX_F32_TO_FX32(0.0f);
+    sp3C.y = FX_F32_TO_FX32(0.0f);
+    sp3C.z = FX_F32_TO_FX32(0.0f);
 
-    sp18.x = FLOAT_TO_FX32(0.5f);
-    sp18.y = FLOAT_TO_FX32(0.0f);
-    sp18.z = FLOAT_TO_FX32(0.5f);
+    sp18.x = FX_F32_TO_FX32(0.5f);
+    sp18.y = FX_F32_TO_FX32(0.0f);
+    sp18.z = FX_F32_TO_FX32(0.5f);
 
     func_01ffb714(&sp48, &sp18, &sp48);
 
-    spC.x = FLOAT_TO_FX32(0.5f);
-    spC.y = FLOAT_TO_FX32(1.0f);
-    spC.z = FLOAT_TO_FX32(0.5f);
+    spC.x = FX_F32_TO_FX32(0.5f);
+    spC.y = FX_F32_TO_FX32(1.0f);
+    spC.z = FX_F32_TO_FX32(0.5f);
 
     VecFx32_Add((VecFx32 *) &sp3C, &spC, (VecFx32 *) &sp3C);
 
-    local_68.x = this->mUnk_3A.x;
-    local_68.y = this->mUnk_3A.y;
+    local_68.x = this->mRef.moRef.unk_02.x;
+    local_68.y = this->mRef.moRef.unk_02.y;
     iVar2      = pUVar5->func_01ffedf4((Vec2bCpp *) &local_68);
 
     if (this->mUnk_20.mParams[3] == 1) {
-        Vec2bCpp temp_r0(this->mUnk_3A.x, this->mUnk_3A.y);
+        Vec2bCpp temp_r0(this->mRef.moRef.unk_02.x, this->mRef.moRef.unk_02.y);
         temp_r0.x--;
 
         if (pUVar5->func_01ffedf4((Vec2bCpp *) &temp_r0) > iVar2 || gpMapObjManager->func_01fff498(local_5e) != NULL) {
-            sp48.x -= FLOAT_TO_FX32(0.5f);
+            sp48.x -= FX_F32_TO_FX32(0.5f);
         }
 
         temp_r0.x += 3;
         if (pUVar5->func_01ffedf4((Vec2bCpp *) &temp_r0) > iVar2 || gpMapObjManager->func_01fff498(local_5e) != NULL) {
-            sp3C.x += FLOAT_TO_FX32(0.5f);
+            sp3C.x += FX_F32_TO_FX32(0.5f);
         }
     } else {
-        Vec2bCpp temp_r0(this->mUnk_3A.x, this->mUnk_3A.y);
+        Vec2bCpp temp_r0(this->mRef.moRef.unk_02.x, this->mRef.moRef.unk_02.y);
         temp_r0.x--;
         temp_r0.y += 2;
-        // local_5e.y = this->mUnk_3A.y + (this->mUnk_3A.x - 1);
+        // local_5e.y = this->mRef.moRef.unk_02.y + (this->mRef.moRef.unk_02.x - 1);
         // local_6c.y += local_5e.y;
         // local_5e.y += 2;
 
         if (gpMapObjManager->func_ov000_0209c3a8(&temp_r0) == MapObjectId_MiniBlocks) {
-            sp48.x -= FLOAT_TO_FX32(0.5f);
+            sp48.x -= FX_F32_TO_FX32(0.5f);
         }
 
         // temp_r0.x += 3;
         if (gpMapObjManager->func_ov000_0209c3a8(&temp_r0) == MapObjectId_MiniBlocks) {
-            sp3C.x += FLOAT_TO_FX32(0.5f);
+            sp3C.x += FX_F32_TO_FX32(0.5f);
         }
     }
 
-    local_62.x = (this->mUnk_3A.y - 1) + this->mUnk_3A.x;
+    local_62.x = (this->mRef.moRef.unk_02.y - 1) + this->mRef.moRef.unk_02.x;
 
     if (gpMapObjManager->func_ov000_0209c3a8(&local_62) == MapObjectId_MiniBlocks &&
         iVar2 == pUVar5->func_01ffedf4(&local_62)) {
-        sp48.z -= FLOAT_TO_FX32(0.5f);
+        sp48.z -= FX_F32_TO_FX32(0.5f);
     }
 
     if (data_027e09a4->CurrentSceneIndex() == SceneIndex_d_flame) {
-        local_64.x = this->mUnk_3A.x;
-        local_66.y = this->mUnk_3A.y;
+        local_64.x = this->mRef.moRef.unk_02.x;
+        local_66.y = this->mRef.moRef.unk_02.y;
 
         local_66.x = local_64.x - 1;
         local_64.y = local_66.y - 1;
 
         if (iVar2 > pUVar5->func_01ffedf4(&local_64) && iVar2 > pUVar5->func_01ffedf4(&local_66)) {
-            sp3C.y += FLOAT_TO_FX32(1.0f);
+            sp3C.y += FX_F32_TO_FX32(1.0f);
         }
     }
 
@@ -238,8 +222,8 @@ void MapObjectChestBase::func_ov031_02103878() {
 }
 
 void MapObjectChestBase::vfunc_38(unk32 param1, unk32 param2) {}
-void MapObjectChestBase::vfunc_18(s8 *param1, s8 param2) {}
-void MapObjectChestBase::vfunc_14() {}
+void MapObjectChestBase::vfunc_18(s8 *param1) {}
+void MapObjectChestBase::vfunc_14(unk32 param1) {}
 unk32 MapObjectChestBase::vfunc_3C() {}
 
 bool MapObjectChestBase::vfunc_40() {

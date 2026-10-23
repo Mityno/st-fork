@@ -1,4 +1,5 @@
 #include "Actor/ActorUnkNFSP.hpp"
+#include "CommonFuncs.hpp"
 
 #include "Actor/ActorManager.hpp"
 #include "MapObject/MapObjectUnkSWFS.hpp"
@@ -8,7 +9,7 @@
 class ActorUnkNFSP_vfunc_54 : public Actor {
 public:
     /* 000 (base) */
-    /* 094 */ STRUCT_PAD(0x94, 0x2B0);
+    /* 094 */ PAD(0x94, 0x2B0);
     /* 2B0 */ unk32 mUnk_2B0;
     /* 2B4 */
 };
@@ -16,12 +17,10 @@ public:
 class ActorUnkNFSP_ov031_020fb9b4 : public Actor {
 public:
     /* 00 (base) */
-    /* 94 */ STRUCT_PAD(0x94, 0xE8);
+    /* 94 */ PAD(0x94, 0xE8);
     /* E8 */ VecFx32 mUnk_E8;
     /* F4 */
 };
-
-extern "C" void func_01ff993c(VecFx32 *, VecFx32 *, unk32);
 
 DECL_PROFILE(ActorProfileUnkNFSP);
 
@@ -31,28 +30,28 @@ Actor *ActorProfileUnkNFSP::Create() {
 
 ActorProfileUnkNFSP::ActorProfileUnkNFSP() :
     ActorProfile_Derived1(ActorId_NFSP) {
-    this->mUnk_04.Init(FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(0.4f));
+    this->mUnk_04.Init(FX_F32_TO_FX32(0.0f), FX_F32_TO_FX32(0.0f), FX_F32_TO_FX32(0.0f), FX_F32_TO_FX32(0.4f));
 }
 
 ActorUnkNFSP::ActorUnkNFSP() :
     mUnk_94(0x4),
-    mUnk_98(0x0),
-    mUnk_9A(0x0),
+    mUnk_98(0, 0),
     mUnk_9C(NULL),
     mUnk_C0(this),
     mUnk_E4(0x0) {
     this->mUnk_40 = &this->mUnk_C0;
 }
 
-bool ActorUnkNFSP::vfunc_18(unk32 param1) {
+bool ActorUnkNFSP::Init(unk32 param1) {
     this->mUnk_9C = (MapObjectUnkSWFS *) param1;
 
-    this->mUnk_C0.mUnk_08 = 0x0;
-    this->mUnk_C0.mUnk_0A = 0x0;
-    this->mUnk_C0.mUnk_0C = 0x1000;
-    this->mUnk_C0.mUnk_0E = 0x0;
-    this->mUnk_C0.mUnk_10 = 0x0;
-    this->mUnk_C0.mUnk_12 = 0x1000;
+    this->mUnk_C0.mUnk_08.x = 0x0;
+    this->mUnk_C0.mUnk_08.y = 0x0;
+    this->mUnk_C0.mUnk_08.z = 0x1000;
+
+    this->mUnk_C0.mUnk_0E.x = 0x0;
+    this->mUnk_C0.mUnk_0E.y = 0x0;
+    this->mUnk_C0.mUnk_0E.z = 0x1000;
 
     if (this->mUnk_5C.mParams[3] == 0x0) {
         this->vfunc_54(0x0);
@@ -61,7 +60,7 @@ bool ActorUnkNFSP::vfunc_18(unk32 param1) {
     return true;
 }
 
-void ActorUnkNFSP::vfunc_20() {
+void ActorUnkNFSP::Update() {
     this->mUnk_C0.mUnk_1C = 0x1;
 
     switch (this->mUnk_94) {
@@ -80,9 +79,8 @@ void ActorUnkNFSP::vfunc_20() {
         default:
             break;
     }
-    if (this->mUnk_98 < this->mUnk_9A) {
-        ++this->mUnk_98;
-    }
+
+    this->mUnk_98.Update();
 }
 
 void ActorUnkNFSP::func_ov031_020fb988() {
@@ -109,7 +107,7 @@ void ActorUnkNFSP::func_ov031_020fb9b4() {
     VecFx32 vec = actor->mUnk_E8;
 
     data_027e0ce0->func_01fff148(0x0);
-    vec.z -= FLOAT_TO_FX32(1.0f);
+    vec.z -= FX_F32_TO_FX32(1.0f);
     VecFx32_Copy(&vec, &this->mPos);
 
 #if IS_JP
@@ -142,8 +140,7 @@ void ActorUnkNFSP::func_ov031_020fba60() {
 
 void ActorUnkNFSP::vfunc_54(unk32 param1) {
     this->mUnk_94 = param1;
-    this->mUnk_9A = 0xFFFF;
-    this->mUnk_98 = 0x0;
+    this->mUnk_98.Reset();
 
     switch (param1) {
         case 0x0:
@@ -155,7 +152,7 @@ void ActorUnkNFSP::vfunc_54(unk32 param1) {
         case 0x2:
             this->mUnk_40 = &this->mUnk_C0;
             break;
-        case 0x3:
+        case 0x3: {
             ActorUnkNFSP_vfunc_54 *actor = (ActorUnkNFSP_vfunc_54 *) gpActorManager->func_01fff3b4(this->mUnk_E4);
             if (actor != NULL) {
                 actor->mUnk_2B0 = 0x0;
@@ -167,6 +164,7 @@ void ActorUnkNFSP::vfunc_54(unk32 param1) {
             }
             this->mUnk_9C->func_ov031_0210d750();
             break;
+        }
         default:
             break;
     }
@@ -179,7 +177,7 @@ void ActorUnkNFSP::func_ov031_020fbb8c() {
     this->func_ov000_020989e0();
 }
 
-void ActorUnkNFSP::func_ov031_020fbba0(ActorRef ref) {
+void ActorUnkNFSP::func_ov031_020fbba0(RefStruct ref) {
     if (this->mUnk_94 == 0x2) {
         return;
     }
@@ -198,7 +196,7 @@ ActorUnkNFSP_C0::ActorUnkNFSP_C0(ActorUnkNFSP *actor) :
     this->mUnk_04 = 0x1;
 }
 
-bool ActorUnkNFSP_C0::vfunc_00(ActorRef ref, unk32 param2) {
+bool ActorUnkNFSP_C0::vfunc_00(RefStruct ref, unk32 param2) {
     if (this->GetActorPtr<ActorUnkNFSP>()->mUnk_94 != 0x0) {
         return false;
     }

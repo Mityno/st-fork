@@ -15,9 +15,9 @@ MapObject *MapObjectProfileGrass::Create() {
 MapObjectProfileGrass::MapObjectProfileGrass() :
     MapObjectProfilePot_Base(MapObjectId_Grass, MapObjectId_Grass) {
     this->mUnk_D4.mUnk_08 = 0x2A807003;
-    VecFx32_Init(FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(0.0f), FLOAT_TO_FX32(0.0f), &this->mUnk_D4.mUnk_0C);
-    this->mUnk_D4.mUnk_18 = FLOAT_TO_FX32(0.35f);
-    this->mUnk_D4.mUnk_1C = FLOAT_TO_FX32(1.0f);
+    VecFx32_Init(FX_F32_TO_FX32(0.0f), FX_F32_TO_FX32(0.0f), FX_F32_TO_FX32(0.0f), &this->mUnk_D4.mUnk_0C);
+    this->mUnk_D4.mUnk_18 = FX_F32_TO_FX32(0.35f);
+    this->mUnk_D4.mUnk_1C = FX_F32_TO_FX32(1.0f);
     this->mUnk_D4.mUnk_04 &= 0xFD;
     this->mUnk_06 = -0x1;
     this->mUnk_1E &= ~0x1;
@@ -25,7 +25,7 @@ MapObjectProfileGrass::MapObjectProfileGrass() :
 
 MapObjectGrass::MapObjectGrass() :
     mUnk_58(0x0),
-    mUnk_5C(FLOAT_TO_FX32(0.0f)),
+    mUnk_5C(FX_F32_TO_FX32(0.0f)),
     mUnk_64(-1) {
     this->mUnk_62 = 0x0;
     this->mUnk_60 = 0x0;
@@ -33,7 +33,7 @@ MapObjectGrass::MapObjectGrass() :
 }
 
 // non-matching
-bool MapObjectGrass::vfunc_00() {}
+bool MapObjectGrass::Init() {}
 
 void MapObjectGrass::vfunc_08() {
     MapObjState state = this->mState;
@@ -50,7 +50,7 @@ void MapObjectGrass::vfunc_08() {
 }
 
 // non-matching
-void MapObjectGrass::vfunc_14() {
+void MapObjectGrass::vfunc_14(unk32 param1) {
     VecFx32 vec;
     for (unk32 i = 0; i < ARRAY_LEN(this->mUnk_40); ++i) {
         VecFx32_Add(&this->mUnk_40[i], &this->mPos, &vec);
@@ -65,18 +65,18 @@ bool MapObjectGrass::vfunc_38(MapObjState state, unk32 param2) {
     this->mState = state;
     switch (this->mState) {
         case MapObjGrassState_0:
-            this->mUnk_5C = FLOAT_TO_FX32(0.0f);
+            this->mUnk_5C = FX_F32_TO_FX32(0.0f);
             if (param2 != 0) {
                 this->func_ov031_021018a4(0x0);
             }
             break;
         case MapObjGrassState_2:
             this->mUnk_58 = 0x0;
-            this->mUnk_5C = FLOAT_TO_FX32(0.0f);
+            this->mUnk_5C = FX_F32_TO_FX32(0.0f);
 
             VecFx32 vec;
             for (unk32 i = 0; i < ARRAY_LEN(this->mUnk_40); ++i) {
-                VecFx32_Init(this->mUnk_40[i].x, this->mUnk_40[i].y + FLOAT_TO_FX32(0.35f), this->mUnk_40[i].z, &vec);
+                VecFx32_Init(this->mUnk_40[i].x, this->mUnk_40[i].y + FX_F32_TO_FX32(0.35f), this->mUnk_40[i].z, &vec);
                 VecFx32_Add(&vec, &this->mPos, &vec);
                 this->vfunc_3C(&vec);
             }
@@ -89,11 +89,11 @@ bool MapObjectGrass::vfunc_38(MapObjState state, unk32 param2) {
             this->func_ov031_021018a4(0x1);
             break;
         case MapObjGrassState_1:
-            this->mUnk_5C = FLOAT_TO_FX32(0.0f);
+            this->mUnk_5C = FX_F32_TO_FX32(0.0f);
             this->mUnk_58 = 0x0;
             break;
         case MapObjGrassState_3:
-            this->mUnk_5C = FLOAT_TO_FX32(0.0f);
+            this->mUnk_5C = FX_F32_TO_FX32(0.0f);
             this->func_ov031_021018a4(0x1);
             break;
         default:
@@ -118,7 +118,7 @@ bool MapObjectGrass::func_ov031_02101778() {
     return false;
 }
 
-bool MapObjectGrass::vfunc_1C(ActorRef param1, unk32 param2, VecFx32 *param3) {
+bool MapObjectGrass::vfunc_1C(RefStruct param1, unk32 param2, VecFx32 *param3) {
     if (this->mUnk_64 != -0x1) {
         return false;
     }

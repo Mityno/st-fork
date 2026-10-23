@@ -1,3 +1,4 @@
+#include "CommonFuncs.hpp"
 #include <string.h>
 
 #include "Actor/ActorId.hpp"
@@ -34,21 +35,6 @@ UnkStruct_02186240 data_ov110_02186240;
 
 extern const char *data_ov000_020aa240; // .nsbtx
 extern const char *data_ov000_020aa248; // .nsbmd
-
-extern "C" void func_ov000_0205ca74(unk32);
-extern "C" void func_01ffb6e4(unk32, const void *, void *);
-extern "C" void func_01ffc5a0(ModelRender *, unk32, UnkAngleStruct, void *);
-extern "C" void func_ov000_0208f820();
-extern "C" void func_ov000_0208ba10(void *, void *, unk32);
-extern "C" void func_02015ea8(unk32, void *);
-extern "C" void func_02015628(char *, char *, unk32, void *, size_t);
-extern "C" void func_02015664(char *, unk32);
-extern "C" void func_020156c8(char *, char *, unk32);
-extern "C" void func_020156f4(char *);
-extern "C" void func_02015644(char *);
-
-extern "C" BMDSectionModel *func_ov000_0205abcc(void *, void *, unk32, unk32, void *);
-extern "C" void *func_ov000_02077590(unk32);
 
 static const unk32 data_ov110_02185dc4[1] = {8};
 
@@ -428,7 +414,7 @@ static const AdventureFlag sAdvFlagItemMap[] = {
 void UnkStruct_PlayerGet_74::vfunc_00(unk32 param1, unk32 param2) {
     PlayerGet *unk_14 = (PlayerGet *) this->mUnk_14;
 
-    func_01ffc5a0(&unk_14->mUnk_8C, unk_14->mUnk_6C, unk_14->mUnkAngleStruct, &this->mUnk_04);
+    func_01ffc5a0(&unk_14->mUnk_8C, unk_14->mUnk_6C, unk_14->mAngle, &this->mUnk_04);
 }
 
 PlayerGet::PlayerGet() :
@@ -449,7 +435,7 @@ PlayerGet::~PlayerGet() {
         UnkStruct_PlayerGet_ec *pUnk_ec = &this->mUnk_EC[0];
 
         while (pUnk_ec != (UnkStruct_PlayerGet_ec *) &this->mUnk_FC) {
-            pData_027e0cec->func_ov000_020a0110(pUnk_ec);
+            pData_027e0cec->func_ov000_020a0110(&pUnk_ec->mUnk_00);
             pUnk_ec++;
         }
     }
@@ -538,8 +524,8 @@ void PlayerGet::vfunc_0C(UnkStruct_PlayerGet_vfunc_0C_param1 *param1) {
             this->mAngle           = 0;
             this->mUnk_2C->mUnk_58 = 0;
             char auStack_108[12];
-            func_ov000_0208ba10(auStack_108, &this->mUnk_24->mUnk_94, 0);
-            *(s16 *) &this->mUnk_40->mUnk_00 = 0x8000;
+            func_ov000_0208ba10(auStack_108, &this->mUnk_24->mUnk_094, 0);
+            this->mUnk_40->angle_s = 0x8000;
 
             pUnk_38    = this->mUnk_38;
             pUnk_38->x = 0;
@@ -550,7 +536,7 @@ void PlayerGet::vfunc_0C(UnkStruct_PlayerGet_vfunc_0C_param1 *param1) {
             pUnk_3c->y = 0;
             pUnk_3c->z = 0;
 
-            if (this->mUnk_54.mUnk_04.type != ActorRefType_1) {
+            if (this->mUnk_54.mUnk_04.common.type != ActorRefType_1) {
                 return;
             }
 
@@ -565,7 +551,7 @@ void PlayerGet::vfunc_0C(UnkStruct_PlayerGet_vfunc_0C_param1 *param1) {
                 pActor->mUnk_4A[0] = 0;
             }
             break;
-        case 0x3A:
+        case 0x3A: {
             if (this->mUnk_54.mItemId != ItemId_Nothing) {
                 u32 niVar10 = func_ov000_020a4c00(this->mUnk_54.mItemId);
 
@@ -632,43 +618,20 @@ void PlayerGet::vfunc_0C(UnkStruct_PlayerGet_vfunc_0C_param1 *param1) {
                 this->mUnk_64.func_ov000_0208a100();
             }
 
-            bool var_r1_4    = 0;
-            void **temp_r5_2 = this->mUnk_24->mUnk_78;
-            if (temp_r5_2 != NULL) {
-                u16 temp_r6 = *(u16 *) temp_r5_2;
-                bool var_r3 = 1;
-                bool var_r2 = 0;
+            bool var_r1_4 = false;
 
-                if ((temp_r6 != 0x100) && (temp_r6 != 0x101)) {
-                    var_r3 = 0;
-                }
-
-                if (var_r3 != 0) {
-                    bool var_r0_2;
-
-                    if (temp_r6 == 0x101) {
-                        var_r0_2 = 0;
-                    } else {
-                        var_r0_2 = ((u16 *) temp_r5_2)[1];
-                    }
-
-                    if (var_r0_2 == 1) {
-                        var_r2 = 1;
-                    }
-                }
-
-                if (var_r2 != 0) {
-                    var_r1_4 = 1;
-                }
+            if (this->mUnk_24->mUnk_078 != NULL && this->mUnk_24->mUnk_078->UnkCheck1()) {
+                var_r1_4 = true;
             }
 
             if (!var_r1_4) {
-                UnkStruct_ov000_0208f820_28_98 *pUnk28_98 = this->mUnk_28->mUnk_98;
+                UnkStruct_ov000_0208f820_28 *ptr0    = this->mUnk_28;
+                UnkStruct_ov000_0208f820_28_98 *ptr1 = ptr0->mUnk_98;
 
-                if (pUnk28_98 != NULL) {
-                    UnkStruct_PlayerGet_64 *ptr = &pUnk28_98->mUnk_38;
+                if (ptr1 != NULL) {
+                    UnkStruct_PlayerGet_64 *ptr = *(UnkStruct_PlayerGet_64 **) &ptr1->mUnk_38;
                     ptr->mUnk_08 |= 0x10;
-                    this->mUnk_64.func_ov000_0208a100();
+                    ptr1->mUnk_38.func_ov000_0208a100();
                 }
             }
 
@@ -688,7 +651,8 @@ void PlayerGet::vfunc_0C(UnkStruct_PlayerGet_vfunc_0C_param1 *param1) {
             }
 
             break;
-        case 0x3B:
+        }
+        case 0x3B: {
             this->mUnk_72 = 0;
 
             if (this->mUnk_54.mItemId != ItemId_Nothing) {
@@ -701,13 +665,14 @@ void PlayerGet::vfunc_0C(UnkStruct_PlayerGet_vfunc_0C_param1 *param1) {
                 uStack_f0[1] = 0x871;
                 uStack_f0[2] = 0x872;
                 uStack_f0[3] = 0x873;
-                data_027e0cec->func_ov000_020a0000(this->mUnk_EC, &this->mUnk_FC, uStack_f0, &VStack_fc, 1);
+                data_027e0cec->func_ov000_020a0000(&this->mUnk_EC->mUnk_00, &this->mUnk_FC, uStack_f0, &VStack_fc, 1);
             }
 
             data_027e0cf8->func_ov024_020c7828(this->mUnk_54.mItemId);
             UnkTextStruct1 auStack_30(-1, 0);
             data_ov000_020b504c.func_ov000_02067cf8(ItemManager::GetBmgIDFromItem(this->mUnk_54.mItemId), 0, &auStack_30);
             break;
+        }
         default:
             break;
     }
@@ -847,7 +812,7 @@ void PlayerGet::vfunc_10(unk32 param1, unk32 param2) {
                     case ItemId_AncientShield:
                         this->mUnk_30->func_ov000_020936ec();
 
-                        if (this->mUnk_54.mUnk_04.type == ActorRefType_1) {
+                        if (this->mUnk_54.mUnk_04.common.type == ActorRefType_1) {
                             temp_r0_3 = (ActorUnkNSHD *) gpActorManager->func_01fff3b4(this->mUnk_54.mUnk_00);
 
                             if ((temp_r0_3 != NULL) && (temp_r0_3->GetActorId() == ActorId_NormalShield)) {
@@ -886,10 +851,10 @@ void PlayerGet::vfunc_10(unk32 param1, unk32 param2) {
                         break;
                 }
 
-                if (this->mUnk_54.mUnk_00.type_index == REF_TYPE_INDEX(ActorRefType_0, 0x1000)) {
+                if (this->mUnk_54.mUnk_00.acRef.type_index == REF_TYPE_INDEX(ActorRefType_0, 0x1000)) {
                     Vec2bCpp stack;
-                    stack.x = this->mUnk_54.mUnk_00.type_index;
-                    stack.y = this->mUnk_54.mUnk_00.unk_id;
+                    stack.x = this->mUnk_54.mUnk_00.acRef.type_index;
+                    stack.y = this->mUnk_54.mUnk_00.acRef.unk_id;
 
                     MapObject *pMapObj = gpMapObjManager->func_01fff498(stack);
 
@@ -937,14 +902,14 @@ void PlayerGet::vfunc_10(unk32 param1, unk32 param2) {
                     this->mUnk_54.mUnk_08 = -1;
                 }
 
-                this->mUnk_40->mUnk_00 = 0;
+                this->mUnk_40->angle_u = 0;
 
                 if (temp_r6) {
                     this->mUnk_30->func_ov000_020921e4(0x49);
                     break;
                 }
 
-                if (this->mUnk_54.mUnk_04.type == ActorRefType_1 && data_027e09b8->func_ov000_020732dc(2) != 0) {
+                if (this->mUnk_54.mUnk_04.common.type == ActorRefType_1 && data_027e09b8->func_ov000_020732dc(2) != 0) {
                     this->mUnk_04.mUnk_00 = this->mUnk_54.mUnk_04;
                     this->mUnk_30->func_ov000_020921e4(0x57);
                     break;
@@ -1008,8 +973,7 @@ void PlayerGet::vfunc_18(unk32 param1, unk32 param2, unk32 param3) {
     }
 }
 
-UnkStruct_PlayerGet_ec::UnkStruct_PlayerGet_ec() :
-    UnkSystem7(NULL) {}
+UnkStruct_PlayerGet_ec::UnkStruct_PlayerGet_ec() {}
 
 THUMB_BEGIN
 

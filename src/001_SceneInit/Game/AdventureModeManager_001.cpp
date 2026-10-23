@@ -1,3 +1,4 @@
+#include "CommonFuncs.hpp"
 #include "Game/Game.hpp"
 #include "Game/GameModeAdventure.hpp"
 #include "MainGame/AdventureMode.hpp"
@@ -14,8 +15,6 @@
 #include "Unknown/UnkStruct_ov088_02177218.hpp"
 
 #include <dsprot.h>
-
-extern "C" void *func_ov000_02066294();
 
 static const s16 data_ov001_020c27a8[] = {
     0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0009, 0x000A, 0x000B, 0x000C, 0x000D, 0x000E,
@@ -72,7 +71,7 @@ AdventureModeManager::AdventureModeManager(UnkStruct_0204a110_Sub2 *param1) {
     GXS_SetGraphicsMode(5);
 
     this->mUnk_1C4.sceneIndex = SceneIndex_None;
-    this->mUnk_1C4.unk_04     = 0;
+    this->mUnk_1C4.roomIndex  = 0;
     this->mUnk_1C4.unk_06     = -1;
 }
 
@@ -316,9 +315,9 @@ AdventureModeManager_15C::AdventureModeManager_15C() :
     mUnk_00(0),
     mUnk_20(&this->mUnk_04) {
     this->mUnk_44 = 0;
-    this->mUnk_45 = 0;
-    this->mUnk_46 = 0;
-    this->mUnk_47 = 0;
+    this->mUnk_45 = false;
+    this->mUnk_46 = false;
+    this->mUnk_47 = false;
 
     unk32 value           = data_0204999c.func_02013014();
     this->mUnk_20.mUnk_00 = new(HeapIndex_1) AdventureModeManager_15C_20_00(0);

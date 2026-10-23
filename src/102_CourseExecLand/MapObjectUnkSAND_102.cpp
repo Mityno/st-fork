@@ -1,3 +1,4 @@
+#include "CommonFuncs.hpp"
 #include "MapObject/MapObjectUnkSAND.hpp"
 #include "Render/ModelRender.hpp"
 #include "Unknown/UnkStruct_027e09a8.hpp"
@@ -6,14 +7,13 @@
 #include "Unknown/UnkStruct_027e0cd8.hpp"
 #include "Unknown/UnkStruct_027e0cec.hpp"
 
-extern "C" void func_01ff91b8(unk16 *, fx32, fx32);
 extern unk32 data_ov031_02115fe0;
 extern MapObject_10 data_ov031_02118ac8[];
 extern MapObject_10 data_ov031_02118aec;
 extern MapObject_10 data_ov031_02118aa4;
 
 struct UnkStruct_ov031_021189d0 {
-    /* 00 */ STRUCT_PAD(0x00, 0x70);
+    /* 00 */ PAD(0x00, 0x70);
     /* 70 */ BMDSectionModel *unk_70;
 };
 extern UnkStruct_ov031_021189d0 data_ov031_021189d0;
@@ -143,7 +143,7 @@ void MapObjectUnkSAND_40::func_ov102_021837a8(Vec2bCpp param1, VecFx32 *param2) 
     const UnkStruct_ov102_021848b0 *ptr = &data_ov102_021848b0[var_r6];
     UnkSystem6_Derived2 sp14(
         G3d_GetUnkPtr(data_ov031_021189d0.unk_70, data_ov102_021848f0[data_ov102_021848b0[var_r6].unk_00]), true);
-    sp6.angle_signed = ptr->unk_02;
+    sp6.angle_s = ptr->unk_02;
     sp14.func_01ffc6d4(sp6, param2);
 }
 
@@ -216,9 +216,9 @@ void MapObjectUnkSAND::vfunc_0C() {
     }
 }
 
-void MapObjectUnkSAND::vfunc_14() {
+void MapObjectUnkSAND::vfunc_14(unk32 param1) {
     VecFx32 sp4  = this->mPos;
-    Vec2bCpp sp0 = this->mUnk_3A;
+    Vec2bCpp sp0 = this->mRef.moRef.GetUnk02();
 
     for (int var_r7 = 0; var_r7 < ARRAY_LEN(this->mUnk_40); var_r7++) {
         if (this->mUnk_40[var_r7].mUnk_00 != 0) {

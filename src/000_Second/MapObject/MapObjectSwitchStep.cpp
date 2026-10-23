@@ -1,4 +1,5 @@
 #include "MapObject/MapObjectSwitchStep.hpp"
+#include "CommonFuncs.hpp"
 #include "System/SysNew.hpp"
 #include "Unknown/UnkStruct_0204af1c.hpp"
 #include "Unknown/UnkStruct_027e0998.hpp"
@@ -6,8 +7,6 @@
 #include "Unknown/UnkStruct_027e09a8.hpp"
 #include "Unknown/UnkStruct_ov000_020b5214.hpp"
 #include <nitro/mi.h>
-
-extern "C" unk32 func_0200f218(unk32, const char *);
 
 static const char data_ov000_020af550[] = "switch";
 static const char data_ov000_020af560[] = "switchB";
@@ -24,13 +23,13 @@ MapObjectProfileSwitchStep::MapObjectProfileSwitchStep() :
     MapObjectProfileSwitchStep_Base(MapObjectId_SwitchStep) {
     this->mUnk_D4.mUnk_08 = 0x2DC04009;
 
-    this->mUnk_D4.mUnk_0C.x = -FLOAT_TO_FX32(0.5f);
-    this->mUnk_D4.mUnk_0C.y = FLOAT_TO_FX32(0.0f);
-    this->mUnk_D4.mUnk_0C.z = -FLOAT_TO_FX32(0.5f);
+    this->mUnk_D4.mUnk_0C.x = -FX_F32_TO_FX32(0.5f);
+    this->mUnk_D4.mUnk_0C.y = FX_F32_TO_FX32(0.0f);
+    this->mUnk_D4.mUnk_0C.z = -FX_F32_TO_FX32(0.5f);
 
-    this->mUnk_D4.mUnk_18.x = FLOAT_TO_FX32(0.5f);
-    this->mUnk_D4.mUnk_18.y = FLOAT_TO_FX32(0.5f);
-    this->mUnk_D4.mUnk_18.z = FLOAT_TO_FX32(0.5f);
+    this->mUnk_D4.mUnk_18.x = FX_F32_TO_FX32(0.5f);
+    this->mUnk_D4.mUnk_18.y = FX_F32_TO_FX32(0.5f);
+    this->mUnk_D4.mUnk_18.z = FX_F32_TO_FX32(0.5f);
 
     this->mUnk_06         = 1;
     this->mUnk_0C         = 0xC00;
@@ -53,37 +52,25 @@ void MapObjectSwitchStep_40::func_ov000_0209dde0(void) {
     this->func_ov000_02057c38(6, 2);
 }
 
-void MapObjectSwitchStep_40::vfunc_1C(UnkSystem4_vfunc_1C *param1) {
-    unk32 iVar1 = param1->mUnk_04[1];
-    if (iVar1 != 0) {
-        iVar1 += 0x40;
-    } else {
-        iVar1 = 0;
-    }
+void MapObjectSwitchStep_40::vfunc_1C(G3d_RenderState *param1) {
+    G3d_NameList *iVar1 = G3d_GetBoneList(param1->renderObj->model);
+    uint uVar2          = iVar1 != NULL ? func_0200f218(iVar1, data_ov000_020af560) : -1;
 
-    unk32 uVar2;
-    if (iVar1 == 0) {
-        uVar2 = -1;
-    } else {
-        uVar2 = func_0200f218(iVar1, data_ov000_020af560);
-    }
-
-    if (param1->mUnk_00[1] == uVar2) {
+    if (param1->currentCmd[1] == uVar2) {
         if (this->mUnk_62) {
             param1->mUnk_B4->mUnk_00 &= ~0x04;
             param1->mUnk_B4->mUnk_50 = this->mUnk_60;
             param1->mUnk_B4->mUnk_4C = 0;
             param1->mUnk_B4->mUnk_54 = 0;
         } else {
-            param1->mUnk_B8[0] = 0;
+            *param1->visibilityPtr = false;
         }
     }
 }
 
 MapObjectSwitchStep::MapObjectSwitchStep() :
-    mUnk_A4(&mUnk_C4, NULL) {
-    this->mUnk_E4 = 0;
-    this->mUnk_E6 = 0;
+    mUnk_A4(&mUnk_C4, NULL),
+    mUnk_E4(0, 0) {
     this->mUnk_E8 = 0;
     this->mUnk_EA = 0;
     this->mUnk_EB = 0;
@@ -105,7 +92,7 @@ MapObjectSwitchStep::~MapObjectSwitchStep() {
     }
 }
 
-bool MapObjectSwitchStep::vfunc_00(void) {
+bool MapObjectSwitchStep::Init(void) {
     SET_FLAG(this->mFlags, MapObjFlag_9);
     this->mUnk_18[0] = 1;
 
@@ -127,9 +114,8 @@ bool MapObjectSwitchStep::vfunc_00(void) {
 }
 
 void MapObjectSwitchStep::func_ov000_0209e11c(MapObjState state, unk32 param2) {
-    this->mState  = state;
-    this->mUnk_E6 = -1;
-    this->mUnk_E4 = 0;
+    this->mState = state;
+    this->mUnk_E4.Reset();
     this->mUnk_A4.func_01ffc3b4();
 
     switch (this->mState) {
@@ -161,8 +147,7 @@ void MapObjectSwitchStep::func_ov000_0209e11c(MapObjState state, unk32 param2) {
             }
 
             if (this->mUnk_20.mParams[0] == 2) {
-                this->mUnk_E6 = this->mUnk_20.mParams[1];
-                this->mUnk_E4 = 0;
+                this->mUnk_E4.Set(0, this->mUnk_20.mParams[1]);
             }
 
             this->mUnk_A4.func_ov000_020577f8(0x1000);
@@ -175,7 +160,7 @@ void MapObjectSwitchStep::func_ov000_0209e11c(MapObjState state, unk32 param2) {
     }
 }
 
-void MapObjectSwitchStep::vfunc_20(void) {
+void MapObjectSwitchStep::vfunc_20(unk32 param1) {
     switch (this->mState) {
         case MapObjSwitchStepState_1:
         case MapObjSwitchStepState_2:
@@ -198,7 +183,7 @@ struct stack_struct {
     /* 08 */
 };
 
-void MapObjectSwitchStep::vfunc_18(s8 *param1, s8 param2) {
+void MapObjectSwitchStep::vfunc_18(s8 *param1) {
     if (!GET_FLAG(this->mFlags, MapObjFlag_5)) {
         return;
     }
@@ -206,12 +191,12 @@ void MapObjectSwitchStep::vfunc_18(s8 *param1, s8 param2) {
     if (data_027e09a4->mUnk_00.sceneIndex >= SceneIndex_battle01 && data_027e09a4->mUnk_00.sceneIndex < SceneIndex_Max) {
         Vec2s sp10;
         stack_struct sp8;
-        u32 sp4;
+        RefStruct sp4;
 
         //! TODO: fake match?
-        sp4 = *(u32 *) &this->mUnk_38;
+        sp4 = *(RefStruct *) &this->mRef;
 
-        if (data_027e0998->vfunc_00(&this->mPos, &sp10, (u16 *) &sp4)) {
+        if (data_027e0998->vfunc_00(&this->mPos, &sp10, &sp4)) {
             sp8.mUnk_06 = 0x00;
             MI_CpuFill32(0, &sp8, sizeof(sp8));
             sp8.mUnk_05 = -1;
@@ -222,7 +207,7 @@ void MapObjectSwitchStep::vfunc_18(s8 *param1, s8 param2) {
 }
 
 void MapObjectSwitchStep::func_ov000_0209e38c(void) {
-    if (this->mUnk_E6 - this->mUnk_E4 < 0x3C) {
+    if (this->mUnk_E4.GetRemainingTime() < 60) {
         data_ov000_020b5214.func_ov000_0206e7e8(0x92);
     } else {
         data_ov000_020b5214.func_ov000_0206e7e8(0x91);

@@ -13,8 +13,7 @@ Actor::Actor() {
     this->mUnk_40 = 0;
     this->mUnk_48 = 4;
     this->mState  = ActorState_None;
-    this->mUnk_50 = 0;
-    this->mUnk_52 = 0;
+    this->mTimer.SetAlt(0, 0);
     this->mUnk_54 = 0;
     this->ResetFlags();
     this->mUnk_5C.mUnk_28 = 0;
@@ -24,7 +23,7 @@ Actor::Actor() {
     MI_CpuCopyFast(&data_ov000_020b539c_eur.mUnk_00, &this->mUnk_5C, sizeof(ActorParams));
     VecFx32_Copy(&this->mUnk_5C.mInitialPos, &this->mPos);
     VecFx32_Copy(&this->mUnk_5C.mInitialPos, &this->mPrevPos);
-    this->mAngle = this->mUnk_5C.mInitialAngle;
+    this->mAngle.angle_s = this->mUnk_5C.mInitialAngle;
     INIT_FLAGS(this->mFlags, ActorFlag_Alive, ActorFlag_Visible, ActorFlag_Active, ActorFlag_14);
     this->mUnk_44 = 0xFF;
     this->mUnk_46 = 0;
@@ -34,29 +33,27 @@ Actor::Actor() {
 
 Actor::~Actor() {}
 
-// non-matching (equivalent)
 void Actor::func_ov000_0209848c(ActorProfile *param1) {
     Cylinder *temp_r3 = &param1->mUnk_04;
-    unk32 unk_1c      = param1->mUnk_1C;
+    unk32 temp_r2     = param1->mUnk_1C;
 
     this->mpProfile = param1;
-
-    this->mUnk_34  = &param1->mUnk_04;
-    this->mUnk_30  = &param1->mUnk_04;
-    this->mYOffset = unk_1c;
+    this->mUnk_34   = temp_r3;
+    this->mUnk_30   = temp_r3;
+    this->mYOffset  = temp_r2;
 }
 
-bool Actor::vfunc_18(unk32 param1) {
+bool Actor::Init(unk32 param1) {
     return true;
 }
 
-void Actor::vfunc_1C() {}
+void Actor::Setup() {}
 
-void Actor::vfunc_20() {}
+void Actor::Update() {}
 
 void Actor::vfunc_24() {}
 
-void Actor::vfunc_28() {}
+void Actor::vfunc_28(Actor_vfunc_30 *param1) {}
 
 void Actor::vfunc_2C(unk32 param1) {}
 
@@ -67,7 +64,7 @@ unk32 Actor::vfunc_34() {
 }
 
 void Actor::func_ov000_020984d0() {
-    UNSET_FLAG(this->mFlags, ActorFlag_Alive);
+    this->Kill();
 
     if (GET_FLAG(this->mFlags, ActorFlag_16)) {
         this->func_ov000_020984f0();
@@ -111,12 +108,12 @@ bool Actor::Grab(ActorGrabParams grabParams) {
 
     SET_FLAG(this->mFlags, ActorFlag_Grabbed);
 
-    switch (grabParams.mUnk_00.type_index) {
+    switch (grabParams.mUnk_00.acRef.type_index) {
         case 0x100:
         case 0x101: {
-            u16 var_r3 = grabParams.mUnk_00.unk_id;
+            u16 var_r3 = grabParams.mUnk_00.acRef.unk_id;
 
-            if (grabParams.mUnk_00.type_index == 0x101) {
+            if (grabParams.mUnk_00.acRef.type_index == 0x101) {
                 var_r3 = 0;
             }
 

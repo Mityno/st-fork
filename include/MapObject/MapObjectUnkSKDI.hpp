@@ -5,6 +5,7 @@
 #include "MapObject/MapObjectProfile.hpp"
 #include "Unknown/UnkStruct_ov031_Items.hpp"
 #include "global.h"
+#include "timer.hpp"
 #include "types.h"
 
 enum MapObjUnkSKDIState_ {
@@ -27,25 +28,24 @@ public:
     /* 087 */ u8 mUnk_087;
     /* 088 */ u8 mUnk_088;
     /* 089 */ unk8 mUnk_089;
-    /* 080 */ STRUCT_PAD(0x08A, 0x08C);
+    /* 080 */ PAD(0x08A, 0x08C);
     /* 08C */ UnkStruct_ov031_Items_02 mUnk_08C;
-    /* 0A8 */ STRUCT_PAD(0x098, 0x0BC);
+    /* 0A8 */ PAD(0x098, 0x0BC);
     /* 0BC */ unk32 mUnk_0BC;
-    /* 0C0 */ STRUCT_PAD(0x0C0, 0x0D4);
+    /* 0C0 */ PAD(0x0C0, 0x0D4);
     /* 0D4 */ MapObject_10 mUnk_0D4;
-    /* 0F8 */ volatile u16 mUnk_0F8;
-    /* 0FA */ u16 mUnk_0FA;
+    /* 0F8 */ Timer mUnk_0F8;
     /* 0FC */ unk32 mUnk_0FC;
     /* 100 */
 
     MapObjectUnkSKDI();
 
-    /* 00 */ virtual bool vfunc_00() override;
-    /* 04 */ virtual void vfunc_04() override;
+    /* 00 */ virtual bool Init() override;
+    /* 04 */ virtual void Setup() override;
     /* 08 */ virtual void vfunc_08() override;
     /* 0C */ virtual void vfunc_0C() override;
-    /* 14 */ virtual void vfunc_14() override;
-    /* 1C */ virtual bool vfunc_1C(ActorRef param1, unk32 param2, VecFx32 *param3) override;
+    /* 14 */ virtual void vfunc_14(unk32 param1) override;
+    /* 1C */ virtual bool vfunc_1C(RefStruct param1, unk32 param2, VecFx32 *param3) override;
     /* 38 */ virtual unk32 vfunc_38();
     /* 3C */ virtual unk32 vfunc_3C();
     /* 40 */ virtual s16 vfunc_40();

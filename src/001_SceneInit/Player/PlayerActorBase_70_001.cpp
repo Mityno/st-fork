@@ -1,9 +1,7 @@
-#include "Actor/Actor.hpp"
+#include "CommonFuncs.hpp"
 #include "Player/PlayerActorBase.hpp"
 #include "System/SysNew.hpp"
 #include "Unknown/UnkStruct_027e09a4.hpp"
-
-extern "C" void *func_ov000_0208ea70(PlayerCharacter, unk32, bool); // returns pointer to .NSBTX
 
 extern unk16 data_ov000_020ab314;
 
@@ -34,12 +32,10 @@ PlayerActorBase_70::PlayerActorBase_70(PlayerCharacter character, unk32 param2) 
     mUnk_0DC(this->mIsNotLink == true ? new(HeapIndex_1) PlayerActorBase_70_DC(character, this->mUnk_00C.GetUnk08()->mpModel)
                                       : NULL),
     mUnk_0E0(this->mUnk_00C.GetUnk08(), character),
-    mUnk_114(param2 == -1 && character == PlayerCharacter_Link ? new(HeapIndex_1) Mat4x3p[PlayerCharacter_Max] : NULL),
-    mUnk_118(false),
-    mUnk_11C(false),
-    mUnk_120(false),
+    mUnk_114(param2 == -1 && character == PlayerCharacter_Link ? new(HeapIndex_1) MtxFx43[PlayerCharacter_Max] : NULL),
+    mUnk_118(FX_F32_TO_FX32(0.0f), FX_F32_TO_FX32(0.0f), FX_F32_TO_FX32(0.0f)),
     mUnk_124(false),
-    mUnk_126(false),
+    mUnk_126(0),
     mUnk_127(false),
     mUnk_128(false),
     mUnk_129(true),
@@ -52,7 +48,7 @@ PlayerActorBase_70::PlayerActorBase_70(PlayerCharacter character, unk32 param2) 
     mUnk_15C(0x20000) {
     if (this->mUnk_114 != NULL) {
         for (u32 i = 0; i < PlayerCharacter_Max; i++) {
-            Mat4x3p_InitIdentity(&this->mUnk_114[i]);
+            MtxFx43_InitIdentity(&this->mUnk_114[i]);
         }
     }
 }

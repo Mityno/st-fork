@@ -50,9 +50,9 @@ public:
 
 class UnkStruct_ov000_02058a84 {
 public:
-    /* 0 */ STRUCT_PAD(0x0, 0x6);
-    /* 6 */ u16 mUnk_6;
-    /* 8 */
+    /* 0 */ PAD(0x0, 0x6);
+    /* 6 */ u16 mUnk_06;
+    /* 8 */ u32 mUnk_08;
 };
 
 class MapObjectProfile_Derived2_20_Base {
@@ -97,6 +97,7 @@ public:
 #define GET_PROFILE_20(T) (&ProfileInstance<T>::sProfile.mUnk_20)
 #define GET_PROFILE_20_50(T) (ProfileInstance<T>::sProfile.mUnk_20.mUnk_50)
 #define GET_PROFILE_D4(T) (&ProfileInstance<T>::sProfile.mUnk_D4)
+#define GET_PROFILE_D8(T) (&ProfileInstance<T>::sProfile.mUnk_D8)
 
 #define DECL_PROFILE(T)                       \
     T ProfileInstance<T>::sProfile;           \

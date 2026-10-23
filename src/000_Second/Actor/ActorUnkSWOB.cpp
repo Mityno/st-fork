@@ -1,13 +1,11 @@
 #include "Actor/ActorUnkSWOB.hpp"
 #include "Actor/ActorManager.hpp"
+#include "CommonFuncs.hpp"
 #include "System/Random.hpp"
 #include "System/SysNew.hpp"
 #include "Unknown/UnkStruct_027e0cd8.hpp"
 #include "Unknown/UnkStruct_027e0ce0.hpp"
 #include "Unknown/UnkStruct_ov000_020b5214.hpp"
-
-extern "C" void func_01ffedac(Vec2bCpp *, VecFx32 *);
-extern "C" void func_01ffb9cc(void *, VecFx32 *);
 
 DECL_PROFILE(ActorProfileUnkSWOB);
 
@@ -20,7 +18,7 @@ ActorProfileUnkSWOB::ActorProfileUnkSWOB() :
 
 ActorUnkSWOB::ActorUnkSWOB() {}
 
-bool ActorUnkSWOB::vfunc_18(unk32 param1) {
+bool ActorUnkSWOB::Init(unk32 param1) {
     this->mUnk_9E = this->mUnk_5C.mUnk_1A[1];
     this->mUnk_94 = this->mUnk_5C.mParams[1];
     this->mUnk_98 = this->mUnk_5C.mParams[2];
@@ -49,13 +47,12 @@ void ActorUnkSWOB::SetState(ActorState state) {
             this->func_ov000_02098a88(0, 1);
 
             if (this->mUnk_94 == 0) {
-                UNSET_FLAG(this->mFlags, ActorFlag_Alive);
+                this->Kill();
             }
             break;
         case ActorUnkSWOBState_2:
             this->func_ov000_0209aa30();
-            this->mUnk_52 = -1;
-            this->mUnk_50 = 0;
+            this->mTimer.Reset();
             break;
         default:
             break;
@@ -92,7 +89,7 @@ void ActorUnkSWOB::func_ov000_0209aa30(void) {
             data_ov000_020b5214.func_ov000_0206db44(0xA3);
             temp   = *data_027e0ce0->func_01fff148(0);
             vec2.x = temp.x;
-            vec2.y = temp.y + FLOAT_TO_FX32(3.0f);
+            vec2.y = temp.y + FX_F32_TO_FX32(3.0f);
             vec2.z = temp.z;
 
             AStack_7c.mUnk_28 = 0;

@@ -2,6 +2,7 @@
 
 #include "Actor/Actor.hpp"
 #include "Actor/ActorProfile.hpp"
+#include "RefStruct.hpp"
 #include "global.h"
 #include "types.h"
 
@@ -17,15 +18,15 @@ public:
         mUnk_04(param1) {}
 
     // data_ov031_02112d4c
-    /* 0C */ virtual bool vfunc_0C(const UnkStruct_ov031_020e54d4 *param1, unk32 *param2, unk32 param3) override;
+    /* 0C */ virtual bool vfunc_0C(RefStruct ref, UnkStruct_ov031_020e54d4 *param2, const VecFx32 *param3,
+                                   const VecFx32 *param4) override;
 };
 
 class ActorBlast : public Actor {
 public:
     /* 00 (base) */
     /* 94 */ fx32 mUnk_94;
-    /* 98 */ volatile u16 mUnk_98;
-    /* 9A */ u16 mUnk_9A;
+    /* 98 */ Timer mUnk_98;
     /* 9C */ UnkStruct_ov031_Items_01 mUnk_9C;
     /* C8 */ Cylinder mUnk_C8;
     /* D8 */ Cylinder mUnk_D8;
@@ -36,17 +37,9 @@ public:
 
     ActorBlast();
 
-    /* 18 */ virtual bool vfunc_18(unk32 param1) override;
-    /* 20 */ virtual void vfunc_20() override;
+    /* 18 */ virtual bool Init(unk32 param1) override;
+    /* 20 */ virtual void Update() override;
     /* 24 */ virtual void vfunc_24() override;
-
-    bool IsInternalTimerOut() {
-        if (this->mUnk_98 < this->mUnk_9A) {
-            ++this->mUnk_98;
-            return false;
-        }
-        return true;
-    }
 
     fx32 func_ov031_020e3b94();
     static void func_ov031_020e3b9c(Actor *spawner, unk16 param1, unk16 param2);

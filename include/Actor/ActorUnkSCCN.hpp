@@ -9,7 +9,7 @@
 class ActorUnkSCCN_B8 {
 public:
     /* 00 (vtable) */
-    /* 04 */ ActorRef mUnk_04;
+    /* 04 */ RefStruct mUnk_04;
     /* 08 */ VecFx32 *mUnk_08;
     /* 0C */ MapObject_10_Base *mUnk_0C;
     /* 10 */
@@ -38,7 +38,7 @@ public:
 
     ActorUnkSCCN();
 
-    /* 18 */ virtual bool vfunc_18(unk32 param1) override;
+    /* 18 */ virtual bool Init(unk32 param1) override;
 };
 
 class ActorProfileUnkSCCN : public ActorProfile {

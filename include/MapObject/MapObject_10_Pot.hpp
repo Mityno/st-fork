@@ -1,4 +1,5 @@
 #pragma once
+
 #include "MapObject.hpp"
 
 class MapObject_10_Pot_Base : public MapObject_10_Base {
@@ -27,4 +28,5 @@ public:
     /* 20 */
 
     MapObject_10_Pot() {}
+    MapObject_10_Pot(int) {}
 };

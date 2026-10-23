@@ -1,4 +1,5 @@
 #include "Game/Game.hpp"
+#include "CommonFuncs.hpp"
 #include "System/OverlayManager.hpp"
 #include "System/Random.hpp"
 #include "Unknown/UnkStruct_02049b74.hpp"
@@ -13,13 +14,7 @@
 #include <nitro/os.h>
 #include <nitro/reg.h>
 
-extern "C" void func_020196fc();
-extern "C" void FlushGfxQueue();
-extern "C" void func_020132c8();
-extern "C" void func_020132dc();
-extern "C" void func_02013354();
-extern "C" void func_0201328c();
-extern Mat3p gGeomMatrix;
+extern MtxFx33 gGeomMatrix;
 
 void Game::func_02013370(unk32 param1) {
     data_0204a110.func_02018c78(param1);
@@ -95,7 +90,7 @@ void Game::Run() {
             data_027e0208.mUnk_0E4 = 0;
             data_027e0208.mUnk_0E8 = 0;
 
-            Mat3p_InitIdentity(&gGeomMatrix);
+            MtxFx33_InitIdentity(&gGeomMatrix);
             data_027e0208.mUnk_0FC = 0;
             FlushGfxQueue();
             this->mpCurrentGameMode->vfunc_18();
@@ -133,7 +128,7 @@ void Game::Run() {
         }
 
         {
-            int enabled = OS_DisableInterrupts_Irq();
+            int enabled = OS_DisableInterrupts();
             this->mUnk_1C.func_02013e18((void *) func_020132dc, 0);
             REG_GFX_FIFO_SWAP_BUFFERS = 3;
             OS_RestoreInterrupts(enabled);
