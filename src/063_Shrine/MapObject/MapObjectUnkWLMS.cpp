@@ -42,17 +42,9 @@ struct UnkStruct_data_ov063_021638c0 {
     /* 08 */ UnkStruct_data_ov063_021638c8 mUnk_08;
     /* 28 */ u16 mUnk_28;
     /* 2A */ u16 mUnk_2A;
-
-    UnkStruct_data_ov063_021638c0(u16 a, u16 b, u16 c, u16 d, u16 e, u16 f) {
-        mUnk_00 = a;
-        mUnk_02 = b;
-        mUnk_04 = c;
-        mUnk_06 = d;
-        mUnk_28 = e;
-        mUnk_2A = f;
-    }
 };
-UnkStruct_data_ov063_021638c0 data_ov063_021638c0(0, 0, 8, 8, 0x9D, 0x9E);
+
+extern UnkStruct_data_ov063_021638c0 data_ov063_021638c0;
 extern unk16 data_ov063_021638c2;
 extern UnkStruct_data_ov063_021638c8 data_ov063_021638c8;
 extern unk16 data_ov063_021638e8; //= data_ov063_021638c8.mUnk_10;
