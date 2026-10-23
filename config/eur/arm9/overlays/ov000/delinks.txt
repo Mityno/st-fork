@@ -5,6 +5,9 @@
     .data       start:0x020b1960 end:0x020b4ec0 kind:data align:32
     .bss        start:0x020b4ec0 end:0x020b6520 kind:bss align:32
 
+src/000_Second/UnkStruct_ov000_020b1c10.cpp:
+    .text       start:0x0205b324 end:0x0205b38c
+
 src/000_Second/Game/GameModeManagerBase_104_0C.cpp:
     complete
     .text       start:0x02061a8c end:0x02061ae4
@@ -26,9 +29,6 @@ src/000_Second/UnkSystem1_Derived1.cpp:
     complete
     .text       start:0x02067244 end:0x020674a8
     .data       start:0x020b209c end:0x020b20d0
-
-src/000_Second/UnkStruct_ov000_020b1c10.cpp:
-    .text       start:0x0205b324 end:0x0205b38c
 
 src/000_Second/Actor/Actor.cpp:
     .text       start:0x02098388 end:0x02098654
