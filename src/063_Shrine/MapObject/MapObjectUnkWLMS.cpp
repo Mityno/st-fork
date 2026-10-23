@@ -89,7 +89,7 @@ UnkStruct_ov063_02163910::UnkStruct_ov063_02163910(void *param1) {
 }
 
 struct UnkStruct_ov063_02163910_04 {
-    /* 00 */ STRUCT_PAD(0x0, 0x40);
+    /* 00 */ PAD(0x0, 0x40);
     /* 40 */ unk32 mUnk_40;
     /* 44 */ LinkListNode mUnk_44;
 };

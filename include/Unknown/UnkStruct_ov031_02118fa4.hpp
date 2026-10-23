@@ -1,11 +1,10 @@
 #pragma once
 
 #include "Player/TouchControl.hpp"
-#include "global.h"
 #include "types.h"
 
 struct UnkStruct_ov031_02118fa4_00 {
-    /* 000 (base) */ STRUCT_PAD(0x000, 0x16C);
+    /* 000 (base) */ PAD(0x000, 0x16C);
     /* 16C */ TouchState mUnk_16C;
 };
 

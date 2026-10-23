@@ -26,14 +26,14 @@ public:
     /* 070 */ ModelRender mUnk_70;
     /* 0D0 */ UnkStruct_ov000_020b1c10 mUnk_D0;
     /* 0F4 */ unk32 mUnk_F4;
-    /* 0F8 */ STRUCT_PAD(0x0F8, 0x2F4);
+    /* 0F8 */ PAD(0x0F8, 0x2F4);
     /* 2F4 */ TouchControl mUnk_2F4;
     /* 316 */ unk16 mUnk_316;
     /* 318 */ unk16 mUnk_318;
     /* 31A */ unk16 mUnk_31A;
     /* 31C */ u16 mUnk_31C;
     /* 31E */ u8 mUnk_31E;
-    /* 31F */ STRUCT_PAD(0x31F, 0x320);
+    /* 31F */ PAD(0x31F, 0x320);
     /* 320 */ UnkStruct_ov063_02163910 mUnk_320;
 
     MapObjectUnkWLMS();
