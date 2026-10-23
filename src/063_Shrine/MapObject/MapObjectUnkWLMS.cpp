@@ -4,6 +4,7 @@
 #include "LinkList.hpp"
 #include "MapObject/MapObject.hpp"
 #include "Player/TouchControl.hpp"
+#include "Unknown/Common.hpp"
 #include "Unknown/UnkStruct_0204a088.hpp"
 #include "Unknown/UnkStruct_0204a110.hpp"
 #include "Unknown/UnkStruct_0204af1c.hpp"
@@ -15,7 +16,6 @@
 #include "Unknown/UnkStruct_ov000_020b52b4.hpp"
 #include "Unknown/UnkStruct_ov031_02118fa4.hpp"
 #include "flags.h"
-#include "global.h"
 #include "nitro/fx.h"
 #include "nitro/math.h"
 #include "nitro/mi.h"
@@ -23,30 +23,19 @@
 #include "profile.hpp"
 #include "types.h"
 
-struct UnkStruct_data_ov063_021638c8 {
-    /* 00 */ unk32 mUnk_00;
-    /* 04 */ unk16 mUnk_04;
-    /* 06 */ unk16 mUnk_06;
-    /* 08 */ unk32 mUnk_08;
-    /* 0C */ unk32 mUnk_0C;
-    /* 10 */ unk32 mUnk_10;
-    /* 14 */ unk32 mUnk_14;
-    /* 18 */ unk32 mUnk_18;
-    /* 1C */ unk32 mUnk_1C;
-};
 struct UnkStruct_data_ov063_021638c0 {
     /* 00 */ u16 mUnk_00;
     /* 02 */ u16 mUnk_02;
     /* 04 */ u16 mUnk_04;
     /* 06 */ u16 mUnk_06;
-    /* 08 */ UnkStruct_data_ov063_021638c8 mUnk_08;
+    /* 08 */ UnkStackStruct2 mUnk_08;
     /* 28 */ u16 mUnk_28;
     /* 2A */ u16 mUnk_2A;
 };
 
 extern UnkStruct_data_ov063_021638c0 data_ov063_021638c0;
 extern unk16 data_ov063_021638c2;
-extern UnkStruct_data_ov063_021638c8 data_ov063_021638c8;
+extern UnkStackStruct2 data_ov063_021638c8;
 extern unk16 data_ov063_021638e8; //= data_ov063_021638c8.mUnk_10;
 
 // Overlay 0
@@ -385,8 +374,8 @@ void MapObjectUnkWLMS::vfunc_60(void) {
 void MapObjectUnkWLMS::vfunc_64(unk32 param1, unk32 param2) {
 
     if (mState == 1 && param2 == 1) {
-        UnkStruct_data_ov063_021638c8 stackVar = data_ov063_021638c8;
-        stackVar.mUnk_06                       = mAngle;
+        UnkStackStruct2 stackVar = data_ov063_021638c8;
+        stackVar.s.mUnk_06       = mAngle.angle_s;
         data_027e09bc->mUnk_04[2]->func_ov000_0207834c(&mPos, &stackVar, 0);
     }
 }
