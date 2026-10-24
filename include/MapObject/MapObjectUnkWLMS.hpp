@@ -20,6 +20,17 @@ public:
     /* 04 */ virtual void vfunc2_04() override;
 };
 
+enum MapObjectUnkWLMSState_ {
+    MapObjectUnkWLMSState_0 = 0,
+    MapObjectUnkWLMSState_1 = 1,
+    MapObjectUnkWLMSState_2 = 2,
+    MapObjectUnkWLMSState_3 = 3,
+    MapObjectUnkWLMSState_4 = 4,
+    MapObjectUnkWLMSState_5 = 5,
+    MapObjectUnkWLMSState_6 = 6,
+    MapObjectUnkWLMSState_7 = 7,
+};
+
 class MapObjectUnkWLMS : public UnkStruct_ov094_02177ff8 {
 public:
     /* 000 (base) */

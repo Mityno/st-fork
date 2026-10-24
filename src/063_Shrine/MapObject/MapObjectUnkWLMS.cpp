@@ -131,7 +131,7 @@ bool MapObjectUnkWLMS::Init() {
 
 #if IS_JP
 void MapObjectUnkWLMS::vfunc_08() {
-    if (mState == 0x1 && mUnk_31F == 0) {
+    if (mState == MapObjectUnkWLMSState_1 && mUnk_31F == 0) {
         this->func_ov063_02160580(0, 0);
     }
     mUnk_31F = 0;
@@ -140,9 +140,9 @@ void MapObjectUnkWLMS::vfunc_08() {
 
 void MapObjectUnkWLMS::vfunc_38(void) {
     switch (mState) {
-        case 0:
+        case MapObjectUnkWLMSState_0:
             break;
-        case 1: {
+        case MapObjectUnkWLMSState_1: {
             if (mUnk_20.mUnk_10 == 0) {
                 break;
             }
@@ -156,14 +156,14 @@ void MapObjectUnkWLMS::vfunc_38(void) {
             func_ov009_020b675c(data_ov031_02118fa4, 1);
             break;
         }
-        case 2:
+        case MapObjectUnkWLMSState_2:
             if (mUnk_20.mUnk_10 == 0) {
                 this->func_ov063_02160580(4, 0);
             } else {
                 this->func_ov063_02160580(3, 0);
             }
             break;
-        case 3:
+        case MapObjectUnkWLMSState_3:
             if ((u16) mUnk_58.mUnk_08 != 0xFFFF) {
                 mUnk_58.vfunc_04();
                 break;
@@ -171,7 +171,7 @@ void MapObjectUnkWLMS::vfunc_38(void) {
             this->func_ov063_02160580(4, 0);
             func_ov009_020b675c(data_ov031_02118fa4, 0);
             break;
-        case 4:
+        case MapObjectUnkWLMSState_4:
             if (data_ov031_02118fa4) {
                 this->func_ov063_02160254();
             }
@@ -184,7 +184,7 @@ void MapObjectUnkWLMS::vfunc_38(void) {
             }
             this->func_ov063_02160580(6, 0);
             break;
-        case 5:
+        case MapObjectUnkWLMSState_5:
             if (mUnk_31C) {
                 mUnk_31C--;
                 break;
@@ -198,13 +198,13 @@ void MapObjectUnkWLMS::vfunc_38(void) {
             }
             this->func_ov063_02160580(6, 0);
             break;
-        case 6:
+        case MapObjectUnkWLMSState_6:
             if (!func_ov094_02170fa0()) {
                 break;
             }
             this->func_ov063_02160580(7, 0);
             break;
-        case 7:
+        case MapObjectUnkWLMSState_7:
             break;
         default:
             break;
@@ -283,7 +283,7 @@ void MapObjectUnkWLMS::func_ov063_02160548(void) {
 unk32 MapObjectUnkWLMS::func_ov063_02160580(unk32 param1, MapObjState param2) {
     mState = param1;
     switch (mState) {
-        case 0:
+        case MapObjectUnkWLMSState_0:
             if (!this->func_ov000_0209d29c(0)) {
                 SET_FLAG(mFlags, 9);
             } else {
@@ -293,7 +293,7 @@ unk32 MapObjectUnkWLMS::func_ov063_02160580(unk32 param1, MapObjState param2) {
             mUnk_31F = 0;
 #endif
             break;
-        case 1: {
+        case MapObjectUnkWLMSState_1: {
             UNSET_FLAG(mFlags, 9);
             stack_ov000_02073578 stack;
             stack.unk_08 = 0x7;
@@ -304,24 +304,24 @@ unk32 MapObjectUnkWLMS::func_ov063_02160580(unk32 param1, MapObjState param2) {
 #endif
             break;
         }
-        case 2:
+        case MapObjectUnkWLMSState_2:
             break;
-        case 3:
+        case MapObjectUnkWLMSState_3:
             func_ov094_02170fd4(this);
             break;
-        case 4:
+        case MapObjectUnkWLMSState_4:
             mUnk_D0.mUnk_10.mUnk_04 = mUnk_D0.mUnk_10.mUnk_00;
             break;
-        case 5:
+        case MapObjectUnkWLMSState_5:
             func_ov009_020b669c(data_ov031_02118fa4, 0, 0);
             mUnk_31C = 0x2D;
             break;
-        case 6:
+        case MapObjectUnkWLMSState_6:
             mUnk_316 = -1;
             mUnk_318 = -1;
             mUnk_31A = -1;
             break;
-        case 7:
+        case MapObjectUnkWLMSState_7:
         default:
             break;
     }
@@ -329,7 +329,7 @@ unk32 MapObjectUnkWLMS::func_ov063_02160580(unk32 param1, MapObjState param2) {
 }
 
 unk32 MapObjectUnkWLMS::vfunc_28(unk32 param1, unk32 param2, unk32 param3) {
-    if (!mState) {
+    if (mState == MapObjectUnkWLMSState_0) {
         this->func_ov063_02160580(1, 0);
         return 0;
     }
@@ -394,7 +394,7 @@ void MapObjectUnkWLMS::vfunc_60(void) {
 
 void MapObjectUnkWLMS::vfunc_64(unk32 param1, unk32 param2) {
 
-    if (mState == 1 && param2 == 1) {
+    if (mState == MapObjectUnkWLMSState_1 && param2 == 1) {
         UnkStackStruct2 stackVar = data_ov063_021638c8;
         stackVar.s.mUnk_06       = mAngle.angle_s;
         data_027e09bc->mUnk_04[2]->func_ov000_0207834c(&mPos, &stackVar, 0);
@@ -402,7 +402,7 @@ void MapObjectUnkWLMS::vfunc_64(unk32 param1, unk32 param2) {
 }
 
 void MapObjectUnkWLMS::vfunc_68(void) {
-    if (mState == 1) {
+    if (mState == MapObjectUnkWLMSState_1) {
         this->func_ov063_02160580(2, 0);
     }
 }
@@ -414,7 +414,7 @@ void MapObjectUnkWLMS::vfunc_6C(unk32 param1) {
 }
 
 void MapObjectUnkWLMS::vfunc_70(unk32 param1, unk32 param2) {
-    if (param1 == 1 && mState == 7 && param2 == 1) {
+    if (param1 == 1 && mState == MapObjectUnkWLMSState_7 && param2 == 1) {
         data_027e09bc->mUnk_04[2]->func_ov000_02078230(0);
 
         if (mUnk_31E != 0) {
