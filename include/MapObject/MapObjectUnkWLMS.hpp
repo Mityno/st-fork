@@ -33,14 +33,17 @@ public:
     /* 31A */ unk16 mUnk_31A;
     /* 31C */ u16 mUnk_31C;
     /* 31E */ u8 mUnk_31E;
-    /* 31F */ PAD(0x31F, 0x320);
+    /* 31F */ u8 mUnk_31F;
     /* 320 */ UnkStruct_ov063_02163910 mUnk_320;
 
     MapObjectUnkWLMS();
 
-    /* 00 */ virtual bool vfunc_00() override;
-    /* 14 */ virtual void vfunc_14() override;
-    /* 18 */ virtual void vfunc_18(s8 *param1, s8 param2) override;
+    /* 00 */ virtual bool Init() override;
+#if IS_JP
+    /* 08 */ virtual void vfunc_08() override;
+#endif
+    /* 14 */ virtual void vfunc_14(unk32 param1) override;
+    /* 18 */ virtual void vfunc_18(s8 *param1) override;
     /* 28 */ virtual unk32 vfunc_28(unk32 param1, unk32 param2, unk32 param3) override;
     /* 38 */ virtual void vfunc_38(void) override;
     /* 60 */ virtual void vfunc_60(void);

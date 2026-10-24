@@ -102,6 +102,9 @@ MapObjectUnkWLMS::MapObjectUnkWLMS() :
     mUnk_2F4(),
     mUnk_31C(0),
     mUnk_31E(0),
+#if IS_JP
+    mUnk_31F(0),
+#endif
     mUnk_320(this) {
     mUnk_10         = GET_PROFILE_D4(MapObjectProfileUnkWLMS);
     mUnk_D0.mUnk_1C = 0x2000;
@@ -117,7 +120,7 @@ MapObjectUnkWLMS::MapObjectUnkWLMS() :
     data_ov063_0216458c.func_ov000_02060bac();
 }
 
-bool MapObjectUnkWLMS::vfunc_00() {
+bool MapObjectUnkWLMS::Init() {
     mUnk_18[0] = 0x14;
     if (mUnk_20.mParams[1] == 1) {
         mPos.x += 0x800;
@@ -125,6 +128,15 @@ bool MapObjectUnkWLMS::vfunc_00() {
     this->func_ov063_02160580(0, 1);
     return true;
 }
+
+#if IS_JP
+void MapObjectUnkWLMS::vfunc_08() {
+    if (mState == 0x1 && mUnk_31F == 0) {
+        this->func_ov063_02160580(0, 0);
+    }
+    mUnk_31F = 0;
+}
+#endif
 
 void MapObjectUnkWLMS::vfunc_38(void) {
     switch (mState) {
@@ -200,6 +212,9 @@ void MapObjectUnkWLMS::vfunc_38(void) {
 
     data_ov063_02164514.func_ov000_020609c4();
     data_ov063_0216458c.func_ov000_020609c4();
+#if IS_JP
+    mUnk_31F = 0;
+#endif
 }
 
 // non-matching
@@ -274,6 +289,9 @@ unk32 MapObjectUnkWLMS::func_ov063_02160580(unk32 param1, MapObjState param2) {
             } else {
                 UNSET_FLAG(mFlags, 9);
             }
+#if IS_JP
+            mUnk_31F = 0;
+#endif
             break;
         case 1: {
             UNSET_FLAG(mFlags, 9);
@@ -281,6 +299,9 @@ unk32 MapObjectUnkWLMS::func_ov063_02160580(unk32 param1, MapObjState param2) {
             stack.unk_08 = 0x7;
             stack.unk_04 = (unk32) (uintptr_t) &mUnk_320;
             func_ov094_02170f7c(this, &stack);
+#if IS_JP
+            mUnk_31F = 1;
+#endif
             break;
         }
         case 2:
@@ -315,7 +336,7 @@ unk32 MapObjectUnkWLMS::vfunc_28(unk32 param1, unk32 param2, unk32 param3) {
     return -1;
 }
 
-void MapObjectUnkWLMS::vfunc_14() {
+void MapObjectUnkWLMS::vfunc_14(unk32 param1) {
     VecFx32 vec;
     VecFx32_Init(mPos.x, mPos.y + 0xb33, mPos.z + -0x733, &vec);
     mUnk_4C.vfunc_18(&vec);
@@ -338,7 +359,7 @@ void MapObjectUnkWLMS::vfunc_14() {
 }
 
 // non-matching
-void MapObjectUnkWLMS::vfunc_18(s8 *param1, s8 param2) {
+void MapObjectUnkWLMS::vfunc_18(s8 *param1) {
     if (param1[0] != 0 && param1[1] != 0) {
         return;
     }
