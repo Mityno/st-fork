@@ -666,7 +666,6 @@ data_ov094_021779f4 kind:data(any) addr:0x021779f4 ambiguous
 _ZTV19data_ov094_02177a18 kind:data(any) addr:0x02177a18
 _ZTV19ActorProfileUnkKOTA kind:data(any) addr:0x02177a78
 _ZTV12ActorUnkKOTA kind:data(any) addr:0x02177a9c
-data_ov094_02177aa0 kind:data(any) addr:0x02177aa0 ambiguous
 data_ov094_02177af8 kind:data(any) addr:0x02177af8
 data_ov094_02177afc kind:data(any) addr:0x02177afc
 data_ov094_02177b1c kind:data(any) addr:0x02177b1c
