@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Actor/Actor.hpp"
 #include "Actor/ActorId.hpp"
 #include "Actor/ActorLobarrier.hpp"
 #include "Actor/ActorLobarrierShield.hpp"
@@ -266,6 +267,7 @@ UnkStruct_027e0cec_18_04 *func_ov000_02054690(void *, unk32, unk32, unk32, unk32
 void func_ov000_02058c74(void *, int, int, int, int);
 BMDSectionModel *func_ov000_0205abcc(void *, void *, unk32, unk32, void *);
 bool func_ov000_0205adfc(VecFx32 *, VecFx32 *);
+void func_ov000_0205ad90(u32 param1, VecFx32 *param2);
 bool func_ov000_0205aeac();
 unk32 func_ov000_0205b090();
 unk32 func_ov000_0205b0ac(s16 param1);

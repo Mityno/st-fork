@@ -4,10 +4,12 @@
 #include "Actor/ActorManager.hpp"
 #include "CommonFuncs.hpp"
 #include "RefStruct.hpp"
+#include "Save/AdventureFlags.hpp"
 #include "Save/SaveFile.hpp"
 #include "Save/SaveManager.hpp"
 #include "System/Random.hpp"
 #include "Unknown/UnkStruct_027e0cd8.hpp"
+#include "math.hpp"
 #include "nitro/fx.h"
 #include "nitro/math.h"
 #include "nitro/types.h"
@@ -79,9 +81,118 @@ void ActorUnkKOTA::func_ov094_0216e4f0(void) {
     mUnk_D4++;
 }
 
-void ActorUnkKOTA::func_ov094_0216e5a4(ActorParams *param1) {}
+// non-matching (stack layout, grandom stuff)
+void ActorUnkKOTA::func_ov094_0216e5a4(ActorParams *param1) {
+    UnkStruct_027e0cd8_0C_Base_148_00 *ret = NULL;
+    if (mUnk_5C.mParams[1] != 0) {
+        ret = data_027e0cd8->mUnk_0C->func_ov000_02080620(mUnk_5C.mParams[1]);
+    }
 
-// non-matching (a preview of hell itself, matching by parts) -> ~76%
+    if (ret == NULL) {
+        this->func_ov094_0216e9fc(&param1->mInitialPos, &mPos, FX_F32_TO_FX32(5.f));
+        return;
+    }
+
+    if (ret->vfunc_04() == 0) {
+        VecFx32 vec = ret->mUnk_14.unk_00;
+        VecFx32_Add(&vec, &ret->mUnk_14.unk_0C, &vec);
+        func_01ff93c0(&vec, FX_F32_TO_FX32(0.5f));
+        vec.y = data_027e0cd8->mUnk_0C->vfunc_28(&vec, 1, 0);
+
+        VecFx32 vec2;
+        u16 arrayCmp[4] = {0, 0, 0, 0};
+        for (unk32 *ptr = &mUnk_94; ptr != (unk32 *) mUnk_D4; ptr++) {
+            if (*ptr != 0) {
+                func_01ffb714(&((Actor *) ptr)->mPos, &vec, &vec2);
+
+                if (vec2.x <= 0) {
+                    if (vec2.z <= 0) {
+                        arrayCmp[0]++;
+                    } else {
+                        arrayCmp[1]++;
+                    }
+                } else {
+                    if (vec2.z <= 0) {
+                        arrayCmp[2]++;
+                    } else {
+                        arrayCmp[3]++;
+                    }
+                }
+            }
+        }
+
+        u32 var1 = 0, var2 = 0;
+        while (var2 < 3) {
+            if (arrayCmp[var1] > arrayCmp[var2] ||
+                (arrayCmp[var1] == arrayCmp[var2] && (gRandom.Next32(0) & 0x80000000) != 0)) {
+                var1 = var2;
+            }
+            var2++;
+        }
+
+        Vec2bCpp sp12(0, 0), sp14(0, 0);
+        switch (var1) {
+            case 0: {
+                Vec2bCpp vec2b1, vec2b2;
+                func_01ffedac(&vec2b1, &ret->mUnk_14.unk_00);
+                sp14.data_u16p[0] = vec2b1.data_u16p[0];
+                func_01ffedac(&vec2b2, &vec);
+                sp12.data_u16p[0] = vec2b2.data_u16p[0];
+                break;
+            }
+            case 1: {
+                Vec2bCpp vec2b1, vec2b2;
+                VecFx32 vec1, vec2;
+                VecFx32_Init(ret->mUnk_14.unk_00.x, 0, vec.z, &vec1);
+                func_01ffedac(&vec2b1, &vec1);
+                sp14.data_u16p[0] = vec2b1.data_u16p[0];
+                VecFx32_Init(vec.x, 0, ret->mUnk_14.unk_0C.z, &vec2);
+                func_01ffedac(&vec2b2, &vec2);
+                sp12.data_u16p[0] = vec2b2.data_u16p[0];
+                break;
+            }
+            case 2: {
+                Vec2bCpp vec2b1, vec2b2;
+                VecFx32 vec1, vec2;
+                VecFx32_Init(vec.x, 0, ret->mUnk_14.unk_00.z, &vec1);
+                func_01ffedac(&vec2b1, &vec1);
+                sp14.data_u16p[0] = vec2b1.data_u16p[0];
+                VecFx32_Init(ret->mUnk_14.unk_00.x, 0, vec.z, &vec2);
+                func_01ffedac(&vec2b2, &vec2);
+                sp12.data_u16p[0] = vec2b2.data_u16p[0];
+                break;
+            }
+            case 3: {
+                Vec2bCpp vec2b1, vec2b2;
+                VecFx32 vec1;
+                VecFx32_Init(vec.x, 0, vec.z, &vec1);
+                func_01ffedac(&vec2b1, &vec1);
+                sp14.data_u16p[0] = vec2b1.data_u16p[0];
+                func_01ffedac(&vec2b2, &ret->mUnk_14.unk_0C);
+                sp12.data_u16p[0] = vec2b2.data_u16p[0];
+                break;
+            }
+        }
+
+        Vec2bCpp random_val, tmp;
+        tmp.x                   = gRandom.Next32((sp12.x - sp14.x) + 1);
+        tmp.y                   = gRandom.Next32((sp12.y - sp14.y) + 1);
+        random_val.data_u16p[0] = tmp.data_u16p[0];
+        func_ov000_0205ad90(random_val.data_u32, &param1->mInitialPos);
+        func_01ffb714(&vec, &param1->mInitialPos, &vec2);
+        func_01ff9770(&vec2, 0xC00);
+        VecFx32_Add(&param1->mInitialPos, &vec2, &param1->mInitialPos);
+        return;
+    }
+
+    if (ret->vfunc_04() == 1) {
+        this->func_ov094_0216e9fc(&param1->mInitialPos, &ret->mUnk_14.unk_00, ret->mUnk_14.unk_0C.x);
+    } else {
+        this->func_ov094_0216e9fc(&param1->mInitialPos, &mPos, FX_F32_TO_FX32(5.f));
+    }
+}
+
+// non-matching (a preview of hell itself, some parts match) -> ~76%
 void ActorUnkKOTA::func_ov094_0216e9fc(VecFx32 *param1, VecFx32 *param2, fx32 param3) {
     VecFx32_Copy(param2, param1);
     param1->y = data_027e0cd8->mUnk_0C->vfunc_28(param1, 1, 0);
@@ -119,14 +230,13 @@ void ActorUnkKOTA::func_ov094_0216e9fc(VecFx32 *param1, VecFx32 *param2, fx32 pa
     }
 }
 
-// non-matching (load offset pattern)
 unk32 ActorUnkKOTA::func_ov094_0216ed94(void) {
     u16 uVar2;
-    u16 *array = &gSaveManager.GetUnk000()->unk_B78.unk_08;
+    SaveManager_00 *saveManager = gSaveManager.GetUnk000();
     if (mUnk_5C.mParams[0] == 0) {
-        uVar2 = array[1];
+        uVar2 = saveManager->unk_B78.unk_0A;
     } else {
-        uVar2 = array[4];
+        uVar2 = saveManager->unk_B78.unk_10;
     }
 
     if (mUnk_5C.mParams[2] != 0 && uVar2 > mUnk_5C.mParams[2]) {
