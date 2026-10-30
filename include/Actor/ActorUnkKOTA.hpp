@@ -16,19 +16,11 @@ public:
     /* 0C */ virtual void vfunc_0C(unk32 param1) override;
 };
 
-struct ActorUnkKOTA_D4 {
-    /* 00 */ Actor *mUnk_00;
-
-    ActorUnkKOTA_D4(Actor *param1) :
-        mUnk_00(param1) {}
-};
-
 class ActorUnkKOTA : public Actor {
 public:
     /* 00 (base) */
-    /* 94 */ unk32 mUnk_94;
-    /* 98 */ PAD(0x98, 0xD4);
-    /* D4 */ ActorUnkKOTA_D4 *mUnk_D4;
+    /* 94 */ Actor *mUnk_94[0x10];
+    /* D4 */ Actor **mUnk_D4; // Sentinel for the array above
     /* D8 */ u16 mUnk_D8;
     /* DA */ u16 mUnk_DA;
     /* DC */
@@ -45,8 +37,8 @@ public:
     void func_ov094_0216e9fc(VecFx32 *param1, VecFx32 *param2, fx32 param3);
     unk32 func_ov094_0216ed94(void);
 
-    volatile ActorUnkKOTA_D4 *GetUnkD4() const {
-        return mUnk_D4;
+    volatile Actor **GetUnkD4() const {
+        return (volatile Actor **) mUnk_D4;
     }
 };
 

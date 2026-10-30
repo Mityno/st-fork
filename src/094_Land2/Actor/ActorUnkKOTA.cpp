@@ -4,7 +4,6 @@
 #include "Actor/ActorManager.hpp"
 #include "CommonFuncs.hpp"
 #include "RefStruct.hpp"
-#include "Save/AdventureFlags.hpp"
 #include "Save/SaveFile.hpp"
 #include "Save/SaveManager.hpp"
 #include "System/Random.hpp"
@@ -27,7 +26,7 @@ ActorProfileUnkKOTA::ActorProfileUnkKOTA() :
 }
 
 ActorUnkKOTA::ActorUnkKOTA() :
-    mUnk_D4((ActorUnkKOTA_D4 *) &mUnk_94),
+    mUnk_D4(mUnk_94),
     mUnk_D8(0),
     mUnk_DA(0) {}
 
@@ -70,12 +69,12 @@ void ActorUnkKOTA::func_ov094_0216e4f0(void) {
         return;
     }
 
-    if ((uintptr_t) ((unk32 *) GetUnkD4() - (unk32 *) &mUnk_94) >= 0x10) {
+    if ((GetUnkD4() - (volatile Actor **) &mUnk_94) >= ARRAY_LEN_U(mUnk_94)) {
         return;
     }
 
     if (mUnk_D4 != NULL) {
-        mUnk_D4->mUnk_00 = actor;
+        *mUnk_D4 = actor;
     }
 
     mUnk_D4++;
@@ -101,9 +100,9 @@ void ActorUnkKOTA::func_ov094_0216e5a4(ActorParams *param1) {
 
         VecFx32 vec2;
         u16 arrayCmp[4] = {0, 0, 0, 0};
-        for (unk32 *ptr = &mUnk_94; ptr != (unk32 *) mUnk_D4; ptr++) {
-            if (*ptr != 0) {
-                func_01ffb714(&((Actor *) ptr)->mPos, &vec, &vec2);
+        for (Actor **ptr = mUnk_94; ptr != mUnk_D4; ptr++) {
+            if (*ptr != NULL) {
+                func_01ffb714(&(*ptr)->mPos, &vec, &vec2);
 
                 if (vec2.x <= 0) {
                     if (vec2.z <= 0) {
@@ -197,9 +196,9 @@ void ActorUnkKOTA::func_ov094_0216e9fc(VecFx32 *param1, VecFx32 *param2, fx32 pa
     VecFx32_Copy(param2, param1);
     param1->y = data_027e0cd8->mUnk_0C->vfunc_28(param1, 1, 0);
     u16 below = 0, above = 0;
-    for (fx32 *ptr = &mUnk_94; ptr != (fx32 *) mUnk_D4; ptr++) {
-        if (*ptr != 0) {
-            if (func_01ff9258(param2->x - *(ptr + 1), param2->z - *(ptr + 3)) > param3 / 2) {
+    for (Actor **ptr = mUnk_94; ptr != mUnk_D4; ptr++) {
+        if (*ptr != NULL) {
+            if (func_01ff9258(param2->x - (*ptr)->mPos.x, param2->z - (*ptr)->mPos.z) > param3 / 2) {
                 above++;
             } else {
                 below++;
