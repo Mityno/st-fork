@@ -370,10 +370,6 @@ union Vec2bCpp {
         this->y = from.y;
     }
 
-    u32 GetDataU32() {
-        return ((u32 *) data)[0];
-    }
-
     Vec2bCpp() {}
     Vec2bCpp(u8 X, u8 Y) {
         x = X;

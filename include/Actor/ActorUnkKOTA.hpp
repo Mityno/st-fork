@@ -25,6 +25,19 @@ public:
     /* DA */ u16 mUnk_DA;
     /* DC */
 
+    Actor **GetUnkD4() const {
+        return (Actor **) mUnk_D4; // cast is required
+    }
+
+    void UnknownAction1(s32 start) {
+        for (unk32 i = start; i < this->func_ov094_0216ed94(); i++) {
+            this->func_ov094_0216e4f0();
+            this->mUnk_D8++;
+        }
+
+        this->mUnk_DA = this->mUnk_D8;
+    }
+
     ActorUnkKOTA();
 
     /* 18 */ virtual bool Init(unk32 param1);
@@ -33,13 +46,9 @@ public:
     /* 24 */ virtual void vfunc_24();
 
     void func_ov094_0216e4f0(void);
-    void func_ov094_0216e5a4(ActorParams *param1);
-    void func_ov094_0216e9fc(VecFx32 *param1, VecFx32 *param2, fx32 param3);
-    unk32 func_ov094_0216ed94(void);
-
-    volatile Actor **GetUnkD4() const {
-        return (volatile Actor **) mUnk_D4;
-    }
+    void func_ov094_0216e5a4(const ActorParams *param1);
+    void func_ov094_0216e9fc(VecFx32 *param1, const VecFx32 *param2, fx32 param3) const;
+    unk32 func_ov094_0216ed94(void) const;
 };
 
 class ActorProfileUnkKOTA : public ActorProfile {
