@@ -363,12 +363,15 @@ union Vec2bCpp {
         /* 2 */
     };
     u8 coords[2];
-    u16 data_u16p[1];
-    u32 data_u32;
+    u16 data[1];
 
     void operator=(const Vec2bCpp &from) {
         this->x = from.x;
         this->y = from.y;
+    }
+
+    u32 GetDataU32() {
+        return ((u32 *) data)[0];
     }
 
     Vec2bCpp() {}

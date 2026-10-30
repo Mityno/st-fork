@@ -135,9 +135,9 @@ void ActorUnkKOTA::func_ov094_0216e5a4(ActorParams *param1) {
             case 0: {
                 Vec2bCpp vec2b1, vec2b2;
                 func_01ffedac(&vec2b1, &ret->mUnk_14.unk_00);
-                sp14.data_u16p[0] = vec2b1.data_u16p[0];
+                sp14.data[0] = vec2b1.data[0];
                 func_01ffedac(&vec2b2, &vec);
-                sp12.data_u16p[0] = vec2b2.data_u16p[0];
+                sp12.data[0] = vec2b2.data[0];
                 break;
             }
             case 1: {
@@ -145,10 +145,10 @@ void ActorUnkKOTA::func_ov094_0216e5a4(ActorParams *param1) {
                 VecFx32 vec1, vec2;
                 VecFx32_Init(ret->mUnk_14.unk_00.x, 0, vec.z, &vec1);
                 func_01ffedac(&vec2b1, &vec1);
-                sp14.data_u16p[0] = vec2b1.data_u16p[0];
+                sp14.data[0] = vec2b1.data[0];
                 VecFx32_Init(vec.x, 0, ret->mUnk_14.unk_0C.z, &vec2);
                 func_01ffedac(&vec2b2, &vec2);
-                sp12.data_u16p[0] = vec2b2.data_u16p[0];
+                sp12.data[0] = vec2b2.data[0];
                 break;
             }
             case 2: {
@@ -156,10 +156,10 @@ void ActorUnkKOTA::func_ov094_0216e5a4(ActorParams *param1) {
                 VecFx32 vec1, vec2;
                 VecFx32_Init(vec.x, 0, ret->mUnk_14.unk_00.z, &vec1);
                 func_01ffedac(&vec2b1, &vec1);
-                sp14.data_u16p[0] = vec2b1.data_u16p[0];
+                sp14.data[0] = vec2b1.data[0];
                 VecFx32_Init(ret->mUnk_14.unk_00.x, 0, vec.z, &vec2);
                 func_01ffedac(&vec2b2, &vec2);
-                sp12.data_u16p[0] = vec2b2.data_u16p[0];
+                sp12.data[0] = vec2b2.data[0];
                 break;
             }
             case 3: {
@@ -167,18 +167,18 @@ void ActorUnkKOTA::func_ov094_0216e5a4(ActorParams *param1) {
                 VecFx32 vec1;
                 VecFx32_Init(vec.x, 0, vec.z, &vec1);
                 func_01ffedac(&vec2b1, &vec1);
-                sp14.data_u16p[0] = vec2b1.data_u16p[0];
+                sp14.data[0] = vec2b1.data[0];
                 func_01ffedac(&vec2b2, &ret->mUnk_14.unk_0C);
-                sp12.data_u16p[0] = vec2b2.data_u16p[0];
+                sp12.data[0] = vec2b2.data[0];
                 break;
             }
         }
 
         Vec2bCpp random_val, tmp;
-        tmp.x                   = gRandom.Next32((sp12.x - sp14.x) + 1);
-        tmp.y                   = gRandom.Next32((sp12.y - sp14.y) + 1);
-        random_val.data_u16p[0] = tmp.data_u16p[0];
-        func_ov000_0205ad90(random_val.data_u32, &param1->mInitialPos);
+        tmp.x              = gRandom.Next32((sp12.x - sp14.x) + 1);
+        tmp.y              = gRandom.Next32((sp12.y - sp14.y) + 1);
+        random_val.data[0] = tmp.data[0];
+        func_ov000_0205ad90(random_val.GetDataU32(), &param1->mInitialPos);
         func_01ffb714(&vec, &param1->mInitialPos, &vec2);
         func_01ff9770(&vec2, 0xC00);
         VecFx32_Add(&param1->mInitialPos, &vec2, &param1->mInitialPos);
